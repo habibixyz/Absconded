@@ -1,4 +1,13 @@
 import './globals.css'
+import AppInit from './components/AppInit'
+
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+  viewportFit: 'cover',
+}
 
 export const metadata = {
   title: 'ABSCONDED | A Builder\'s Evolution',
@@ -29,6 +38,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className="selection:bg-white/10 selection:text-white">
       <body className="bg-bg text-text antialiased min-h-screen">
+        <AppInit />
         {children}
       </body>
     </html>

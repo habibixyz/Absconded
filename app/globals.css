@@ -10,6 +10,10 @@
   --accent: #ffffff;
   --secondary: #888888;
   --border: rgba(255, 255, 255, 0.1);
+  --safe-area-top: env(safe-area-inset-top, 0px);
+  --safe-area-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-area-left: env(safe-area-inset-left, 0px);
+  --safe-area-right: env(safe-area-inset-right, 0px);
 }
 
 * {
@@ -21,6 +25,8 @@
 html {
   scroll-behavior: smooth;
   background-color: var(--bg);
+  min-height: 100vh;
+  min-height: -webkit-fill-available;
 }
 
 body {
@@ -29,6 +35,10 @@ body {
   background: var(--bg);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  padding-top: var(--safe-area-top);
+  padding-bottom: var(--safe-area-bottom);
+  padding-left: var(--safe-area-left);
+  padding-right: var(--safe-area-right);
 }
 
 .serif {

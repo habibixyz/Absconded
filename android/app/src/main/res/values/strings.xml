@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Absconded</string>
+    <string name="title_activity_main">Absconded</string>
+    <string name="package_name">com.tanvirkhan.absconded</string>
+    <string name="custom_url_scheme">com.tanvirkhan.absconded</string>
+</resources>

@@ -451,12 +451,23 @@ export default function Home() {
               <p>"Disappearing is easy. Becoming is the hard part."</p>
             </div>
 
-            <button 
-              onClick={() => setShowCover(false)}
-              className="px-12 py-4 border border-white/10 hover:border-white/40 rounded-full text-[10px] tracking-[0.3em] uppercase transition-all duration-500"
-            >
-              Begin Reading
-            </button>
+            <div className="flex flex-col md:flex-row gap-4 justify-center items-center">
+              <button 
+                onClick={() => setShowCover(false)}
+                className="px-12 py-4 border border-white/10 hover:border-white/40 rounded-full text-[10px] tracking-[0.3em] uppercase transition-all duration-500"
+              >
+                Begin Reading
+              </button>
+              
+              <a 
+                href="/absconded.apk" 
+                download 
+                className="px-12 py-4 border border-accent/20 bg-accent/5 hover:bg-accent/10 hover:border-accent/40 rounded-full text-[10px] tracking-[0.3em] uppercase transition-all duration-500 flex items-center gap-2"
+              >
+                <span>Download Android App</span>
+                <span className="text-xs">↓</span>
+              </a>
+            </div>
 
             <div className="mt-32 text-[9px] tracking-[0.2em] text-secondary/50 uppercase">
               Mumbai / Twenty-Twenty-Six
@@ -571,6 +582,39 @@ export default function Home() {
           </div>
         </section>
       )}
+
+      {/* FAQ Section */}
+      <section className="py-32 px-6 border-t border-white/5 bg-white/[0.01]">
+        <div className="max-w-2xl mx-auto">
+          <h2 className="text-xs uppercase tracking-[0.4em] text-secondary mb-16 text-center">Frequently Asked Questions</h2>
+          <div className="space-y-12">
+            <div>
+              <h3 className="text-lg serif italic mb-4">How do I install the Android App?</h3>
+              <p className="text-sm font-light text-secondary leading-relaxed">
+                After downloading the APK, open it on your phone. You may need to enable "Install from Unknown Sources" in your security settings. This is a standard procedure for apps not distributed through the Play Store.
+              </p>
+            </div>
+            <div>
+              <h3 className="text-lg serif italic mb-4">Is the app free?</h3>
+              <p className="text-sm font-light text-secondary leading-relaxed">
+                Yes. The manuscript is a digital artifact meant to be shared. The app provides a more immersive, focused reading experience away from the distractions of a browser.
+              </p>
+            </div>
+            <div>
+              <h3 className="text-lg serif italic mb-4">What is 'Absconded' about?</h3>
+              <p className="text-sm font-light text-secondary leading-relaxed">
+                It's a meditation on the builder's journey—the transition from a traditional career to an internet-native existence. It's about Mumbai, crypto, AI, and the process of becoming.
+              </p>
+            </div>
+            <div>
+              <h3 className="text-lg serif italic mb-4">Who is Tanvir Khan?</h3>
+              <p className="text-sm font-light text-secondary leading-relaxed">
+                A builder from Mumbai who spent years in the traditional supply chain before unravelling into the digital frontier. This manuscript is his signal.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* Footer */}
       <footer className="py-20 border-t border-white/5">
