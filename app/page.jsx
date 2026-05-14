@@ -389,7 +389,8 @@ const manuscript = [
       { type: 'p', text: "VYRM is still evolving." },
       { type: 'p', text: "Mumbai is still indifferent." },
       { type: 'p', text: "The terminal glow is still on." },
-      { type: 'p', text: "And if you can see the signal — build." }
+      { type: 'p', text: "And if you can see the signal — build." },
+      { type: 'portrait', text: "author.png" }
     ]
   }
 ]
@@ -486,6 +487,14 @@ export default function Home() {
               </div>
             ))}
           </div>
+          
+          <div className="mt-32 flex items-center gap-6 opacity-40 hover:opacity-100 transition-opacity duration-1000">
+            <img src="/author.png" className="w-12 h-12 rounded-full grayscale object-cover" alt="Author" />
+            <div className="flex flex-col">
+              <span className="text-[9px] tracking-[0.3em] uppercase text-secondary">Author</span>
+              <span className="text-sm serif italic">Tanvir Khan</span>
+            </div>
+          </div>
         </section>
       )}
 
@@ -523,6 +532,20 @@ export default function Home() {
                     return (
                       <div key={i} className="terminal-block">
                         {block.text}
+                      </div>
+                    )
+                  }
+                  if (block.type === 'portrait') {
+                    return (
+                      <div key={i} className="pt-20 flex flex-col items-center">
+                        <img 
+                          src="/author.png" 
+                          alt="Tanvir Khan" 
+                          className="w-32 h-32 object-cover grayscale brightness-110 opacity-70 rounded-full mb-6 filter blur-[0.3px] hover:opacity-100 hover:grayscale-0 transition-all duration-1000"
+                        />
+                        <div className="text-[10px] tracking-[0.4em] uppercase text-secondary">
+                          Tanvir Khan
+                        </div>
                       </div>
                     )
                   }
