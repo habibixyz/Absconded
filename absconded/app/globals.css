@@ -1,0 +1,142 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400;1,700&family=Inter:wght@300;400;600&display=swap');
+
+:root {
+  --bg: #0c0c0c;
+  --text: #e0e0e0;
+  --accent: #ffffff;
+  --secondary: #888888;
+  --border: rgba(255, 255, 255, 0.1);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  background-color: var(--bg);
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  color: var(--text);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.serif {
+  font-family: 'Lora', serif;
+}
+
+/* Book Layout Utilities */
+.book-container {
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+.book-text {
+  font-size: 1.125rem;
+  line-height: 1.8;
+  letter-spacing: -0.011em;
+}
+
+.drop-cap::first-letter {
+  float: left;
+  font-size: 4.5rem;
+  line-height: 0.8;
+  margin-right: 0.1em;
+  margin-top: 0.1em;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+/* UI Components */
+.nav-link {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--secondary);
+  transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+  color: var(--accent);
+}
+
+.chapter-card {
+  border-bottom: 1px solid var(--border);
+  padding: 2rem 0;
+  transition: all 0.4s ease;
+}
+
+.chapter-card:hover {
+  border-bottom-color: var(--accent);
+}
+
+/* Content Blocks */
+.pull-quote {
+  font-size: 1.875rem;
+  line-height: 1.4;
+  font-style: italic;
+  color: var(--accent);
+  border-left: 2px solid var(--accent);
+  padding: 1.5rem 0 1.5rem 2.5rem;
+  margin: 4rem 0;
+  position: relative;
+}
+
+.terminal-block {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 0.75rem;
+  line-height: 1.6;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border);
+  padding: 1.5rem;
+  margin: 3rem 0;
+  color: #c8ff00; /* Subtle lime/accent for terminal */
+  letter-spacing: 0.05em;
+  border-radius: 4px;
+}
+
+/* Animations */
+.fade-in {
+  animation: fadeIn 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--secondary);
+}
+
+/* Selection */
+::selection {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--accent);
+}
+
+
+
