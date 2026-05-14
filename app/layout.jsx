@@ -19,6 +19,10 @@ export const metadata = {
     description: 'A premium digital manuscript by Tanvir Khan.',
     creator: '@ritmir11',
   },
+  icons: {
+    icon: '/icon.png',
+    apple: '/icon.png',
+  },
 }
 
 export default function RootLayout({ children }) {
