@@ -190,7 +190,7 @@ export default function Home() {
               >
                 <div className="flex items-baseline gap-6">
                   <span className="text-[10px] font-light text-secondary group-hover:text-accent transition-colors">
-                    {section.number === 0 || section.number === 11 ? '★' : String(section.number).padStart(2, '0')}
+                    {section.id === 'prologue' || section.id === 'epilogue' ? '★' : String(section.number).padStart(2, '0')}
                   </span>
                   <h3 className="text-2xl serif group-hover:italic transition-all duration-300">
                     {section.title}
