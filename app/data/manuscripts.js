@@ -2,7 +2,7 @@ export const manuscripts = [
   {
     id: 'absconded',
     title: 'Absconded',
-    subtitle: 'A Builder\'s Evolution',
+    subtitle: "A Builder's Evolution",
     description: 'The story of a builder unravelling from the corporate timeline in Mumbai to find the signal in the noise.',
     sections: [
       {
@@ -177,9 +177,15 @@ export const manuscripts = [
         title: 'The Performance',
         epigraph: "Success doesn't change you. It just upgrades your hiding places.",
         content: [
-          { type: 'p', text: "I was thirty-one years old, making more money than my mother had ever earned in five years, and I still couldn't sleep without checking the locks twice. Three times if I was drunk. Four times if I was genuinely panicking." },
-          { type: 'p', text: "The apartment was nice. Floor-to-ceiling windows in a converted warehouse in the Arts District. I'd bought it after the Series B round closed, after we hit fifty million in ARR." },
-          { type: 'pull', text: "Success is a performance. And I was the lead actor in a show I no longer wanted to star in." }
+          { type: 'p', text: "People thought success changed you. It didn't. It just upgraded your hiding places." },
+          { type: 'p', text: "I was thirty-one years old, making more money than my mother had ever earned in five years, and I still couldn't sleep without checking the locks twice. Three times if I was drunk. Four times if I was genuinely panicking, which was happening more often now—this anxious arithmetic of safety that nobody else would ever understand." },
+          { type: 'p', text: "The apartment was nice. That was the whole point. Floor-to-ceiling windows in a converted warehouse in the Arts District, exposed brick, original hardwood, the kind of space that made you believe in yourself just by existing inside it. I'd bought it after the promotion, after the Series B round closed, after we hit fifty million in ARR. That's what we said in pitch meetings: ARR—annual recurring revenue, like the sound a pirate makes, like we were plundering the future." },
+          { type: 'p', text: "I was standing in my kitchen at 3:47 AM, sober for the first time in three days, my hands shaking for reasons both chemical and psychological. The apartment was silent except for the hum of the refrigerator and the occasional car horn bleeding through the windows from the street below. I was staring at my reflection in the black mirror of the turned-off television screen." },
+          { type: 'pull', text: "This is the thing nobody told you about anxiety: it doesn't announce itself like pain." },
+          { type: 'p', text: "It creeps in sideways, a smell under the door, a pressure in your chest that you get used to until one morning you realize you can't remember what it felt like to breathe normally. My face in that dark screen looked like someone who'd been drowning for a while but was still vertical." },
+          { type: 'p', text: "Thirty-one. Chief Product Officer at a company valued at $800 million. The guy people quoted at conferences. The guy with the answer. The guy with the smile that made people trust him. The guy whose hands wouldn't stop shaking." },
+          { type: 'p', text: "I'd been sober before. I'd been sober for four months in 2018. I was insufferable that time—the kind of sober that announces itself, that treats sobriety like a personal achievement rather than a basic biological function. I'd joined a gym, bought a Peloton bike I used three times, attended exactly one AA meeting before the performative sadness of it all made me want to run into traffic. I'd learned that sobriety without understanding why you drank in the first place was just structured waiting." },
+          { type: 'p', text: "The drinking had crept back in gradually. A beer after work with the team. A whiskey at the investor dinner. Two glasses of wine at night to make the thoughts stop. Then three. Then a joint after that. Then the Adderall kicking in wrong, mixing with the alcohol, creating this strange chemistry where you felt simultaneously creative and nihilistic, like you could build the future while hating everything you were." }
         ]
       },
       {
@@ -189,138 +195,175 @@ export const manuscripts = [
         title: 'The Inheritance',
         epigraph: "My father was a mirror that only reflected what he wanted to see.",
         content: [
-          { type: 'p', text: "I was six years old the first time he hit me. They call that adaptive trauma response. In reality, it's just survival. Your brain decides it'll hold onto the things that don't require processing." },
-          { type: 'p', text: "The hit was about a glass of milk. I remember the milk spreading across the white tablecloth like a map of somewhere I've never been." },
-          { type: 'pull', text: "What I remember most is my father's face. It wasn't angry. It was disappointed." }
+          { type: 'p', text: "I was six years old the first time he hit me, though there were probably times before that which I don't remember, or have carefully not remembered. They call that adaptive. In psychology, when a child creates gaps in their memory, they call it adaptive trauma response. In reality, it's just survival. Your brain decides it'll hold onto the things that don't require processing." },
+          { type: 'p', text: "The hit was about a glass of milk. I'd knocked it over at dinner. I remember the milk spreading across the white tablecloth like a map of somewhere I'd never been. I remember being surprised by how much space milk could occupy." },
+          { type: 'pull', text: "What I remember most is my father's face before he hit me. It wasn't angry. That was the thing that stayed. Anger would have been honest." },
+          { type: 'p', text: "His face was disappointed, like I'd personally let him down, like I'd made a conscious choice to be the kind of child who spilled milk, the kind of biological failure who couldn't control a basic motor function." },
+          { type: 'p', text: "I was fourteen when I first understood that I was good at lying, and seventeen when I realized that lying was the only thing that had ever kept me alive." },
+          { type: 'p', text: "His drinking got worse in my teenage years, or I got better at noticing it. By my senior year of high school, he was going through a bottle of vodka every three days. My mother had left him twice and come back twice. The third time she left, she didn't come back, which I think they both experienced as an act of betrayal, though she called it an act of self-preservation." },
+          { type: 'pull', text: "The difference between my father and me was that I was better at it. More subtle. More plausible. He used a hammer. I used a scalpel." }
         ]
       },
       {
         id: 'chapter-3',
         number: 3,
         label: 'Chapter Three',
-        title: 'The Boardroom',
-        epigraph: "In the boardroom, silence is a weapon.",
+        title: 'The Machine',
+        epigraph: "The office was designed to feel like a place where young people came to change the world.",
         content: [
-          { type: 'p', text: "The boardroom was on the 42nd floor. We were discussing the upcoming Series C. The investors wanted to see 'aggressive expansion'. They wanted to see anything other than the truth." },
-          { type: 'p', text: "I was sitting at the head of the table, my laptop open to a presentation I'd finished at 4:15 AM." },
-          { type: 'pull', text: "The presentation was perfect. That was the problem. I was becoming too good at faking perfection." }
+          { type: 'p', text: "The company was called Threadline. We made software that helped enterprise clients manage customer data, which in practice meant we were selling increasingly sophisticated ways for corporations to track and predict consumer behavior. We called it \"behavioral analytics.\" In another era, people might have called it what it was." },
+          { type: 'p', text: "David was everything I'd taught myself to want to be. He was brilliant in that public way that gets written up in magazines. He had a personal brand. He wore expensive shoes and had opinions about everything that sounded like facts. He was charismatic in a way that required no effort, which meant he'd never had to develop the kind of charisma that came from constant performance." },
+          { type: 'pull', text: "I hated him in a way that was mostly unconscious. It disguised itself as respect." },
+          { type: 'p', text: "I was thirty-one and I was making twelve times what my mother made in her peak years as a high school guidance counselor. I had stock options that would probably eventually be worth some life-changing amount of money. I had the respect of industry peers." },
+          { type: 'p', text: "And I was coming to work three days a week after taking Adderall and cocaine in combination, a habit that had started as occasional and had somehow drifted into something resembling routine." },
+          { type: 'p', text: "At work, I was the calm one. I was the one who could sit through a board meeting where they were discussing whether to lay off 15% of the engineering team and not visibly break a sweat. I was the person who could explain to investors why our churn was actually healthy and not a sign of something failing." }
         ]
       },
       {
         id: 'chapter-4',
         number: 4,
         label: 'Chapter Four',
-        title: 'The Static',
-        epigraph: "Sometimes the world just stops making sense.",
+        title: 'The Mirror',
+        epigraph: "My therapist's name was Dr. Sandra Reeves, and she was the kind of smart that made you want to be better at lying.",
         content: [
-          { type: 'p', text: "The static started in late August. A persistent hum that only I could hear. I'd look at people's mouths moving and hear the words, but the meaning wouldn't arrive." },
-          { type: 'p', text: "I started drinking more. Not for the buzz, but for the silence." },
-          { type: 'pull', text: "The static was the sound of my life unravelling." }
+          { type: 'p', text: "I'd been seeing Sandra for nine months. She was probably in her early sixties, had gray hair that looked like a deliberate choice rather than a surrender, and had this quality where she could be kind and ruthless in the same sentence." },
+          { type: 'p', text: "The thing about Sandra was that she was willing to be uncomfortable with silence. Most people will rush to fill silence. Most people will do anything to avoid sitting with another person who isn't speaking. But Sandra would just wait, like she had all the time in the world." },
+          { type: 'p', text: "\"I was thinking about what you said about instrumental relationships,\" I told her instead. \"And I wonder if that's really about my father, or if it's something else.\"" },
+          { type: 'p', text: "That Thursday night, instead of going home, I went to the apartment of Veronica, who I'd met at a conference three months ago. She was noticeably uninterested in my emotional state, which I found deeply attractive." },
+          { type: 'pull', text: "The answer was always the same. The answer was everything." },
+          { type: 'p', text: "The answer was that I had built a self so carefully and deliberately that I'd forgotten there was supposed to be something genuine underneath it. The answer was that I'd learned to survive so well that I'd forgotten how to actually live." }
         ]
       },
       {
         id: 'chapter-5',
         number: 5,
         label: 'Chapter Five',
-        title: 'The Diagnosis',
-        epigraph: "They give it a name so they don't have to feel the weight of it.",
+        title: 'The Fracture',
+        epigraph: "Sometimes everything cracks at once.",
         content: [
-          { type: 'p', text: "The doctor's office was too clean. He used words like 'Generalized Anxiety Disorder' and 'Substance Abuse Disorder' like they were labels on a shelf." },
-          { type: 'p', text: "He prescribed more pills. Different ones this time. Ones that were supposed to level out the peaks and fill in the valleys." },
-          { type: 'pull', text: "A name isn't a cure. It's just a boundary." }
+          { type: 'p', text: "The meeting was a board meeting. Important kind. Mid-way through my presentation, something happened that I couldn't control. My hands started shaking. Not in the subtle way they always shook. In the visible, obvious, everyone-in-the-room-can-see-it way." },
+          { type: 'p', text: "David asked me to come to his office after. \"What's going on?\" he asked. \"You look like you're using.\"" },
+          { type: 'p', text: "That night, I did something I'd been not doing, which was reach out to my sponsor from my college AA days. Marcus. I hadn't spoken to him in seven years." },
+          { type: 'pull', text: "Confidence doesn't produce action. Action produces confidence." },
+          { type: 'p', text: "\"You should check yourself into a program,\" he said finally. \"Don't think about it. Just do it.\"" },
+          { type: 'p', text: "I didn't do it. Instead, I went to work the next day and did a complicated calculation where I decided that I could manage this myself. This is what I would later come to understand was called denial." }
         ]
       },
       {
         id: 'chapter-6',
         number: 6,
         label: 'Chapter Six',
-        title: 'The Withdrawal',
-        epigraph: "The hardest part of leaving is realizing you have nowhere to go.",
+        title: 'The Beginning of the End',
+        epigraph: "There are moments where you can see the future rushing toward you.",
         content: [
-          { type: 'p', text: "I quit on a Tuesday. No big speech, no dramatic exit. I just sent an email to the board and walked out of the building." },
-          { type: 'p', text: "The first week was the hardest. Without the meetings and the emails, I was just a man in a nice apartment with too much time." },
-          { type: 'pull', text: "The withdrawal wasn't just from the pills. It was from the persona." }
+          { type: 'p', text: "The Series C closing happened on a Thursday. The company's valuation jumped from $450 million to $1.2 billion in the space of forty-eight hours. We closed $180 million in new funding." },
+          { type: 'p', text: "That night, there was a party at a club downtown. By the end of the night, I was in a bathroom stall with someone from sales, doing something that had a blue tint to it, and I was suddenly aware—with devastating clarity—that I was actually and genuinely fucked." },
+          { type: 'pull', text: "I'd built my entire adulthood on the principle of control. And I was watching that control come apart." }
         ]
       },
       {
         id: 'chapter-7',
         number: 7,
         label: 'Chapter Seven',
-        title: 'The Relapse',
-        epigraph: "Falling is easy. It's the landing that kills you.",
+        title: 'The Diagnosis',
+        epigraph: "Sandra's home office was not what I expected. It was messier, more lived-in.",
         content: [
-          { type: 'p', text: "It happened on a Friday night. I'd been 'clean' for two weeks. Sobriety and sanity and unbearable boredom." },
-          { type: 'p', text: "I woke up on the bathroom floor the next morning, my head throbbing, the static louder than ever." },
-          { type: 'pull', text: "The relapse wasn't a choice. It was a surrender." }
+          { type: 'p', text: "I told her about the party. About the bathroom. About the specific moment of clarity where I understood that I'd lost whatever grip I'd had on the situation." },
+          { type: 'p', text: "\"I think you need to step back from work,\" she said. \"I think you need to be honest with your company about what's happening and take a leave of absence.\"" },
+          { type: 'p', text: "\"I can't do that. Because I don't know who I am if I'm not this. I have built this entire life around being the person who has it together.\"" },
+          { type: 'pull', text: "You believe that if you stop performing competence, you'll die." }
         ]
       },
       {
         id: 'chapter-8',
         number: 8,
         label: 'Chapter Eight',
-        title: 'The Reconstruction',
-        epigraph: "You can't fix a house while you're still living in the wreckage.",
+        title: 'The Confession',
+        epigraph: "I did not tell anyone at work the truth. Until I had to.",
         content: [
-          { type: 'p', text: "Reconstruction happened in a small, windowless room in a rehab facility in the desert. Through honest conversations with strangers who had seen the same darkness." },
-          { type: 'p', text: "I learned that the 'mask' wasn't just something I wore for others. It was something I wore for myself." },
-          { type: 'pull', text: "Healing isn't about becoming someone else. It's about accepting who you already are." }
+          { type: 'p', text: "Monday morning, David asked me to go for a walk. \"I think you need to take a leave of absence,\" he said. \"I was using everything I could find for about six months after we sold the first company. I did a stint in a facility in Malibu.\"" },
+          { type: 'p', text: "On Wednesday, I told David that I was going to take the leave of absence. \"It's six weeks,\" I said. \"Starting next week.\"" },
+          { type: 'p', text: "He sent me the contact for The Meadowbrook Institute in upstate New York. I drove there on a Sunday afternoon in fall, and the trees were changing color." },
+          { type: 'pull', text: "I remember thinking that it was beautiful in the way things are beautiful when you're noticing them through a kind of dissociation." }
         ]
       },
       {
         id: 'chapter-9',
         number: 9,
         label: 'Chapter Nine',
-        title: 'The New Build',
-        epigraph: "This time, we build with different materials.",
+        title: 'The Unraveling',
+        epigraph: "Meadowbrook had a check-in process that was designed to be gentle.",
         content: [
-          { type: 'p', text: "When I finally left the desert, I didn't go back to the Arts District. I took a small house in a quiet neighborhood where the neighbors didn't know what ARR meant." },
-          { type: 'p', text: "I started a small studio. Just me and a few people I trusted. We built things that mattered." },
-          { type: 'pull', text: "Success isn't about the height of the building. It's about the strength of the foundation." }
+          { type: 'p', text: "No phones for the first forty-eight hours. No outside contact until after your first week. Attendance at group therapy mandatory. I lasted three hours before I wanted to leave." },
+          { type: 'p', text: "The group therapy was where the actual work happened. There were ten of us. A CEO, a lawyer, a doctor, a woman named Catherine." },
+          { type: 'p', text: "On the third day, I told them: \"I'm more okay than most of the people here. I haven't actually done anything that damaged my life yet.\"" },
+          { type: 'pull', text: "Are you still okay? Catherine asked. And I understood that the answer was no." },
+          { type: 'p', text: "I started crying, and I couldn't stop. For the first time in a very long time, I felt less alone." }
         ]
       },
       {
         id: 'chapter-10',
         number: 10,
         label: 'Chapter Ten',
-        title: 'The Unmasking',
-        epigraph: "The truth doesn't set you free. It just makes you responsible.",
+        title: 'The Mirror Breaks',
+        epigraph: "Shifts in recovery are usually subtle and incremental.",
         content: [
-          { type: 'p', text: "I finally told my mother. I told her I wasn't the guy she saw in the magazines. I told her I was struggling." },
-          { type: 'p', text: "She didn't look disappointed. She just looked relieved." },
-          { type: 'pull', text: "The mask was only ever fooling the person wearing it." }
+          { type: 'p', text: "I told my therapist, Dr. Chen, about the time when I was seven and I made a choice to become invisible. Psychologically. I became a thing so blank that my father couldn't find anything in me to react to." },
+          { type: 'p', text: "\"And what does that cost you?\" she asked. \"Everything,\" I said. \"It costs me the ability to feel like a real person instead of a performance of a person.\"" },
+          { type: 'p', text: "I wrote in my journal: \"People thought success changed you. It didn't. It just upgraded your hiding places. And maybe the real horror is that you become very, very good at hiding, until the thing you're hiding from is yourself.\"" },
+          { type: 'pull', text: "The thing you're hiding from is yourself, and you can't remember what you're hiding anymore." }
         ]
       },
       {
         id: 'chapter-11',
         number: 11,
         label: 'Chapter Eleven',
-        title: 'The Integration',
-        epigraph: "The shadows are part of the light.",
+        title: 'The Reckoning',
+        epigraph: "On day ten, they let me have supervised phone access.",
         content: [
-          { type: 'p', text: "Learning to live with the anxiety without letting it lead. Learning to acknowledge the trauma without letting it define the future." },
-          { type: 'p', text: "The static still comes back sometimes. But now I know what it is. It's just noise." }
+          { type: 'p', text: "Seventeen missed calls. Forty-three emails. A message from David: \"Call me when you get this. Nothing's wrong.\"" },
+          { type: 'p', text: "We're reorganizing the product team, David told me. We brought someone on. We're creating a VP of Strategy role. It's more senior, but less day-to-day. Visionary." },
+          { type: 'p', text: "This was a demotion dressed up as a promotion. We both knew this. I sat in the Meadowbrook office for probably an hour, not moving. I wasn't okay. But I was getting better at the distinction." },
+          { type: 'pull', text: "I wasn't okay. But I was getting better at the distinction between those two things." }
         ]
       },
       {
         id: 'chapter-12',
         number: 12,
         label: 'Chapter Twelve',
-        title: 'The Launch',
-        epigraph: "We go live with what we have.",
+        title: 'The Threshold',
+        epigraph: "Day twenty-one: Discharged.",
         content: [
-          { type: 'p', text: "This is the launch. Not a product, but a life. I'm standing in my new kitchen, and the hands are steady. Mostly." },
-          { type: 'p', text: "The mask is off. And the air feels cold. But at least it's real." }
+          { type: 'p', text: "I drove back to the city. Texted Veronica. Met at a wine bar. \"I'm not okay,\" I told her. \"I don't think I'm going to be okay in the way that I thought okay meant. But I'm learning to be okay with not being okay.\"" },
+          { type: 'p', text: "I went back to the office. Sent an email to the whole company. I told them where I'd been. I told them about the substances and the anxiety. I told them I was taking the VP of Strategy role." },
+          { type: 'p', text: "I sent it, and then I got scared. But the responses were dozens of messages from people saying they'd been struggling too." },
+          { type: 'pull', text: "Success doesn't inoculate you against struggle." }
         ]
       },
       {
         id: 'epilogue',
         number: 13,
         label: 'Epilogue',
-        title: 'Beyond the Mask',
-        epigraph: "The story doesn't end here.",
+        title: 'The Mirror Reflects',
+        epigraph: "Six months after Meadowbrook. Lunch with Ryan.",
         content: [
-          { type: 'p', text: "If you're wearing a mask right now, I hope you find the strength to take it off. Even if it's just for a moment." },
+          { type: 'p', text: "\"You look different,\" Ryan said. \"No. You look less terrified.\"" },
+          { type: 'p', text: "I'm doing the boring recovery thing. Therapy twice a week. Support group twice a week. Zero substances beyond what's prescribed. It feels like admitting defeat, but the persona was always going to crack." },
+          { type: 'p', text: "I thought about my father. I thought about the choice I had now, which was to gradually become visible again. To let myself be seen." },
+          { type: 'p', text: "The thing about rock bottom is that it's not actually a bottom. It's just where you decide to stop digging." },
+          { type: 'pull', text: "The fixing is the only real thing you're ever going to do." },
           { type: 'p', text: "Stay real." }
+        ]
+      },
+      {
+        id: 'author-note',
+        number: 14,
+        label: 'Note',
+        title: "Author's Note",
+        epigraph: "The story behind the story.",
+        content: [
+          { type: 'p', text: "This novel explores trauma, addiction, and mental health through the lens of a psychologically complex protagonist in a contemporary urban setting." },
+          { type: 'p', text: "The narrative established the protagonist's world, the mechanics of his collapse, and the beginning of his recovery. The remaining story will follow his ongoing work to rebuild identity authenticity." }
         ]
       }
     ]
