@@ -73,7 +73,7 @@ export default function Home() {
         <section className="pt-40 pb-20 px-6 max-w-6xl mx-auto fade-in">
           <header className="mb-20">
             <h1 className="text-xs uppercase tracking-[0.4em] text-secondary mb-4">Digital Manuscript Library</h1>
-            <p className="text-4xl serif italic">The Signal Collection</p>
+            <p className="text-4xl font-serif italic">The Signal Collection</p>
           </header>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
@@ -91,7 +91,7 @@ export default function Home() {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-bg via-transparent to-transparent opacity-60" />
                   <div className="absolute bottom-8 left-8 right-8">
-                    <h2 className="text-3xl serif italic mb-2">{book.title}</h2>
+                    <h2 className="text-3xl font-serif italic mb-2">{book.title}</h2>
                     <p className="text-[9px] tracking-[0.3em] uppercase text-secondary">{book.subtitle}</p>
                   </div>
                 </div>
@@ -109,7 +109,7 @@ export default function Home() {
         <section className="pt-40 pb-20 px-6 max-w-2xl mx-auto fade-in">
           <header className="mb-20">
             <h1 className="text-xs uppercase tracking-[0.4em] text-secondary mb-4">Real-time Builder Activity</h1>
-            <p className="text-4xl serif italic">The Signal Feed</p>
+            <p className="text-4xl font-serif italic">The Signal Feed</p>
           </header>
           
           <div className="space-y-12">
@@ -129,7 +129,7 @@ export default function Home() {
 
           <div className="mt-32 p-12 border border-white/5 rounded-sm bg-white/5 flex flex-col items-center text-center">
             <div className="text-[10px] tracking-[0.4em] uppercase text-secondary mb-6 italic">Collector's Status</div>
-            <p className="text-xl serif italic mb-8 italic">Own a piece of the evolution.</p>
+            <p className="text-xl font-serif italic mb-8 italic">Own a piece of the evolution.</p>
             <button className="px-12 py-4 border border-white/10 text-[9px] tracking-[0.4em] uppercase hover:bg-white hover:text-bg transition-all duration-500">
               Enter Storehouse
             </button>
@@ -141,7 +141,7 @@ export default function Home() {
       {showCover && view === 'book' && selectedBook && (
         <section className="min-h-screen flex items-center justify-center px-6 pt-20 fade-in">
           <div className="text-center max-w-2xl">
-            <h1 className="text-6xl md:text-8xl serif italic mb-6 tracking-tight">
+            <h1 className="text-6xl md:text-8xl font-serif italic mb-6 tracking-tight">
               {selectedBook.title}
             </h1>
             <p className="text-sm uppercase tracking-[0.4em] text-secondary mb-16">
@@ -192,7 +192,7 @@ export default function Home() {
                   <span className="text-[10px] font-light text-secondary group-hover:text-accent transition-colors">
                     {section.id === 'prologue' || section.id === 'epilogue' ? '★' : String(section.number).padStart(2, '0')}
                   </span>
-                  <h3 className="text-2xl serif group-hover:italic transition-all duration-300">
+                  <h3 className="text-2xl font-serif group-hover:italic transition-all duration-300">
                     {section.title}
                   </h3>
                 </div>
@@ -204,7 +204,7 @@ export default function Home() {
             <img src="/author.png" className="w-12 h-12 rounded-full grayscale object-cover" alt="Author" />
             <div className="flex flex-col">
               <span className="text-[9px] tracking-[0.3em] uppercase text-secondary">Author</span>
-              <span className="text-sm serif italic">Tanvir Khan</span>
+              <span className="text-sm font-serif italic">Tanvir Khan</span>
             </div>
           </div>
         </section>
@@ -218,12 +218,12 @@ export default function Home() {
               <div className="text-[10px] tracking-[0.3em] text-secondary mb-4 uppercase">
                 {selectedSection.label}
               </div>
-              <h1 className="text-4xl md:text-5xl serif italic leading-tight">
+              <h1 className="text-4xl md:text-5xl font-serif italic leading-tight">
                 {selectedSection.title}
               </h1>
             </header>
 
-            <article className="book-text serif">
+            <article className="book-text font-serif">
               <div className="text-secondary italic text-center mb-16 px-8 leading-relaxed">
                 "{selectedSection.epigraph}"
               </div>
@@ -273,7 +273,7 @@ export default function Home() {
                   <span className="text-[10px] tracking-[0.4em] uppercase text-secondary group-hover:text-accent transition-colors">
                     {selectedSection.number === selectedBook.sections.length - 1 ? 'End of Manuscript' : 'Continue Evolution'}
                   </span>
-                  <div className="text-4xl serif italic group-hover:gap-8 transition-all duration-500 flex items-center gap-4">
+                  <div className="text-4xl font-serif italic group-hover:gap-8 transition-all duration-500 flex items-center gap-4">
                     <span>{selectedSection.number === selectedBook.sections.length - 1 ? 'Return Home' : 'Next Chapter'}</span>
                     <span className="text-2xl group-hover:translate-x-4 transition-transform">→</span>
                   </div>
@@ -290,25 +290,25 @@ export default function Home() {
           <h2 className="text-xs uppercase tracking-[0.4em] text-secondary mb-16 text-center">Frequently Asked Questions</h2>
           <div className="space-y-12">
             <div>
-              <h3 className="text-lg serif italic mb-4">How do I install the Android App?</h3>
+              <h3 className="text-lg font-serif italic mb-4">How do I install the Android App?</h3>
               <p className="text-sm font-light text-secondary leading-relaxed">
                 After downloading the APK, open it on your phone. You may need to enable "Install from Unknown Sources" in your security settings. This is a standard procedure for apps not distributed through the Play Store.
               </p>
             </div>
             <div>
-              <h3 className="text-lg serif italic mb-4">Is the app free?</h3>
+              <h3 className="text-lg font-serif italic mb-4">Is the app free?</h3>
               <p className="text-sm font-light text-secondary leading-relaxed">
                 Yes. The manuscript is a digital artifact meant to be shared. The app provides a more immersive, focused reading experience away from the distractions of a browser.
               </p>
             </div>
             <div>
-              <h3 className="text-lg serif italic mb-4">What is 'Absconded' about?</h3>
+              <h3 className="text-lg font-serif italic mb-4">What is 'Absconded' about?</h3>
               <p className="text-sm font-light text-secondary leading-relaxed">
                 It's a meditation on the builder's journey—the transition from a traditional career to an internet-native existence. It's about Mumbai, crypto, AI, and the process of becoming.
               </p>
             </div>
             <div>
-              <h3 className="text-lg serif italic mb-4">Who is Tanvir Khan?</h3>
+              <h3 className="text-lg font-serif italic mb-4">Who is Tanvir Khan?</h3>
               <p className="text-sm font-light text-secondary leading-relaxed">
                 A builder from Mumbai who spent years in the traditional supply chain before unravelling into the digital frontier. This manuscript is his signal.
               </p>
