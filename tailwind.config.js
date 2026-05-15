@@ -8,7 +8,10 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        terminal: '#00ff88',
+        bg: 'var(--bg)',
+        accent: 'var(--accent)',
+        secondary: 'var(--secondary)',
+        terminal: '#c8ff00',
         dark: {
           bg: '#0a0e27',
           card: '#1a1a2e',
@@ -16,6 +19,8 @@ module.exports = {
       },
       fontFamily: {
         mono: ['Courier New', 'monospace'],
+        serif: ['Lora', 'serif'],
+        sans: ['Inter', 'sans-serif'],
       }
     },
   },
