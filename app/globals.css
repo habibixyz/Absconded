@@ -71,7 +71,7 @@ body {
 
 /* UI Components */
 .nav-link {
-  @apply text-[10px] tracking-[0.3em] uppercase font-light transition-all duration-300 hover:text-accent cursor-pointer;
+  @apply text-[8px] sm:text-[10px] tracking-[0.15em] sm:tracking-[0.3em] uppercase font-light transition-all duration-300 hover:text-accent cursor-pointer;
 }
 
 .chapter-card {

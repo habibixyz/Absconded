@@ -139,12 +139,12 @@ export default function Home() {
 
       {/* Navigation */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-bg/80 backdrop-blur-md border-b border-white/5">
-        <div className="max-w-6xl mx-auto px-6 py-6 flex items-center justify-between">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-4 sm:py-6 flex items-center justify-between">
           <button
             onClick={goHome}
-            className="text-[10px] tracking-[0.3em] uppercase font-light hover:text-white transition-colors duration-300 text-secondary"
+            className="text-[8px] sm:text-[10px] tracking-[0.15em] sm:tracking-[0.3em] uppercase font-light hover:text-white transition-colors duration-300 text-secondary whitespace-nowrap"
           >
-            Absconded Library
+            Absconded<span className="hidden sm:inline"> Library</span>
           </button>
 
           {/* Breadcrumb for reading view */}
@@ -162,7 +162,7 @@ export default function Home() {
             </div>
           )}
 
-          <div className="flex gap-8 items-center">
+          <div className="flex gap-4 sm:gap-8 items-center">
             <button
               onClick={goToShelf}
               className={`nav-link ${view === 'library' ? 'text-white' : 'text-secondary'}`}
