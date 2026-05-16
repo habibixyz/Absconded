@@ -55,11 +55,14 @@ export default function Home() {
   })
 
   const signals = [
-    { id: 1, type: 'CORE', date: '2026.05.15', text: 'Integrating "The Mask Beneath" into the Signal Collection. Data architecture migration complete.' },
-    { id: 2, type: 'LORE', date: '2026.05.14', text: 'The Vyrm organism is showing signs of autonomous identity formation in the latest simulation.' },
-    { id: 3, type: 'BUILD', date: '2026.05.12', text: 'Android APK build 1.0.4 confirmed stable for mobile manuscript consumption.' },
-    { id: 4, type: 'SIGNAL', date: '2026.05.10', text: 'The boundary between builder and creation is thinning. Every line of code is a confession.' },
-    { id: 5, type: 'CORE', date: '2026.05.08', text: 'Absconded library initialized. Preparing for the multi-book era.' }
+    { id: 1, type: 'CORE', date: '2026.05.17', text: 'Three cyber-existential short stories integrated: "The Frequency of Kin", "The Mask Compiler", and "The Last Performance Review" are now fully readable.' },
+    { id: 2, type: 'BUILD', date: '2026.05.17', text: 'SEO and discoverability upgrade completed: Robots rules, absolute Google Bot indexes, and sitemap.xml generated and pushed to production.' },
+    { id: 3, type: 'UI', date: '2026.05.16', text: 'Standalone FAQ interface (The Library Codex) designed and decoupled from the layout footer. Scroll transitions stabilized to guarantee top-of-page focus.' },
+    { id: 4, type: 'CORE', date: '2026.05.15', text: 'Integrating "The Mask Beneath" into the Signal Collection. Data architecture migration complete.' },
+    { id: 5, type: 'LORE', date: '2026.05.14', text: 'The Vyrm organism is showing signs of autonomous identity formation in the latest simulation.' },
+    { id: 6, type: 'BUILD', date: '2026.05.12', text: 'Android APK build 1.0.4 confirmed stable for mobile manuscript consumption.' },
+    { id: 7, type: 'SIGNAL', date: '2026.05.10', text: 'The boundary between builder and creation is thinning. Every line of code is a confession.' },
+    { id: 8, type: 'CORE', date: '2026.05.08', text: 'Absconded library initialized. Preparing for the multi-book era.' }
   ]
 
   const navigate = (fn) => {
