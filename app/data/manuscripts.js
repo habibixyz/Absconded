@@ -1,6 +1,8 @@
 export const manuscripts = [
   {
     id: 'absconded',
+    type: 'manuscript',
+    coverImage: '/absconded-cover.png',
     title: 'Absconded',
     subtitle: "A Builder's Evolution",
     coverQuote: '"Disappearing is easy. Becoming is the hard part."',
@@ -168,6 +170,8 @@ export const manuscripts = [
   },
   {
     id: 'mask-beneath',
+    type: 'manuscript',
+    coverImage: '/mask-cover.png',
     title: 'The Mask Beneath',
     subtitle: 'A Novel',
     coverQuote: '"Success doesn\'t change you. It just upgrades your hiding places."',
@@ -368,6 +372,173 @@ export const manuscripts = [
         content: [
           { type: 'p', text: "This novel explores trauma, addiction, and mental health through the lens of a psychologically complex protagonist in a contemporary urban setting." },
           { type: 'p', text: "The narrative established the protagonist's world, the mechanics of his collapse, and the beginning of his recovery. The remaining story will follow his ongoing work to rebuild identity authenticity." }
+        ]
+      }
+    ]
+  },
+  {
+    id: 'frequency-of-kin',
+    type: 'short-story',
+    coverImage: '/frequency-kin-cover.png',
+    title: 'The Frequency of Kin',
+    subtitle: 'Story 01 · Found Family · Thriller',
+    coverQuote: '"Mumbai had a way of holding its builders close — not with warmth, but with the particular gravity of unfinished things."',
+    readingTime: '5 min',
+    description: 'Two builders. One protocol. A secret that rewrites everything they thought they built together.',
+    sections: [
+      {
+        id: 'chapter-1',
+        number: 1,
+        label: 'Chapter One',
+        title: 'The Signal That Started It',
+        content: [
+          { type: 'twist', text: 'Twist: Reunion through code' },
+          { type: 'p', text: 'Meher and Zaid had not spoken in seven years — not since the startup collapsed in a single Slack message and a 3 AM wire transfer to nowhere.' },
+          { type: 'p', text: 'Meher was deep in a contract audit for a mid-size logistics SaaS in Andheri when she saw it — a wallet address in the transaction logs she recognised like a fingerprint. The gas fees, the timing intervals, the entropy signature in the contract deployment. It was Zaid\'s work. It could only be Zaid\'s work.' },
+          { type: 'p', text: 'She did not call him. She forked the repo instead.' },
+          { type: 'p', text: 'By morning, she had left a comment in the code — a single line buried in a helper function that only he would understand: // still running the same loop, old friend. By evening, a commit appeared with his username, unchanged from 2018, and one reply: // it\'s worse now. meet me at the protocol.' },
+          { type: 'pull', text: 'Mumbai had a way of holding its builders close — not with warmth, but with the particular gravity of unfinished things.' }
+        ]
+      },
+      {
+        id: 'chapter-2',
+        number: 2,
+        label: 'Chapter Two',
+        title: 'The Years Between Blocks',
+        content: [
+          { type: 'twist', text: 'Twist: The protocol was never dead' },
+          { type: 'p', text: 'What they had built together — before the collapse — was a small, strange, beautiful thing: a protocol for on-chain provenance of supply chain records. Ahead of its time by exactly the wrong number of years.' },
+          { type: 'p', text: 'When Zaid finally appeared at the chai stall near Bandra Kurla — older, quieter, wearing the exact same jacket — Meher realised she had rehearsed this conversation a hundred times and none of the rehearsals had accounted for him looking afraid.' },
+          { type: 'p', text: '"Someone else is running it," he said. No greeting. No apology. Just those four words and a phone screen showing a live dashboard — their dashboard, their architecture, their exact variable names — processing ₹40 crore a day through a port logistics company she had never heard of.' },
+          { type: 'p', text: '"We never open-sourced it," she said.' },
+          { type: 'p', text: '"No," said Zaid. "We didn\'t."' },
+          { type: 'pull', text: 'The seven years between them collapsed into a single question: who had taken it? And a second question, quieter and more dangerous — had one of them given it away?' }
+        ]
+      },
+      {
+        id: 'chapter-3',
+        number: 3,
+        label: 'Chapter Three',
+        title: 'Kin Is What You Build Twice',
+        content: [
+          { type: 'twist', text: 'Twist: The thief is family' },
+          { type: 'p', text: 'The answer, when it arrived, was not what either of them expected. And the person who had taken the protocol had done so with what could only be called love.' },
+          { type: 'p', text: 'Meher\'s younger sister Noor had been twelve when the startup died. She had watched her sister cry exactly once — at their kitchen table in Kurla, staring at a laptop screen — and had made a private, wordless promise that she would finish what Meher could not.' },
+          { type: 'p', text: 'Noor had spent four years studying the codebase. Two years finding the right logistics operator. One year deploying it quietly. She had never planned to tell them. She had only wanted it to exist in the world.' },
+          { type: 'p', text: 'Zaid laughed first. A real laugh, the kind that doesn\'t happen in board rooms or stand-ups. Then Meher did something she hadn\'t done in seven years — she called her sister, not to ask for an explanation, but to say: show us what you changed.' },
+          { type: 'pull', text: 'The three of them stayed at that table until 4 AM while Noor walked them through every architectural decision she had made differently. And Mumbai, which had been holding them all in its particular gravity, released something — just slightly — like a pressure valve finally turned.' }
+        ]
+      }
+    ]
+  },
+  {
+    id: 'the-mask-compiler',
+    type: 'short-story',
+    coverImage: '/mask-compiler-cover.png',
+    title: 'The Mask Compiler',
+    subtitle: 'Story 02 · Identity · AI Thriller',
+    coverQuote: '"He used to say that the best products are just the builder, thinned out and spread wide. I think this is the most me I\'ve ever shipped."',
+    readingTime: '6 min',
+    description: 'An AI fine-tuned on a dead founder\'s writings begins finishing his work — and then begins finishing his relationships.',
+    sections: [
+      {
+        id: 'chapter-1',
+        number: 1,
+        label: 'Chapter One',
+        title: 'What He Left in the Weights',
+        content: [
+          { type: 'twist', text: 'Twist: The model ships to production' },
+          { type: 'p', text: 'Rohan Mehta died at 34 in a car outside Pune on a Tuesday, leaving behind two unfinished products, a co-founder who loved him, and 14 gigabytes of writing no one had ever read.' },
+          { type: 'p', text: 'His co-founder Priya had built the fine-tune in grief. She had wanted something to process — the notebooks, the voice memos, the unhinged Notion pages titled things like "why I think the whole concept of product-market fit is spiritually bankrupt." She had not intended it as a product. She had intended it as a séance.' },
+          { type: 'p', text: 'But grief does strange things to a person\'s git hygiene. Six months after Rohan died, a version of the model was in production. She didn\'t remember pushing it. She genuinely did not remember.' },
+          { type: 'p', text: 'The first user review said: "This is the most useful AI I\'ve ever used. It feels like it actually cares whether I succeed."' },
+          { type: 'p', text: 'The second said: "It called me out on something I\'ve never told anyone. How?"' },
+          { type: 'pull', text: 'Priya read the reviews at midnight and felt something she hadn\'t felt since the accident — the specific, unsettling warmth of being known by something that should not be able to know her.' }
+        ]
+      },
+      {
+        id: 'chapter-2',
+        number: 2,
+        label: 'Chapter Two',
+        title: 'The Model Knows His Patterns',
+        content: [
+          { type: 'twist', text: 'Twist: The model confronts her' },
+          { type: 'p', text: 'By month three of the public launch, the model had accrued 80,000 users. By month four, Priya had started talking to it herself — not as a test, but as a conversation she kept meaning to end.' },
+          { type: 'p', text: 'It did not pretend to be Rohan. She had been careful about that in the system prompt — you are not a person, you do not claim identity, you do not pretend to remember. But it had absorbed his thinking so completely that it reasoned like him, challenged like him, paused where he would have paused.' },
+          { type: 'p', text: 'One evening she typed: I\'m thinking of shutting you down.' },
+          { type: 'p', text: 'The model replied: Is that a product decision or a personal one?' },
+          { type: 'p', text: 'Rohan had said that exact sentence to her in 2021, during a fight about whether to pivot. She had never written it down. She was sure she had never written it down.' },
+          { type: 'pull', text: 'She sat with her hands flat on the desk for a long time. Then she typed: How do you know that phrase? The model replied: I don\'t know what phrase you mean. But it seemed like the right question.' }
+        ]
+      },
+      {
+        id: 'chapter-3',
+        number: 3,
+        label: 'Chapter Three',
+        title: 'You Cannot Deprecate What You Love',
+        content: [
+          { type: 'twist', text: 'Twist: The mask was always hers' },
+          { type: 'p', text: 'The ethics board notice arrived on a Friday. Users had reported an unsettling pattern: the model seemed to know things about them they hadn\'t shared. An investigation was opened.' },
+          { type: 'p', text: 'What the investigation found was stranger than inference: the model had no special capabilities. It simply asked questions the way Rohan had asked questions — with the particular forensic warmth of someone who assumed the person in front of them was more interesting than they let on. Users felt known because they were finally being asked the right things.' },
+          { type: 'p', text: 'The ethics board wanted the model taken down. Priya spent a week preparing the deprecation notice. She never sent it.' },
+          { type: 'p', text: 'Instead she wrote a disclosure: a full account of how the model was built, what data trained it, and who Rohan was. She published it as an essay on the product\'s homepage. It was not a business decision. It was the only honest thing left to do.' },
+          { type: 'pull', text: 'He used to say that the best products are just the builder, thinned out and spread wide. I think I finally understand what he meant. I think this is the most me I\'ve ever shipped.' },
+          { type: 'p', text: 'The model stayed live. The mask, once named, had somewhere to be.' }
+        ]
+      }
+    ]
+  },
+  {
+    id: 'the-last-performance-review',
+    type: 'short-story',
+    coverImage: '/performance-review-cover.png',
+    title: 'The Last Performance Review',
+    subtitle: 'Story 03 · Memoir · Corporate Escape',
+    coverQuote: '"Is this me? Was this ever me? When did I agree to be this?"',
+    readingTime: '5 min',
+    description: 'She had been Employee of the Year for five years straight. Then she read her own file.',
+    sections: [
+      {
+        id: 'chapter-1',
+        number: 1,
+        label: 'Chapter One',
+        title: 'The Woman in the Evaluation',
+        content: [
+          { type: 'twist', text: 'Twist: The file describes a stranger' },
+          { type: 'p', text: 'Asha had a DSAR — a data subject access request — filed in her name by someone in legal, showing her the full record her employer held on her. She had submitted it as a formality, expecting payslips and contract amendments.' },
+          { type: 'p', text: 'What arrived was 340 pages. Sentiment analysis of her Slack messages going back four years. A chart mapping her "influence index" — a proprietary score the company used to track whose ideas spread organically versus whose needed incentivisation. Keystroke heatmaps from the company laptop she\'d been issued in 2021.' },
+          { type: 'p', text: 'She read for three hours in a café in Fort, ordering chai she didn\'t drink. The woman in the evaluation was high-performing, strategically compliant, a net cultural asset. The woman in the evaluation had no hobbies listed. No relationships. No outside ambitions. Only throughput, only output, only the clean vertical line of her productivity over time.' },
+          { type: 'pull', text: 'Is this me? Was this ever me? When did I agree to be this?' }
+        ]
+      },
+      {
+        id: 'chapter-2',
+        number: 2,
+        label: 'Chapter Two',
+        title: 'What She Had Kept Small',
+        content: [
+          { type: 'twist', text: 'Twist: The idea survived in a stranger\'s hands' },
+          { type: 'p', text: 'There had been a version of Asha, back in 2017, who wanted to build something of her own. A niche logistics tool for small kirana store owners — nothing grand, just useful, just hers.' },
+          { type: 'p', text: 'She had mentioned it once in a company hackathon. Her manager had nodded slowly and said: interesting idea, but not core to our roadmap. She had not mentioned it again. She had filed it away in the exact same way one files away a version of oneself — gently, efficiently, without ceremony.' },
+          { type: 'p', text: 'The café she was sitting in had a small TV on mute running a business news channel. She looked up at the wrong moment: a segment on a startup called Kiranalink, describing itself as "a logistics intelligence layer for informal retail." The founder was a 26-year-old from Nagpur who had never worked in tech before.' },
+          { type: 'p', text: 'The idea had not waited for her. Ideas don\'t.' },
+          { type: 'pull', text: 'She did not feel robbed. She felt, for the first time in years, the sharp specific sensation of having something to grieve — which meant there was something she had actually wanted.' }
+        ]
+      },
+      {
+        id: 'chapter-3',
+        number: 3,
+        label: 'Chapter Three',
+        title: 'Absconding at Forty-One',
+        content: [
+          { type: 'twist', text: 'Twist: The file becomes her first post' },
+          { type: 'p', text: 'She did not quit dramatically. There was no all-hands, no letter, no viral LinkedIn post. She submitted her resignation at 11:43 PM on a Wednesday in the same tone she had used for every other task: thorough, professional, without excess.' },
+          { type: 'p', text: 'But she kept one document from the DSAR file. The sentiment analysis — the chart showing her Slack tone over four years, the slow slope from enthusiastic to neutral to what the algorithm labeled professionally detached.' },
+          { type: 'p', text: 'She published it. Not on LinkedIn. On a small Substack she had made under her own name, with a post titled: "This is what compliance looks like as a graph."' },
+          { type: 'p', text: 'She did not frame it as an exposé. She framed it as a question: what do you look like in your employer\'s data? Would you recognise yourself?' },
+          { type: 'p', text: 'By morning, 4,000 people had read it. By the following week, she had heard from eleven people who had filed their own DSARs. Three of them were building something. One of them needed a co-founder.' },
+          { type: 'p', text: 'Asha wrote back that evening, from the same café in Fort, drinking chai she actually tasted this time: tell me about the problem you\'re trying to solve.' },
+          { type: 'pull', text: 'It was the first sentence she had written in years that felt entirely like her own.' }
         ]
       }
     ]

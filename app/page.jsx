@@ -40,6 +40,19 @@ export default function Home() {
   const [selectedSection, setSelectedSection] = useState(null)
   const [showCover, setShowCover] = useState(true)
   const [transitioning, setTransitioning] = useState(false)
+  const [activeTab, setActiveTab] = useState('all')
+
+  // Automatically reset scroll position to top on navigation/view change
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [view, selectedBook, selectedSection, showCover])
+
+  const filteredManuscripts = manuscripts.filter((book) => {
+    if (activeTab === 'all') return true
+    if (activeTab === 'manuscripts') return book.type === 'manuscript'
+    if (activeTab === 'shorts') return book.type === 'short-story'
+    return true
+  })
 
   const signals = [
     { id: 1, type: 'CORE', date: '2026.05.15', text: 'Integrating "The Mask Beneath" into the Signal Collection. Data architecture migration complete.' },
@@ -102,6 +115,13 @@ export default function Home() {
     })
   }
 
+  const goToFaq = () => {
+    navigate(() => {
+      setView('faq')
+      setSelectedBook(null)
+    })
+  }
+
   const getSectionProgress = () => {
     if (!selectedBook || !selectedSection) return null
     const idx = selectedBook.sections.findIndex(s => s.id === selectedSection.id)
@@ -152,6 +172,12 @@ export default function Home() {
             >
               Signals
             </button>
+            <button
+              onClick={goToFaq}
+              className={`nav-link ${view === 'faq' ? 'text-white' : 'text-secondary'}`}
+            >
+              FAQ
+            </button>
             <a href="https://x.com/ritmir11" target="_blank" rel="noopener noreferrer" className="nav-link text-secondary">
               Twitter
             </a>
@@ -167,8 +193,26 @@ export default function Home() {
             <h1 className="text-4xl font-serif italic">The Signal Collection</h1>
           </header>
 
+          {/* Format filtering tabs */}
+          <div className="flex gap-8 mb-16 border-b border-white/5 pb-4">
+            {['all', 'manuscripts', 'shorts'].map((tab) => (
+              <button
+                key={tab}
+                onClick={() => setActiveTab(tab)}
+                className={`text-[10px] tracking-[0.3em] uppercase transition-all duration-300 relative pb-4 -mb-[17px] ${
+                  activeTab === tab ? 'text-white font-medium' : 'text-secondary hover:text-white'
+                }`}
+              >
+                {tab === 'all' ? 'All Signals' : tab === 'manuscripts' ? 'Manuscripts' : 'Short Stories'}
+                {activeTab === tab && (
+                  <span className="absolute bottom-0 left-0 right-0 h-[1.5px] bg-white animate-fade-in" />
+                )}
+              </button>
+            ))}
+          </div>
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
-            {manuscripts.map((book) => (
+            {filteredManuscripts.map((book) => (
               <div
                 key={book.id}
                 onClick={() => handleBookSelect(book)}
@@ -176,7 +220,7 @@ export default function Home() {
               >
                 <div className="relative aspect-[3/4] mb-8 overflow-hidden rounded-sm border border-white/5 transition-all duration-700 group-hover:border-white/20 group-hover:shadow-[0_0_60px_rgba(255,255,255,0.04)]">
                   <img
-                    src={book.id === 'absconded' ? '/absconded-cover.png' : '/mask-cover.png'}
+                    src={book.coverImage}
                     alt={book.title}
                     className="w-full h-full object-cover grayscale brightness-75 group-hover:grayscale-0 group-hover:brightness-90 transition-all duration-1000 scale-[1.01] group-hover:scale-105"
                   />
@@ -185,12 +229,17 @@ export default function Home() {
                     <h2 className="text-3xl font-serif italic mb-2">{book.title}</h2>
                     <p className="text-[9px] tracking-[0.3em] uppercase text-secondary">{book.subtitle}</p>
                   </div>
-                  {/* Reading time badge */}
-                  {book.readingTime && (
-                    <div className="absolute top-6 right-6 text-[8px] tracking-[0.2em] uppercase text-secondary/60 border border-white/10 px-3 py-1 bg-bg/60 backdrop-blur-sm">
-                      {book.readingTime}
-                    </div>
-                  )}
+                  {/* Format & Reading time badge */}
+                  <div className="absolute top-6 right-6 flex gap-2">
+                    <span className="text-[8px] tracking-[0.2em] uppercase text-secondary/80 border border-white/10 px-3 py-1 bg-bg/60 backdrop-blur-sm">
+                      {book.type === 'manuscript' ? 'Manuscript' : 'Short Story'}
+                    </span>
+                    {book.readingTime && (
+                      <span className="text-[8px] tracking-[0.2em] uppercase text-secondary/60 border border-white/10 px-3 py-1 bg-bg/60 backdrop-blur-sm">
+                        {book.readingTime}
+                      </span>
+                    )}
+                  </div>
                 </div>
                 <p className="text-sm font-light text-secondary leading-relaxed">
                   {book.description}
@@ -350,6 +399,14 @@ export default function Home() {
                   if (block.type === 'p') {
                     return <p key={i} className={i === 0 || (i === 1 && selectedSection.epigraph) ? 'drop-cap' : ''}>{block.text}</p>
                   }
+                  if (block.type === 'twist') {
+                    return (
+                      <div key={i} className="twist-block">
+                        <span>↳</span>
+                        <span>{block.text}</span>
+                      </div>
+                    )
+                  }
                   if (block.type === 'pull') {
                     return (
                       <div key={i} className="pull-quote">
@@ -424,10 +481,14 @@ export default function Home() {
         </section>
       )}
 
-      {/* FAQ Section */}
-      <section className="py-32 px-6 border-t border-white/5 bg-white/[0.01]">
-        <div className="max-w-2xl mx-auto">
-          <h2 className="text-xs uppercase tracking-[0.4em] text-secondary mb-16 text-center">Questions</h2>
+      {/* FAQ View */}
+      {view === 'faq' && (
+        <section className="pt-40 pb-20 px-6 max-w-2xl mx-auto fade-in">
+          <header className="mb-20 text-center">
+            <p className="text-xs uppercase tracking-[0.4em] text-secondary mb-4">Frequently Asked Questions</p>
+            <h1 className="text-4xl font-serif italic text-white mb-4">The Library Codex</h1>
+          </header>
+
           <div className="space-y-12">
             <div>
               <h3 className="text-lg font-serif italic mb-4">How do I install the Android App?</h3>
@@ -454,8 +515,8 @@ export default function Home() {
               </p>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* Footer */}
       <footer className="py-20 border-t border-white/5">

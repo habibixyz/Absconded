@@ -64,6 +64,11 @@ body {
   box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.02);
 }
 
+.twist-block {
+  @apply font-mono text-[10px] tracking-widest text-sky-400 my-12 uppercase flex items-start gap-3 border border-sky-500/15 bg-sky-500/[0.02] px-6 py-4 rounded-sm;
+  box-shadow: inset 0 0 15px rgba(56, 189, 248, 0.02);
+}
+
 /* UI Components */
 .nav-link {
   @apply text-[10px] tracking-[0.3em] uppercase font-light transition-all duration-300 hover:text-accent cursor-pointer;
