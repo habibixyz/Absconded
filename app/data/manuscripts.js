@@ -3,6 +3,8 @@ export const manuscripts = [
     id: 'absconded',
     title: 'Absconded',
     subtitle: "A Builder's Evolution",
+    coverQuote: '"Disappearing is easy. Becoming is the hard part."',
+    readingTime: '45 min',
     description: 'The story of a builder unravelling from the corporate timeline in Mumbai to find the signal in the noise.',
     sections: [
       {
@@ -168,6 +170,8 @@ export const manuscripts = [
     id: 'mask-beneath',
     title: 'The Mask Beneath',
     subtitle: 'A Novel',
+    coverQuote: '"Success doesn\'t change you. It just upgrades your hiding places."',
+    readingTime: '90 min',
     description: 'A corporate thriller exploring identity, success, and the masks we wear in a high-stakes digital world.',
     sections: [
       {

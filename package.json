@@ -1,6 +1,6 @@
 {
   "name": "absconded",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "ABSCONDED - A Builder's Evolution by Tanvir Khan",
   "scripts": {
     "dev": "next dev",
