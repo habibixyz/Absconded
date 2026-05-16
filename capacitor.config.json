@@ -4,7 +4,10 @@
   "webDir": "out",
   "server": {
     "url": "https://absconded-book.vercel.app",
-    "cleartext": true
+    "cleartext": true,
+    "allowNavigation": [
+      "absconded-book.vercel.app"
+    ]
   },
   "plugins": {
     "SplashScreen": {
