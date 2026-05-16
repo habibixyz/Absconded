@@ -311,8 +311,9 @@ export default function Home() {
               </button>
 
               <a
-                href="/absconded.apk"
-                download
+                href="https://drive.google.com/file/d/1UyyoPlshWrEbUyymk3Q6-NGGmhN7HFYl/view?usp=sharing"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="px-12 py-4 border border-white/10 hover:border-white/30 hover:bg-white/5 rounded-full text-[10px] tracking-[0.3em] uppercase transition-all duration-500 flex items-center gap-2 text-secondary hover:text-white"
               >
                 <span>Download Android App</span>
