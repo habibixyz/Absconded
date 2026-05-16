@@ -3,7 +3,7 @@
   "appName": "Absconded",
   "webDir": "out",
   "server": {
-    "url": "https://absconded.vercel.app",
+    "url": "https://absconded-book.vercel.app",
     "cleartext": true
   },
   "plugins": {

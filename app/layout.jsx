@@ -17,7 +17,7 @@ export const metadata = {
   openGraph: {
     title: 'ABSCONDED | A Builder\'s Evolution',
     description: 'A premium digital manuscript by Tanvir Khan.',
-    url: 'https://absconded.vercel.app',
+    url: 'https://absconded-book.vercel.app',
     siteName: 'ABSCONDED',
     locale: 'en_US',
     type: 'website',
