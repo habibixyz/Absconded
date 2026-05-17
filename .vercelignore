@@ -1,0 +1,7 @@
+android
+node_modules
+.next
+out
+.vercel
+.git
+*.docx
