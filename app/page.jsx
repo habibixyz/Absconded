@@ -18,7 +18,7 @@ function ReadingProgress({ content }) {
   }, [])
 
   return (
-    <div className="fixed top-0 left-0 right-0 z-[60] h-[2px] bg-white/5">
+    <div className="fixed left-0 right-0 z-[60] h-[2px] bg-white/5" style={{ top: 'var(--safe-area-top, 0px)' }}>
       <div
         className="h-full bg-white/40 transition-all duration-150 ease-out"
         style={{ width: `${progress}%` }}
