@@ -55,6 +55,7 @@ export default function Home() {
   })
 
   const signals = [
+    { id: 0, type: 'CORE', date: '2026.05.18', text: 'Signal Collection II launched: "The Deletion Protocol", "The Counterparty", and "What the City Knows" are now fully integrated and readable in the library.' },
     { id: 1, type: 'CORE', date: '2026.05.17', text: 'Three cyber-existential short stories integrated: "The Frequency of Kin", "The Mask Compiler", and "The Last Performance Review" are now fully readable.' },
     { id: 2, type: 'BUILD', date: '2026.05.17', text: 'SEO and discoverability upgrade completed: Robots rules, absolute Google Bot indexes, and sitemap.xml generated and pushed to production.' },
     { id: 3, type: 'UI', date: '2026.05.16', text: 'Standalone FAQ interface (The Library Codex) designed and decoupled from the layout footer. Scroll transitions stabilized to guarantee top-of-page focus.' },
