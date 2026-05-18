@@ -10,10 +10,6 @@
   --accent: #ffffff;
   --secondary: #888888;
   --border: rgba(255, 255, 255, 0.1);
-  --safe-area-top: env(safe-area-inset-top, 0px);
-  --safe-area-bottom: env(safe-area-inset-bottom, 0px);
-  --safe-area-left: env(safe-area-inset-left, 0px);
-  --safe-area-right: env(safe-area-inset-right, 0px);
 }
 
 * {
@@ -25,8 +21,6 @@
 html {
   scroll-behavior: smooth;
   background-color: var(--bg);
-  min-height: 100vh;
-  min-height: -webkit-fill-available;
 }
 
 body {
@@ -35,10 +29,10 @@ body {
   background: var(--bg);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  padding-top: var(--safe-area-top);
-  padding-bottom: var(--safe-area-bottom);
-  padding-left: var(--safe-area-left);
-  padding-right: var(--safe-area-right);
+}
+
+.serif {
+  font-family: 'Lora', serif;
 }
 
 /* Book Layout Utilities */
@@ -53,33 +47,84 @@ body {
   letter-spacing: -0.011em;
 }
 
-/* Content Blocks */
-.pull-quote {
-  @apply py-14 px-10 border-l-2 border-white/15 text-2xl md:text-3xl italic font-serif leading-relaxed text-white/85 my-16;
-  background: linear-gradient(to right, rgba(255,255,255,0.025), transparent);
-}
-
-.terminal-block {
-  @apply font-mono text-[10px] bg-white/5 p-8 border border-white/10 my-16 text-accent leading-loose tracking-widest uppercase;
-  box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.02);
-}
-
-.twist-block {
-  @apply font-mono text-[10px] tracking-widest text-sky-400 my-12 uppercase flex items-start gap-3 border border-sky-500/15 bg-sky-500/[0.02] px-6 py-4 rounded-sm;
-  box-shadow: inset 0 0 15px rgba(56, 189, 248, 0.02);
+.drop-cap::first-letter {
+  float: left;
+  margin-right: 0.75rem;
+  margin-top: 0.25rem;
+  font-family: 'Lora', serif;
+  font-size: 3.75rem;
+  font-weight: 300;
+  font-style: italic;
+  line-height: 0.85;
+  color: var(--accent);
 }
 
 /* UI Components */
-nav {
-  padding-top: var(--safe-area-top, 0px);
+.nav-link {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--secondary);
+  transition: color 0.3s ease;
 }
 
-.nav-link {
-  @apply text-[8px] sm:text-[10px] tracking-[0.15em] sm:tracking-[0.3em] uppercase font-light transition-all duration-300 hover:text-accent cursor-pointer;
+.nav-link:hover {
+  color: var(--accent);
 }
 
 .chapter-card {
-  @apply py-8 border-b border-white/5 transition-all duration-500 hover:pl-4;
+  border-bottom: 1px solid var(--border);
+  padding: 2rem 0;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.chapter-card:hover {
+  border-bottom-color: var(--accent);
+  padding-left: 1rem;
+}
+
+/* Content Blocks */
+.pull-quote {
+  font-size: 1.5rem;
+  line-height: 1.625;
+  font-style: italic;
+  font-family: 'Lora', serif;
+  color: hsla(0, 0%, 100%, 0.85);
+  border-left: 2px solid hsla(0, 0%, 100%, 0.15);
+  padding: 3.5rem 2.5rem;
+  margin: 4rem 0;
+  background: linear-gradient(90deg, hsla(0, 0%, 100%, 0.025), transparent);
+}
+
+.terminal-block {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 0.75rem;
+  line-height: 1.6;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border);
+  padding: 1.5rem;
+  margin: 3rem 0;
+  color: #c8ff00; /* Subtle lime/accent for terminal */
+  letter-spacing: 0.05em;
+  border-radius: 4px;
+}
+
+.twist-block {
+  font-family: 'Courier New', monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  border-radius: 0.125rem;
+  border-width: 1px;
+  border-color: rgba(14, 165, 233, 0.15);
+  background-color: rgba(14, 165, 233, 0.02);
+  padding: 1rem 1.5rem;
+  color: rgb(14, 165, 233);
 }
 
 /* Animations */
@@ -88,7 +133,7 @@ nav {
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(8px); }
+  0% { opacity: 0; transform: translateY(8px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
@@ -98,26 +143,15 @@ nav {
 }
 
 ::-webkit-scrollbar-track {
-  @apply bg-bg;
+  background: var(--bg);
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply bg-white/10 hover:bg-white/20 transition-colors;
+  background: var(--border);
 }
 
-/* Drop Cap */
-.drop-cap::first-letter {
-  @apply text-6xl float-left mr-3 mt-1 font-serif italic font-light;
-  line-height: 0.85;
-}
-
-/* Image Hover Effects */
-.library-image-container {
-  @apply relative overflow-hidden transition-all duration-700;
-}
-
-.library-image-container:hover img {
-  @apply scale-105 brightness-100 grayscale-0;
+::-webkit-scrollbar-thumb:hover {
+  background: var(--secondary);
 }
 
 /* Selection */
@@ -125,5 +159,6 @@ nav {
   background: rgba(255, 255, 255, 0.1);
   color: var(--accent);
 }
+
 
 
