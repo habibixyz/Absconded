@@ -6,6 +6,12 @@ import { books } from './data'
 // Timeline Signals Log for the Developer Signals Feed
 const timelineSignals = [
   {
+    id: 99,
+    type: "CORE",
+    date: "2026.05.19",
+    text: 'Signal Collection III: The Connected Universe launched. Four interwoven stories ("The Advice She Never Published", "The Village in the Server", "The Alibi Architect", "This Manuscript Will Save Your Life") are now live.'
+  },
+  {
     id: 0,
     type: "CORE",
     date: "2026.05.18",
