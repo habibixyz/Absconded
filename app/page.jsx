@@ -373,10 +373,10 @@ export default function Home() {
               Signals
             </button>
             <button 
-              onClick={() => { navigate(() => { setPage("faq"); setSelectedBook(null); }); }}
-              className={`nav-link ${page === "faq" ? "text-white" : "text-secondary"}`}
+              onClick={() => { navigate(() => { setPage("about"); setSelectedBook(null); }); }}
+              className={`nav-link ${page === "about" ? "text-white" : "text-secondary"}`}
             >
-              FAQ
+              About
             </button>
             <a 
               href="https://github.com/habibixyz" 
@@ -819,38 +819,84 @@ export default function Home() {
         </section>
       )}
 
-      {/* View 6: FAQ (The Library Codex) */}
-      {page === "faq" && (
-        <section className="pt-40 pb-20 px-6 max-w-2xl mx-auto fade-in">
+      {/* View 6: About & FAQ */}
+      {page === "about" && (
+        <section className="pt-40 pb-20 px-6 max-w-3xl mx-auto fade-in">
           <header className="mb-20 text-center">
-            <p className="text-xs uppercase tracking-[0.4em] text-secondary mb-4">Frequently Asked Questions</p>
-            <h1 className="text-4xl font-serif italic text-white mb-4">The Library Codex</h1>
+            <p className="text-xs uppercase tracking-[0.4em] text-secondary mb-4">The Author & The Archive</p>
+            <h1 className="text-4xl sm:text-5xl font-serif italic text-white mb-8">Behind the Signal</h1>
+            <div className="w-16 h-[1px] bg-white/20 mx-auto mb-8"></div>
           </header>
 
-          <div className="space-y-12">
-            {[
-              {
-                q: "How do I install the Android App?",
-                a: "Download the APK and open it on your Android phone. You'll need to enable \"Install from Unknown Sources\" in your security settings — standard for any app outside the Play Store. Takes about 30 seconds."
-              },
-              {
-                q: "Is it free?",
-                a: "Always. The manuscript is meant to be read, shared, and felt. The app just makes that experience more immersive — no browser chrome, no distractions, just the words."
-              },
-              {
-                q: "What is Absconded actually about?",
-                a: "It's about the quiet act of leaving — a corporate timeline, a version of yourself that no longer fits. Set in Mumbai, it traces a builder's journey through crypto, AI, and the strange courage it takes to become someone new."
-              },
-              {
-                q: "Who is Tanvir Khan?",
-                a: "A builder from Mumbai. Spent years inside the traditional supply chain machine before quietly absconding into the internet. This library is what he found on the other side."
-              }
-            ].map((faq, i) => (
-              <div key={i}>
-                <h3 className="text-lg font-serif italic mb-4">{faq.q}</h3>
-                <p className="text-sm font-light text-secondary leading-relaxed">{faq.a}</p>
+          <div className="space-y-16">
+            {/* The Essence of Life */}
+            <div>
+              <h2 className="text-[10px] tracking-[0.3em] uppercase text-secondary mb-6 border-b border-white/5 pb-4">The Essence</h2>
+              <div className="space-y-6 text-sm font-light text-secondary/90 leading-relaxed font-serif">
+                <p>
+                  <span className="text-white">I am Tanvir Khan.</span> For years, I existed inside the traditional supply chain machine, a builder locked into a corporate timeline that didn't belong to me. My essence of life is rooted in the quiet act of absconding—detaching from the narrative that others have built for you in order to construct your own reality from the ground up.
+                </p>
+                <p>
+                  I believe that reality no longer moves first; narrative does. My thoughts and philosophies are poured into every terminal line and glitch aesthetic you see here. The internet is a canvas for those who dare to disappear and reinvent themselves. This manuscript library is the manifestation of that reinvention.
+                </p>
               </div>
-            ))}
+            </div>
+
+            {/* The Fictions */}
+            <div>
+              <h2 className="text-[10px] tracking-[0.3em] uppercase text-secondary mb-6 border-b border-white/5 pb-4">The Fictions</h2>
+              <div className="space-y-6 text-sm font-light text-secondary/90 leading-relaxed font-serif">
+                <p>
+                  While <span className="text-white italic">Absconded</span> holds elements of my truth, the majority of the stories within the Signal Collection—including <span className="text-white italic">The Mask Beneath</span> and the <span className="text-white italic">Signal Collection III</span>—are works of fiction. 
+                </p>
+                <p>
+                  They are cyber-thrillers, corporate conspiracies, and techno-mysteries built to explore the paranoia, the identity fracturing, and the surveillance capital of our modern digital world. They are fictional architectures, but the anxiety and the systemic truths they expose are entirely real.
+                </p>
+              </div>
+            </div>
+
+            {/* What's Next */}
+            <div>
+              <h2 className="text-[10px] tracking-[0.3em] uppercase text-secondary mb-6 border-b border-white/5 pb-4">What's Next for Absconded</h2>
+              <div className="space-y-6 text-sm font-light text-secondary/90 leading-relaxed font-serif">
+                <p>
+                  Absconded is an evolving organism. The immediate future holds deeper integration of the Oracle—our semantic RAG engine—allowing readers to interrogate the fictions as if they were real databases. 
+                </p>
+                <p>
+                  I am also actively developing the VYRM ecosystem, a decentralized network where digital identities and assets blur the lines between reality and simulation. The library will continue to expand, introducing new threads, new protagonists, and perhaps, eventually, a bridge into physical installations.
+                </p>
+              </div>
+            </div>
+
+            {/* FAQ Codex */}
+            <div className="pt-10">
+              <h2 className="text-[10px] tracking-[0.3em] uppercase text-secondary mb-10 text-center">The Library Codex (FAQ)</h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-12">
+                {[
+                  {
+                    q: "How do I install the Android App?",
+                    a: "Download the APK and open it on your Android phone. You'll need to enable \"Install from Unknown Sources\" in your security settings — standard for any app outside the Play Store. Takes about 30 seconds."
+                  },
+                  {
+                    q: "Is it free?",
+                    a: "Always. The manuscript is meant to be read, shared, and felt. The app just makes that experience more immersive — no browser chrome, no distractions, just the words."
+                  },
+                  {
+                    q: "What is Absconded actually about?",
+                    a: "It's about the quiet act of leaving — a corporate timeline, a version of yourself that no longer fits. Set in Mumbai, it traces a builder's journey through crypto, AI, and the strange courage it takes to become someone new."
+                  },
+                  {
+                    q: "Who is Tanvir Khan?",
+                    a: "A builder from Mumbai. Spent years inside the traditional supply chain machine before quietly absconding into the internet. This library is what he found on the other side."
+                  }
+                ].map((faq, i) => (
+                  <div key={i}>
+                    <h3 className="text-base font-serif italic mb-3 text-white/90">{faq.q}</h3>
+                    <p className="text-xs font-light text-secondary/70 leading-relaxed">{faq.a}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </section>
       )}
