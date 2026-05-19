@@ -378,6 +378,12 @@ export default function Home() {
             >
               About
             </button>
+            <button 
+              onClick={() => { navigate(() => { setPage("store"); setSelectedBook(null); }); }}
+              className={`nav-link ${page === "store" ? "text-white" : "text-secondary"}`}
+            >
+              Storehouse
+            </button>
           </div>
         </div>
       </nav>
@@ -889,6 +895,88 @@ export default function Home() {
                     <p className="text-xs font-light text-secondary/70 leading-relaxed">{faq.a}</p>
                   </div>
                 ))}
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* View 7: Storehouse (E-Commerce) */}
+      {page === "store" && (
+        <section className="pt-40 pb-20 px-6 max-w-6xl mx-auto fade-in">
+          <header className="mb-20 text-center">
+            <p className="text-xs uppercase tracking-[0.4em] text-secondary mb-4">Physical Manifestations</p>
+            <h1 className="text-4xl sm:text-5xl font-serif italic text-white mb-8">The Storehouse</h1>
+            <div className="w-16 h-[1px] bg-white/20 mx-auto mb-8"></div>
+            <p className="text-sm font-light text-secondary max-w-2xl mx-auto leading-relaxed">
+              Artifacts, bound manuscripts, and operative gear pulled from the digital abyss into the physical realm. Worldwide shipping via integrated supply chains.
+            </p>
+          </header>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+            {/* Product 1 */}
+            <div className="group border border-white/5 hover:border-white/20 rounded-sm bg-white/[0.01] overflow-hidden transition-all duration-500">
+              <div className="aspect-[4/5] bg-bg relative overflow-hidden flex items-center justify-center p-8">
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent z-10"></div>
+                <img src="/absconded-cover.png" alt="Absconded Hardcover" className="relative z-0 w-[70%] object-cover shadow-2xl group-hover:scale-105 transition-transform duration-700" />
+                <div className="absolute top-4 right-4 z-20 px-3 py-1 bg-white/10 backdrop-blur-md text-[8px] tracking-[0.2em] uppercase text-white rounded-full">
+                  $30 USD
+                </div>
+              </div>
+              <div className="p-8">
+                <h3 className="text-xl font-serif italic mb-2">Absconded</h3>
+                <p className="text-[9px] tracking-[0.2em] uppercase text-secondary mb-6">Premium Hardcover Edition</p>
+                <p className="text-sm font-light text-secondary/70 mb-8 leading-relaxed">
+                  The complete 45-minute manuscript exploring the quiet act of leaving the corporate timeline. Bound in matte black with foil-stamped typography.
+                </p>
+                <button className="w-full py-4 border border-white/10 hover:border-white/40 hover:bg-white/5 rounded-sm text-[10px] tracking-[0.3em] uppercase transition-all duration-300">
+                  Acquire Artifact
+                </button>
+              </div>
+            </div>
+
+            {/* Product 2 */}
+            <div className="group border border-white/5 hover:border-white/20 rounded-sm bg-white/[0.01] overflow-hidden transition-all duration-500">
+              <div className="aspect-[4/5] bg-bg relative overflow-hidden flex items-center justify-center p-8">
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent z-10"></div>
+                <img src="/cover-manuscript.png" alt="Signal Collection Hardcover" className="relative z-0 w-[70%] object-cover shadow-2xl group-hover:scale-105 transition-transform duration-700" />
+                <div className="absolute top-4 right-4 z-20 px-3 py-1 bg-white/10 backdrop-blur-md text-[8px] tracking-[0.2em] uppercase text-white rounded-full">
+                  $35 USD
+                </div>
+              </div>
+              <div className="p-8">
+                <h3 className="text-xl font-serif italic mb-2">Signal Collection III</h3>
+                <p className="text-[9px] tracking-[0.2em] uppercase text-secondary mb-6">Anthology Hardcover</p>
+                <p className="text-sm font-light text-secondary/70 mb-8 leading-relaxed">
+                  The complete connected universe anthology. Four stories. Sixteen chapters. One world hiding behind all of them.
+                </p>
+                <button className="w-full py-4 border border-white/10 hover:border-white/40 hover:bg-white/5 rounded-sm text-[10px] tracking-[0.3em] uppercase transition-all duration-300">
+                  Acquire Artifact
+                </button>
+              </div>
+            </div>
+
+            {/* Product 3 */}
+            <div className="group border border-white/5 hover:border-white/20 rounded-sm bg-white/[0.01] overflow-hidden transition-all duration-500">
+              <div className="aspect-[4/5] bg-white/[0.02] relative overflow-hidden flex items-center justify-center p-8">
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent z-10"></div>
+                <div className="relative z-0 flex flex-col items-center gap-4 text-secondary/40 group-hover:scale-105 transition-transform duration-700">
+                  <div className="w-16 h-16 border border-secondary/20 flex items-center justify-center text-2xl font-serif">?</div>
+                  <span className="text-[10px] tracking-[0.3em] uppercase">Encrypted</span>
+                </div>
+                <div className="absolute top-4 right-4 z-20 px-3 py-1 bg-white/10 backdrop-blur-md text-[8px] tracking-[0.2em] uppercase text-white rounded-full">
+                  $45 USD
+                </div>
+              </div>
+              <div className="p-8">
+                <h3 className="text-xl font-serif italic mb-2">VYRM Operative Gear</h3>
+                <p className="text-[9px] tracking-[0.2em] uppercase text-secondary mb-6">Heavyweight T-Shirt</p>
+                <p className="text-sm font-light text-secondary/70 mb-8 leading-relaxed">
+                  A 100% organic cotton heavyweight t-shirt featuring subtle terminal logs from the VYRM ecosystem. Available exclusively in Vantablack.
+                </p>
+                <button className="w-full py-4 border border-white/10 hover:border-white/40 hover:bg-white/5 rounded-sm text-[10px] tracking-[0.3em] uppercase transition-all duration-300">
+                  Acquire Gear
+                </button>
               </div>
             </div>
           </div>
