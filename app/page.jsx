@@ -689,7 +689,7 @@ export default function Home() {
             <p className="text-xs uppercase tracking-[0.4em] text-secondary mb-4">Neural Query Interface</p>
             <h1 className="text-4xl sm:text-5xl font-serif italic text-white mb-6">The Signal Oracle</h1>
             <p className="text-sm font-light text-secondary max-w-2xl mx-auto leading-relaxed">
-              Query the 8-book manuscript collection via client-side TF-IDF BM25 retrieval. 
+              Query the {books.length}-book manuscript collection via client-side TF-IDF BM25 retrieval. 
               The Oracle will scan all fragments, retrieve the most relevant passages, 
               and synthesize an AI response with clickable source citations.
             </p>
@@ -702,9 +702,9 @@ export default function Home() {
               <span>Status: Oracle Database Online</span>
             </div>
             <div className="flex gap-4 sm:gap-6">
-              <span>Indexed: 8 Books</span>
-              <span>43 Chapters</span>
-              <span>482 Paragraph Chunks</span>
+              <span>Indexed: {books.length} Books</span>
+              <span>{books.reduce((acc, b) => acc + (b.sections?.length || 0), 0)} Chapters</span>
+              <span>{books.reduce((acc, b) => acc + (b.sections?.reduce((a, s) => a + (s.content?.length || 0), 0) || 0), 0)} Paragraph Chunks</span>
             </div>
           </div>
 
