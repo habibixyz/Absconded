@@ -378,22 +378,6 @@ export default function Home() {
             >
               About
             </button>
-            <a 
-              href="https://github.com/habibixyz" 
-              target="_blank" 
-              rel="noopener noreferrer" 
-              className="nav-link text-secondary"
-            >
-              GitHub
-            </a>
-            <a 
-              href="https://x.com/ritmir11" 
-              target="_blank" 
-              rel="noopener noreferrer" 
-              className="nav-link text-secondary"
-            >
-              Twitter
-            </a>
           </div>
         </div>
       </nav>
@@ -868,8 +852,18 @@ export default function Home() {
               </div>
             </div>
 
+            {/* Social Links */}
+            <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-6 pb-12">
+              <a href="https://github.com/habibixyz" target="_blank" rel="noopener noreferrer" className="px-8 py-3 border border-white/10 hover:border-white/40 hover:bg-white/5 rounded-full text-[10px] tracking-[0.3em] uppercase text-white transition-all duration-300">
+                GitHub Profile
+              </a>
+              <a href="https://x.com/ritmir11" target="_blank" rel="noopener noreferrer" className="px-8 py-3 border border-white/10 hover:border-white/40 hover:bg-white/5 rounded-full text-[10px] tracking-[0.3em] uppercase text-white transition-all duration-300">
+                Twitter (X)
+              </a>
+            </div>
+
             {/* FAQ Codex */}
-            <div className="pt-10">
+            <div className="pt-10 border-t border-white/5">
               <h2 className="text-[10px] tracking-[0.3em] uppercase text-secondary mb-10 text-center">The Library Codex (FAQ)</h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-12">
                 {[
