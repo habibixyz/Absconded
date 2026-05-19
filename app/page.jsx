@@ -929,9 +929,14 @@ export default function Home() {
                 <p className="text-sm font-light text-secondary/70 mb-8 leading-relaxed">
                   The complete 45-minute manuscript exploring the quiet act of leaving the corporate timeline. Bound in matte black with foil-stamped typography.
                 </p>
-                <button className="w-full py-4 border border-white/10 hover:border-white/40 hover:bg-white/5 rounded-sm text-[10px] tracking-[0.3em] uppercase transition-all duration-300">
+                <a 
+                  href="https://tanizcold.gumroad.com/l/zqsnf" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="block text-center w-full py-4 border border-white/10 hover:border-white/40 hover:bg-white/5 rounded-sm text-[10px] tracking-[0.3em] uppercase transition-all duration-300"
+                >
                   Acquire Artifact
-                </button>
+                </a>
               </div>
             </div>
 
