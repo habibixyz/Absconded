@@ -1898,8 +1898,8 @@ export const books = [
   },
 {
   "id": "advice-never-published",
-  "type": "short-story",
-  "coverImage": "/absconded-cover.png",
+    "type": "short-story",
+    "coverImage": "/cover-advice.png",
   "title": "The Advice She Never Published",
   "subtitle": "Story I • Domestic Thriller",
   "coverQuote": "\"She spent twelve years telling other women to leave.\"",
@@ -2090,8 +2090,8 @@ export const books = [
 },
 {
   "id": "village-in-server",
-  "type": "short-story",
-  "coverImage": "/absconded-cover.png",
+    "type": "short-story",
+    "coverImage": "/cover-village.png",
   "title": "The Village in the Server",
   "subtitle": "Story II • Techno Mystery",
   "coverQuote": "\"One of the residents is her mother. One of them is already dead.\"",
@@ -2282,8 +2282,8 @@ export const books = [
 },
 {
   "id": "alibi-architect",
-  "type": "short-story",
-  "coverImage": "/absconded-cover.png",
+    "type": "short-story",
+    "coverImage": "/cover-alibi.png",
   "title": "The Alibi Architect",
   "subtitle": "Story III • Psychological Thriller",
   "coverQuote": "\"A ghostwriter hired to build a corporate founder's public identity discovers she has written him an alibi airtight enough to destroy her.\"",
@@ -2478,8 +2478,8 @@ export const books = [
 },
 {
   "id": "manuscript-saves-life",
-  "type": "short-story",
-  "coverImage": "/absconded-cover.png",
+    "type": "short-story",
+    "coverImage": "/cover-manuscript.png",
   "title": "This Manuscript Will Save Your Life",
   "subtitle": "Story IV • Meta-Thriller",
   "coverQuote": "\"A story that four people have written cannot be silenced by removing one of them.\"",
