@@ -929,14 +929,12 @@ export default function Home() {
                 <p className="text-sm font-light text-secondary/70 mb-8 leading-relaxed">
                   The complete 45-minute manuscript exploring the quiet act of leaving the corporate timeline. Bound in matte black with foil-stamped typography.
                 </p>
-                <a 
-                  href="https://tanizcold.gumroad.com/l/zqsnf" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="block text-center w-full py-4 border border-white/10 hover:border-white/40 hover:bg-white/5 rounded-sm text-[10px] tracking-[0.3em] uppercase transition-all duration-300"
+                <button 
+                  disabled
+                  className="w-full py-4 border border-white/5 bg-white/[0.02] text-secondary/40 cursor-not-allowed rounded-sm text-[10px] tracking-[0.3em] uppercase transition-all duration-300"
                 >
-                  Acquire Artifact
-                </a>
+                  Coming Soon
+                </button>
               </div>
             </div>
 
@@ -955,8 +953,11 @@ export default function Home() {
                 <p className="text-sm font-light text-secondary/70 mb-8 leading-relaxed">
                   The complete connected universe anthology. Four stories. Sixteen chapters. One world hiding behind all of them.
                 </p>
-                <button className="w-full py-4 border border-white/10 hover:border-white/40 hover:bg-white/5 rounded-sm text-[10px] tracking-[0.3em] uppercase transition-all duration-300">
-                  Acquire Artifact
+                <button 
+                  disabled
+                  className="w-full py-4 border border-white/5 bg-white/[0.02] text-secondary/40 cursor-not-allowed rounded-sm text-[10px] tracking-[0.3em] uppercase transition-all duration-300"
+                >
+                  Coming Soon
                 </button>
               </div>
             </div>
@@ -979,8 +980,11 @@ export default function Home() {
                 <p className="text-sm font-light text-secondary/70 mb-8 leading-relaxed">
                   A 100% organic cotton heavyweight t-shirt featuring subtle terminal logs from the VYRM ecosystem. Available exclusively in Vantablack.
                 </p>
-                <button className="w-full py-4 border border-white/10 hover:border-white/40 hover:bg-white/5 rounded-sm text-[10px] tracking-[0.3em] uppercase transition-all duration-300">
-                  Acquire Gear
+                <button 
+                  disabled
+                  className="w-full py-4 border border-white/5 bg-white/[0.02] text-secondary/40 cursor-not-allowed rounded-sm text-[10px] tracking-[0.3em] uppercase transition-all duration-300"
+                >
+                  Coming Soon
                 </button>
               </div>
             </div>
