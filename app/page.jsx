@@ -45,7 +45,7 @@ const timelineSignals = [
     id: 5,
     type: "LORE",
     date: "2026.05.14",
-    text: "The Vyrm organism is showing signs of autonomous identity formation in the latest simulation."
+    text: "The simulated organism is showing signs of autonomous identity formation in the latest simulation."
   },
   {
     id: 6,
@@ -274,7 +274,7 @@ export default function Home() {
     if (queryWords.length === 0) {
       return { 
         results: [], 
-        response: "Query terms are too short. Try searching for larger keywords like 'Mumbai', 'VYRM', or 'Crypto'." 
+        response: "Query terms are too short. Try searching for larger keywords like 'Mumbai', 'Signal', or 'Crypto'." 
       }
     }
 
@@ -340,8 +340,8 @@ export default function Home() {
     let synthesizedAnswer = ""
     const lowerQuery = rawQuery.toLowerCase()
 
-    if (lowerQuery.includes("vyrm") || lowerQuery.includes("organism") || lowerQuery.includes("simulation")) {
-      synthesizedAnswer = "VYRM is a cyber-existential concept running through the Signal Collection. First introduced in *Absconded* as 'VYRM.space'—a biotech-themed landing page representing synthetic internet lifeforms—it represents software that feels alive. Later, in *The Mask Beneath*, the Vyrm organism shows signs of autonomous identity formation. It represents the boundary where lines of code begin to develop memory, personality, and persistent hunger in an era of infinite generation."
+    if (lowerQuery.includes("signal") || lowerQuery.includes("organism") || lowerQuery.includes("simulation")) {
+      synthesizedAnswer = "The Signal Collection is a cyber-existential concept running through the digital manuscripts. First introduced in *Absconded* as 'absconded.space'—representing synthetic internet lifeforms—it represents software that feels alive. Later, in *The Mask Beneath*, the simulated organism shows signs of autonomous identity formation. It represents the boundary where lines of code begin to develop memory, personality, and persistent hunger in an era of infinite generation."
     } else if (lowerQuery.includes("tanvir") || lowerQuery.includes("khan") || lowerQuery.includes("author") || lowerQuery.includes("builder")) {
       synthesizedAnswer = "Tanvir Khan is a builder from Mumbai who spent years inside the traditional supply chain machine before quietly absconding into the internet. His journey, documented in *Absconded*, traces a transition from stable retail procurement to crypto speculation, AI experimentation, and high-fidelity builder identity. He advocates that 'Lore before product' is the ultimate way to create resonance in the internet era."
     } else if (lowerQuery.includes("corporate") || lowerQuery.includes("job") || lowerQuery.includes("career") || lowerQuery.includes("office") || lowerQuery.includes("manager") || lowerQuery.includes("supply chain")) {
@@ -361,7 +361,7 @@ export default function Home() {
       
       synthesizedAnswer = `Synthesizing neural signal across the library...\n\nAccording to the manuscripts, "${sentences[0]}" [1]\n\nFurther details show that "${sentences[1] || ""}" [2]\n\nFinally, as recorded in the logs, "${sentences[2] || ""}" [3]\n\nThis highlights the key thematic focus of the collection: escaping predefined roles and building internet-native structures.`
     } else {
-      synthesizedAnswer = "No strong signal could be synthesized for this query. The Vyrm database found no matching text blocks. Try searching for terms like 'VYRM', 'Mumbai', 'Corporate', 'Crypto', 'AI', or 'Tanvir'."
+      synthesizedAnswer = "No strong signal could be synthesized for this query. The Signal database found no matching text blocks. Try searching for terms like 'Signal', 'Mumbai', 'Corporate', 'Crypto', 'AI', or 'Tanvir'."
     }
 
     return { results: topResults, response: synthesizedAnswer }
@@ -629,15 +629,6 @@ export default function Home() {
               >
                 Begin Reading
               </button>
-              <a 
-                href="https://drive.google.com/file/d/1iRZ28pFDeh4cVHKnQLJpGVXqxrqjs-hz/view?usp=sharing" 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                className="px-12 py-4 border border-white/10 hover:border-white/30 hover:bg-white/5 rounded-full text-[10px] tracking-[0.3em] uppercase transition-all duration-500 flex items-center gap-2 text-secondary hover:text-white"
-              >
-                <span>Download Android App</span>
-                <span className="text-xs">↓</span>
-              </a>
             </div>
 
             <div className="mt-20 text-[9px] tracking-[0.2em] text-secondary/40 uppercase">
@@ -841,7 +832,7 @@ export default function Home() {
                 type="text"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                placeholder="Ask the Oracle (e.g., 'Why did Tanvir leave corporate life?' or 'What is VYRM?')..."
+                placeholder="Ask the Oracle (e.g., 'Why did Tanvir leave corporate life?' or 'What is the Signal?')..."
                 className="w-full bg-black/40 border border-white/10 focus:border-white/30 rounded-lg py-5 px-6 pr-32 text-sm text-white placeholder-secondary/40 outline-none transition-all duration-300"
               />
               <button 
@@ -973,7 +964,7 @@ export default function Home() {
                   Absconded is an evolving organism. The immediate future holds deeper integration of the Oracle—our semantic RAG engine—allowing readers to interrogate the fictions as if they were real databases. 
                 </p>
                 <p>
-                  I am also actively developing the VYRM ecosystem, a decentralized network where digital identities and assets blur the lines between reality and simulation. The library will continue to expand, introducing new threads, new protagonists, and perhaps, eventually, a bridge into physical installations.
+                  I am also actively developing the Absconded ecosystem, a decentralized network where digital identities and assets blur the lines between reality and simulation. The library will continue to expand, introducing new threads, new protagonists, and perhaps, eventually, a bridge into physical installations.
                 </p>
               </div>
             </div>
@@ -994,12 +985,8 @@ export default function Home() {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-12">
                 {[
                   {
-                    q: "How do I install the Android App?",
-                    a: "Download the APK and open it on your Android phone. You'll need to enable \"Install from Unknown Sources\" in your security settings — standard for any app outside the Play Store. Takes about 30 seconds."
-                  },
-                  {
                     q: "Is it free?",
-                    a: "Always. The manuscript is meant to be read, shared, and felt. The app just makes that experience more immersive — no browser chrome, no distractions, just the words."
+                    a: "Always. The manuscript is meant to be read, shared, and felt. The digital reader interface makes that experience more immersive — no distractions, just the words."
                   },
                   {
                     q: "What is Absconded actually about?",
@@ -1095,10 +1082,10 @@ export default function Home() {
                 </div>
               </div>
               <div className="p-8">
-                <h3 className="text-xl font-serif italic mb-2">VYRM Operative Gear</h3>
+                <h3 className="text-xl font-serif italic mb-2">Absconded Operative Gear</h3>
                 <p className="text-[9px] tracking-[0.2em] uppercase text-secondary mb-6">Heavyweight T-Shirt</p>
                 <p className="text-sm font-light text-secondary/70 mb-8 leading-relaxed">
-                  A 100% organic cotton heavyweight t-shirt featuring subtle terminal logs from the VYRM ecosystem. Available exclusively in Vantablack.
+                  A 100% organic cotton heavyweight t-shirt featuring subtle terminal logs from the Absconded ecosystem. Available exclusively in Vantablack.
                 </p>
                 <button 
                   disabled

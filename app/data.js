@@ -82,7 +82,7 @@ export const books = [
           },
           {
             "type": "p",
-            "text": "Solana charts flickered on one screen. A half-finished biotech-themed landing page sat open on another: VYRM.space. No real product yet. Just lore. Animated terminals. Organism-chain diagrams. Fake scientific classifications for synthetic internet lifeforms."
+            "text": "Solana charts flickered on one screen. A half-finished biotech-themed landing page sat open on another: absconded.space. No real product yet. Just lore. Animated terminals. Organism-chain diagrams. Fake scientific classifications for synthetic internet lifeforms."
           },
           {
             "type": "pull",
@@ -107,7 +107,7 @@ export const books = [
           },
           {
             "type": "pull",
-            "text": "That was the birth of VYRM. Not as a company, but as an atmosphere."
+            "text": "That was the birth of ABSCONDED. Not as a company, but as an atmosphere."
           },
           {
             "type": "p",
@@ -308,7 +308,7 @@ export const books = [
           },
           {
             "type": "p",
-            "text": "Tanvir Khan is still building. VYRM is still evolving. The terminal glow is still on. And if you can see the signal — build."
+            "text": "Tanvir Khan is still building. The signal is still evolving. The terminal glow is still on. And if you can see the signal — build."
           },
           {
             "type": "portrait",
@@ -2696,6 +2696,167 @@ export const books = [
           "type": "p",
           "text": "Riya saw the message first. She read it twice. Then she forwarded it to the others with a single line of her own: the reconciliation engine flagged a wallet address last week that I've been trying to trace. I think A is the reason I can't. I think he built the gap on purpose. I think he's been waiting for us to be ready to hear why."
         }
+      ]
+    }
+  ]
+},
+{
+  "id": "tethered",
+  "type": "manuscript",
+  "coverImage": "/tethered-cover.png",
+  "title": "Tethered",
+  "subtitle": "Ambition's Anchor",
+  "coverQuote": "\"A prompt is a prayer for bread in the internet era.\"",
+  "readingTime": "25 min",
+  "description": "An intimate chronicle of a builder absconding from corporate stability, balancing Web3 trading, AI prompts, and the physical anchor of fatherhood while his wife commutes four hours daily to keep the family afloat.",
+  "sections": [
+    {
+      "id": "prologue",
+      "number": 0,
+      "label": "Prologue",
+      "title": "The Trade",
+      "epigraph": "Every sandbox is built with borrowed sand.",
+      "content": [
+        { "type": "p", "text": "There is a quiet transaction that happens at 5:30 AM in Mumbai. Before the local trains swell with their first million bodies. Before the heat rises from the concrete. Before the screen lights up." },
+        { "type": "p", "text": "It's the sound of a front door clicking shut. It's the silent exchange of one person's exhaustion for another person's possibility." },
+        { "type": "pull", "text": "She carries the morning. I carry the glow of the monitor." }
+      ]
+    },
+    {
+      "id": "chapter-1",
+      "number": 1,
+      "label": "Chapter One",
+      "title": "The Four-Hour Arc",
+      "epigraph": "The silence of a house during a commute is heavier than any noise.",
+      "content": [
+        { "type": "p", "text": "My wife travels four hours daily to commute to her job. Nine hours at a desk in a glass box, flanked by two hours on a train in the morning and two hours back in the evening. She comes home tired in a way that sleep cannot easily fix." },
+        { "type": "p", "text": "She is the breadwinner now. She is the infrastructure of this household. While she is in transit, navigating the crushing density of the local lines, I sit in a quiet room, attempting to build a future out of text prompts and decentralized networks." },
+        { "type": "pull", "text": "The guilt of the builder is that his work looks like waiting." }
+      ]
+    },
+    {
+      "id": "chapter-2",
+      "number": 2,
+      "label": "Chapter Two",
+      "title": "The AI Sandbox",
+      "epigraph": "The sandbox is infinite, but the bread is finite.",
+      "content": [
+        { "type": "p", "text": "For eight months, I have been building projects with AI. Claude, Gemini, GPT—they are my co-founders. We write code, we generate layouts, we build deployment scripts. It feels like having a superpower, like I can outbuild an agency by myself." },
+        { "type": "p", "text": "But the internet does not care about how fast you can build a sandbox. It cares about whether anyone wants to play in it. You ship a product, and it disappears into the ambient noise of a million other AI-generated tools." },
+        { "type": "terminal", "text": "[ dev_session ] api_requests: 1,482 / successful_builds: 14 / active_users: 0 ]" },
+        { "type": "pull", "text": "AI makes building easy. It makes standing out nearly impossible." }
+      ]
+    },
+    {
+      "id": "chapter-3",
+      "number": 3,
+      "label": "Chapter Three",
+      "title": "Rekt on Solana",
+      "epigraph": "Web3 promises the editability of the world, but it mostly edits your balance.",
+      "content": [
+        { "type": "p", "text": "In the afternoon, I grind in Web3. I trade memecoins on Solana, chasing the green candles that shoot up in seconds, trying to catch the momentum of narratives born on Twitter." },
+        { "type": "p", "text": "It's a game of milliseconds and luck. Mostly, I get rekt. You watch a wallet balance rise, feel the sudden rush of hope that *this is the trade*, and then watch it evaporate in a single block as the creator pulls the liquidity pool." },
+        { "type": "terminal", "text": "[ sol_swap ] error: slippage exceeded / transaction failed / balance: 0.12 SOL" },
+        { "type": "pull", "text": "In crypto, you are either the signal or the exit liquidity." }
+      ]
+    },
+    {
+      "id": "chapter-4",
+      "number": 4,
+      "label": "Chapter Four",
+      "title": "The 2.5-Year Shift",
+      "epigraph": "A baby doesn't care about your startup's runway.",
+      "content": [
+        { "type": "p", "text": "Four years ago, I absconded from my last corporate job. Two and a half years ago, our daughter was born. Since then, my primary job has been taking care of her." },
+        { "type": "p", "text": "It is a landscape of diapers, milk bottles, and crawling transitions. It is hard as fuck. You cannot schedule an inspiration phase when a child needs to be fed. You cannot debug a codebase when she is crying." },
+        { "type": "pull", "text": "Fatherhood is the ultimate reality check. It anchors you to the earth when Web3 tries to pull you into the clouds." }
+      ]
+    },
+    {
+      "id": "chapter-5",
+      "number": 5,
+      "label": "Chapter Five",
+      "title": "The Silent Agreement",
+      "epigraph": "Trust is a contract written in exhaustion.",
+      "content": [
+        { "type": "p", "text": "My wife and I don't talk about the trade every day, but it sits between us. She works the traditional timeline so I can chase the internet timeline. She absorbs the fatigue of the train so I can absorb the ambiguity of the grind." },
+        { "type": "p", "text": "Every morning when she leaves, the house is quiet. The weight of her trust is heavier than any corporate OKR. If I fail, she keeps traveling four hours a day. If I make it, she stays home." },
+        { "type": "pull", "text": "The stakes of my code are not ARR. They are her commute." }
+      ]
+    },
+    {
+      "id": "chapter-6",
+      "number": 6,
+      "label": "Chapter Six",
+      "title": "The Rejection Stack",
+      "epigraph": "Rejection is just the default state of the transition phase.",
+      "content": [
+        { "type": "p", "text": "I am applying for jobs. Traditional jobs, remote jobs, Web3 contracts. The responses are a steady drumbeat of automated rejections. 'We've decided to move forward with other candidates.'" },
+        { "type": "p", "text": "The market is tight, and the gap on my resume—the years spent absconded, the years spent as a father—looks like inactivity to an HR algorithm. But it wasn't inactivity. It was the hardest grinding of my life." },
+        { "type": "terminal", "text": "[ inbox ] search: 'update' / matches: 47 / sentiment: negative ]" },
+        { "type": "pull", "text": "A resume is a corporate fiction. A builder's history is written in what he did when nobody was paying him." }
+      ]
+    },
+    {
+      "id": "chapter-7",
+      "number": 7,
+      "label": "Chapter Seven",
+      "title": "Grinding the Noise",
+      "epigraph": "You have to love the ambiguity, or the ambiguity will eat you alive.",
+      "content": [
+        { "type": "p", "text": "You wake up, you feed the baby, you check the charts, you prompt the model, you apply for three jobs, you write a smart contract, you watch the baby crawl. This is the loop. It is relentless, repetitive, and completely unvalidated by the outside world." },
+        { "type": "p", "text": "It is the conditioning phase. You learn to live in the space between action and result. You learn to handle getting rekt without losing the ability to build the next morning." },
+        { "type": "pull", "text": "The grind is not about speed. It is about how many times you can restart after a liquidation event." }
+      ]
+    },
+    {
+      "id": "chapter-8",
+      "number": 8,
+      "label": "Chapter Eight",
+      "title": "The Mumbai Monsoon",
+      "epigraph": "The rain falls on the corporate offices and the builder's room with the same indifference.",
+      "content": [
+        { "type": "p", "text": "When the monsoon arrives, the city floods. The trains run late. The internet connection flickers. The baby sits at the window, watching the rain wash the dust off the concrete." },
+        { "type": "p", "text": "My laptop runs hot against my thighs. The noise of the rain matches the white noise of the prompts. You are building in the dark, hoping the power doesn't cut out before the next git commit." },
+        { "type": "pull", "text": "The environment is indifferent. The city doesn't care if you make it. That's why it is honest." }
+      ]
+    },
+    {
+      "id": "chapter-9",
+      "number": 9,
+      "label": "Chapter Nine",
+      "title": "The Return",
+      "epigraph": "The sound of the key in the lock is the true index of the day.",
+      "content": [
+        { "type": "p", "text": "At 7:30 PM, the key turns. The door opens. My wife walks in, her face carrying the gray exhaust of the Mumbai local." },
+        { "type": "p", "text": "She drops her bags, and for a second, she looks like she might just lie down on the floor. But then our daughter runs to her, a small blur of energy, and my wife's face changes. The exhaustion doesn't go away, but it steps aside." },
+        { "type": "pull", "text": "She has completed her loop. Mine is still running." }
+      ]
+    },
+    {
+      "id": "chapter-10",
+      "number": 10,
+      "label": "Chapter Ten",
+      "title": "The Sandbox Shift",
+      "epigraph": "The signal isn't in the green candles. It's in the tether.",
+      "content": [
+        { "type": "p", "text": "I have not made it yet. I am still trading, still prompting, still applying, still changing diapers. But the nature of the grind has shifted." },
+        { "type": "p", "text": "I am not building for the vanity of the startup exit or the validation of the internet crowd. I am building to buy back four hours of transit. I am building to buy back the morning." },
+        { "type": "pull", "text": "Action produces confidence. Ambition tethered to responsibility is unbreakable." }
+      ]
+    },
+    {
+      "id": "epilogue",
+      "number": 11,
+      "label": "Epilogue",
+      "title": "The Real Signal",
+      "epigraph": "We build because the alternative is to let the timeline write itself.",
+      "content": [
+        { "type": "p", "text": "If you are reading this, maybe you are in a quiet room too, with too many browser tabs open, trying to make the bread, trying to find the signal in the Web3 noise." },
+        { "type": "p", "text": "It is hard as fuck. The market is indifferent, the recruiters are silent, and the charts are red. But the work is honest." },
+        { "type": "p", "text": "We keep prompting. We keep changing the diapers. We keep waiting for the key to turn in the lock. We keep building." },
+        { "type": "pull", "text": "The terminal glow is still on. And if you can see the signal — build." },
+        { "type": "portrait", "text": "author.png" }
       ]
     }
   ]
