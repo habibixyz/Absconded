@@ -121,6 +121,27 @@ export default function Home() {
     document.documentElement.setAttribute("data-theme", newTheme)
   }
 
+  // Dynamically update document title for SEO & UX browser tabs
+  useEffect(() => {
+    if (page === "book" && selectedBook) {
+      if (selectedChapter) {
+        document.title = `${selectedChapter.title} | ${selectedBook.title} - A Digital Manuscript by Tanvir Khan`
+      } else {
+        document.title = `${selectedBook.title} | The Signal Collection`
+      }
+    } else if (page === "oracle") {
+      document.title = `The Oracle | The Signal Collection`
+    } else if (page === "signals") {
+      document.title = `Signals Feed | The Signal Collection`
+    } else if (page === "about") {
+      document.title = `About the Builder | The Signal Collection`
+    } else if (page === "store") {
+      document.title = `The Storehouse | Physical Artifacts`
+    } else {
+      document.title = `ABSCONDED | A Builder's Evolution`
+    }
+  }, [page, selectedBook, selectedChapter])
+
   // Restore progress on mount
   useEffect(() => {
     const savedProgress = localStorage.getItem("absconded-progress")

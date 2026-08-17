@@ -12,12 +12,12 @@ export const viewport = {
 
 export const metadata = {
   title: 'ABSCONDED | A Builder\'s Evolution',
-  description: 'A premium digital manuscript by Tanvir Khan. A meditation on internet, ambition, and the process of becoming.',
+  description: 'A premium digital manuscript collection by Tanvir Khan, featuring Absconded and Tethered. A meditation on AI sandboxing, Web3 memecoins, ambition, fatherhood, and the process of becoming.',
   authors: [{ name: 'Tanvir Khan' }],
-  keywords: ['Digital Manuscript', 'Builder', 'Evolution', 'Internet', 'Mumbai', 'Essays', 'Book'],
+  keywords: ['Digital Manuscript', 'Builder', 'Evolution', 'Internet', 'Mumbai', 'Essays', 'Book', 'Tethered', 'AI Sandboxing', 'Solana Trading', 'Web3', 'Memecoins', 'Tanvir Khan'],
   openGraph: {
     title: 'ABSCONDED | A Builder\'s Evolution',
-    description: 'A premium digital manuscript by Tanvir Khan.',
+    description: 'A premium digital manuscript collection by Tanvir Khan, featuring Absconded and Tethered.',
     url: 'https://absconded-book.vercel.app',
     siteName: 'ABSCONDED',
     locale: 'en_US',
@@ -26,7 +26,7 @@ export const metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'ABSCONDED | A Builder\'s Evolution',
-    description: 'A premium digital manuscript by Tanvir Khan.',
+    description: 'A premium digital manuscript collection by Tanvir Khan, featuring Absconded and Tethered.',
     creator: '@ritmir11',
   },
   icons: {
