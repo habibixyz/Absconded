@@ -1,23 +1,41 @@
-# ABSCONDED - A Builder's Evolution
+# ABSCONDED - The Signal Collection
 
 > "Disappearing is easy. Becoming is the hard part."
 
-**ABSCONDED** is a premium digital manuscript experience by Tanvir Khan. It is a meditation on the internet, ambition, and the process of becoming, designed to be read as a high-end digital book.
+**ABSCONDED** is a premium digital manuscript reading platform and search engine built by **Tanvir Khan**. It acts as a digital library for his original long-form works, essays, and novels, designed for high-fidelity immersive reading.
 
-## 📖 The Reading Experience
+---
 
-- **Literary Aesthetics**: A clean, serif-based design using **Lora** and **Inter** for a professional book-like feel.
-- **Full Manuscript**: Includes the complete story—Prologue, 10 Chapters, and Epilogue.
-- **Next Read Navigation**: Seamless flow between sections designed for long-form reading.
-- **Atmospheric Blocks**: Custom-styled pull quotes and terminal-inspired logs that bring the narrative to life.
-- **SEO Optimized**: Advanced metadata for high-fidelity sharing on X (Twitter) and other platforms.
+## 📖 Features
+
+- **The Signal Collection Shelf**: 
+  - **Absconded**: A meditation on the internet, ambition, and the process of becoming (Prologue + 10 Chapters + Epilogue).
+  - **Tethered**: An intimate chronicle of a builder absconding from corporate stability, balancing Web3 trading, AI prompts, fatherhood, and his wife's grueling 4-hour commute (Prologue + 10 Chapters + Epilogue).
+  - **The Mask Beneath** & **What the City Knows**: Interactive companion manuscripts and short-form pieces.
+- **🎨 Interactive Custom Themes**: 
+  - Switch seamlessly between **OLED Dark** (deep obsidian and crisp text), **Paper Light** (warm cream and soft charcoal), and **Terminal Green** (retro glow green on black).
+- **💾 Reading Progress Persistence**: 
+  - Automatically saves your reading configuration (selected book, active chapter, cover status, and exact scroll position) to `localStorage` so you can resume exactly where you left off.
+- **🔮 The Oracle (AI Search)**: 
+  - A client-side context-aware RAG search and exploration interface. Users can search terms like *"diapers"*, *"AI sandbox"*, or *"commute"*, and the Oracle will answer, citing the matching manuscripts dynamically.
+- **📊 Vercel Analytics**: 
+  - Live performance and telemetry tracking.
+- **🔍 SEO Optimized**: 
+  - Advanced dynamic tab title adjustments and openGraph metadata for high-fidelity sharing on Twitter (X).
+
+---
 
 ## 🛠 Tech Stack
 
-- **Framework**: [Next.js 14](https://nextjs.org/)
-- **Styling**: Vanilla CSS (globals.css) + Tailwind CSS
-- **Typography**: Lora (Serif), Inter (Sans-Serif)
-- **Deployment**: [Vercel](https://vercel.com/)
+- **Core Framework**: [Next.js 14 (App Router)](https://nextjs.org/)
+- **Mobile Packaging**: [Capacitor](https://capacitorjs.com) (configured for Android build exports to `/out`)
+- **Telemetry & Traffic**: [@vercel/analytics](https://vercel.com/docs/analytics)
+- **Styling**: Vanilla CSS (globals.css design systems) + Tailwind CSS utilities
+- **Typography**: Google Fonts - Lora (Serif) & Inter (Sans-Serif)
+- **State & Sync**: HTML5 LocalStorage API for offline progress persistence
+- **Deployment**: [Vercel](https://vercel.com/) (Next.js serverless architecture)
+
+---
 
 ## 🚀 Getting Started
 
@@ -28,23 +46,27 @@
    npm install
    ```
 
-2. **Develop**:
+2. **Run Locally**:
    ```bash
    npm run dev
    ```
 
-3. **Deploy**:
-   The easiest way to deploy is to use the [Vercel CLI](https://vercel.com/cli):
+3. **Production Export & Build**:
    ```bash
-   vercel --prod
+   npm run build
    ```
+   *Note: Next.js is configured for static exports (`output: 'export'`), producing files in the `/out` directory suitable for both Capacitor Android builds and static hosting.*
 
-## 📂 Structure
+---
 
-- `app/page.jsx`: The core manuscript engine and content.
-- `app/globals.css`: The digital book design system.
-- `app/layout.jsx`: SEO, metadata, and root configuration.
-- `public/`: Static assets, including the downloadable `.docx` manuscript.
+## 📂 Project Structure
+
+- `app/page.jsx`: Core interface, shelf layout, theme switcher, progress persistence hooks, and the Oracle interface.
+- `app/layout.jsx`: Root layout, `@vercel/analytics` integration, and global SEO metadata.
+- `app/globals.css`: Customized theme variable systems and Tailwind utility overrides.
+- `app/data.js`: Central content database for the digital manuscripts.
+- `app/data/manuscripts.js`: Local fallback database for offline reading.
+- `public/`: Static cover images, icons, and sitemap configuration.
 
 ---
 
