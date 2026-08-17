@@ -105,6 +105,106 @@ export default function Home() {
   const [showCover, setShowCover] = useState(true)
   const [transitioning, setTransitioning] = useState(false)
   const [filter, setFilter] = useState("all") // "all", "manuscripts", "shorts"
+  const [theme, setTheme] = useState("oled")
+  const [isRestoring, setIsRestoring] = useState(true)
+
+  // Initialize and persist theme
+  useEffect(() => {
+    const savedTheme = localStorage.getItem("absconded-theme") || "oled"
+    setTheme(savedTheme)
+    document.documentElement.setAttribute("data-theme", savedTheme)
+  }, [])
+
+  const handleThemeChange = (newTheme) => {
+    setTheme(newTheme)
+    localStorage.setItem("absconded-theme", newTheme)
+    document.documentElement.setAttribute("data-theme", newTheme)
+  }
+
+  // Restore progress on mount
+  useEffect(() => {
+    const savedProgress = localStorage.getItem("absconded-progress")
+    let restoredScrollTop = 0
+
+    if (savedProgress) {
+      try {
+        const parsed = JSON.parse(savedProgress)
+        if (parsed.page) {
+          setPage(parsed.page)
+        }
+        if (parsed.bookId) {
+          const targetBook = books.find(b => b.id === parsed.bookId)
+          if (targetBook) {
+            setSelectedBook(targetBook)
+            if (parsed.chapterId) {
+              const targetChapter = targetBook.sections.find(c => c.id === parsed.chapterId)
+              if (targetChapter) {
+                setSelectedChapter(targetChapter)
+              }
+            }
+          }
+        }
+        setShowCover(parsed.showCover !== undefined ? parsed.showCover : true)
+        restoredScrollTop = parsed.scrollTop || 0
+      } catch (e) {
+        console.error("Failed to restore progress", e)
+      }
+    }
+
+    // Give Next.js a short delay to mount components before scrolling
+    setTimeout(() => {
+      setIsRestoring(false)
+      if (restoredScrollTop > 0) {
+        window.scrollTo({
+          top: restoredScrollTop,
+          behavior: "instant"
+        })
+      }
+    }, 150)
+  }, [])
+
+  // Persist reading progress and scroll position
+  useEffect(() => {
+    if (page === "book" && selectedBook && selectedChapter && !isRestoring) {
+      const handleScrollSave = () => {
+        const scrollTop = window.scrollY || document.documentElement.scrollTop
+        const progressData = {
+          page,
+          bookId: selectedBook.id,
+          chapterId: selectedChapter.id,
+          showCover,
+          scrollTop
+        }
+        localStorage.setItem("absconded-progress", JSON.stringify(progressData))
+      }
+
+      window.addEventListener("scroll", handleScrollSave, { passive: true })
+      handleScrollSave()
+
+      return () => window.removeEventListener("scroll", handleScrollSave)
+    } else if (!isRestoring) {
+      const currentProgress = localStorage.getItem("absconded-progress")
+      let bookId = null
+      let chapterId = null
+      let scrollTop = 0
+      if (currentProgress) {
+        try {
+          const parsed = JSON.parse(currentProgress)
+          bookId = parsed.bookId
+          chapterId = parsed.chapterId
+          scrollTop = parsed.scrollTop
+        } catch (e) {}
+      }
+      const progressData = {
+        page,
+        bookId,
+        chapterId,
+        showCover,
+        scrollTop: page === "book" ? scrollTop : 0
+      }
+      localStorage.setItem("absconded-progress", JSON.stringify(progressData))
+    }
+  }, [page, selectedBook, selectedChapter, showCover, isRestoring])
 
   // Oracle (RAG) States
   const [query, setQuery] = useState("")
@@ -269,8 +369,9 @@ export default function Home() {
 
   // Always reset scroll on key navigation transitions
   useEffect(() => {
+    if (isRestoring) return
     window.scrollTo(0, 0)
-  }, [page, selectedBook, selectedChapter, showCover])
+  }, [page, selectedBook, selectedChapter, showCover, isRestoring])
 
   // Custom premium screen fade out/in transition helper
   const navigate = (stateAction) => {
@@ -384,6 +485,25 @@ export default function Home() {
             >
               Storehouse
             </button>
+
+            {/* Theme switcher */}
+            <div className="flex items-center gap-2 border-l border-white/10 pl-3 sm:pl-6 ml-1 sm:ml-2 border-l-white/10">
+              <button 
+                onClick={() => handleThemeChange("oled")}
+                title="OLED Dark"
+                className={`w-3 h-3 rounded-full bg-[#050505] border transition-all duration-300 ${theme === "oled" ? "border-white scale-110" : "border-white/20 hover:scale-110"}`}
+              />
+              <button 
+                onClick={() => handleThemeChange("light")}
+                title="Paper Light"
+                className={`w-3 h-3 rounded-full bg-[#f8f5ee] border transition-all duration-300 ${theme === "light" ? "border-black scale-110" : "border-black/20 hover:scale-110"}`}
+              />
+              <button 
+                onClick={() => handleThemeChange("terminal")}
+                title="Terminal Green"
+                className={`w-3 h-3 rounded-full bg-[#0a0f0d] border border-[#00ff88]/30 transition-all duration-300 ${theme === "terminal" ? "border-[#00ff88] scale-110 shadow-[0_0_8px_#00ff88]" : "hover:scale-110"}`}
+              />
+            </div>
           </div>
         </div>
       </nav>
