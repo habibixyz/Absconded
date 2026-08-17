@@ -1,5 +1,6 @@
 import './globals.css'
 import AppInit from './components/AppInit'
+import { Analytics } from '@vercel/analytics/next'
 
 export const viewport = {
   width: 'device-width',
@@ -51,6 +52,7 @@ export default function RootLayout({ children }) {
       <body className="bg-bg text-text antialiased min-h-screen">
         <AppInit />
         {children}
+        <Analytics />
       </body>
     </html>
   )
