@@ -1002,6 +1002,19 @@ export default function Home() {
               </div>
             </div>
 
+            {/* Contact & Collaborations */}
+            <div>
+              <h2 className="text-[10px] tracking-[0.3em] uppercase text-secondary mb-6 border-b border-white/5 pb-4">Physical Editions & Collaborations</h2>
+              <div className="space-y-6 text-sm font-light text-secondary/90 leading-relaxed font-serif">
+                <p>
+                  If you are interested in acquiring a physical copy of the book, sponsoring the project, or placing bulk orders, feel free to reach out. I am open to partnerships with brands and organizations that resonate with the philosophy of the Signal Collection.
+                </p>
+                <p>
+                  Additionally, if you are a fellow writer or builder who wants to collaborate, explore business opportunities, or submit your own manuscript to be featured on this reader platform, contact me directly at <a href="mailto:tanizcoldz@gmail.com" className="text-white hover:text-white/80 border-b border-white/20 transition-colors">tanizcoldz@gmail.com</a>.
+                </p>
+              </div>
+            </div>
+
             {/* Social Links */}
             <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-6 pb-12">
               <a href="https://github.com/habibixyz/Absconded" target="_blank" rel="noopener noreferrer" className="px-8 py-3 border border-white/10 hover:border-white/40 hover:bg-white/5 rounded-full text-[10px] tracking-[0.3em] uppercase text-white transition-all duration-300">
