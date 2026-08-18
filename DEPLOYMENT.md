@@ -34,7 +34,8 @@ Your book is ready to ship. Follow one of these methods to go live in minutes.
    - Select your `absconded` repository
    - Click "Import"
    - Click "Deploy"
-   - **Done!** 🎉 Your site is live at `absconded.vercel.app`
+    - Done! My site is live at `absconded-book.vercel.app`
+    - Let's check that out!
 
 ---
 
@@ -58,7 +59,7 @@ vercel --prod
 ```
 
 Your site goes live immediately. You'll get a URL like:
-- Development: `absconded.vercel.app`
+- Development: `absconded-book.vercel.app`
 - Production: `your-custom-domain.com`
 
 ---
@@ -168,7 +169,7 @@ NEXT_PUBLIC_SITE_URL=http://localhost:3000
 
 For production, add in Vercel Dashboard:
 ```
-NEXT_PUBLIC_SITE_URL=https://absconded.vercel.app
+NEXT_PUBLIC_SITE_URL=https://absconded-book.vercel.app
 ```
 
 ---
@@ -219,7 +220,7 @@ After deployment:
 ## Next Steps
 
 ✅ **Once live:**
-- Share your unique URL: `absconded.vercel.app`
+- Share your unique URL: `absconded-book.vercel.app`
 - Social media: Instagram, Twitter, LinkedIn
 - Newsletter/Discord/communities
 - Personal website link

@@ -32,7 +32,7 @@ This guide ensures your premium digital manuscript is deployed correctly to Verc
 
 ## 📝 Post-Deployment Checklist
 
-- [ ] Verify the URL (e.g., `absconded.vercel.app`).
+- [ ] Verify the URL (e.g., `absconded-book.vercel.app`).
 - [ ] Check that the **Lora** and **Inter** fonts load correctly.
 - [ ] Test the **Download Manuscript** button in the chapter views.
 - [ ] Share the link on Twitter/X and verify the OpenGraph preview cards.

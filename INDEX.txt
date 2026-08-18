@@ -38,7 +38,7 @@ QUICKEST PATH
 2. Run: npm install
 3. Deploy: vercel --prod
 
-DONE! Your premium site is live at absconded.vercel.app ✓
+DONE! Your premium site is live at absconded-book.vercel.app ✓
 
 ================================================================================
 YOU ARE READY TO SHIP
