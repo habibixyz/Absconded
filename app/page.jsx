@@ -1004,8 +1004,8 @@ export default function Home() {
 
             {/* Social Links */}
             <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-6 pb-12">
-              <a href="https://github.com/habibixyz" target="_blank" rel="noopener noreferrer" className="px-8 py-3 border border-white/10 hover:border-white/40 hover:bg-white/5 rounded-full text-[10px] tracking-[0.3em] uppercase text-white transition-all duration-300">
-                GitHub Profile
+              <a href="https://github.com/habibixyz/Absconded" target="_blank" rel="noopener noreferrer" className="px-8 py-3 border border-white/10 hover:border-white/40 hover:bg-white/5 rounded-full text-[10px] tracking-[0.3em] uppercase text-white transition-all duration-300">
+                GitHub Repository
               </a>
               <a href="https://x.com/ritmir11" target="_blank" rel="noopener noreferrer" className="px-8 py-3 border border-white/10 hover:border-white/40 hover:bg-white/5 rounded-full text-[10px] tracking-[0.3em] uppercase text-white transition-all duration-300">
                 Twitter (X)
@@ -1136,7 +1136,7 @@ export default function Home() {
       <footer className="py-20 border-t border-white/5">
         <div className="max-w-4xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-8 text-[9px] tracking-[0.2em] text-secondary uppercase">
           <div className="flex gap-8">
-            <a href="https://github.com/habibixyz" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">GitHub</a>
+            <a href="https://github.com/habibixyz/Absconded" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">GitHub</a>
             <a href="https://x.com/ritmir11" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Twitter</a>
           </div>
           <div className="text-secondary/50">
