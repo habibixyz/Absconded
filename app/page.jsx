@@ -9,7 +9,7 @@ const timelineSignals = [
     id: 101,
     type: "CORE",
     date: "2026.08.18",
-    text: 'Signal Collection V: "THE TRENCHES: A Builder\'s Guide to Memecoin Survival" launched. The complete narrative manuscript, custom dark cover art, and semantic RAG search database are now fully live.'
+    text: 'Signal Collection V: "THE TRENCHES: A Builder\'s Guide to Memecoin Survival" launched. The complete narrative manuscript, custom dark cover art, and semantic RAG search engine are now fully live.'
   },
   {
     id: 100,
@@ -394,7 +394,7 @@ export default function Home() {
       
       synthesizedAnswer = `Synthesizing neural signal across the library...\n\nAccording to the manuscripts, "${sentences[0]}" [1]\n\nFurther details show that "${sentences[1] || ""}" [2]\n\nFinally, as recorded in the logs, "${sentences[2] || ""}" [3]\n\nThis highlights the key thematic focus of the collection: escaping predefined roles and building internet-native structures.`
     } else {
-      synthesizedAnswer = "No strong signal could be synthesized for this query. The Signal database found no matching text blocks. Try searching for terms like 'Signal', 'Mumbai', 'Corporate', 'Crypto', 'AI', or 'Tanvir'."
+      synthesizedAnswer = "No strong signal could be synthesized for this query. The Signal search engine found no matching text blocks. Try searching for terms like 'Signal', 'Mumbai', 'Corporate', 'Crypto', 'AI', or 'Tanvir'."
     }
 
     return { results: topResults, response: synthesizedAnswer }
@@ -849,7 +849,7 @@ export default function Home() {
           <div className="mb-12 p-4 border border-white/5 rounded-sm bg-white/[0.01] flex flex-wrap justify-between items-center gap-4 text-[9px] tracking-[0.2em] uppercase text-secondary/60">
             <div className="flex items-center gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-              <span>Status: Oracle Database Online</span>
+              <span>Status: Oracle Search Engine Online</span>
             </div>
             <div className="flex gap-4 sm:gap-6">
               <span>Indexed: {books.length} Books</span>
@@ -994,7 +994,7 @@ export default function Home() {
               <h2 className="text-[10px] tracking-[0.3em] uppercase text-secondary mb-6 border-b border-white/5 pb-4">What's Next for Absconded</h2>
               <div className="space-y-6 text-sm font-light text-secondary/90 leading-relaxed font-serif">
                 <p>
-                  Absconded is an evolving organism. The immediate future holds deeper integration of the Oracle—our semantic RAG engine—allowing readers to interrogate the fictions as if they were real databases. 
+                  Absconded is an evolving book. The immediate future holds deeper integration of the Oracle—our semantic RAG engine—allowing readers to interrogate the book as if it were a real database. 
                 </p>
                 <p>
                   I am also actively developing the Absconded ecosystem, a decentralized network where digital identities and assets blur the lines between reality and simulation. The library will continue to expand, introducing new threads, new protagonists, and perhaps, eventually, a bridge into physical installations.
