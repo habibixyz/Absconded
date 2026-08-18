@@ -6,6 +6,18 @@ import { books } from './data'
 // Timeline Signals Log for the Developer Signals Feed
 const timelineSignals = [
   {
+    id: 101,
+    type: "CORE",
+    date: "2026.08.18",
+    text: 'Signal Collection V: "THE TRENCHES: A Builder\'s Guide to Memecoin Survival" launched. The complete narrative manuscript, custom dark cover art, and semantic RAG search database are now fully live.'
+  },
+  {
+    id: 100,
+    type: "CORE",
+    date: "2026.08.18",
+    text: 'Signal Collection IV: "Tethered: Ambition\'s Anchor" launched. The intimate, long-form manuscript detailing the builder\'s journey, AI sandbox grind, and the physical reality of a 4-hour commute is now live on the shelf.'
+  },
+  {
     id: 99,
     type: "CORE",
     date: "2026.05.19",
