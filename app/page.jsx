@@ -747,6 +747,13 @@ export default function Home() {
 
               <div className="space-y-10">
                 {selectedChapter.content.map((block, t) => {
+                  if (block.type === "heading") {
+                    return (
+                      <h3 key={t} className="book-heading">
+                        {block.text}
+                      </h3>
+                    )
+                  }
                   if (block.type === "p") {
                     return (
                       <p 
