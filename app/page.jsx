@@ -6,6 +6,12 @@ import { books } from './data'
 // Timeline Signals Log for the Developer Signals Feed
 const timelineSignals = [
   {
+    id: 104,
+    type: "UI",
+    date: "2026.08.23",
+    text: 'Redesigned site navigation header into a global responsive fullscreen hamburger overlay for mobile, tablet, and desktop viewports.'
+  },
+  {
     id: 103,
     type: "UI",
     date: "2026.08.22",
@@ -132,6 +138,7 @@ export default function Home() {
   const [theme, setTheme] = useState("oled")
   const [isRestoring, setIsRestoring] = useState(true)
   const [copied, setCopied] = useState(false)
+  const [menuOpen, setMenuOpen] = useState(false)
 
   // Initialize and persist theme
   useEffect(() => {
@@ -139,6 +146,18 @@ export default function Home() {
     setTheme(savedTheme)
     document.documentElement.setAttribute("data-theme", savedTheme)
   }, [])
+
+  // Disable body scroll when menu is open
+  useEffect(() => {
+    if (menuOpen) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = ''
+    }
+    return () => {
+      document.body.style.overflow = ''
+    }
+  }, [menuOpen])
 
   const handleThemeChange = (newTheme) => {
     setTheme(newTheme)
@@ -470,19 +489,20 @@ export default function Home() {
       {isReading && <ScrollProgressBar content={selectedChapter.content} />}
 
       {/* Navigation */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-bg/80 backdrop-blur-md border-b border-white/5">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-4 sm:py-6 flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-0">
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-bg/85 backdrop-blur-md border-b border-white/5">
+        <div className="max-w-6xl mx-auto px-6 py-5 flex items-center justify-between">
           <button 
             onClick={() => {
               navigate(() => {
                 setPage("library");
                 setSelectedBook(null);
                 setSelectedChapter(null);
+                setMenuOpen(false);
               });
             }}
-            className="text-[8px] sm:text-[10px] tracking-[0.15em] sm:tracking-[0.3em] uppercase font-light hover:text-white transition-colors duration-300 text-secondary whitespace-nowrap"
+            className="text-[10px] tracking-[0.3em] uppercase font-light hover:text-white transition-colors duration-300 text-secondary whitespace-nowrap z-[60]"
           >
-            Absconded<span className="hidden sm:inline"> Library</span>
+            Absconded Library
           </button>
 
           {/* Reading Context indicator on Desktop */}
@@ -500,59 +520,123 @@ export default function Home() {
             </div>
           )}
 
-          <div className="flex gap-3 sm:gap-6 items-center">
-            <button 
-              onClick={() => { navigate(() => { setPage("library"); setSelectedBook(null); }); }}
-              className={`nav-link ${page === "library" ? "text-white" : "text-secondary"}`}
-            >
-              Shelf
-            </button>
-            <button 
-              onClick={() => { navigate(() => { setPage("oracle"); setSelectedBook(null); }); }}
-              className={`nav-link ${page === "oracle" ? "text-white" : "text-secondary"}`}
-            >
-              Oracle
-            </button>
-            <button 
-              onClick={() => { navigate(() => { setPage("signals"); setSelectedBook(null); }); }}
-              className={`nav-link ${page === "signals" ? "text-white" : "text-secondary"}`}
-            >
-              Signals
-            </button>
-            <button 
-              onClick={() => { navigate(() => { setPage("about"); setSelectedBook(null); }); }}
-              className={`nav-link ${page === "about" ? "text-white" : "text-secondary"}`}
-            >
-              About
-            </button>
-            <button 
-              onClick={() => { navigate(() => { setPage("store"); setSelectedBook(null); }); }}
-              className={`nav-link ${page === "store" ? "text-white" : "text-secondary"}`}
-            >
-              Storehouse
-            </button>
-
-            {/* Theme switcher */}
-            <div className="flex items-center gap-2 border-l border-white/10 pl-3 sm:pl-6 ml-1 sm:ml-2 border-l-white/10">
-              <button 
-                onClick={() => handleThemeChange("oled")}
-                title="OLED Dark"
-                className={`w-3 h-3 rounded-full bg-[#050505] border transition-all duration-300 ${theme === "oled" ? "border-white scale-110" : "border-white/20 hover:scale-110"}`}
-              />
-              <button 
-                onClick={() => handleThemeChange("light")}
-                title="Paper Light"
-                className={`w-3 h-3 rounded-full bg-[#f8f5ee] border transition-all duration-300 ${theme === "light" ? "border-black scale-110" : "border-black/20 hover:scale-110"}`}
-              />
-              <button 
-                onClick={() => handleThemeChange("terminal")}
-                title="Terminal Green"
-                className={`w-3 h-3 rounded-full bg-[#0a0f0d] border border-[#00ff88]/30 transition-all duration-300 ${theme === "terminal" ? "border-[#00ff88] scale-110 shadow-[0_0_8px_#00ff88]" : "hover:scale-110"}`}
-              />
-            </div>
-          </div>
+          {/* Hamburger Trigger */}
+          <button 
+            onClick={() => setMenuOpen(!menuOpen)}
+            className="relative w-8 h-8 flex flex-col justify-center items-center group z-[60] focus:outline-none"
+            aria-label="Toggle Menu"
+          >
+            <span 
+              style={{ backgroundColor: 'var(--text)' }}
+              className={`block w-6 h-[1.5px] transition-all duration-300 ease-out absolute ${
+                menuOpen ? "rotate-45" : "-translate-y-1.5"
+              }`} 
+            />
+            <span 
+              style={{ backgroundColor: 'var(--text)' }}
+              className={`block w-6 h-[1.5px] transition-all duration-300 ease-out absolute ${
+                menuOpen ? "opacity-0" : "opacity-100"
+              }`} 
+            />
+            <span 
+              style={{ backgroundColor: 'var(--text)' }}
+              className={`block w-6 h-[1.5px] transition-all duration-300 ease-out absolute ${
+                menuOpen ? "-rotate-45" : "translate-y-1.5"
+              }`} 
+            />
+          </button>
         </div>
       </nav>
+
+      {/* Full-Screen Overlay Navigation Menu */}
+      <div 
+        className={`fixed inset-0 z-40 bg-bg/95 backdrop-blur-xl transition-all duration-500 ease-in-out flex flex-col justify-between p-8 sm:p-16 ${
+          menuOpen ? "opacity-100 pointer-events-auto visible" : "opacity-0 pointer-events-none invisible"
+        }`}
+      >
+        {/* Decorative Grid Lines */}
+        <div className="absolute inset-0 bg-[linear-gradient(var(--border)_1px,transparent_1px),linear-gradient(90deg,var(--border)_1px,transparent_1px)] bg-[size:40px_40px] opacity-[0.15] pointer-events-none" />
+        
+        <div className="h-16" />
+
+        {/* Navigation Links */}
+        <div className="flex flex-col gap-6 sm:gap-8 max-w-xl mx-auto w-full justify-center flex-1 z-10">
+          {[
+            { label: "Shelf", value: "library" },
+            { label: "Oracle", value: "oracle" },
+            { label: "Signals Feed", value: "signals" },
+            { label: "About", value: "about" },
+            { label: "Storehouse", value: "store" }
+          ].map((link, idx) => (
+            <button
+              key={link.value}
+              onClick={() => {
+                navigate(() => {
+                  setPage(link.value);
+                  setSelectedBook(null);
+                  setSelectedChapter(null);
+                  setMenuOpen(false);
+                });
+              }}
+              className="group text-left flex items-baseline gap-4 outline-none"
+            >
+              <span className="text-[10px] sm:text-xs font-mono text-secondary tracking-widest opacity-40">
+                0{idx + 1}
+              </span>
+              <span className={`text-3xl sm:text-5xl font-serif italic tracking-wide transition-all duration-300 relative ${
+                page === link.value ? "text-white" : "text-secondary hover:text-white"
+              }`}>
+                {link.label}
+                <span className={`absolute bottom-0 left-0 right-0 h-[1px] bg-white transition-all duration-500 origin-left scale-x-0 group-hover:scale-x-100 ${
+                  page === link.value ? "scale-x-100" : ""
+                }`} />
+              </span>
+            </button>
+          ))}
+        </div>
+
+        {/* Theme Switcher & Details */}
+        <div className="max-w-xl mx-auto w-full border-t border-white/5 pt-8 flex flex-col sm:flex-row items-center justify-between gap-6 z-10">
+          <div className="flex flex-col gap-2">
+            <span className="text-[8px] tracking-[0.3em] uppercase text-secondary">Aesthetic Interface Mode</span>
+            <div className="flex items-center gap-3">
+              <button 
+                onClick={() => handleThemeChange("oled")}
+                className={`flex items-center gap-1.5 text-[9px] tracking-[0.2em] uppercase transition-all ${
+                  theme === "oled" ? "text-white font-bold" : "text-secondary hover:text-white"
+                }`}
+              >
+                <span className="w-1.5 h-1.5 rounded-full bg-black border border-white/40" />
+                OLED Dark
+              </button>
+              <span className="text-white/10">|</span>
+              <button 
+                onClick={() => handleThemeChange("light")}
+                className={`flex items-center gap-1.5 text-[9px] tracking-[0.2em] uppercase transition-all ${
+                  theme === "light" ? "text-black font-bold" : "text-secondary hover:text-white"
+                }`}
+              >
+                <span className="w-1.5 h-1.5 rounded-full bg-[#f8f5ee] border border-black/40" />
+                Paper Light
+              </button>
+              <span className="text-white/10">|</span>
+              <button 
+                onClick={() => handleThemeChange("terminal")}
+                className={`flex items-center gap-1.5 text-[9px] tracking-[0.2em] uppercase transition-all ${
+                  theme === "terminal" ? "text-white font-bold" : "text-secondary hover:text-white"
+                }`}
+              >
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-950 border border-[#00ff88]/30" />
+                Terminal
+              </button>
+            </div>
+          </div>
+          
+          <div className="text-[8px] tracking-[0.2em] uppercase text-secondary/60 text-center sm:text-right">
+            ABSCONDED ARCHIVE · 2026
+          </div>
+        </div>
+      </div>
 
       {/* View 1: Shelf (Library) */}
       {page === "library" && (

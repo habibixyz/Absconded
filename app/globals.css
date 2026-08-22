@@ -68,6 +68,30 @@
 [data-theme="light"] .text-white {
   color: #000000 !important;
 }
+[data-theme="light"] .text-white\/95 {
+  color: rgba(0, 0, 0, 0.95) !important;
+}
+[data-theme="light"] .text-white\/90 {
+  color: rgba(0, 0, 0, 0.9) !important;
+}
+[data-theme="light"] .text-white\/80 {
+  color: rgba(0, 0, 0, 0.8) !important;
+}
+[data-theme="light"] .text-white\/60 {
+  color: rgba(0, 0, 0, 0.6) !important;
+}
+[data-theme="light"] .text-white\/40 {
+  color: rgba(0, 0, 0, 0.4) !important;
+}
+[data-theme="light"] .text-white\/20 {
+  color: rgba(0, 0, 0, 0.2) !important;
+}
+[data-theme="light"] .text-white\/10 {
+  color: rgba(0, 0, 0, 0.1) !important;
+}
+[data-theme="light"] .text-bg {
+  color: #1c1c1a !important;
+}
 [data-theme="light"] .group-hover\:text-white:hover {
   color: #000000 !important;
 }
@@ -97,6 +121,9 @@
 }
 [data-theme="light"] .bg-bg\/80 {
   background-color: rgba(248, 246, 240, 0.8) !important;
+}
+[data-theme="light"] .bg-bg\/95 {
+  background-color: rgba(248, 246, 240, 0.95) !important;
 }
 [data-theme="light"] .hover\:bg-white\/5:hover {
   background-color: rgba(0, 0, 0, 0.05) !important;
@@ -140,12 +167,27 @@
 [data-theme="terminal"] .bg-bg\/80 {
   background-color: rgba(10, 15, 13, 0.8) !important;
 }
+[data-theme="terminal"] .bg-bg\/95 {
+  background-color: rgba(10, 15, 13, 0.95) !important;
+}
 [data-theme="terminal"] .hover\:bg-white\/5:hover {
   background-color: rgba(0, 255, 136, 0.08) !important;
 }
 [data-theme="terminal"] .hover\:bg-white:hover {
   background-color: #00ff88 !important;
   color: #0a0f0d !important;
+}
+
+/* 6. Layout Component overrides for light theme */
+[data-theme="light"] .pull-quote {
+  color: rgba(28, 28, 26, 0.85) !important;
+  border-left-color: rgba(28, 28, 26, 0.15) !important;
+  background: linear-gradient(90deg, rgba(28, 28, 26, 0.025), transparent) !important;
+}
+[data-theme="light"] .terminal-block {
+  background: rgba(0, 0, 0, 0.03) !important;
+  border-color: rgba(0, 0, 0, 0.08) !important;
+  color: #1b4d3e !important;
 }
 
 * {
