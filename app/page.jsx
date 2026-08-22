@@ -6,6 +6,12 @@ import { books } from './data'
 // Timeline Signals Log for the Developer Signals Feed
 const timelineSignals = [
   {
+    id: 102,
+    type: "CORE",
+    date: "2026.08.21",
+    text: 'Signal Collection VI: "The Signal and the Stairs: Notes on Building Yourself Back From the Bottom Floor" launched. The complete narrative manuscript, custom cover art, and reading interface are now fully live.'
+  },
+  {
     id: 101,
     type: "CORE",
     date: "2026.08.18",

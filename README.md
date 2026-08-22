@@ -11,6 +11,7 @@
 - **The Signal Collection Shelf**: 
   - **Absconded**: A meditation on the internet, ambition, and the process of becoming (Prologue + 10 Chapters + Epilogue).
   - **Tethered**: An intimate chronicle of a builder absconding from corporate stability, balancing Web3 trading, AI prompts, fatherhood, and his wife's grueling 4-hour commute (Prologue + 10 Chapters + Epilogue).
+  - **The Signal and the Stairs**: Notes on building yourself back from the bottom floor (Introduction + 14 Chapters + Epilogue).
   - **The Mask Beneath** & **What the City Knows**: Interactive companion manuscripts and short-form pieces.
 - **🎨 Interactive Custom Themes**: 
   - Switch seamlessly between **OLED Dark** (deep obsidian and crisp text), **Paper Light** (warm cream and soft charcoal), and **Terminal Green** (retro glow green on black).
