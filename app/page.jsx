@@ -6,6 +6,12 @@ import { books } from './data'
 // Timeline Signals Log for the Developer Signals Feed
 const timelineSignals = [
   {
+    id: 103,
+    type: "UI",
+    date: "2026.08.22",
+    text: 'Added Solana tip box (Buy Me a Coffee) to the "Behind the Signal" section using address B1GuATf6HZKnv34syU77pqLuRocjLq7rYFLZYnoGQTkS.'
+  },
+  {
     id: 102,
     type: "CORE",
     date: "2026.08.21",
@@ -125,6 +131,7 @@ export default function Home() {
   const [filter, setFilter] = useState("all") // "all", "manuscripts", "shorts"
   const [theme, setTheme] = useState("oled")
   const [isRestoring, setIsRestoring] = useState(true)
+  const [copied, setCopied] = useState(false)
 
   // Initialize and persist theme
   useEffect(() => {
@@ -1025,6 +1032,33 @@ export default function Home() {
                 <p>
                   Additionally, if you are a fellow writer or builder who wants to collaborate, explore business opportunities, or submit your own manuscript to be featured on this reader platform, contact me directly at <a href="mailto:tanizcoldz@gmail.com" className="text-white hover:text-white/80 border-b border-white/20 transition-colors">tanizcoldz@gmail.com</a>.
                 </p>
+              </div>
+            </div>
+
+            {/* Solana Tip Box */}
+            <div className="p-8 border border-white/5 hover:border-white/10 rounded-sm bg-white/[0.01] hover:bg-white/[0.02] transition-all duration-300 relative overflow-hidden">
+              <h2 className="text-[10px] tracking-[0.3em] uppercase text-secondary mb-4">Support the Builder (Buy Me a Coffee)</h2>
+              <p className="text-xs font-light text-secondary/70 mb-6 leading-relaxed">
+                If you resonate with the manuscripts, the essays, or the tools within this archive, feel free to support my work directly by sending a tip. All contributions directly fund the production of future Signal Collections.
+              </p>
+              
+              <div className="flex flex-col sm:flex-row items-center gap-4">
+                <div className="w-full font-mono text-[10px] tracking-[0.05em] py-3.5 px-4 bg-black/40 border border-white/10 rounded-md text-white flex items-center justify-between gap-4 break-all">
+                  <div className="flex items-center gap-2 select-all overflow-hidden text-ellipsis whitespace-nowrap">
+                    <span className="text-emerald-500 font-bold text-[8px] uppercase tracking-widest border border-emerald-500/20 bg-emerald-500/5 px-2 py-0.5 rounded">SOL</span>
+                    <span className="text-secondary/90">B1GuATf6HZKnv34syU77pqLuRocjLq7rYFLZYnoGQTkS</span>
+                  </div>
+                  <button 
+                    onClick={() => {
+                      navigator.clipboard.writeText("B1GuATf6HZKnv34syU77pqLuRocjLq7rYFLZYnoGQTkS");
+                      setCopied(true);
+                      setTimeout(() => setCopied(false), 2000);
+                    }}
+                    className="px-4 py-1.5 bg-white text-bg hover:bg-white/90 rounded text-[8px] tracking-[0.2em] uppercase font-bold transition-all shrink-0 active:scale-95"
+                  >
+                    {copied ? "Copied" : "Copy"}
+                  </button>
+                </div>
               </div>
             </div>
 
