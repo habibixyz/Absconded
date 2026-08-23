@@ -2,7 +2,7 @@
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
-  output: 'export',
+  ...(process.env.EXPORT_BUILD === 'true' ? { output: 'export' } : {}),
   images: {
     unoptimized: true,
   },

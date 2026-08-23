@@ -162,13 +162,16 @@ export default function Home() {
   // Fetch book reader stats
   useEffect(() => {
     fetch('/api/stats')
-      .then(res => res.json())
+      .then(res => {
+        if (!res.ok) throw new Error("API not available");
+        return res.json();
+      })
       .then(data => {
         if (data && data.stats) {
           setBookStats(data.stats)
         }
       })
-      .catch(err => console.error("Error fetching stats:", err))
+      .catch(err => console.log("Stats API bypassed (running locally/mobile):", err.message))
   }, [])
 
 
