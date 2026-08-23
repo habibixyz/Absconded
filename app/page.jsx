@@ -124,8 +124,20 @@ function ScrollProgressBar({ content }) {
 // Calculates reading time of a chapter based on average reading speed
 function calculateReadingTime(content) {
   if (!content) return "< 1 min"
-  const words = content.map(block => block.text || "").join(" ").split(/\s+/).length
+  const words = content.map(block => block.text || "").join(" ").split(/\s+/).filter(Boolean).length
   return `${Math.ceil(words / 220)} min read`
+}
+
+function calculateBookReadingTime(book) {
+  if (!book || !book.sections) return "0 min"
+  let totalWords = 0
+  book.sections.forEach(section => {
+    if (section.content) {
+      totalWords += section.content.map(block => block.text || "").join(" ").split(/\s+/).filter(Boolean).length
+    }
+  })
+  const minutes = Math.ceil(totalWords / 220)
+  return `${minutes} min`
 }
 
 export default function Home() {
@@ -694,11 +706,9 @@ export default function Home() {
                       <span className="text-[8px] tracking-[0.2em] uppercase text-secondary/80 border border-white/10 px-3 py-1 bg-bg/60 backdrop-blur-sm">
                         {book.type === "manuscript" ? "Manuscript" : "Short Story"}
                       </span>
-                      {book.readingTime && (
-                        <span className="text-[8px] tracking-[0.2em] uppercase text-secondary/60 border border-white/10 px-3 py-1 bg-bg/60 backdrop-blur-sm">
-                          {book.readingTime}
-                        </span>
-                      )}
+                      <span className="text-[8px] tracking-[0.2em] uppercase text-secondary/60 border border-white/10 px-3 py-1 bg-bg/60 backdrop-blur-sm">
+                        {calculateBookReadingTime(book)} read
+                      </span>
                     </div>
                   </div>
                   <p className="text-sm font-light text-secondary leading-relaxed">{book.description}</p>
@@ -745,7 +755,7 @@ export default function Home() {
       {page === "book" && selectedBook && showCover && (
         <section className="min-h-screen flex items-center justify-center px-6 pt-20 fade-in">
           <div className="text-center max-w-2xl">
-            <p className="text-[9px] tracking-[0.4em] uppercase text-secondary mb-10">{selectedBook.subtitle}</p>
+            <p className="text-[9px] tracking-[0.4em] uppercase text-secondary mb-10">{selectedBook.subtitle} · {calculateBookReadingTime(selectedBook)} read</p>
             <h1 className="text-6xl md:text-8xl font-serif italic mb-8 tracking-tight leading-none">{selectedBook.title}</h1>
             <div className="w-16 h-[1px] bg-white/20 mx-auto mb-12" />
             <div className="mb-16 text-secondary font-light leading-relaxed font-serif italic text-lg">
@@ -780,7 +790,7 @@ export default function Home() {
             </button>
           </div>
 
-          <h2 className="text-xs uppercase tracking-[0.4em] text-secondary mb-4">Manuscript Index</h2>
+          <h2 className="text-xs uppercase tracking-[0.4em] text-secondary mb-4">Manuscript Index · {calculateBookReadingTime(selectedBook)} total read</h2>
           <p className="font-serif italic text-2xl mb-16">{selectedBook.title}</p>
           
           <div className="space-y-2">
@@ -831,7 +841,7 @@ export default function Home() {
                 {selectedChapter.title}
               </h1>
               <div className="mt-4 text-[9px] tracking-[0.2em] text-secondary/40 uppercase">
-                {calculateReadingTime(selectedChapter.content)}
+                {calculateReadingTime(selectedChapter.content)} chapter read
               </div>
             </header>
 

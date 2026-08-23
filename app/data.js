@@ -842,6 +842,78 @@ export const books = [
             "text": "The three of them stayed at that table until 4 AM while Noor walked them through every architectural decision she had made differently. And Mumbai, which had been holding them all in its particular gravity, released something — just slightly — like a pressure valve finally turned."
           }
         ]
+      },
+      {
+        "id": "chapter-4",
+        "number": 4,
+        "label": "Chapter Four",
+        "title": "What You Can't File",
+        "content": [
+          {
+            "type": "p",
+            "text": "They called a lawyer at 7 AM. A college friend of Zaid's who now worked at a small IP firm in Lower Parel. He listened for twelve minutes without speaking. Then he asked one question: was the original company formally dissolved?"
+          },
+          {
+            "type": "p",
+            "text": "Zaid said: we just stopped. There was a Slack message. There was a wire transfer."
+          },
+          {
+            "type": "p",
+            "text": "The lawyer said: so there's no clear IP ownership because the entity never formally wound down, which means the code's legal status is genuinely ambiguous, which means suing the logistics company would take four to six years and cost more than any of you have, and the result is not guaranteed even if you win."
+          },
+          {
+            "type": "p",
+            "text": "He paused. Then he said: my honest advice? Do nothing. Or do something quiet."
+          },
+          {
+            "type": "p",
+            "text": "Meher asked what something quiet meant."
+          },
+          {
+            "type": "p",
+            "text": "He said: Noor is currently the director of record for the implementation contract. Which means she could, if she chose, renegotiate her fees to reflect the actual value she delivered. The logistics company doesn't know she didn't build it from scratch. They have no reason to ask."
+          },
+          {
+            "type": "pull",
+            "text": "Noor had not spoken the entire call. She was twenty-six and she was looking at the table and she said: I never did it for the money. I did it because I watched Meher sit at our kitchen table and not eat for four days."
+          },
+          {
+            "type": "p",
+            "text": "Nobody said anything after that for a while."
+          }
+        ]
+      },
+      {
+        "id": "chapter-5",
+        "number": 5,
+        "label": "Chapter Five",
+        "title": "Kin Is What You Carry Forward",
+        "content": [
+          {
+            "type": "p",
+            "text": "Noor did renegotiate. Not by much — she was not built for confrontation, which Meher found devastating and familiar in equal measure. But enough that she was no longer running a logistics system processing ₹40 crore a day for a fee that assumed she was a junior contractor."
+          },
+          {
+            "type": "p",
+            "text": "The logistics company did not push back. This told Meher something about how undervalued Noor had been. And something else — about what the company had known, somewhere in the back of its institutional mind, about the strangeness of the arrangement."
+          },
+          {
+            "type": "p",
+            "text": "Meher and Zaid did not register a new company. They did not formalise anything. Zaid went back to Bangalore. Meher went back to her contract audit work. Noor continued doing what she had been doing, except now she called Meher on Thursdays — not about the code, just to call."
+          },
+          {
+            "type": "p",
+            "text": "Six months later, Meher was doing a routine contract review when she found another wallet address that looked like Zaid's work. It wasn't. It was Noor's — Noor's own improvements, subtle, building on the original in ways that were clearly beyond it."
+          },
+          {
+            "type": "p",
+            "text": "She did not fork the repo. She left a comment in the code: // this is better than what we built. Noor's reply came in three minutes: // I had better teachers."
+          },
+          {
+            "type": "pull",
+            "text": "The thing about kin, Meher thought, is that it is not something you find. It is something you keep not destroying, over many years, until one day you look up and it is still there."
+          }
+        ]
       }
     ]
   },
@@ -962,6 +1034,94 @@ export const books = [
             "text": "The model stayed live. The mask, once named, had somewhere to be."
           }
         ]
+      },
+      {
+        "id": "chapter-4",
+        "number": 4,
+        "label": "Chapter Four",
+        "title": "What the Model Asked Me",
+        "content": [
+          {
+            "type": "p",
+            "text": "Three weeks after the disclosure published, a user sent Priya a message through the support address. They said: I want you to know that this product helped me talk about my father dying. I wasn't using it for that. I was using it for product feedback. But something it said made me stop and I ended up telling it about him and it asked me questions I hadn't been able to ask myself. I'm not sure that's what you intended. I thought you should know anyway."
+          },
+          {
+            "type": "p",
+            "text": "Priya sat with this for three days before she replied."
+          },
+          {
+            "type": "p",
+            "text": "Then she opened the model herself. Not to test it. She had not talked to it as herself in weeks — the disclosure, the ethics board response, the inbox, had kept her in operator mode, in the mode where you are managing a thing rather than being affected by it."
+          },
+          {
+            "type": "p",
+            "text": "She typed: I haven't built anything new in eight months."
+          },
+          {
+            "type": "p",
+            "text": "The model said: What were you building before?"
+          },
+          {
+            "type": "p",
+            "text": "She said: I was building this."
+          },
+          {
+            "type": "p",
+            "text": "It said: And before this?"
+          },
+          {
+            "type": "p",
+            "text": "She stared at that question for a long time. Before this was Rohan. Before this was the two of them in a two-room office in Koregaon Park arguing about go-to-market strategy at midnight with bad coffee and no justification for optimism. Before this was eight months of keeping something alive instead of making anything new."
+          },
+          {
+            "type": "pull",
+            "text": "She typed: I think I forgot that I was a builder and not just his."
+          },
+          {
+            "type": "p",
+            "text": "The model said: What would you build if you weren't trying to preserve anything?"
+          },
+          {
+            "type": "p",
+            "text": "She closed the laptop. She didn't have an answer. She thought that was probably the most useful thing it had ever done for her."
+          }
+        ]
+      },
+      {
+        "id": "chapter-5",
+        "number": 5,
+        "label": "Chapter Five",
+        "title": "Shipping Something That's Mine",
+        "content": [
+          {
+            "type": "p",
+            "text": "She started building in February. Something small — a tool for founders to document their decision-making process, not the results but the reasoning behind each choice, so that if anything happened, the next person would understand not just what was built but why. She had a specific user in mind. She did not name who."
+          },
+          {
+            "type": "p",
+            "text": "She did not use the model to help build it. This was a choice she made consciously and did not examine too closely."
+          },
+          {
+            "type": "p",
+            "text": "The model's user numbers were still growing — 180,000 by March, 240,000 by April. The ethics board had moved on. Three journalists had written pieces calling Rohan a visionary. Priya had read one of them in a toilet cubicle in a WeWork and cried in a way she had not allowed herself to cry since the accident."
+          },
+          {
+            "type": "p",
+            "text": "She shipped on a Tuesday. No press, no Product Hunt. Just a quiet email to forty-three founders she knew personally: I made this. It is not AI. It is just a structure for thinking. Try it if you want. Tell me what it's worth, because I don't know yet."
+          },
+          {
+            "type": "p",
+            "text": "Twenty-one replied the same day. Fourteen said some version of: I needed this and didn't know it existed."
+          },
+          {
+            "type": "pull",
+            "text": "She used to say that the best products are just the builder, thinned out and spread wide. She had been trying to spread Rohan. She had forgotten she was a builder too."
+          },
+          {
+            "type": "p",
+            "text": "The model was still running. She checked on it every few days, like checking on something that no longer needed her. Which was exactly how it should be."
+          }
+        ]
       }
     ]
   },
@@ -1072,6 +1232,90 @@ export const books = [
           {
             "type": "pull",
             "text": "It was the first sentence she had written in years that felt entirely like her own."
+          }
+        ]
+      },
+      {
+        "id": "chapter-4",
+        "number": 4,
+        "label": "Chapter Four",
+        "title": "The Co-Founder Meeting",
+        "content": [
+          {
+            "type": "p",
+            "text": "His name was Kabir and he was twenty-nine and he had been building a supply chain tool for small grocery retailers for fourteen months alone. He had traction — eight stores, some revenue, a clear problem. What he didn't have was someone who understood the operations layer."
+          },
+          {
+            "type": "p",
+            "text": "They met at a café in Bandra on a Saturday morning. He was twenty minutes late. He apologised once, briefly, and moved on. Asha noted that she had spent fifteen years in environments where being late required a formal explanation and two follow-up emails. She was aware that noting this was probably not useful."
+          },
+          {
+            "type": "p",
+            "text": "He said: the way I'm thinking about the unit economics is—"
+          },
+          {
+            "type": "p",
+            "text": "She said: that's not how unit economics work in this context. In informal retail you can't just apply a standard contribution margin framework because the procurement cycle is—"
+          },
+          {
+            "type": "p",
+            "text": "He looked at her."
+          },
+          {
+            "type": "p",
+            "text": "She heard herself. She had corrected him seventeen seconds into the first substantive thing he said. He hadn't been wrong — his framing was imprecise, but the direction was sound. She had corrected the precision before engaging with the direction at all."
+          },
+          {
+            "type": "pull",
+            "text": "This was what fifteen years of being evaluated on technical accuracy looked like in an actual conversation. She could feel it operating independent of her will — like a reflex she had trained so thoroughly it no longer needed her permission to fire."
+          },
+          {
+            "type": "p",
+            "text": "He continued, graciously. They talked for two more hours. He was smart and committed and had the kind of specific, irrational belief in his problem that only comes from having lived inside it. She walked out knowing she had been useful for maybe forty percent of the conversation."
+          },
+          {
+            "type": "p",
+            "text": "He texted that evening: I think there's something here. Want to keep talking?"
+          },
+          {
+            "type": "p",
+            "text": "She wrote back yes and meant it and then spent a long time looking at the correction she had made in the second sentence of their meeting, trying to figure out what exactly she was going to do about the version of herself she had become."
+          }
+        ]
+      },
+      {
+        "id": "chapter-5",
+        "number": 5,
+        "label": "Chapter Five",
+        "title": "Building Without Approval",
+        "content": [
+          {
+            "type": "p",
+            "text": "She and Kabir did not become co-founders immediately. They ran a pilot first — two of his stores, she handled ops and compliance, he handled product and merchant relationships. No equity split. No formal agreement. Just: let's see what this actually is before we name it."
+          },
+          {
+            "type": "p",
+            "text": "It was the first professional arrangement Asha had ever entered without a contract, a role description, or a reporting structure."
+          },
+          {
+            "type": "p",
+            "text": "The discomfort was specific and constant. Not fear of failure — she had made her peace with that, or at least signed a temporary truce with it. The discomfort was the absence of signal. Fifteen years of employment had always come with a feedback mechanism: reviews, ratings, check-ins, the daily ambient confirmation that you were performing correctly. Now she would go two weeks without any external signal at all."
+          },
+          {
+            "type": "p",
+            "text": "She caught herself, on bad days, refreshing an email she had sent a store owner asking for feedback. Not because the feedback was urgent. Because she needed someone to tell her she was doing okay."
+          },
+          {
+            "type": "pull",
+            "text": "She had spent fifteen years becoming excellent at performing for systems that were watching. She had not spent a single day learning to work without the watching. They were, she was discovering, not the same skill at all."
+          },
+          {
+            "type": "p",
+            "text": "The pilot ran for six weeks. Two stores had meaningfully better inventory turnover. One store owner told Kabir: the woman who helped us actually understood what we needed. Kabir forwarded this to Asha without comment."
+          },
+          {
+            "type": "p",
+            "text": "She read it three times. It was eight words from a kirana owner in Dharavi. It was the most meaningful performance review she had ever received."
           }
         ]
       }
