@@ -17,8 +17,8 @@ async function getReaderHash(request) {
 
 // Helper to execute Upstash/Vercel KV REST commands without SDK
 async function runKvCommand(command, isPipeline = false) {
-  const url = process.env.KV_REST_API_URL;
-  const token = process.env.KV_REST_API_TOKEN;
+  const url = process.env.KV_REST_API_URL || process.env.UPSTASH_REDIS_REST_URL;
+  const token = process.env.KV_REST_API_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN;
   
   if (!url || !token) {
     return null; // Fallback to local file db
@@ -85,7 +85,7 @@ export async function GET() {
   ];
   
   const stats = {};
-  const url = process.env.KV_REST_API_URL;
+  const url = process.env.KV_REST_API_URL || process.env.UPSTASH_REDIS_REST_URL;
 
   if (url) {
     // Production Vercel KV mode: build a pipeline to get all SCARD sizes
@@ -118,7 +118,7 @@ export async function POST(request) {
     }
 
     const hash = await getReaderHash(request);
-    const url = process.env.KV_REST_API_URL;
+    const url = process.env.KV_REST_API_URL || process.env.UPSTASH_REDIS_REST_URL;
 
     if (url) {
       // Production Vercel KV mode
