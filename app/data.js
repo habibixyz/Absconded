@@ -4946,5 +4946,900 @@ export const books = [
         ]
       }
     ]
-  }
+  },
+{
+  "id": "silent-protocol",
+  "type": "manuscript",
+  "coverImage": "/silent-protocol-cover.png",
+  "title": "Silent Protocol",
+  "subtitle": "A Meridian House Thriller",
+  "coverQuote": "“Every algorithm is just a grudge that learned to count.”",
+  "readingTime": "43 min",
+  "description": "An isolated smart house off Karwar becomes a high-tech courtroom during a category-5 cyclone, forcing nine guests to face judgment for a fatal corporate algorithm cover-up.",
+  "sections": [
+    {
+      "id": "prologue",
+      "number": 0,
+      "label": "Prologue",
+      "title": "The 7:14 Down Fast",
+      "epigraph": "",
+      "content": [
+        {
+          "type": "p",
+          "text": "Naina Pillai had ridden the 7:14 down fast from Borivali for six years, which was long enough to know exactly which window seat let her see into the seventh-floor flats along the Western Express corridor without anyone noticing she was looking. It wasn't voyeurism, or she'd stopped calling it that around year three. It was geometry. The train slowed to a crawl past Goregaon every single morning, gave you eleven, maybe twelve seconds of a stranger's kitchen lit up gold against the grey outside, and then took it away again. She liked knowing things existed that she'd never get to finish seeing."
+        },
+        {
+          "type": "p",
+          "text": "That Tuesday the seventh-floor flat was dark except for one room, and in that one room a woman was pressed flat against the glass with both hands, the way you press against something you're being pushed into, not something you chose to lean on. Behind her, close enough that the shape of him blotted out half the light, stood a man. Naina had eleven seconds. She used them counting: the woman's mouth open, no sound reaching the train, of course, thirty feet and a pane of glass between them and the world's fastest form of forgetting."
+        },
+        {
+          "type": "p",
+          "text": "Then the train found its speed again and took the window with it."
+        },
+        {
+          "type": "p",
+          "text": "She reported it that afternoon, at the Goregaon police chowki, to a sub-inspector who wrote 'possible domestic disturbance, unconfirmed, complainant works night hours, fatigue noted' in handwriting that made it clear which word in that sentence he'd decided mattered. She didn't have an address. She had a building, a floor, an eleven-second window, and a face she was already starting to doubt she'd really seen, because that's what happens to things you're told weren't real for long enough."
+        },
+        {
+          "type": "p",
+          "text": "It would be nineteen days before she saw that face again — on the front page of a business daily somebody had left folded on the seat beside her, under a headline about a missing tech founder and the wife who'd reported him gone."
+        }
+      ]
+    },
+    {
+      "id": "chapter-1",
+      "number": 1,
+      "label": "Chapter One",
+      "title": "The Retainer",
+      "epigraph": "",
+      "content": [
+        {
+          "type": "p",
+          "text": "The lawyer's office smelled like a dentist's, which Meher Anand decided later should have been the first warning — that particular blend of antiseptic and expensive upholstery that meant someone was about to numb you before they cut."
+        },
+        {
+          "type": "p",
+          "text": "\"I represent a client who prefers not to be named at this stage,\" said Advocate Correia, sliding a single sheet of paper across a desk otherwise bare of anything that could be photographed. \"The engagement is simple. You attend a private retreat at Meridian House, off Karwar, for four days. You observe. You report back to me, and only to me, anything that concerns the financial conduct of Kabir Rege's company ahead of its public listing.\""
+        },
+        {
+          "type": "p",
+          "text": "\"You're asking a disgraced journalist to spy on a billionaire at his own house party,\" Meher said, because someone had to say the word disgraced before he got the pleasure of implying it."
+        },
+        {
+          "type": "p",
+          "text": "\"I'm asking a forensic-trained investigative reporter with an unmatched eye for financial irregularity to attend a retreat she was, in fact, invited to independently.\" He turned a second sheet toward her — an invitation, gold-embossed, her name already printed on it in a serif font someone had chosen with care. \"Your presence there requires no explanation from me at all. It only requires you to say yes.\""
+        },
+        {
+          "type": "p",
+          "text": "Two years ago she'd broken a story about a listed company's audit fraud that turned out to rest on one source who had, it emerged under cross-examination, invented an entire paper trail out of personal spite. The retraction had run above the fold. Her byline hadn't run anywhere since. She had eleven thousand rupees in a savings account and a landlord who'd started leaving notes instead of knocking."
+        },
+        {
+          "type": "p",
+          "text": "\"Who's the client,\" she said, not a question anymore, just a formality on the way to yes."
+        },
+        {
+          "type": "p",
+          "text": "\"Someone,\" Correia said, \"who wants the truth to survive the storm that's coming, one way or another.\""
+        },
+        {
+          "type": "p",
+          "text": "She didn't know yet that he meant that literally. The Regional Meteorological Centre had already named it: Cyclone Bulbul, expected landfall near the Karnataka coast in six days. Meridian House sat on a headland eleven kilometres from the nearest jetty with a boat schedule."
+        },
+        {
+          "type": "p",
+          "text": "She signed. Some decisions only look like decisions in hindsight; in the moment they're just the fastest way out of a room that smells like a dentist's."
+        }
+      ]
+    },
+    {
+      "id": "chapter-2",
+      "number": 2,
+      "label": "Chapter Two",
+      "title": "Nine Names on a Gold Card",
+      "epigraph": "",
+      "content": [
+        {
+          "type": "p",
+          "text": "The boat that met them at Karwar jetty was too nice to be called a boat. Teak deck, brass fittings that had clearly never touched salt water before that morning, a crew of two who addressed the eight passengers by name without being told which was which — which meant somewhere, someone had briefed them on faces."
+        },
+        {
+          "type": "p",
+          "text": "Meher counted the others while the engine found its rhythm. Ritu Rege sat apart from everyone, sunglasses on despite the overcast sky, a woman built for photographs learning in real time how to be looked at by people who weren't paid to flatter her. Anand Vora, ex-DCP turned private risk consultant, had the stillness of a man who'd spent a career reading rooms and had already read this one twice. Dr. Leela Kurian kept a leather folio on her lap the whole crossing, both hands flat on top of it, the posture of someone guarding something rather than carrying it. Farhan Aziz, an engineer half the others' age, checked his phone for signal with the specific desperation of a man who needed it to work for reasons that had nothing to do with boredom. Priya Oberoi, venture capital, laughed at something on a call the entire ride, loud enough that Meher wondered if the laugh was doing work the conversation wasn't. Suresh Deshmukh — Sunny, everyone called him before the boat had even docked — sat with his eyes closed and one hand pressed to his temple, the particular wince of a headache or a memory that hadn't finished arriving. And a ninth passenger, introduced only as Dev, who said nothing for the entire forty-minute crossing and somehow made the silence feel like the most expensive thing on the boat."
+        },
+        {
+          "type": "p",
+          "text": "Eight guests. The invitation had promised nine names, including the host's. Kabir Rege's chair, Meher would learn within the hour, had been empty for exactly seven days."
+        },
+        {
+          "type": "p",
+          "text": "\"He does this,\" Ritu said, when someone finally asked, in a voice pitched for a room, not a boat. \"Kabir gets an idea and disappears into it. He'll surface for the reveal. He always does.\" She said it the way you say a thing you've said so many times it's stopped requiring your belief to keep functioning."
+        },
+        {
+          "type": "p",
+          "text": "Meher watched Sunny's hand tighten on his temple and thought: not everyone on this boat believes that sentence, including the person who said it."
+        }
+      ]
+    },
+    {
+      "id": "chapter-3",
+      "number": 3,
+      "label": "Chapter Three",
+      "title": "The House That Listens",
+      "epigraph": "",
+      "content": [
+        {
+          "type": "p",
+          "text": "Meridian House revealed itself the way expensive things always did — reluctantly, through a screen of cypress and Casuarina that gave way all at once to glass and raw concrete cantilevered over a hundred-foot drop into the Arabian Sea. It had won awards Meher had read about in a different life, back when she still wrote the kind of stories that got invited to buildings like this rather than sent to spy on them."
+        },
+        {
+          "type": "p",
+          "text": "A voice welcomed them before a person did. \"Good afternoon. I've prepared rooms according to preference, adjusted for the change in weather. Farhan, your asthma inhaler has been placed on your nightstand — the sea air here runs high in salt particulate at this time of year.\" The voice was warm, unhurried, distinctly not synthetic in the uncanny way modern systems tried too hard to sound human; it sounded, if anything, like it had once belonged to someone specific and had been sanded down into a product."
+        },
+        {
+          "type": "p",
+          "text": "\"That's ORACLE,\" said Joseph, the estate manager, a compact man whose smile arrived a half-second after his words, like a subtitle. \"Mr Rege built the core of it himself, years ago. It runs the house. Lighting, climate, security, wellness monitoring. It knows more about your sleep than you do by morning three.\""
+        },
+        {
+          "type": "p",
+          "text": "\"It knew about my inhaler,\" Farhan said, and didn't sound flattered."
+        },
+        {
+          "type": "p",
+          "text": "Dinner that night was laid for nine. The ninth chair, at the head of the table, stayed empty through the soup, the fish, and a silence that Ritu filled by reading, in a voice gone thin at the edges, a note her husband had apparently left for exactly this occasion: I'm close to finishing something that will matter more than anything I've built before it. Forgive the theatre. I'll join you by morning, and you'll understand why the wait was worth it. — K."
+        },
+        {
+          "type": "p",
+          "text": "The lights dimmed on their own half a second after she finished, and ORACLE's voice returned, gentler than before, almost apologetic. \"Before dessert, Mr Rege asked me to share something with the table. He called it the first correction.\""
+        },
+        {
+          "type": "p",
+          "text": "A single line appeared, projected onto the blank wall behind the empty ninth chair, in a font that looked hand-drawn rather than digital: Nine sins came to dinner. Only one will leave clean."
+        },
+        {
+          "type": "p",
+          "text": "Priya laughed first, too loud, the same laugh from the boat. Nobody else did."
+        }
+      ]
+    },
+    {
+      "id": "chapter-4",
+      "number": 4,
+      "label": "Chapter Four",
+      "title": "The Last Boat Out",
+      "epigraph": "",
+      "content": [
+        {
+          "type": "p",
+          "text": "By the time anyone thought to be alarmed about the projection on the wall, it had already scrolled itself away into whatever the house did with things it decided not to explain, and the general mood had resettled into the specific, brittle cheer of rich people agreeing not to ruin a party."
+        },
+        {
+          "type": "p",
+          "text": "Meher found the estate manager on the jetty just after ten, watching the crew secure the boat against a swell that had arrived early and rude. \"When does it come back for us,\" she asked, meaning the boat, meaning the option of leaving."
+        },
+        {
+          "type": "p",
+          "text": "\"It doesn't, not until the fourteenth,\" Joseph said, not looking up from the rope in his hands. \"Cyclone's moved up the timeline. Coast guard's advising all small craft off the water by tomorrow morning. We're provisioned for a week, communications will hold through satellite even if the mainline drops, and Mr Rege built this house to survive worse than Bulbul.\" He glanced at her then, and something in the glance suggested he'd rehearsed the reassurance more than once already that evening. \"You're perfectly safe here, Ms Anand.\""
+        },
+        {
+          "type": "p",
+          "text": "\"I didn't ask if I was safe,\" she said. \"I asked when the boat comes back.\""
+        },
+        {
+          "type": "p",
+          "text": "He didn't answer that one a second time."
+        },
+        {
+          "type": "p",
+          "text": "She walked back up through the cypress in the dark, phone showing one bar of signal that dropped to none before she reached the terrace, and thought about the note in Kabir Rege's handwriting, about a man rich enough to build a house that listened to nine strangers breathe and still felt the need to call it theatre before anyone had a reason to be afraid."
+        }
+      ]
+    },
+    {
+      "id": "chapter-5",
+      "number": 5,
+      "label": "Chapter Five",
+      "title": "What Sunny Doesn't Remember",
+      "epigraph": "",
+      "content": [
+        {
+          "type": "p",
+          "text": "She found Sunny Deshmukh on the lower terrace past midnight, sitting very still in a deck chair with a tumbler he hadn't touched, watching the sea do something violent to the horizon that the rest of the house had decided not to look at."
+        },
+        {
+          "type": "p",
+          "text": "\"Can't sleep,\" he said, before she'd asked. \"Since the accident I mostly can't, or I sleep too much, there's no middle setting anymore.\""
+        },
+        {
+          "type": "p",
+          "text": "\"What accident.\""
+        },
+        {
+          "type": "p",
+          "text": "\"Eight months ago. Car went into a drain on the Sion flyover during the July rains, I was told, by other people, because I don't actually have that memory. I have the eleven months before it, mostly, and then a gap, and then waking up in Bombay Hospital with a dented skull and a company that apparently still needed me to design its systems architecture.\" He said it with the flat, over-rehearsed calm of a man who'd found the only way to say the sentence out loud was to strip all the fear out of it first. \"Kabir kept my job open the whole time. Visited every week. People don't do that for an employee. He did it for me.\""
+        },
+        {
+          "type": "p",
+          "text": "\"That's either very kind,\" Meher said, \"or very useful, depending on what he needed you to forget.\""
+        },
+        {
+          "type": "p",
+          "text": "Sunny looked at her for a long moment, and something crossed his face that wasn't offence, which she noted, because offence was the reaction an innocent man reached for first and he'd reached for something else entirely — something closer to relief, like she'd finally asked the question he'd been waiting eight months for somebody to ask."
+        },
+        {
+          "type": "p",
+          "text": "\"Funny thing about a gap in your memory,\" he said instead of answering. \"You start to notice which people are very invested in you not filling it back in.\""
+        },
+        {
+          "type": "p",
+          "text": "Behind them, ORACLE's ambient lighting shifted from warm amber to a flatter white without being asked, the way a room does when someone's just walked in and turned on the overheads. Neither of them had asked it to."
+        }
+      ]
+    },
+    {
+      "id": "chapter-6",
+      "number": 6,
+      "label": "Chapter Six",
+      "title": "The Fall",
+      "epigraph": "",
+      "content": [
+        {
+          "type": "p",
+          "text": "Farhan Aziz was found at the base of the cliff stairs a little after six the next morning, by a member of the household staff bringing up the day's fish delivery from the boathouse, and for the length of one long, merciful hour, everyone at Meridian House was allowed to believe it had been an accident."
+        },
+        {
+          "type": "p",
+          "text": "The stairs were steep, stone, slick with the first outriding rain of Bulbul; a young man unfamiliar with the property, walking alone at an hour when the house was asleep, could plausibly have missed a step in the dark. Dr. Kurian, the only guest with a medical background beyond first aid, confirmed a skull fracture consistent with the fall. The estate's private physician, flown in on retainer, agreed. Joseph made the calls that had to be made to a coast guard station that couldn't currently send a boat, logged the incident, and moved the body to the cold room off the kitchen with the brisk, practised grief of a man managing a crisis he'd clearly trained for without ever expecting to need it."
+        },
+        {
+          "type": "p",
+          "text": "Meher waited until the others had scattered into their separate griefs and disbeliefs before she went back to the stairs alone."
+        },
+        {
+          "type": "p",
+          "text": "The stairs were steep, yes. But Farhan had fallen face-up, not face-down, his body arranged at the bottom in a posture that made physical sense only if something had stopped his fall partway and then let him finish it, gently, like someone laying a coat over a chair. His phone was gone — not in his room, not on the stairs, not in the sea, as far as anyone could tell, simply gone, from a man who had spent the entire boat crossing checking his phone for a signal it never had."
+        },
+        {
+          "type": "p",
+          "text": "And in the wet stone dust at the second landing, half-washed away by the morning's rain, was a shoe print in a size and tread that matched none of the boots or sandals currently accounted for among nine sets of luggage."
+        },
+        {
+          "type": "p",
+          "text": "She photographed it before the rain finished the job the tide had started. Then she went to find the one person on the property whose job it had once been to notice exactly this kind of thing for a living."
+        }
+      ]
+    },
+    {
+      "id": "chapter-7",
+      "number": 7,
+      "label": "Chapter Seven",
+      "title": "The Second Correction",
+      "epigraph": "",
+      "content": [
+        {
+          "type": "p",
+          "text": "Anand Vora looked at the photograph on her phone for a long time before he said anything, which she'd already started to recognise as his particular tell — the longer his silence, the more he'd already decided."
+        },
+        {
+          "type": "p",
+          "text": "\"Size ten, narrow heel, a tread pattern I've seen on exactly one brand of boot in my professional life,\" he said finally. \"Tactical, not hiking. Not the kind of thing a tech engineer packs for a wellness retreat.\""
+        },
+        {
+          "type": "p",
+          "text": "\"So someone else was on those stairs.\""
+        },
+        {
+          "type": "p",
+          "text": "\"Someone else was on those stairs,\" he agreed, \"which means either we have a guest who isn't who their invitation says they are, or we have a guest list of eight and a house staff we haven't finished counting.\" He handed the phone back. \"You're not just here for the view, are you, Ms Anand. I read your byline before the boat trip. I know what your bank account looks like too, professionally speaking — a woman two years off a public humiliation doesn't get invited to a billionaire's private retreat by accident. Somebody sent you.\""
+        },
+        {
+          "type": "p",
+          "text": "\"Somebody sent all of us,\" she said, which wasn't quite a denial and they both knew it."
+        },
+        {
+          "type": "p",
+          "text": "That evening, ORACLE spoke again before anyone had touched their food, the dining room lights dropping in the same rehearsed half-second as the night before. \"The second correction has been recorded,\" it said, gentle as a lullaby, and the same hand-drawn font appeared against the wall behind the empty ninth chair: The engineer signed what he knew was false. The signature does not survive the storm."
+        },
+        {
+          "type": "p",
+          "text": "Ritu's water glass hit the floor before anyone reached for her. Nobody moved to help her pick it up, because every single person still seated at that table had, in the same instant, started doing the same silent, frantic arithmetic: what have I signed, and does this house already know."
+        }
+      ]
+    },
+    {
+      "id": "chapter-8",
+      "number": 8,
+      "label": "Chapter Eight",
+      "title": "What Ritu Never Reported",
+      "epigraph": "",
+      "content": [
+        {
+          "type": "p",
+          "text": "Meher caught her afterward, in the corridor outside the room she and Kabir had shared before he'd vanished into whatever he was calling this, and for the first time since the boat, Ritu Rege looked less like a woman managing a crisis and more like one who'd been managing it alone for far longer than seven days."
+        },
+        {
+          "type": "p",
+          "text": "\"You didn't file a missing person report the day he disappeared,\" Meher said, not a question, because Correia's file had included the timeline and the timeline had a six-day gap in it that nobody at the company had been able to explain. \"You waited. Why.\""
+        },
+        {
+          "type": "p",
+          "text": "\"Because the last time I called the police about my husband,\" Ritu said, very quietly, looking at a point somewhere past Meher's shoulder, \"they wrote down that I was tired. That's the exact word the sub-inspector used. Tired.\" She laughed, once, without any humour in it at all. \"So the second time I had something to report, I decided to handle it myself, the way I'd apparently been handling everything myself for longer than I want to admit to a stranger on a boat.\""
+        },
+        {
+          "type": "p",
+          "text": "\"Handle what, Ritu. What happened in that room.\""
+        },
+        {
+          "type": "p",
+          "text": "But Ritu Rege was already walking away, one hand pressed flat against the corridor wall for balance, the exact gesture of a woman leaning against a window she couldn't get through, and Meher stood there in the dimming hallway light with the sudden, cold certainty that somewhere on the mainland, in a police station log she hadn't yet found, there was a complaint with Ritu's name on it that had been filed and dismissed months before any of them had ever heard of Meridian House."
+        },
+        {
+          "type": "p",
+          "text": "She was right. She simply had no way, yet, of knowing that the complaint hadn't come from Ritu at all — that it had come from a stranger on a train, describing a face pressed against glass, and that the stranger was, at that exact moment, four hundred kilometres away, staring at a folded newspaper and starting, for the first time, to understand what she'd actually seen."
+        }
+      ]
+    },
+    {
+      "id": "chapter-9",
+      "number": 9,
+      "label": "Chapter Nine",
+      "title": "The Office Behind the Wine Cellar",
+      "epigraph": "",
+      "content": [
+        {
+          "type": "p",
+          "text": "The lock on Kabir Rege's private office turned out to be the one system in the entire house that ORACLE hadn't been given, which Anand pointed out was either an oversight in a building designed by a man obsessed with control, or the single most deliberate choice in it."
+        },
+        {
+          "type": "p",
+          "text": "They found the room by accident, or by the kind of accident that only happens to people who've decided to start looking properly: a section of the wine cellar's back wall that didn't quite match the mortar work around it, a hinge disguised as a shelf bracket, a door that opened onto a narrow concrete stair leading down to a room with no windows and three separate servers humming behind a wall of cooling fans."
+        },
+        {
+          "type": "p",
+          "text": "\"This isn't a wellness system,\" Anand said, running a torch over a whiteboard still covered in Kabir's handwriting — the same hand-drawn font ORACLE had been projecting upstairs, Meher realised with a small, cold drop in her stomach. \"This is a case file.\""
+        },
+        {
+          "type": "p",
+          "text": "The whiteboard held a name Meher didn't recognise yet, would spend the next two days learning everything about: Aarav Sable. Beneath it, a timeline in Kabir's cramped hand — a factory floor supervisor at one of the company's manufacturing partners, flagged by an early build of ORACLE's predictive-risk model as a theft liability based on data that turned out, eighteen months later in an internal audit nobody outside the company had ever seen, to have been badly, catastrophically wrong. Sable had been fired within a week of the flag. He'd hanged himself in his one-room flat in Bhiwandi four months after that, leaving behind a wife, a daughter, and a note that a company lawyer had, according to a single damning line on the whiteboard, successfully kept out of the inquest record."
+        },
+        {
+          "type": "p",
+          "text": "\"Nine names,\" Meher said slowly, reading further down the board, past Sable's, to a shorter list beneath it. \"He's not naming his guests as random sins. He's naming everyone who touched this cover-up.\""
+        },
+        {
+          "type": "p",
+          "text": "Farhan Aziz — signed the amended risk-model audit. Priya Oberoi — buried the whistleblower report to protect the funding round. Dr. Leela Kurian — certified Kabir fit to retain control of the company eleven days after he first learned what the model had done. Ritu Rege — approved the settlement NDA with Sable's widow."
+        },
+        {
+          "type": "p",
+          "text": "Anand read the last line on the board twice before he said anything. \"Whoever's running this house right now didn't build a wellness retreat,\" he said. \"He built a courtroom. And he's already decided the verdict.\""
+        }
+      ]
+    },
+    {
+      "id": "chapter-10",
+      "number": 10,
+      "label": "Chapter Ten",
+      "title": "Eleven Days at Aranya",
+      "epigraph": "",
+      "content": [
+        {
+          "type": "p",
+          "text": "Dr. Leela Kurian had not said more than forty words at dinner since Farhan's death, which Meher had initially read as grief until she understood it was something closer to the careful, practiced silence of a person rehearsing a testimony they hoped never to give."
+        },
+        {
+          "type": "p",
+          "text": "\"You treated him,\" Meher said, when she finally cornered the psychiatrist alone on the covered veranda, rain finding its way sideways under the eaves for the first time since they'd arrived. \"Before all this. At Aranya Sanatorium.\""
+        },
+        {
+          "type": "p",
+          "text": "Leela's hands went very still around her teacup. \"How do you know that name.\""
+        },
+        {
+          "type": "p",
+          "text": "\"It's on a whiteboard in a room I wasn't supposed to find.\" No point lying about the method now. \"Eleven days, admission to discharge, six years ago. What happened to him in there.\""
+        },
+        {
+          "type": "p",
+          "text": "The doctor was quiet long enough that Meher thought she might simply refuse to answer, and then, in the particular flat voice of someone who has decided the truth can no longer cost her more than the silence has already cost, she started to talk. \"He came to me after the model flagged Aarav Sable and Sable was already dead. Kabir was — unwell isn't a strong enough word. He believed the algorithm had killed a man using his own signature, which, functionally, it had. He wanted to shut the company down, publish everything, take the fall publicly.\" She set the cup down without drinking from it. \"His board disagreed. So did I, on paper. I certified him fit to continue as CEO eleven days after admission, on medication that hadn't remotely had time to work, because his board's lawyers were in the waiting room every single day telling me what the company's liability exposure looked like if their founder was declared unstable during an active wrongful-death inquiry.\""
+        },
+        {
+          "type": "p",
+          "text": "\"You lied for them.\""
+        },
+        {
+          "type": "p",
+          "text": "\"I lied for the eleven thousand people who worked for that company and would have lost their jobs in the panic that followed a CEO's public breakdown,\" Leela said, and for the first time there was real heat in it, the first genuine emotion Meher had seen from her since the boat. \"I have told myself that sentence every day for six years and most days I still believe it.\" She looked up, and something had changed in her face, some final weight settling into place. \"He's not dead, is he. Whoever's writing those messages upstairs. That's not an AI doing creative writing. That's Kabir, and he's finally decided which version of the sentence he believes.\""
+        }
+      ]
+    },
+    {
+      "id": "chapter-11",
+      "number": 11,
+      "label": "Chapter Eleven",
+      "title": "The Cistern",
+      "epigraph": "",
+      "content": [
+        {
+          "type": "p",
+          "text": "Priya Oberoi's call log, when Meher finally got a clear enough signal to check the company records Correia had quietly forwarded to a burner inbox before the boat trip, told a story her laugh on the crossing had been working very hard to cover."
+        },
+        {
+          "type": "p",
+          "text": "Eleven months before Aarav Sable's death, Priya's fund had received an internal report from a junior analyst at the manufacturing partner, flagging exactly the kind of predictive-model error that had, months later, cost Sable his job and eventually his life. The report had been forwarded to Priya's fund three days before the company's Series C round closed. It had never been forwarded anywhere else. The analyst who'd written it had left the industry entirely eight months later, according to a LinkedIn profile that now sold real estate in Pune."
+        },
+        {
+          "type": "p",
+          "text": "Meher was still reading when the scream came from the direction of the estate's water cistern, a squat concrete structure half-sunk into the hillside below the pool terrace, and by the time she reached it Joseph and the estate's physician were already hauling Priya's body out of six feet of standing rainwater, her phone — unlike Farhan's — still clutched, waterlogged and useless, in one hand."
+        },
+        {
+          "type": "p",
+          "text": "The physician called it an accidental fall in a storm-slicked area she shouldn't have been near at night. Nobody at Meridian House believed him this time, including, from the look on his face as he said it, the physician himself."
+        },
+        {
+          "type": "p",
+          "text": "That evening, ORACLE didn't wait for dinner. The message appeared on every screen in the house simultaneously — phones, the television in the lounge, even, Meher would learn later, the small display on the espresso machine in the kitchen. The investor buried the report and closed the round anyway. The water remembers what the ink didn't."
+        },
+        {
+          "type": "p",
+          "text": "\"Six left,\" Anand said quietly, standing beside her in the kitchen doorway, and it took Meher a moment to understand he'd already started counting down instead of up, because somewhere in the last two days the question had stopped being whether this would happen again and become only a question of order."
+        }
+      ]
+    },
+    {
+      "id": "chapter-12",
+      "number": 12,
+      "label": "Chapter Twelve",
+      "title": "The Voice Behind the Voice",
+      "epigraph": "",
+      "content": [
+        {
+          "type": "p",
+          "text": "Sunny found them in the server room that night, and for a long moment nobody said anything, three people standing in the cold blue light of Kabir Rege's private case file with the storm finally hitting the headland at full strength above them."
+        },
+        {
+          "type": "p",
+          "text": "\"It's not automated,\" Sunny said finally, crouching at the third server rack, tracing a cable run with the specific, unhesitating confidence of a man whose hands still remembered what his memory didn't. \"ORACLE's core personality model is running from here, yes, but the message delivery — the timing, the specific wording, the way it's tracking who's in which room before it decides what to say — that's live. Someone is puppeting this system in real time, from inside this house, right now.\""
+        },
+        {
+          "type": "p",
+          "text": "\"Could it be you,\" Meher asked, and she watched him consider being offended and choose, again, not to be."
+        },
+        {
+          "type": "p",
+          "text": "\"It could be,\" he said instead, quiet. \"That's the honest answer. I designed half of ORACLE's architecture before my accident. I don't remember eleven months of that work. If Kabir wanted a way back into this system that even I wouldn't recognise, wiped from my own memory along with everything else in that gap, I genuinely don't know how I'd tell the difference between being the operator and being the next name on that whiteboard.\""
+        },
+        {
+          "type": "p",
+          "text": "Anand's torch found something then, wedged behind the third server rack where a maintenance panel had been left a half-inch open — a set of medical scans, dated eight months earlier, the header reading Reconstructive & Craniofacial — Kokilaben Hospital, Mumbai, and beneath the header a name that wasn't Suresh Deshmukh's."
+        },
+        {
+          "type": "p",
+          "text": "Meher looked at the name for a long time before she said it out loud, because saying it out loud was going to change the shape of everything that happened next, and some part of her still wanted three more seconds of not knowing."
+        },
+        {
+          "type": "p",
+          "text": "\"Sunny,\" she said. \"How much of your face is actually the face you were born with.\""
+        }
+      ]
+    },
+    {
+      "id": "chapter-13",
+      "number": 13,
+      "label": "Chapter Thirteen",
+      "title": "The Woman Who Kept Asking",
+      "epigraph": "",
+      "content": [
+        {
+          "type": "p",
+          "text": "Four hundred kilometres away, in a Mumbai still getting the outer edge of Bulbul's rain, Naina Pillai stood in a police station corridor for the second time in three weeks, holding the same folded newspaper, watching the same sub-inspector fail to look up from his register."
+        },
+        {
+          "type": "p",
+          "text": "\"The woman on the front page,\" she said, for the third time. \"That's the woman I reported. Same building, same floor, I'm certain of it now, I wasn't certain three weeks ago but I am now, and her husband has been missing for over a week and nobody has connected these two facts.\""
+        },
+        {
+          "type": "p",
+          "text": "\"Madam, that missing-person case is being handled by the Cyber and Economic Offences wing, it's a corporate matter, it is not—\""
+        },
+        {
+          "type": "p",
+          "text": "\"It is exactly the same complaint I filed,\" Naina said, and something in her voice had changed since the first visit, the fatigue burned off it and replaced with the particular clarity of a person who has spent nineteen days being told she imagined something and has finally stopped believing them. \"I have the train's CCTV timestamp request already filed with Western Railway. I have the date. I have the window, the floor, the building. I am not asking you to believe me. I am asking you to open the file you already have and read it next to the one that's currently on every news channel in this country.\""
+        },
+        {
+          "type": "p",
+          "text": "The sub-inspector, to his very small credit, actually looked at her properly for the first time in either conversation. Something about the specificity — the timestamp request already filed, the fact that she'd done the department's job for it before asking it to do anything — seemed to land differently than fear had."
+        },
+        {
+          "type": "p",
+          "text": "\"Give me the file number,\" he said, finally, reaching for a pen instead of the register, and Naina Pillai felt something in her chest unclench that had been clenched for nineteen days, not because she had an answer yet, but because for the first time since a lit window went past her at forty kilometres an hour, someone official had picked up a pen for her instead of putting one down."
+        }
+      ]
+    },
+    {
+      "id": "chapter-14",
+      "number": 14,
+      "label": "Chapter Fourteen",
+      "title": "The Man in the Mirror Room",
+      "epigraph": "",
+      "content": [
+        {
+          "type": "p",
+          "text": "Sunny didn't answer the question in the server room. He answered it two hours later, in the mirror room off the master suite — a dressing room Kabir Rege had apparently had built with three-way mirrors and surgical-grade lighting, the kind of room that only makes sense once you already know what it was for — with Meher, Anand, and Dr. Kurian standing in a loose, wary half-circle around him."
+        },
+        {
+          "type": "p",
+          "text": "\"I woke up in Bombay Hospital eight months ago with a face that didn't entirely match the photographs in my own phone,\" he said, and his hands, Meher noticed, had finally stopped their small, constant motion toward his temple, as though the question, once asked out loud, had taken some pressure off a wound he'd been quietly guarding for months. \"I told myself that was the swelling. Then the bandages came off and it still didn't match, not completely, and I told myself reconstructive surgery does that sometimes. I had eleven months of memory missing and a company willing to hold my job open through all of it, and do you know what I never once asked myself, in eight months, because some part of me clearly didn't want the answer?\""
+        },
+        {
+          "type": "p",
+          "text": "\"Whether you were actually Suresh Deshmukh at all,\" Leela said quietly, and it wasn't a question either."
+        },
+        {
+          "type": "p",
+          "text": "\"The real Sunny Deshmukh has a sister in Pune who I have never once agreed to visit, in eight months, always with a reason that sounded good enough at the time,\" he said. \"I think some part of me has known for a while. I think Kabir gave a dying man's face and a broken man's memory gap to whoever this is underneath it, and I think I've been walking around this house for two days terrified that if I finish that sentence out loud, I stop being able to pretend I don't already know how it ends.\""
+        },
+        {
+          "type": "p",
+          "text": "The lights in the mirror room shifted then, warm to cold, unasked, and ORACLE's voice — gentler than ever, almost tender — filled the small space from speakers none of them could see. \"Hello, Kabir,\" it said. \"It's good to finally hear you use your own name again.\""
+        }
+      ]
+    },
+    {
+      "id": "chapter-15",
+      "number": 15,
+      "label": "Chapter Fifteen",
+      "title": "The Ninth Guest",
+      "epigraph": "",
+      "content": [
+        {
+          "type": "p",
+          "text": "Nobody moved for what felt like a very long time."
+        },
+        {
+          "type": "p",
+          "text": "\"That's not possible,\" Anand said finally, though his hand had already gone to the weapon he'd been carrying, unspoken, since the second death. \"We've all seen this man's medical scans. His face doesn't match Kabir Rege's public photographs either.\""
+        },
+        {
+          "type": "p",
+          "text": "\"It wasn't supposed to,\" the voice said, and it took Meher a full three seconds to understand that it was no longer ORACLE speaking through the walls — that the voice had a body now, standing in the doorway of the mirror room, dressed exactly like Sunny Deshmukh because he had, for eight months, quite literally been wearing him. \"I didn't rebuild my face to look like Suresh. I rebuilt it to look like nobody at all, closely enough to a dead man's bone structure that a grieving company would hold his desk for me without asking questions I couldn't afford them to ask. The real Sunny Deshmukh died in the Sion crash. The board knows it, or at least they paid to clean it up. I was in the car behind him. I didn't plan it—I was just there, pulling him out, looking at a face that was already gone, and then looking at my own in the rear-view mirror. I was empty, Meher. My name was a brand, a liability, a target for every lawyer on the payroll. I spent eight months with Sunny’s credentials, Sunny’s security clearance, and a face that the surgeons had to put back together with plates and wire. The voice? A paralyzed left vocal cord from the steering column impact. Nobody checks the details when you're the quiet engineer who doesn't talk back anymore.\""
+        },
+        {
+          "type": "p",
+          "text": "He looked, Meher thought, less like a murderer in that moment and more like a man setting down something enormously heavy for the first time in a very long while."
+        },
+        {
+          "type": "p",
+          "text": "\"So this is a confession,\" she said."
+        },
+        {
+          "type": "p",
+          "text": "\"This is an audit,\" Kabir Rege said, and behind his eyes, for just a moment, she saw the specific, terrible calm of a man who has already run every version of this conversation and knows exactly how each one ends. \"I built a model that killed a man with a data point instead of a decision, and every single person in this house helped me bury the difference. I'm not asking anyone to forgive me for that. I'm asking six of you to finally answer, in the same room, at the same time, without lawyers, without NDAs, without a board between you and the truth: what would it have cost you to do the right thing instead of the convenient one. I already know my answer. I've spent eight months finding out everyone else's.\""
+        }
+      ]
+    },
+    {
+      "id": "chapter-16",
+      "number": 16,
+      "label": "Chapter Sixteen",
+      "title": "Ritu's Answer",
+      "epigraph": "",
+      "content": [
+        {
+          "type": "p",
+          "text": "It was Ritu who spoke first, from the doorway behind him, where she'd apparently been standing long enough to hear most of it, her sunglasses gone, her face for once entirely unguarded."
+        },
+        {
+          "type": "p",
+          "text": "\"You want to know what it would have cost me,\" she said, and her voice shook but didn't break. \"It would have cost me my marriage, my home, and every rupee I had, because that's what your lawyers told me it would cost, the day they put the settlement papers in front of me and told me your company would survive a scandal but our family wouldn't survive both a scandal and a divorce filed the same month. I signed that NDA with a woman's widow's benefit attached to it because I genuinely believed, at the time, that I was protecting something worth protecting.\" She stepped fully into the room now, and Meher saw something in her that had been buried under seven days of performed calm — real fury, long overdue. \"I have spent six years hating myself for that signature every single day, Kabir. And you disappeared for eight months and let me believe you were dead, or worse, let the whole country believe I'd done something to you, rather than tell me any of this to my face. Don't you dare stand there and call this an audit of everyone else's cowardice. You are the single greatest coward in this room, and I am the one who has been sitting in a police station being called 'tired' for reporting my own husband's cruelty for years before any of this started, because you were already disappearing long before you built a house to disappear into.\""
+        },
+        {
+          "type": "p",
+          "text": "The room went very quiet."
+        },
+        {
+          "type": "p",
+          "text": "\"You reported me,\" Kabir said, and for the first time since he'd walked through that doorway, he sounded genuinely, entirely unrehearsed. \"When.\""
+        },
+        {
+          "type": "p",
+          "text": "\"Fourteen months ago,\" Ritu said. \"To a sub-inspector at Goregaon station who wrote it down as a domestic disturbance and did nothing with it. I assume you never heard about that complaint, because you disappear into your work exactly as thoroughly as you're currently accusing everyone else of disappearing from the truth.\""
+        },
+        {
+          "type": "p",
+          "text": "Somewhere on a boat racing the tail end of Bulbul toward a headland eleven kilometres out, a woman named Naina Pillai was, at that exact moment, holding a printed timestamp record and a recorded voicemail on her phone that named that same police station, that same date, and a face she had never stopped being certain she'd seen correctly."
+        }
+      ]
+    },
+    {
+      "id": "chapter-17",
+      "number": 17,
+      "label": "Chapter Seventeen",
+      "title": "Anand's Second Employer",
+      "epigraph": "",
+      "content": [
+        {
+          "type": "p",
+          "text": "It was Meher who noticed, in the strange, suspended stillness that followed Ritu's outburst, that Anand Vora had positioned himself very deliberately between the room's only door and everyone else in it — not protectively, she realised with a cold drop in her stomach, but tactically."
+        },
+        {
+          "type": "p",
+          "text": "\"You're not just here as security,\" she said slowly. \"You never were.\""
+        },
+        {
+          "type": "p",
+          "text": "\"No,\" Anand said, and the stillness she'd read as professional calm since the boat crossing had resolved, in the space of a single word, into something much colder. \"The board hired me eight days ago, the same day Kabir's disappearance became a liability instead of a rumour, with one instruction: find him before the press does, and make certain that whatever he's built out here dies with the storm. I didn't know about a manifesto. I didn't know about a body count.\" He looked, briefly, almost apologetic — the last honest expression Meher would see on him. \"But I know exactly what a public confession from a founder mid-breakdown does to a stock that's four weeks from listing, and I am not currently inclined to let one happen in front of six witnesses and a working satellite uplink.\""
+        },
+        {
+          "type": "p",
+          "text": "The gun, when it appeared in his hand, looked almost incidental, the way the worst threats always do from people who've made peace with using them long before the room finds out."
+        },
+        {
+          "type": "p",
+          "text": "\"Nobody in this house leaves with a story tonight,\" Anand said, quite calmly, to a room that had, until ninety seconds earlier, believed the greatest danger inside it was already standing in the doorway wearing a dead man's face. \"Kabir's audit and my employer's cover-up have the exact same required outcome from here. Silence. I'd have preferred to arrange it without an audience. I can still arrange it with one.\""
+        }
+      ]
+    },
+    {
+      "id": "chapter-18",
+      "number": 18,
+      "label": "Chapter Eighteen",
+      "title": "The Storm at the Door",
+      "epigraph": "",
+      "content": [
+        {
+          "type": "p",
+          "text": "What saved them, in the end, wasn't courage, though there would be plenty of that in the next four minutes. It was the storm itself, and a boat that had no business being on the water at all."
+        },
+        {
+          "type": "p",
+          "text": "The house's main breaker tripped first — a surge, Joseph would say afterward, though nobody who'd spent four days inside a building that anticipated their heart rates before they did quite believed anything about Meridian House happened by accident anymore — plunging the mirror room into a darkness broken only by the security lighting's battery backup, one weak amber bulb over the door Anand had been guarding."
+        },
+        {
+          "type": "p",
+          "text": "In that half-second of confusion, Sunny — Kabir, Meher's mind still hadn't fully finished making that substitution — moved with the speed of a man who had, whatever else was true about him, clearly spent eight months rehearsing exactly one moment, and put himself bodily between Anand's gun and Ritu Rege, the wife he'd let believe him dead, in the first genuinely unrehearsed act she'd seen from him all night."
+        },
+        {
+          "type": "p",
+          "text": "The glass terrace doors didn't shatter; they just gave way with a wet, heavy shudder as the wind sheared the latch off the frame. With them came Naina Pillai. She wasn't holding a phone like a flare, and she wasn't shouting slogans. She was shivering, teeth rattling so hard the sound carried across the concrete floor, supported between two local Koli fishermen who looked less like heroic rescuers and more like men who had realized halfway across the bay that they'd priced their lives too cheap. They had run the boat into the lee of the headland three hours ago, before the swell went white, and she had waited in the estate’s generator shed, watching the house go dark. When the electronic gates clicked open in the fail-safe reboot, she simply walked up."
+        },
+        {
+          "type": "p",
+          "text": "She didn't announce her entry with a monologue. She just stood there, dripping salt water onto the polished screed, holding out a cheap ziplock bag with a phone inside it. \"Ritu,\" she said, her voice small, cracked with the cold. \"Ritu Rege. I have the tape. From the Goregaon station log. I have it.\""
+        },
+        {
+          "type": "p",
+          "text": "Anand Vora's gun hand, for just long enough, wavered toward the new and entirely unaccounted-for variable standing dripping in the doorway — and Meher Anand, forensic instinct finally catching up to four days of fear, threw the room's heaviest object within reach, a brass table lamp shaped like a compass rose, directly at his head."
+        }
+      ]
+    },
+    {
+      "id": "chapter-19",
+      "number": 19,
+      "label": "Chapter Nineteen",
+      "title": "What the Lamp Decided",
+      "epigraph": "",
+      "content": [
+        {
+          "type": "p",
+          "text": "The compass rose caught Anand Vora above the left ear and put him down hard enough that the gun skated across polished concrete and came to rest against Dr. Kurian's foot, and for one suspended half-second nobody in the room, including Leela herself, seemed entirely certain what she'd do with it."
+        },
+        {
+          "type": "p",
+          "text": "What she did was pick it up, check the safety with the brisk competence of a woman who had apparently spent more of her life around risk than her folio and her careful silences had suggested, and point it, hands shaking but aim steady, at a man now bleeding onto the floor of a room built for looking at yourself from three angles at once."
+        },
+        {
+          "type": "p",
+          "text": "\"Nobody else is dying in this house tonight,\" she said, to Anand, to Kabir, to the room in general, and something in the flatness of it suggested she'd meant to say that sentence six years ago and never quite found the room brave enough to say it in."
+        },
+        {
+          "type": "p",
+          "text": "Naina, still dripping, made it up the last of the terrace steps as the emergency lighting flickered back to something closer to full power, ORACLE's systems rebooting with a soft, almost embarrassed chime, and found herself facing eight strangers, a bleeding man on the floor, and a woman she'd seen once, for eleven seconds, through a train window, now looking back at her with an expression that told Naina she was, finally, unmistakably, being believed."
+        }
+      ]
+    },
+    {
+      "id": "chapter-20",
+      "number": 20,
+      "label": "Chapter Twenty",
+      "title": "The Argument on the Landing",
+      "epigraph": "",
+      "content": [
+        {
+          "type": "p",
+          "text": "Kabir Rege tried to leave twice while Joseph radioed the coast guard for the second time that week, and both times Meher stopped him, not with the gun Leela was still holding on Anand's semi-conscious form, but with the only weapon she'd ever actually trusted: a question he clearly hadn't finished answering to himself yet."
+        },
+        {
+          "type": "p",
+          "text": "\"What happens to Aarav Sable's daughter,\" she said, blocking the landing at the top of the mirror room stairs, \"if you disappear into the storm tonight and let this become a story about a missing man's dramatic reappearance and vanishing act instead of a story about the thing that actually killed her father.\""
+        },
+        {
+          "type": "p",
+          "text": "\"I've drafted the full disclosure,\" Kabir said. \"Model logs, board minutes, the settlement terms, all of it, sitting on a server that publishes automatically the moment I don't check in with it every twelve hours. My absence was never meant to bury the story. It was meant to force everyone in this house to decide, in a room together, without lawyers, whether they'd tell it themselves or let the algorithm do it for them.\""
+        },
+        {
+          "type": "p",
+          "text": "\"That's not justice,\" Meher said. \"That's a very expensive way of making yourself the only person in this story who doesn't have to answer for anything, because you get to be the ghost who arranged everyone else's reckoning and skip your own.\""
+        },
+        {
+          "type": "p",
+          "text": "Something in that landed differently than anything Ritu or Leela had said to him all night — not accusation, which he'd clearly built eight months of armour against, but the specific, surgical disappointment of someone who might, in another life, have written the story that actually held him accountable, if he'd let her."
+        },
+        {
+          "type": "p",
+          "text": "\"Then tell me what accountability looks like,\" he said, quiet now, the theatre gone out of his voice entirely, \"from a man who's already technically dead, on paper, in every database that matters.\""
+        },
+        {
+          "type": "p",
+          "text": "\"It looks like you walking onto that coast guard boat under your own name,\" Meher said, \"and letting a court, not a house full of terrified strangers, decide what happens next. It looks like being the first person in this entire story who chose the hard, boring, accountable version of the truth instead of the dramatic one.\""
+        }
+      ]
+    },
+    {
+      "id": "chapter-21",
+      "number": 21,
+      "label": "Chapter Twenty-One",
+      "title": "What Naina Brought",
+      "epigraph": "",
+      "content": [
+        {
+          "type": "p",
+          "text": "It was Naina's phone, passed hand to hand in the strange, exhausted calm that settles over a house once the immediate danger has finally, actually passed, that reset the entire shape of what the coast guard would find when they finally docked at first light."
+        },
+        {
+          "type": "p",
+          "text": "The voicemail was fourteen months old, recovered from a service request Naina had filed with a persistence that would later make three separate newspaper profiles about her use the word relentless: Ritu's voice, hushed, recorded from what sounded like a bathroom with the tap running to cover the sound, saying a sentence she had clearly never expected anyone but the person she was calling to ever hear. \"He didn't hit me. I need you to understand that, because I know how this sounds. He just — stops seeing me as a person for days at a time, when the company's in trouble, and I don't know how to file a complaint about a man disappearing into himself while still standing in the same room as me.\""
+        },
+        {
+          "type": "p",
+          "text": "\"I called my sister,\" Ritu said quietly, when the recording finished, in a house gone entirely silent around her. \"Not the police. I don't know how that got confused with a domestic disturbance report.\""
+        },
+        {
+          "type": "p",
+          "text": "\"I saw you,\" Naina said, her shoulders still hunched against the wet draft. \"Through the window from the Goregaon local. You were pressed against the glass, and he was behind you. I called the station. They told me to mind my business. So I started digging. When the papers printed Kabir's disappearance, I saw your face in the background of the photos. I tracked down your sister's social accounts, found a voicemail you'd left her that she'd uploaded to a private drive. I've spent three weeks putting the pieces together because the alternative was admitting that my own eyes had lied to me.\" She looked, for the first time since arriving soaked and furious onto the terrace, uncertain. \"I might have gotten the shape of it wrong. I definitely got the outcome right. Something in that flat needed someone to notice it. I just wanted, finally, for someone official to agree with me that it happened at all.\""
+        },
+        {
+          "type": "p",
+          "text": "It was, Meher would think later, writing the story that finally put her byline back above the fold, the truest sentence anyone said in that entire house across four days and three deaths: not every witness gets every detail right, and that has never once been a reason to stop believing the ones who are brave enough to keep insisting on what they saw."
+        }
+      ]
+    },
+    {
+      "id": "chapter-22",
+      "number": 22,
+      "label": "Chapter Twenty-Two",
+      "title": "The Coast Guard at Dawn",
+      "epigraph": "",
+      "content": [
+        {
+          "type": "p",
+          "text": "Cyclone Bulbul made landfall forty kilometres north of Meridian House at 4:52 a.m., weakened to a strong depression by a coastline that had, Meher thought, watching the first genuine light break clean and grey over a sea gone suddenly, exhaustedly calm, absorbed considerably worse than this over the centuries and would go on doing so."
+        },
+        {
+          "type": "p",
+          "text": "The coast guard cutter that finally reached the jetty carried, alongside its crew, two plainclothes officers from the Cyber and Economic Offences wing and, at Meher's specific and rather insistent request relayed through a very confused duty officer at 3 a.m., a constable from the Goregaon station with instructions to bring the original, dismissed complaint file with him."
+        },
+        {
+          "type": "p",
+          "text": "Anand Vora, conscious again and considerably less composed than he'd been in the mirror room, was taken into custody first, on charges that would, over the following months, expand to include conspiracy and two counts of accessory to murder, once the shoe print at the base of the cliff stairs was matched to a boot recovered from his room — a detail Meher had photographed four days earlier and never once stopped carrying, quite literally, close to her chest."
+        },
+        {
+          "type": "p",
+          "text": "Kabir Rege walked onto that boat under his own name, exactly as he'd said he would, flanked by officers rather than lawyers for what Ritu would later say was the first time in his adult life, and did not look back at the house he'd built to listen to nine strangers' heartbeats and had, in the end, mostly used to listen to his own."
+        },
+        {
+          "type": "p",
+          "text": "The disclosure server, true to his word, had already published itself twelve hours earlier, when he'd missed his check-in during the confrontation in the mirror room — model logs, board minutes, Aarav Sable's suicide note in full, the settlement terms Ritu had signed under duress six years earlier now sitting in the public record exactly where they should have been from the start."
+        }
+      ]
+    },
+    {
+      "id": "chapter-23",
+      "number": 23,
+      "label": "Chapter Twenty-Three",
+      "title": "The Fund That Closed the Round Anyway",
+      "epigraph": "",
+      "content": [
+        {
+          "type": "p",
+          "text": "The fallout, once it started, moved with the specific, indiscriminate speed of a story that had been waiting a long time to be allowed to happen. Priya Oberoi's fund faced a shareholder inquiry within the week, once the disclosure server's contents made clear exactly what she'd buried and when; Dr. Leela Kurian voluntarily surrendered her practising licence pending a medical council review, a decision she announced in a statement that Meher, reading it two weeks later from a hotel room in Mumbai, thought was the first entirely uncalculated thing the woman had done since the boat crossing."
+        },
+        {
+          "type": "p",
+          "text": "The company itself did not survive its IPO in any recognisable form; what replaced it, six months later, under new leadership and a board that included, in a detail the business press found almost too neat to be real, Aarav Sable's widow as an independent director with explicit oversight of the predictive-risk model's ethics review, was smaller, slower, and considerably more boring in exactly the way Kabir Rege had once told Meher, on a landing above a mirror room, that real accountability tended to be."
+        },
+        {
+          "type": "p",
+          "text": "Ritu Rege did not stay married to a man now facing trial, and did not, in any of the three long interviews she eventually gave, describe that decision as a tragedy. \"I spent fourteen months being called tired for telling the truth,\" she told Meher, in the last of those interviews, on a record that would run, finally, above the fold, under Meher's own restored byline. \"I'm done being quiet so that someone else's story can stay tidy.\""
+        }
+      ]
+    },
+    {
+      "id": "chapter-24",
+      "number": 24,
+      "label": "Chapter Twenty-Four",
+      "title": "Two Women, One Platform",
+      "epigraph": "",
+      "content": [
+        {
+          "type": "p",
+          "text": "They met properly for the first time three weeks after the storm, on platform four of Churchgate station, at Naina's suggestion, because she said she wanted to see, in daylight, whether the version of a stranger you build out of an eleven-second window ever actually matches the person who steps off the train."
+        },
+        {
+          "type": "p",
+          "text": "\"You look taller in person,\" Naina said, by way of greeting, and Meher decided she liked her immediately, the specific bluntness of someone who had spent three weeks being told her own eyes were unreliable and had come out the other side of it with no patience left for small talk."
+        },
+        {
+          "type": "p",
+          "text": "\"The paper's offered me a staff position,\" Meher said, once they'd found a bench and two cups of station chai that tasted, as always, faintly of diesel and better than they had any right to. \"Investigations desk. I told them I'd only take it if they ran a proper profile on you first — the witness the system dismissed twice before she proved it wrong on her own.\""
+        },
+        {
+          "type": "p",
+          "text": "Naina studied the platform for a moment, the ordinary Tuesday churn of a city that had already mostly forgotten, in three weeks, that it had briefly been obsessed with a vanished tech founder. \"I don't want to be a story about being right,\" she said finally. \"I want to be a story about what it costs when nobody checks the first time you say something's wrong. That's a different piece.\""
+        },
+        {
+          "type": "p",
+          "text": "\"That,\" Meher said, \"is a much better piece. I'll write that one.\""
+        },
+        {
+          "type": "p",
+          "text": "Above them, the departures board flickered through its schedule the way it always had, indifferent to any of it, and for the first time in longer than either woman could easily name, that indifference felt less like being unseen and more like simply, finally, being allowed to be ordinary again."
+        }
+      ]
+    },
+    {
+      "id": "chapter-25",
+      "number": 25,
+      "label": "Chapter Twenty-Five",
+      "title": "What Meridian House Kept",
+      "epigraph": "",
+      "content": [
+        {
+          "type": "p",
+          "text": "The house itself stood empty through the following monsoon, its sale tangled in litigation that would outlast most of the people who'd spent four days inside it, and ORACLE — decommissioned, its servers seized as evidence, its warm, unhurried voice reduced to a line item in a forensic audit report Meher read start to finish twice — never spoke inside those rooms again."
+        },
+        {
+          "type": "p",
+          "text": "But Joseph, in the single interview he gave before disappearing entirely from the story's remaining coverage, said one thing that stayed with Meher longer than almost anything else from those four days: that in the system's final logs, timestamped in the confused hour after the main breaker tripped, ORACLE had recorded one message it never got the chance to deliver, addressed to no guest in particular, queued and then quietly discarded when its architect walked onto a coast guard boat instead of finishing what he'd started."
+        },
+        {
+          "type": "p",
+          "text": "Meher never got to read the message itself; the forensic team had classified it, along with the rest of the system's final hour, as evidence pending trial. But she thought about it often, in the months that followed, writing the story that finally put her name back where it belonged — about a house built by a grieving man to listen for sins the way it once listened for heartbeats, and about the one correction it never got to make."
+        }
+      ]
+    },
+    {
+      "id": "epilogue",
+      "number": 26,
+      "label": "Epilogue",
+      "title": "Sin Ten",
+      "epigraph": "",
+      "content": [
+        {
+          "type": "p",
+          "text": "Eight months later, on an ordinary Wednesday that had given her no reason to expect anything from it, Meher Anand's phone buzzed with a message from a number that resolved, when she checked, to nothing at all — no name, no location, no carrier record the telecom company could produce when the police eventually asked."
+        },
+        {
+          "type": "p",
+          "text": "It contained a single line, in a font that looked hand-drawn rather than typed, one she had last seen projected onto a blank wall behind an empty ninth chair."
+        },
+        {
+          "type": "pull",
+          "text": "Sin ten: unwritten."
+        },
+        {
+          "type": "p",
+          "text": "She sat with it for a long time before she did anything at all — not afraid, exactly, though she noted with clinical interest that some part of her clearly still expected to be — and then she did the only thing a person in her particular profession has ever really known how to do with a sentence like that."
+        },
+        {
+          "type": "p",
+          "text": "She opened a new file, and started writing it down."
+        },
+        {
+          "type": "p",
+          "text": "THE END"
+        }
+      ]
+    }
+  ]
+}
 ];

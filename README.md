@@ -2,7 +2,9 @@
 
 > "Disappearing is easy. Becoming is the hard part."
 
-**ABSCONDED** is a premium digital manuscript reading platform and search engine built by **Tanvir Khan**. It acts as a digital library for his original long-form works, essays, and novels, designed for high-fidelity immersive reading.
+This is not a blog. It is not a portfolio. It is a record of someone mid-becoming — manuscripts written in the hours between the life that was expected and the one being built instead. Fifteen stories. Real cities. Fictional names. The gap between the two is where the truth lives.
+
+**ABSCONDED** is a premium digital manuscript reading platform built by **Tanvir Khan** — a digital library for his original long-form works, short fiction, and novels, designed for high-fidelity immersive reading.
 
 ---
 
@@ -65,7 +67,7 @@
 - `app/page.jsx`: Core interface, shelf layout, theme switcher, progress persistence hooks, and the Oracle interface.
 - `app/layout.jsx`: Root layout, `@vercel/analytics` integration, and global SEO metadata.
 - `app/globals.css`: Customized theme variable systems and Tailwind utility overrides.
-- `app/data.js`: Central content database for the digital manuscripts.
+- `app/data.js`: Central content database — 15 stories, 130+ chapters, 300,000+ words of original fiction and memoir.
 - `app/data/manuscripts.js`: Local fallback database for offline reading.
 - `public/`: Static cover images, icons, and sitemap configuration.
 
