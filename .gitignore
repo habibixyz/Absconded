@@ -6,3 +6,4 @@ build
 *.log
 .env*
 .DS_Store
+public/views.json

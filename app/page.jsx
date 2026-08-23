@@ -157,6 +157,20 @@ export default function Home() {
   const [isRestoring, setIsRestoring] = useState(true)
   const [copied, setCopied] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
+  const [bookStats, setBookStats] = useState({})
+
+  // Fetch book reader stats
+  useEffect(() => {
+    fetch('/api/stats')
+      .then(res => res.json())
+      .then(data => {
+        if (data && data.stats) {
+          setBookStats(data.stats)
+        }
+      })
+      .catch(err => console.error("Error fetching stats:", err))
+  }, [])
+
 
   // Initialize and persist theme
   useEffect(() => {
@@ -478,6 +492,28 @@ export default function Home() {
     })
   }
 
+  // Record a unique reader action upon starting a book
+  const handleBeginReading = (bookId) => {
+    const readKey = `absconded-read-${bookId}`
+    if (!localStorage.getItem(readKey)) {
+      fetch('/api/stats', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ bookId })
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data && data.count !== undefined) {
+          setBookStats(prev => ({ ...prev, [bookId]: data.count }))
+        }
+        localStorage.setItem(readKey, 'true')
+      })
+      .catch(err => console.error("Error updating stats:", err))
+    }
+    setShowCover(false)
+  }
+
+
   // Reading pagination statistics helper
   const getChapterStats = () => {
     if (!selectedBook || !selectedChapter) return null
@@ -717,6 +753,11 @@ export default function Home() {
                       <span className="text-[8px] tracking-[0.2em] uppercase text-secondary/60 border border-white/10 px-3 py-1 bg-bg/60 backdrop-blur-sm">
                         {calculateBookReadingTime(book)} read
                       </span>
+                      {bookStats[book.id] !== undefined && (
+                        <span className="text-[8px] tracking-[0.2em] uppercase text-secondary/60 border border-white/10 px-3 py-1 bg-bg/60 backdrop-blur-sm">
+                          {bookStats[book.id]} {bookStats[book.id] === 1 ? 'reader' : 'readers'}
+                        </span>
+                      )}
                     </div>
                   </div>
                   <p className="text-sm font-light text-secondary leading-relaxed">{book.description}</p>
@@ -772,7 +813,7 @@ export default function Home() {
             
             <div className="flex flex-col md:flex-row gap-4 justify-center items-center">
               <button 
-                onClick={() => setShowCover(false)}
+                onClick={() => handleBeginReading(selectedBook.id)}
                 className="px-12 py-4 border border-white/10 hover:border-white/40 hover:bg-white/5 rounded-full text-[10px] tracking-[0.3em] uppercase transition-all duration-500"
               >
                 Begin Reading
