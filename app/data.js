@@ -1606,6 +1606,62 @@ export const books = [
             "text": "She put ₹500 on the table, enough for both chais and a tip for the man who had been bringing them here since before either of them was born, and said: \"I'm going to need your deletion architecture. Not to use it. To reverse it. All of it. Including the port records. Especially the port records.\" She didn't wait for an answer. She was already walking."
           }
         ]
+      },
+      {
+        "id": "chapter-5",
+        "number": 5,
+        "label": "Chapter Five",
+        "title": "Eight Hours to Exist",
+        "content": [
+          {
+            "type": "p",
+            "text": "She did not go home. Home was in the system. Home was an address attached to a PAN that did not exist and an Aadhaar that had been cancelled and a lease agreement filed with a housing registry she could no longer access."
+          },
+          {
+            "type": "p",
+            "text": "She went to the server in Dharavi. A room above a garment workshop in a lane off the main road, rented in the name of a company she had incorporated two years ago for exactly this possibility, paid a year in advance in cash. The machine was still running. It had been running for six months, quietly, patiently, doing what she had built it to do."
+          },
+          {
+            "type": "p",
+            "text": "Index — Suresh — arrived forty minutes later. He did not ask how she had known he would follow. He sat down, opened his own machine, and said: tell me what format the port records are in. We have time if we move now."
+          },
+          {
+            "type": "p",
+            "text": "What followed was six hours she would later find almost impossible to describe to anyone who was not a data architect. The kind of work that has no drama from the outside — just two people and two keyboards and a dataset and a set of nested decisions, each one irreversible, made fast in sequence in a room that smelled of machine oil and diesel from the lane below."
+          },
+          {
+            "type": "p",
+            "text": "The reconciliation engine had been rebuilding the deleted port records in fragments for three weeks. Riya had the reconstruction. Index had the deletion logic — the exact sequence of database writes that had overwritten the originals. Running them in reverse was not technically possible. But finding the gap between what existed and what the deletion had replaced it with — and proving, mathematically, what the original had to have been — that was possible. Just."
+          },
+          {
+            "type": "pull",
+            "text": "At 6:14 AM she uploaded the reconstructed ledger to three locations simultaneously: a SEBI whistleblower server, a regulatory archive in Singapore, and the joint inbox of a journalist at The Ledger she had never met in person but had been reading for two years."
+          },
+          {
+            "type": "p",
+            "text": "She uploaded herself back into the databases at 7:03 AM — a process she had also prepared for, six months ago, knowing that if the Protocol was ever used against her she would need to be able to re-register from outside the system. It was the ugliest hack she had ever written. It worked."
+          },
+          {
+            "type": "p",
+            "text": "By 7:45 AM she had a PAN number again. An Aadhaar. A passport flagged active. A company registry entry. She existed."
+          },
+          {
+            "type": "p",
+            "text": "She did not go back to Lumen Capital. She sent a resignation from the garment workshop lane on a phone she would throw away afterward, four words: I found the gap. She did not explain which one she meant."
+          },
+          {
+            "type": "pull",
+            "text": "Suresh left before she finished. He left his deletion architecture on the server — the full codebase, every version. He did not say why. She did not ask. Some things are returned without ceremony because ceremony would make them smaller."
+          },
+          {
+            "type": "p",
+            "text": "The sun was fully up by the time she walked out onto the lane. The garment workers were arriving for the morning shift. A woman was unlocking a padlock on a shutter. A child was eating something wrapped in newspaper on the step. Nobody looked at Riya. She was just a person on a lane, existing, unremarkably, in the record of the world."
+          },
+          {
+            "type": "p",
+            "text": "She thought: I built a system to survive being erased. I never built anything to tell me what comes after. She thought that was probably what she would spend the next year figuring out."
+          }
+        ]
       }
     ]
   },
@@ -1868,6 +1924,58 @@ export const books = [
           {
             "type": "p",
             "text": "He got a new job six months later, at a smaller firm in Hyderabad with no Singapore exposure and a compliance team that returned his calls. His first week, he pulled the reconciliation logs for the past three years — just to look, just habit — and found, in the overnight batch, a trade against an LEI code he didn't recognise. He stared at it for a long time. Then he picked up his phone."
+          }
+        ]
+      },
+      {
+        "id": "chapter-5",
+        "number": 5,
+        "label": "Chapter Five",
+        "title": "The Call He Had Been Rehearsing",
+        "content": [
+          {
+            "type": "p",
+            "text": "He stared at the LEI code for twenty-two minutes."
+          },
+          {
+            "type": "p",
+            "text": "He knew what it was. He had built, over the last six months in Hyderabad, a lookup script that cross-referenced overnight batch anomalies against three external databases simultaneously. He had written it in his own time, on his personal machine, for reasons he had not explained to his new manager because they were not the kind of reasons you explain in a job interview: that he now knew systems like these were designed to survive exposure, and the only way to get ahead of them was to be looking before the reconciliation flag appeared."
+          },
+          {
+            "type": "p",
+            "text": "The LEI was registered in Singapore. It was two months old. It had no transaction history except this one, which had cleared without error through the overnight batch at 2:47 AM."
+          },
+          {
+            "type": "p",
+            "text": "He thought about his father. He thought about three years of legal proceedings and a case resolved too late. He thought about Nandita's face in Matunga on the fourth day, making chai on a two-ring stove while he sat in her room not knowing which direction the door was."
+          },
+          {
+            "type": "p",
+            "text": "He thought about the journalist at The Ledger who had, two weeks ago, published a story that referred to a financial reconciliation system being rebuilt from inside a firm called Lumen Capital and to a data trail involving a company called Helios Infrastructure Partners and to a ₹2,200 crore ledger gap that had been manually deleted. He had read it three times. He had noticed that the LEI architecture described in the story was technically identical to the Vega structure he had found at Meridian. He had not contacted the journalist."
+          },
+          {
+            "type": "pull",
+            "text": "He had been thinking about whether to for eleven days. Now he had a second data point."
+          },
+          {
+            "type": "p",
+            "text": "He picked up his phone. He did not call the SEBI hotline this time. He had done that before and understood now what it produced: a process that moved at the speed of institutions, which is to say, slower than the thing it was trying to catch."
+          },
+          {
+            "type": "p",
+            "text": "He called the journalist directly. Her number was in the byline. He had looked it up on the first read and saved it, the same way he saved anomaly flags — not because he knew what he would do with it, but because removing information you might need later is the kind of mistake you only make once."
+          },
+          {
+            "type": "p",
+            "text": "She picked up on the second ring. He said: I'm a risk analyst. I've found something that connects to your Helios story. I need you to understand that I have a job, a family, and no protection if this goes wrong. I'm calling anyway because I've decided that not calling is also a choice, and I've seen what that choice produces. He stopped. He waited."
+          },
+          {
+            "type": "p",
+            "text": "She said: tell me what you have. He did."
+          },
+          {
+            "type": "pull",
+            "text": "It was the most frightened he had been since the Saturday he had missed his sister's sangeet to stare at a reconciliation flag in an empty office. It was also the clearest he had felt since then. Those two things were, he had found, often the same thing."
           }
         ]
       }
