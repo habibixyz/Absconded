@@ -2134,6 +2134,54 @@ export const books = [
             "text": "He stood there until the boys stopped playing and went inside for dinner and the lane was quiet except for the generator, and then he walked back to his car and opened his notebook — paper, not digital, a habit he had kept since his first year on the job — and wrote the date, the location, and three words: The city knows. He stared at them for a moment. Then he added four more: And so do I."
           }
         ]
+      },
+      {
+        "id": "chapter-5",
+        "number": 5,
+        "label": "Chapter Five",
+        "title": "The Decision at 6 AM",
+        "content": [
+          {
+            "type": "p",
+            "text": "His first day reinstated, Farhan arrived at the station at 5:50 AM. He had not been able to sleep past 4:30. He did not examine this too closely."
+          },
+          {
+            "type": "p",
+            "text": "The PRISM terminal was already on. It was always on. On the screen: twelve alerts from overnight, sorted by probability score, colour-coded by ward. The system had already decided what mattered. It was waiting for him to agree."
+          },
+          {
+            "type": "p",
+            "text": "He had spent three months thinking about the thirty percent. The committee, the framework document, the deactivated twelfth-user account. The ninety-one things they hadn't changed. He had written them in a list one night, not to show anyone, just to have them somewhere outside his own head."
+          },
+          {
+            "type": "p",
+            "text": "He looked at the top alert. Ward 11, Kurla East. High probability event flagged at 4:18 AM. The system recommended a patrol unit be deployed within the next two hours."
+          },
+          {
+            "type": "p",
+            "text": "He looked at it for a long time."
+          },
+          {
+            "type": "p",
+            "text": "Then he did what fourteen years had taught him to do: he went himself. Not because PRISM said to. Not because it confirmed anything he already believed. But because Ward 11 was a forty-minute drive and the morning was clear and if something was there he wanted to find it himself, with his own eyes, before the system had already decided what it meant."
+          },
+          {
+            "type": "pull",
+            "text": "PRISM was still running when he left. It flagged his absence as an anomalous departure from protocol. He did not see the alert. He was already in his car."
+          },
+          {
+            "type": "p",
+            "text": "In Kurla East he found nothing. A tea stall opening early. Two trucks idling outside a warehouse gate, drivers asleep in the cabs. The specific pre-dawn quiet of a city that has not yet decided what kind of day it wants to be."
+          },
+          {
+            "type": "p",
+            "text": "He stayed for twenty minutes. He drove back. He pulled up PRISM and marked the alert: resolved, no event. He did not note how he had resolved it. The system accepted this and moved on. It always moved on."
+          },
+          {
+            "type": "p",
+            "text": "This was, he thought, probably the best he could do. Not fix it. Not quit. Not trust it. Just keep showing up in person to check."
+          }
+        ]
       }
     ]
   },
@@ -2326,6 +2374,42 @@ export const books = [
             "text": "Seema had not. But she had heard of Helios Infrastructure Partners, and the name in the journalist's email was enough to make her reply: yes, tell me everything, I have time."
           }
         ]
+      },
+      {
+        "id": "chapter-5",
+        "number": 5,
+        "label": "Chapter Five",
+        "title": "What the Column Cost",
+        "content": [
+          {
+            "type": "p",
+            "text": "The 180,000 new subscribers arrived over four days. The inbox hit 6,400 unread messages by the end of the first week. Seema sat in her flat in Bandra on a Sunday night, reading the same letter for the fourth time — a woman from Pune who had been reading the column for nine years and wanted Seema to know that she had finally left, two days after the viral piece published, and that she wanted to say thank you."
+          },
+          {
+            "type": "p",
+            "text": "Seema wrote back. Then she opened the next one."
+          },
+          {
+            "type": "p",
+            "text": "By midnight she had answered eleven. There were 6,389 remaining. She was aware that this was not sustainable. She was also aware, in the flat that was entirely hers with the router she had bought herself and the server no one else could touch, that she had spent twelve years answering other people's crises from inside her own."
+          },
+          {
+            "type": "p",
+            "text": "She had not cried in the months since she found Vikram's column. She had documented, filed, strategised, published, spoken at events, built an evidence folder, changed her digital infrastructure. She had been, she realised now, operating on the same adrenaline she used to tell her readers was not a sustainable state."
+          },
+          {
+            "type": "pull",
+            "text": "She closed the laptop. She sat with the lights off for a while. Then she did something she had never done in twelve years of the column — she wrote a letter to herself. Not for publication. Addressed to no one. Starting with the words: I don't know what I want now. I know what I did. I don't know what comes next."
+          },
+          {
+            "type": "p",
+            "text": "She did not publish it. She saved it in a folder she called 'Drafts — Not Ready.' It had nothing else in it. The folder had existed for eleven years and had always been empty."
+          },
+          {
+            "type": "p",
+            "text": "In the morning she opened the inbox again. She answered three more letters. She thought: this is the work. Not the viral moment. Not the settlement. Not the new subscribers. The work is this — one letter, then the next, then the next. Same as it always was. Just from a flat where no one else keeps the keys."
+          }
+        ]
       }
     ]
   },
@@ -2516,6 +2600,50 @@ export const books = [
           {
             "type": "pull",
             "text": "She was deep in the architecture when she received a message from a woman named Seema Kapoor, forwarded through the journalist: I heard you found a Helios thread. I have another one."
+          }
+        ]
+      },
+      {
+        "id": "chapter-5",
+        "number": 5,
+        "label": "Chapter Five",
+        "title": "The Afternoon in Vasai-Virar",
+        "content": [
+          {
+            "type": "p",
+            "text": "Nobody had asked Farah to go in person. Arun had offered to present the data. The lawyer could have done it. The journalist had already written the piece."
+          },
+          {
+            "type": "p",
+            "text": "She went anyway. On a Tuesday, on the slow train from Churchgate, with a printed copy of Arun's data and her work laptop in her bag and no clear sense of what she was going to say beyond what the data already said."
+          },
+          {
+            "type": "p",
+            "text": "Saira's mother lived in the same building Saira had grown up in, in the part of Vasai-Virar that the development had not touched — not because Helios hadn't tried, but because this particular lane had organised fast enough to file a legal objection before the acquisition was stamped. Saira's protest trips had been to this exact municipality office. The sixteen trips the data recorded. Farah had printed that chart too."
+          },
+          {
+            "type": "p",
+            "text": "The mother was smaller than Farah expected. She made chai without asking. She did not ask why Farah had come in person instead of sending the documents electronically. She seemed to understand that there was a version of this that required a body in a chair."
+          },
+          {
+            "type": "p",
+            "text": "Farah showed her the printouts. She explained what each one meant. The mother listened without interrupting. When Farah finished she looked at the chart — the sixteen trips, the dates, the mobility cluster tracking Saira from home to the municipality office and back — for a long time."
+          },
+          {
+            "type": "p",
+            "text": "Then she said: she never told me she went sixteen times. She only told me about the first one. She said it hadn't worked. I thought she had given up."
+          },
+          {
+            "type": "pull",
+            "text": "Farah did not know what to say to that. She had come expecting to give something. She had not expected to receive something back."
+          },
+          {
+            "type": "p",
+            "text": "She took the slow train back to Mumbai in the evening. The sun was going down over the creek and the train was crowded and she stood the whole way, holding the overhead rail, thinking about the sixteen trips. About the fact that Saira had kept going back without telling her mother. About what it means to do something important and say nothing about it. About the data that had been walking Saira forward every morning in a server in Bangalore long after Saira had stopped walking anywhere at all."
+          },
+          {
+            "type": "p",
+            "text": "It was the most useful thing the data had ever done. And it had needed a human being to carry it into a room."
           }
         ]
       }
@@ -2712,6 +2840,46 @@ export const books = [
           {
             "type": "p",
             "text": "In March, she received a message forwarded through the journalist at The Ledger — from a woman named Farah who had found a village in a server, and a woman named Seema who had found her voice in her husband's hands, and attached to the message was a document titled 'Signal Collection III: The Connected Universe — a manuscript about four women who found the same building from different sides' and at the bottom was a note: we think you are the fourth. We think you always were. Will you help us finish it?"
+          }
+        ]
+      },
+      {
+        "id": "chapter-5",
+        "number": 5,
+        "label": "Chapter Five",
+        "title": "The One Message That Wasn't About Kabir",
+        "content": [
+          {
+            "type": "p",
+            "text": "The message arrived on a Tuesday morning, five weeks after Zara's column had been running. Not from a founder. Not from a lawyer or a journalist. From someone named Divya who said she worked in communications at a mid-size consultancy in Gurugram and had been doing, for three years, something that the column had made her understand was wrong."
+          },
+          {
+            "type": "p",
+            "text": "She did not use the word 'wrong' herself. She said: I've been doing something that your column made me realise I can't keep doing. I don't know how to stop without losing my job. I don't know if that's your problem. I just needed to say it to someone who would understand what I mean."
+          },
+          {
+            "type": "p",
+            "text": "Zara read it twice. She had built clients with audiences of half a million. She had written launch pieces that got featured in every publication she had ever wanted to be in. She had made people believable who, on their own, were not."
+          },
+          {
+            "type": "p",
+            "text": "She had never once, in nine years, made anyone uncomfortable enough to want to be different."
+          },
+          {
+            "type": "pull",
+            "text": "4,000 readers. One message. And it was the only one that told her the column was actually working."
+          },
+          {
+            "type": "p",
+            "text": "She wrote back. She told Divya she couldn't tell her what to do — she had learned recently that advice is most dangerous when it arrives from someone who doesn't have to live with the consequences. But she told her this: the thing that makes it hard to stop is not fear of losing the job. It's that you've built a version of yourself that the job requires. The job and the self have become the same thing. Separating them is not a career decision. It's a different kind of work entirely. I know because I just did it and I'm still figuring out what I am without the other thing."
+          },
+          {
+            "type": "p",
+            "text": "Divya wrote back three days later: I told my manager I couldn't take the Helios account. She said: which Helios? I said the infrastructure one. She said: nobody would touch that account right now anyway. So that particular decision, Divya said, turned out to be easy. The next one won't be."
+          },
+          {
+            "type": "p",
+            "text": "Zara printed this exchange and put it on the wall above her desk. Not the Kabir case. Not the regulatory filing. Not the forty-three press mentions of the Dharavi story. Just this. A message from someone she had never met, about a decision she would never know the full outcome of, that had cost something real to make."
           }
         ]
       }
@@ -2936,6 +3104,50 @@ export const books = [
           {
             "type": "p",
             "text": "Riya saw the message first. She read it twice. Then she forwarded it to the others with a single line of her own: the reconciliation engine flagged a wallet address last week that I've been trying to trace. I think A is the reason I can't. I think he built the gap on purpose. I think he's been waiting for us to be ready to hear why."
+          }
+        ]
+      },
+      {
+        "id": "chapter-5",
+        "number": 5,
+        "label": "Chapter Five",
+        "title": "The Reader Who Never Wrote Back",
+        "content": [
+          {
+            "type": "p",
+            "text": "His name was Rahul and they never knew he existed."
+          },
+          {
+            "type": "p",
+            "text": "He was thirty-four, a middle manager in a property firm in Pune, and he had been sitting with a document for eleven days — a sworn affidavit his uncle had asked him to sign, attesting that a plot of land in Nashik had been his family's ancestral property since 1972. It had not been. The actual dates were different, the acquisition more recent, the paperwork reworked to support a dispute his uncle was fighting against a neighbouring family who had lived there for forty years."
+          },
+          {
+            "type": "p",
+            "text": "The family who would lose were not powerful people. They were the kind of people who do not appear in any investigation. Who do not have a journalist at The Ledger. Whose displacement would happen without documentation, filed under 'civil dispute' and forgotten."
+          },
+          {
+            "type": "p",
+            "text": "Rahul had told himself it was a small thing. A family matter. That the courts would sort it out eventually. That one affidavit from a nephew who barely visited Nashik would not change anything."
+          },
+          {
+            "type": "p",
+            "text": "He had read the document on a Thursday evening when he was killing time. He had started with the Alibi Architect chapter because the title caught him. Then the Village in the Server. Then The Deletion Protocol. He had not been looking for any of this. He had followed a link someone shared in a WhatsApp group about Helios — a company he had a peripheral, uncomfortable awareness of from his own industry."
+          },
+          {
+            "type": "pull",
+            "text": "He read for two hours. Then he put his phone down and sat with the affidavit on his desk and understood, with the particular clarity of someone who has been shown a mirror they were not expecting, exactly what he was doing."
+          },
+          {
+            "type": "p",
+            "text": "He did not sign it. He called his uncle and said the dates were wrong and he couldn't put his name on something incorrect. His uncle called him ungrateful. His mother called twice. He let both calls end without reversing the decision."
+          },
+          {
+            "type": "p",
+            "text": "He never wrote to the four women. He did not know their names individually — the document listed only 'Signal Collective' as the authors. He had no way to tell them what had happened and was not sure they would want to know. Writing does not usually get to see what it prevents. It only gets to see what it creates."
+          },
+          {
+            "type": "p",
+            "text": "In Seema's flat in Bandra, Riya forwarded a message from someone who signed himself A and said there was a fifth thread. The four of them leaned in around a laptop to read it. Outside, Mumbai was doing what Mumbai always does — moving, ignoring, accumulating, absorbing — and in a flat in Pune a man named Rahul was not signing a document, and none of them knew that either, and that was exactly how it worked."
           }
         ]
       }
