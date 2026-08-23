@@ -2,6 +2,8 @@ import { NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
 
+export const dynamic = 'force-dynamic';
+
 const localDbPath = path.join(process.cwd(), 'public', 'views.json');
 
 // Helper to hash IP + User Agent natively using Web Crypto API
