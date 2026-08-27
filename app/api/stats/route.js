@@ -83,7 +83,8 @@ export async function GET() {
     "the-last-performance-review", 
     "the-deletion-protocol", 
     "the-counterparty",
-    "silent-protocol"
+    "silent-protocol",
+    "room-between-lives"
   ];
   
   const stats = {};

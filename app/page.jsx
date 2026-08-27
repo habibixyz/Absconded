@@ -6,6 +6,18 @@ import { books } from './data'
 // Timeline Signals Log for the Developer Signals Feed
 const timelineSignals = [
   {
+    id: 107,
+    type: "CORE",
+    date: "2026.08.27",
+    text: 'Signal Collection VIII: "The Room Between Lives - A Novel in Four Books" launched. The complete narrative manuscript (Books 1, 2, 3), minimalist cover art, parts filtering, and semantic RAG search queries are now fully live.'
+  },
+  {
+    id: 106,
+    type: "UI",
+    date: "2026.08.27",
+    text: "Added multi-book part filtering and summary cards to the manuscript index view. Users can now navigate the 4 distinct books within 'The Room Between Lives'."
+  },
+  {
     id: 105,
     type: "CORE",
     date: "2026.08.23",
@@ -158,6 +170,7 @@ export default function Home() {
   const [copied, setCopied] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const [bookStats, setBookStats] = useState({})
+  const [activePart, setActivePart] = useState("book-1")
 
   // Fetch book reader stats
   useEffect(() => {
@@ -240,6 +253,15 @@ export default function Home() {
               const targetChapter = targetBook.sections.find(c => c.id === parsed.chapterId)
               if (targetChapter) {
                 setSelectedChapter(targetChapter)
+                if (targetBook.parts) {
+                  if (targetChapter.number >= 1 && targetChapter.number <= 16) {
+                    setActivePart("book-1")
+                  } else if (targetChapter.number >= 17 && targetChapter.number <= 30) {
+                    setActivePart("book-2")
+                  } else if (targetChapter.number >= 31 && targetChapter.number <= 44) {
+                    setActivePart("book-3")
+                  }
+                }
               }
             }
           }
@@ -442,6 +464,18 @@ export default function Home() {
 
     if (lowerQuery.includes("silent") || lowerQuery.includes("protocol") || lowerQuery.includes("meridian") || lowerQuery.includes("kabir") || lowerQuery.includes("rege")) {
       synthesizedAnswer = "Silent Protocol is a high-stakes tech-thriller set at Meridian House off the coast of Karwar. During a Category-5 cyclone, nine guests face an algorithmic reckoning for their roles in covering up a fatal error in ORACLE—a predictive-risk model developed by company founder Kabir Rege that led to a factory supervisor's suicide. The manuscript explores corporate complicity, digital surveillance, and the psychological weight of guilt."
+    } else if (lowerQuery.includes("mara") || lowerQuery.includes("sister")) {
+      synthesizedAnswer = "Mara Calloway is Wren's sister. The central tragedy and psychological weight of the novel stems from a fateful night in their kitchen that ended with a gunshot, Mara's name on Wren's lips, and Wren checking into 'the Between' coma. Wren carries immense guilt for refusing to believe Mara for eleven months leading up to the incident. Facing the truth about Mara is the final locked door Wren must open to break her silence and wake up."
+    } else if (lowerQuery.includes("maid") || lowerQuery.includes("murder") || lowerQuery.includes("chambermaid")) {
+      synthesizedAnswer = "Book One: The Chambermaid's Door follows Wren Calloway as she lives the life of a hotel maid. Gifted with an extraordinary capacity for observation and noticing details, she solves a guest's murder. It teaches her the first essential step in her psychological recovery: 'Notice what is actually in front of you.'"
+    } else if (lowerQuery.includes("chemist") || lowerQuery.includes("science") || lowerQuery.includes("television")) {
+      synthesizedAnswer = "Book Two: The Chemist's Door explores Wren Calloway's alternate life as a research chemist whose groundbreaking work is stolen by a supervisor. She chooses not to remain silent, reclaiming her work and exposing the theft live on national television. It teaches her: 'Say the true thing even when it costs you.'"
+    } else if (lowerQuery.includes("builder") || lowerQuery.includes("builders") || lowerQuery.includes("forty years")) {
+      synthesizedAnswer = "Book Three: The Builders' Door traces a 40-year friendship between two creators who collaboratively build simulated digital worlds. When grief and loss threaten to tear their partnership apart, they find closure by completing their dead friend's unfinished work. It teaches Wren: 'Finish what is unfinished, choose hope on purpose.'"
+    } else if (lowerQuery.includes("astronaut") || lowerQuery.includes("space") || lowerQuery.includes("mission")) {
+      synthesizedAnswer = "Book Four: The Astronaut's Door represents the final threshold of Wren's internal journey. In this unreleased part, a lone astronaut waking up on a ship falling toward a dying Earth learns that the target she was sent to destroy is the only thing that can save her home. It teaches her: 'Take your own name back.'"
+    } else if (lowerQuery.includes("room") || lowerQuery.includes("between") || lowerQuery.includes("lives") || lowerQuery.includes("wren") || lowerQuery.includes("aldous") || lowerQuery.includes("calloway")) {
+      synthesizedAnswer = "The Room Between Lives is a four-book novel about Wren Calloway, who has been silent for six years after a traumatic kitchen gunshot incident. While in a coma, her mind checks into 'the Between'—a hotel in no place at all, run by the concierge Aldous. Each room represents a life she almost lived (chambermaid, chemist, world builder, astronaut). She must live out these lives to build the strength needed to face the truth behind the final door and wake up."
     } else if (lowerQuery.includes("signal") || lowerQuery.includes("organism") || lowerQuery.includes("simulation")) {
       synthesizedAnswer = "The Signal Collection is a cyber-existential concept running through the digital manuscripts. First introduced in *Absconded* as 'absconded.space'—representing synthetic internet lifeforms—it represents software that feels alive. Later, in *The Mask Beneath*, the simulated organism shows signs of autonomous identity formation. It represents the boundary where lines of code begin to develop memory, personality, and persistent hunger in an era of infinite generation."
     } else if (lowerQuery.includes("tanvir") || lowerQuery.includes("khan") || lowerQuery.includes("author") || lowerQuery.includes("builder")) {
@@ -492,6 +526,7 @@ export default function Home() {
       setPage("book")
       setShowCover(true)
       setSelectedChapter(null)
+      setActivePart("book-1")
     })
   }
 
@@ -843,33 +878,83 @@ export default function Home() {
           </div>
 
           <h2 className="text-xs uppercase tracking-[0.4em] text-secondary mb-4">Manuscript Index · {calculateBookReadingTime(selectedBook)} total read</h2>
-          <p className="font-serif italic text-2xl mb-16">{selectedBook.title}</p>
-          
-          <div className="space-y-2">
-            {selectedBook.sections.map((section) => (
-              <div 
-                key={section.id}
-                onClick={() => { navigate(() => setSelectedChapter(section)); }}
-                className="chapter-card cursor-pointer group"
-              >
-                <div className="flex items-baseline justify-between gap-6">
-                  <div className="flex items-baseline gap-6">
-                    <span className="text-[10px] font-light text-secondary group-hover:text-white/40 transition-colors">
-                      {["prologue", "epilogue", "author-note", "mirror-threshold", "mirror-reflects"].includes(section.id) 
-                        ? "★" 
-                        : String(section.number).padStart(2, "0")}
-                    </span>
-                    <h3 className="text-2xl font-serif group-hover:italic transition-all duration-300">
-                      {section.title}
-                    </h3>
-                  </div>
-                  <span className="text-[8px] tracking-[0.15em] text-secondary/40 uppercase shrink-0">
-                    {calculateReadingTime(section.content)}
-                  </span>
-                </div>
+          <p className="font-serif italic text-2xl mb-6">{selectedBook.title}</p>
+          <p className="text-sm font-light text-secondary/80 leading-relaxed mb-16 font-serif italic max-w-xl">
+            {selectedBook.description}
+          </p>
+
+          {selectedBook.parts && (
+            <div className="flex flex-wrap gap-8 mb-16 border-b border-white/5 pb-4">
+              {selectedBook.parts.map((part) => (
+                <button 
+                  key={part.id}
+                  onClick={() => setActivePart(part.id)}
+                  className={`text-[10px] tracking-[0.3em] uppercase transition-all duration-300 relative pb-4 -mb-[17px] ${
+                    activePart === part.id ? "text-white font-medium" : "text-secondary hover:text-white"
+                  }`}
+                >
+                  {part.title}
+                  {activePart === part.id && (
+                    <span className="absolute bottom-0 left-0 right-0 h-[1.5px] bg-white animate-fade-in" />
+                  )}
+                </button>
+              ))}
+            </div>
+          )}
+
+          {selectedBook.parts && activePart === "book-4" ? (
+            <div className="py-16 text-center border border-white/5 rounded-sm bg-white/[0.01] px-8 max-w-xl mx-auto fade-in">
+              <span className="text-3xl mb-6 block">🔒</span>
+              <h3 className="font-serif italic text-xl mb-4">Book Four: The Astronaut's Door</h3>
+              <p className="text-sm font-light text-secondary leading-relaxed mb-6 font-serif">
+                The fourth door at the end of the wing is cold to the touch and lacks a brass plaque. 
+                Aldous stands beside it, checking his pocket watch.
+              </p>
+              <div className="border-l-2 border-white/10 pl-6 italic text-left text-xs text-secondary/80 max-w-md mx-auto leading-relaxed font-serif">
+                "This life isn't ready to be lived yet, Wren. Some doors cannot be opened until you've faced what's behind the others. Be patient. The launch window hasn't arrived."
               </div>
-            ))}
-          </div>
+            </div>
+          ) : (
+            <div className="space-y-2">
+              {selectedBook.sections
+                .filter((section) => {
+                  if (!selectedBook.parts) return true;
+                  if (activePart === "book-1") {
+                    return section.id === "prologue" || (section.label && section.label.startsWith("Book One"));
+                  }
+                  if (activePart === "book-2") {
+                    return section.label && section.label.startsWith("Book Two");
+                  }
+                  if (activePart === "book-3") {
+                    return section.label && section.label.startsWith("Book Three");
+                  }
+                  return false;
+                })
+                .map((section) => (
+                  <div 
+                    key={section.id}
+                    onClick={() => { navigate(() => setSelectedChapter(section)); }}
+                    className="chapter-card cursor-pointer group"
+                  >
+                    <div className="flex items-baseline justify-between gap-6">
+                      <div className="flex items-baseline gap-6">
+                        <span className="text-[10px] font-light text-secondary group-hover:text-white/40 transition-colors">
+                          {["prologue", "epilogue", "author-note", "mirror-threshold", "mirror-reflects"].includes(section.id) 
+                            ? "★" 
+                            : String(section.number).padStart(2, "0")}
+                        </span>
+                        <h3 className="text-2xl font-serif group-hover:italic transition-all duration-300">
+                          {section.title}
+                        </h3>
+                      </div>
+                      <span className="text-[8px] tracking-[0.15em] text-secondary/40 uppercase shrink-0">
+                        {calculateReadingTime(section.content)}
+                      </span>
+                    </div>
+                  </div>
+                ))}
+            </div>
+          )}
 
           <div className="mt-32 flex items-center gap-6 opacity-40 hover:opacity-100 transition-opacity duration-1000">
             <img src="/author.png" className="w-12 h-12 rounded-full grayscale object-cover" alt="Author" />

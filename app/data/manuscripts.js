@@ -4382,5 +4382,1219 @@ export const manuscripts = [
         ]
       }
     ]
-  }
+  },
+{
+  "id": "room-between-lives",
+  "type": "manuscript",
+  "coverImage": "/room-between-lives-cover.png",
+  "title": "The Room Between Lives",
+  "subtitle": "A Novel in Four Books",
+  "coverQuote": "“You do not get to live every life. You only get to stop pretending you already know which one you're in.”",
+  "readingTime": "65 min",
+  "description": "Wren Calloway hasn't spoken in six years. While her body lies in a hospital bed in a coma, her mind checks into the Between: a hotel that exists in no place at all, run by a concierge named Aldous, with one door for every life she almost lived.",
+  "parts": [
+    { "id": "book-1", "title": "Book One", "subtitle": "The Chambermaid's Door" },
+    { "id": "book-2", "title": "Book Two", "subtitle": "The Chemist's Door" },
+    { "id": "book-3", "title": "Book Three", "subtitle": "The Builders' Door" },
+    { "id": "book-4", "title": "Book Four", "subtitle": "The Astronaut's Door", "locked": true }
+  ],
+  "sections": [
+    {
+      "id": "prologue",
+      "number": 0,
+      "label": "Prologue",
+      "title": "The Last Thing She Said",
+      "content": [
+        {
+          "type": "p",
+          "text": "The last thing Wren Calloway said out loud, before she stopped saying anything at all, was her sister's name, and even that came out wrong — not a cry, not a question, just a flat, small syllable dropped into a kitchen that still smelled like the dinner nobody had finished eating. Mara. That was all. Then the sound the gun made, which she would spend the rest of her life trying and failing to describe to people who kept asking her to describe it, and then nothing. Not silence, exactly. An absence with a texture to it, like a held breath that had decided never to be let out again."
+        },
+        {
+          "type": "p",
+          "text": "She was found four hours later by a neighbor who'd noticed the porch light burning through the dawn, sitting upright at the kitchen table with her hands flat in front of her, palms down, as though she were waiting for someone to read them. She did not answer when spoken to. She did not answer at the hospital, or in the small grey room where two detectives took turns asking the same six questions in different orders, or in the months of appointments that followed with a psychiatrist named Dr. Okafor who had, by the end of the first year, filled four separate notebooks with the word unresponsive and, in the margins of the fourth, a single private annotation that read: not unresponsive. Listening to something we can't hear."
+        },
+        {
+          "type": "p",
+          "text": "The papers called her the Silent Widow of Route 9, though she had never married the man in that kitchen, and the podcast that made her famous three years later called her something worse, something that stuck to her name the way tar sticks to a shoe, impossible to fully scrape off no matter how far you walked afterward."
+        },
+        {
+          "type": "p",
+          "text": "None of them knew where she actually was during the eleven days her body lay in a hospital bed in a coma nobody could medically explain. None of them ever would. This is not their story. It's hers — and it starts, as these things sometimes do, with a door that had absolutely no business being at the end of a hospital corridor at three in the morning."
+        },
+        {
+          "type": "p",
+          "text": "• • •"
+        }
+      ]
+    },
+    {
+      "id": "chapter-1",
+      "number": 1,
+      "label": "Book One — Chapter One",
+      "title": "Checking In",
+      "content": [
+        {
+          "type": "p",
+          "text": "The corridor Wren walked into was not the hospital corridor, though for the first several steps she assumed it must be, in the particular fog of a mind that has recently stopped being responsible for deciding what's real. The linoleum had become carpet, deep green, patterned with a gold key motif she would later learn had been chosen, apparently, by someone with a very specific sense of humor. The fluorescent lights had become brass sconces, warm and slightly dim, the kind that made a person feel forgiven for things they hadn't yet done."
+        },
+        {
+          "type": "p",
+          "text": "At the end of the corridor stood a reception desk, unattended, and behind it a wall of small brass mailboxes, hundreds of them, each with a tiny window and no name visible through the glass. A bell sat on the counter, the old-fashioned kind you tap with your palm, and beside the bell a leather guestbook open to a page that had, she noticed with a lurch she didn't have a name for yet, her own name already written at the bottom of it in ink that looked freshly dry."
+        },
+        {
+          "type": "p",
+          "text": "\"You're earlier than most,\" said a voice, and she turned to find a man behind the desk who had not been there ninety seconds earlier, dressed in the kind of impeccable grey suit that belonged to no decade in particular, his face doing the trick that faces do in dreams where you know exactly who it is without being able to describe a single feature afterward. \"Most people take longer to stop insisting they're still in the hospital. You've skipped straight to the interesting part. I appreciate efficiency.\""
+        },
+        {
+          "type": "p",
+          "text": "\"Where is this,\" she said, and was mildly surprised to hear her own voice work at all, given that the last several months of her life — however long several months had actually been, in whatever place this was — had apparently gone by without it."
+        },
+        {
+          "type": "p",
+          "text": "\"We call it the Between,\" the man said, sliding the guestbook toward her, tapping a line beneath her signature where a second line waited, blank. \"Some guests call it a hotel. Some call it a hospital. One rather memorable gentleman insisted for three days it was a very elaborate insurance scam. It's whatever shape helps you stay long enough to do what you're actually here to do.\""
+        },
+        {
+          "type": "p",
+          "text": "\"Which is what.\""
+        },
+        {
+          "type": "p",
+          "text": "\"Open a few doors,\" he said, and smiled in a way that was kind and unsettling in exactly equal measure. \"You've got eleven days, by the clock the people who love you are currently watching. Rather less, subjectively, by the clock in here — time runs generously in the Between, which is the only genuinely nice thing about the arrangement. My name is Aldous. I'll be your concierge for as long as you need one. Sign the second line whenever you're ready to stop arguing with the wallpaper.\""
+        }
+      ]
+    },
+    {
+      "id": "chapter-2",
+      "number": 2,
+      "label": "Book One — Chapter Two",
+      "title": "The Rules of the House",
+      "content": [
+        {
+          "type": "p",
+          "text": "Aldous explained the rules the way a man explains rules he has explained many thousands of times before — with the specific, weary patience of someone who has learned exactly which parts guests interrupt him during and has stopped being surprised by any of it."
+        },
+        {
+          "type": "p",
+          "text": "There were, he said, exactly as many doors in the hotel's east wing as there were unlived lives a person had seriously, at some three-in-the-morning juncture, imagined for themselves — not every life, not infinite lives, which was a common misconception guests arrived with, thanks to what Aldous called, with a faint and pointed distaste, \"a rather popular little book that's given everyone unreasonable expectations about how this works.\" Only the lives you'd actually stood at the edge of once. Only the doors you'd already, on some level, half-opened yourself, long before you ever checked into this place."
+        },
+        {
+          "type": "p",
+          "text": "Behind each door was a full life, lived at speed, with real weight and real consequence within its own walls — you could stay a single afternoon or forty years, subjectively, and either way you'd return to the corridor exactly as old as when you'd left it. You could not die behind a door, though Aldous noted, with the air of a man choosing his words around a liability clause, that several of the lives available to her were not going to make that restriction feel especially comfortable. And you could not, under any circumstance he was permitted to explain, bring anything material back out with you — no object, no relationship, no unfinished business belonging to that life. Only what you'd learned."
+        },
+        {
+          "type": "p",
+          "text": "\"How many doors do I have,\" Wren asked, and Aldous's expression did something complicated, something that looked almost like sympathy dressed up as professional discretion."
+        },
+        {
+          "type": "p",
+          "text": "\"That rather depends,\" he said, \"on how badly you want to avoid the one door in this hotel that isn't optional. The one at the very end of the hall, past all the others, that opens onto the actual night you're trying so hard not to think about.\" He closed the guestbook gently. \"Most guests open every other door in the building first. I've never once blamed them for it.\""
+        }
+      ]
+    },
+    {
+      "id": "chapter-3",
+      "number": 3,
+      "label": "Book One — Chapter Three",
+      "title": "The Wing of Almost",
+      "content": [
+        {
+          "type": "p",
+          "text": "The east wing, when Aldous led her into it, stretched further than the outside of the building had any business containing — a hallway of dark wood and brass numbers that curved gently out of sight in both directions, doors set at intervals that felt, disconcertingly, personal, as though someone had measured the distance between them against the exact weight of each choice they represented."
+        },
+        {
+          "type": "p",
+          "text": "The first door she stopped at had a small brass plaque instead of a number: THE ONE WHO STAYED IN THE ORCHESTRA. She didn't need Aldous to explain that one. She'd been a violinist, once, technically gifted enough that a conservatory in another country had offered her a seat two months before her sister got sick the first time, and she had turned it down in a single, unremarkable phone call that had taken four minutes and reshaped the entire remaining architecture of her life without either of them realizing it at the time."
+        },
+        {
+          "type": "p",
+          "text": "The next door read: THE ONE WHO MADE THE FIRST CALL, and she did not ask what call, because some part of her already knew and wasn't ready yet to have that knowledge confirmed by a room."
+        },
+        {
+          "type": "p",
+          "text": "\"They're not memories,\" Aldous said gently, watching her read the plaques with the particular stillness of someone standing very close to a cliff edge. \"They're not predictions either. They're something more honest than both — full lives your own choices already built the first ten years of scaffolding for, before you turned away from them. Every one of them is still, in some sense, yours to visit. None of them is a place you actually belong.\""
+        },
+        {
+          "type": "p",
+          "text": "She stopped, eventually, in front of a door with no plaque at all, only a small brass numeral — 14 — and a faint, specific smell drifting from beneath it that she recognized before she could name it: bleach, lavender polish, and the particular ozone tang of an old building's plumbing, the exact smell of every hotel she'd ever stayed in during the eleven years she'd spent, before the violin, before any of it, cleaning other people's rooms to pay for lessons her mother couldn't afford."
+        },
+        {
+          "type": "p",
+          "text": "\"That one,\" Aldous said, watching her hand find the brass handle without her quite deciding to move it there, \"is a life you never lived for more than eighteen months, in a hotel that doesn't exist anywhere you've ever been, with a body count you very specifically did not have in your own eighteen months of hotel work. I'd call it one of the more interesting doors in this wing.\" He inclined his head toward the handle. \"Shall we find out how good you'd have been at solving something, instead of just cleaning up after it?\""
+        }
+      ]
+    },
+    {
+      "id": "chapter-4",
+      "number": 4,
+      "label": "Book One — Chapter Four",
+      "title": "A Word About Aldous",
+      "content": [
+        {
+          "type": "p",
+          "text": "Before the door swung open, it's worth pausing — as Wren herself would, many times, in the days that followed — on the question of who, or what, Aldous actually was, since he never gave a satisfying answer to anyone who asked directly, and several guests, according to a story he told with visible relish, had asked very directly indeed."
+        },
+        {
+          "type": "p",
+          "text": "He was not, he insisted, an angel, a memory, a hallucination brought on by anesthesia, or a symptom of the specific type of oxygen deprivation her chart back in the real hospital was currently, at that exact moment, being annotated to explain. He was, he said once, over a coffee that Wren was fairly sure the Between had produced for the specific purpose of proving it could produce absolutely anything, \"the part of every dying person that already knows how to be a good host, dressed up in a suit because it's easier for guests to trust a suit than to trust a feeling.\""
+        },
+        {
+          "type": "p",
+          "text": "He never once told her whether she was, in fact, dying. He answered questions about that topic with other questions, delivered with a gentleness that somehow made the deflection feel less evasive and more like mercy. What he did tell her, on that first long afternoon before the fourteenth door, in a rare unguarded moment, was this: \"I've hosted a great many guests in this hallway, Ms. Calloway. Very few of them arrive already knowing exactly which door they're avoiding. You knew it within your first ten minutes here. I find that either means you're unusually honest with yourself, or unusually afraid. In my experience it's almost always both, and almost always in that order.\""
+        }
+      ]
+    },
+    {
+      "id": "chapter-5",
+      "number": 5,
+      "label": "Book One — Chapter Five",
+      "title": "Through the Fourteenth Door",
+      "content": [
+        {
+          "type": "p",
+          "text": "The handle turned cold under her palm and then warm, the specific temperature of a doorknob that has been touched by a hundred hands that morning, and when the door swung open it did not reveal a hallway or a hospital room or anything resembling the Between at all."
+        },
+        {
+          "type": "p",
+          "text": "It revealed a service corridor, dim and narrow, smelling exactly as strongly of bleach and lavender polish as the plaque had promised, lined with laundry carts and the low electric hum of an ice machine somewhere just out of sight. A brass sign on the wall read STAFF ONLY — THE WINDERMERE GRAND HOTEL, and beneath it, taped up with the specific curling age of a notice that had been there far longer than anyone had bothered to replace it, a shift schedule with a name circled in red pen: MOLLY GRAY — 14."
+        },
+        {
+          "type": "p",
+          "text": "Wren looked down at her own hands and found them not her own at all — smaller, chapped at the knuckles, a thin gold ring on the fourth finger that had belonged, she understood with the instant, complete certainty of a dream that explains itself as you're having it, to a grandmother she'd never actually had, in a life she'd never actually lived, except that every single memory of that grandmother was now sitting in her chest exactly as solid and load-bearing as every memory of her real one."
+        },
+        {
+          "type": "p",
+          "text": "\"Molly,\" called a voice from around the corner, brisk and faintly irritated, \"Room 401 needs turning down and Mr. Black in 402 has been asking for you specifically for the last hour, and I do wish you'd tell him to stop, it's making the other girls talk.\""
+        },
+        {
+          "type": "p",
+          "text": "Wren — Molly, now, in the specific and total way that names settle over a person the moment a life needs them to answer to one — picked up a cleaning cart that felt as familiar under her hands as a bow once had, and went to find out exactly who Mr. Black in Room 402 was, and why, in eleven hours, according to a piece of knowledge she hadn't had a single second earlier and now possessed completely, he would be found dead in that same room with his eyes open and a room key in his hand that did not belong to him."
+        },
+        {
+          "type": "p",
+          "text": "• • •"
+        }
+      ]
+    },
+    {
+      "id": "chapter-6",
+      "number": 6,
+      "label": "Book One — Chapter Six",
+      "title": "Room 402",
+      "content": [
+        {
+          "type": "p",
+          "text": "Molly Gray had a system for turning down a room, taught to her by her Gran over eleven patient years, and the system began, always, with noticing — the way a bed had been slept in told you more about a guest than they ever told the front desk, and Gran had always said a good maid was really just a detective who'd been paid to keep the results to herself."
+        },
+        {
+          "type": "p",
+          "text": "Room 402 told her, before she'd even finished knocking, that something was wrong in the specific, textured way a room tells you things if you've spent eleven years learning its language. The Do Not Disturb sign hung crooked, which Mr. Black — punctilious, precise, the kind of guest who left his shoes at exact right angles beside the bed — would never have allowed. And beneath the door, in a thin unbroken line, no light. Mr. Black slept, every night of the six weeks he'd been in residence, with the reading lamp on; she'd noted it on her very first day and never once found it dark since."
+        },
+        {
+          "type": "p",
+          "text": "She let herself in with her master key at eleven, as the shift schedule required, calling his name twice into a room gone perfectly, wrongly still, and found him in the armchair by the window rather than the bed, dressed, eyes open, one hand curled loosely around a room key that was not, she noted with the particular clarity of a mind that had already, somewhere beneath the shock, started cataloguing, the brass fob key belonging to Room 402 at all."
+        },
+        {
+          "type": "p",
+          "text": "It belonged, unmistakably, to Room 217 — she'd polished that specific fob herself only that morning, a small chip in the enamel she'd have recognized blindfolded — which was the room currently assigned to a young man named Teddy Fenwick who owed, according to a conversation she had not been supposed to overhear through a connecting wall two nights earlier, a very large amount of money to the very dead man now holding his key."
+        }
+      ]
+    },
+    {
+      "id": "chapter-7",
+      "number": 7,
+      "label": "Book One — Chapter Seven",
+      "title": "What the Police Decided Not to Ask",
+      "content": [
+        {
+          "type": "p",
+          "text": "Detective Inspector Rourke arrived within the hour, a heavyset man with the specific exhaustion of someone three years from a pension he'd already begun mentally spending, and made his determination about Molly Gray within roughly ninety seconds of meeting her, on grounds that had nothing to do with evidence and everything to do with the fact that she answered his questions too precisely, too literally, without the small social smoothing most people apply to a conversation with a policeman."
+        },
+        {
+          "type": "p",
+          "text": "\"You were the last one in the room before the body was found,\" he said, not quite a question."
+        },
+        {
+          "type": "p",
+          "text": "\"I was the one who found the body,\" Molly corrected, because the distinction mattered and she had never learned the particular skill of letting an inaccurate sentence pass uncorrected simply because correcting it made someone's face do the thing Rourke's face was currently doing. \"I was not the last one in the room before that. Someone else was, considerably more recently than my last cleaning visit, which was six hours earlier and thoroughly logged.\""
+        },
+        {
+          "type": "p",
+          "text": "\"And how would you know that.\""
+        },
+        {
+          "type": "p",
+          "text": "\"Because the room's turndown had been disturbed since my visit,\" she said, ticking the details off with the flat, complete confidence of someone reciting a shopping list rather than defending her own innocence, which Rourke's expression suggested was doing her exactly no favors at all. \"The left pillow had been moved four inches to the right of where I positioned it. The reading lamp, which Mr. Black always left on, was off. And there's a room key on the floor beside his chair that belongs to Room 217, which I would have noticed immediately had it been there during my visit, because I polish those fobs myself and I would have recognized it out of place.\""
+        },
+        {
+          "type": "p",
+          "text": "Rourke wrote something in his notebook that Molly, upside down, could read well enough to know said, roughly, girl notices too much, ask the manager about her."
+        }
+      ]
+    },
+    {
+      "id": "chapter-8",
+      "number": 8,
+      "label": "Book One — Chapter Eight",
+      "title": "A Friend in the Lobby",
+      "content": [
+        {
+          "type": "p",
+          "text": "It was Sam Okafor, the hotel's evening doorman, who found her twenty minutes later sitting on an overturned laundry basket in the service stairwell, not crying, exactly, because crying required a kind of emotional shorthand Molly had never fully mastered, but doing the thing she did instead — rocking very slightly, counting the tiles on the opposite wall for the third time, arriving each time at the same total of forty-one and finding, absurdly, some comfort in the number's refusal to change."
+        },
+        {
+          "type": "p",
+          "text": "\"They think you did it,\" Sam said, not as an accusation, sitting down on the step below her with the easy, unhurried patience of a man who had known Molly for three years and had learned, in that time, exactly how to talk to her in a way that didn't ask her to perform an emotion she didn't feel yet."
+        },
+        {
+          "type": "p",
+          "text": "\"I know they think that,\" Molly said. \"Detective Rourke wrote it down. Upside-down handwriting is not as difficult to read as people assume, if you've had practice.\""
+        },
+        {
+          "type": "p",
+          "text": "\"Did you do it.\""
+        },
+        {
+          "type": "p",
+          "text": "\"No,\" she said, and something in the flatness of it — no defensive heat, no wounded pride, just a fact stated with the same tone she'd have used to confirm what floor a room was on — seemed to land with Sam more completely than any protest of innocence with tears in it would have."
+        },
+        {
+          "type": "p",
+          "text": "\"Then we find out who did,\" he said, \"before Rourke stops looking any further than the maid who noticed too much, because that man has never once in three years solved anything that didn't solve itself, and I am not watching him pin this on the one person in this building who actually pays attention.\""
+        }
+      ]
+    },
+    {
+      "id": "chapter-9",
+      "number": 9,
+      "label": "Book One — Chapter Nine",
+      "title": "The Guest Who Believed Her",
+      "content": [
+        {
+          "type": "p",
+          "text": "The other ally arrived the following morning in the shape of Mr. Ambrose, a permanent resident of Room 511 for the past nine years, a retired barrister with a chessboard permanently set up by his window and a habit of inviting Molly in for tea on her afternoon rounds that the rest of the staff found faintly scandalous and Molly had simply always found kind."
+        },
+        {
+          "type": "p",
+          "text": "\"They've suspended you,\" he said, when she brought his tea with hands that hadn't stopped their small, private shake since the interview room. \"Pending investigation, the manager's letter says, which is the specific kind of sentence people write when they mean 'until it's convenient to fire you outright.'\""
+        },
+        {
+          "type": "p",
+          "text": "\"I didn't do it, Mr. Ambrose.\""
+        },
+        {
+          "type": "p",
+          "text": "\"I know that,\" he said, with the calm, complete certainty of a man who had spent forty years in courtrooms learning to tell the difference between guilt and the specific innocence that simply doesn't know how to perform itself convincingly. \"I've watched you work this floor for six years, Molly. You once returned an envelope of cash to Mrs. Whitfield in 508 that she hadn't even noticed was missing, at some genuine cost to yourself, because the alternative never once occurred to you as a real option. A woman built like that does not become a poisoner overnight because a man in Room 402 owed money to the wrong people.\""
+        },
+        {
+          "type": "p",
+          "text": "He set down his teacup with the precise, unhurried care of a man arranging his next move on a board only he could currently see the whole shape of. \"Now. Tell me everything you noticed in that room, in the order you noticed it, and don't leave anything out because you think it sounds unimportant. In my experience the unimportant details are the only ones anybody's bothered to hide.\""
+        }
+      ]
+    },
+    {
+      "id": "chapter-10",
+      "number": 10,
+      "label": "Book One — Chapter Ten",
+      "title": "The Man Who Owed the Money",
+      "content": [
+        {
+          "type": "p",
+          "text": "Teddy Fenwick, when Molly and Sam found him nursing a whisky in the hotel's near-empty bar at two in the afternoon, looked like a man who had already decided the worst thing that could happen to him had already happened, which made him, Molly noted, either genuinely innocent or genuinely relieved that someone else was dead instead of him."
+        },
+        {
+          "type": "p",
+          "text": "\"I owed him four thousand pounds,\" Teddy said, without being asked, in the specific rush of a man who'd clearly been rehearsing the confession to an empty glass for several hours before an actual audience arrived to hear it. \"Cards, mostly, some of it worse than cards. He'd started talking about my father's business partners the way a man talks when he's decided threatening you is more efficient than waiting to be paid.\""
+        },
+        {
+          "type": "p",
+          "text": "\"Your room key was in his hand,\" Molly said, watching his face with the particular, unblinking attention that unnerved most people and that Mr. Ambrose had once told her was, in fact, her single greatest asset, whether or not the person on the receiving end of it ever appreciated being asked to withstand it. \"How.\""
+        },
+        {
+          "type": "p",
+          "text": "\"I lost it,\" Teddy said, and something in his face — genuine, unrehearsed confusion, the specific expression of a man discovering a detail of his own story he hadn't previously known — told her he was telling the truth about at least this part. \"Two days ago. I assumed I'd left it in my coat at the club. I reported it to the front desk yesterday morning and they issued me a replacement.\""
+        },
+        {
+          "type": "p",
+          "text": "\"Who was on the front desk yesterday morning,\" Sam asked, and Molly, already halfway to the answer before he'd finished the sentence, felt something settle into place with the specific, satisfying click of a puzzle piece finding its correct edge."
+        },
+        {
+          "type": "p",
+          "text": "\"Mrs. Vane,\" she said. \"The manager handles lost-key reports personally. She always has. It's one of her rules.\""
+        }
+      ]
+    },
+    {
+      "id": "chapter-11",
+      "number": 11,
+      "label": "Book One — Chapter Eleven",
+      "title": "The Scent in the Wrong Room",
+      "content": [
+        {
+          "type": "p",
+          "text": "It was the smell that finally moved the case from a shape Molly suspected to a shape she could prove, and it arrived, appropriately enough, while she was doing the one thing nobody had thought to stop her from doing during a suspension that had never technically forbidden her from cleaning rooms other than 402: her regular Thursday rounds of the fifth floor, three doors down from Mr. Ambrose's chessboard."
+        },
+        {
+          "type": "p",
+          "text": "Room 508 — Mrs. Whitfield's room, currently empty while its occupant took the sea air — carried, faint but unmistakable beneath the hotel's standard lavender polish, a note of rose and bergamot that Molly's memory placed within four seconds: Mrs. Vane's perfume, the specific, expensive scent the manager wore every day without fail, and which Molly had polished past in a hundred doorways over six years without ever once expecting to find it lingering in a guest room its owner had no professional reason to enter."
+        },
+        {
+          "type": "p",
+          "text": "\"She told Rourke she was in her office the entire evening Mr. Black died,\" Molly said to Mr. Ambrose that afternoon, setting down his tea with hands that had, for the first time in two days, stopped shaking. \"Her office is on the ground floor. This room is on the fifth. Her perfume does not travel four floors on its own, Mr. Ambrose. Someone wearing it does.\""
+        },
+        {
+          "type": "p",
+          "text": "\"And what's in Room 508 that a hotel manager might need, badly enough to risk being noticed on the wrong floor at the wrong hour?\""
+        },
+        {
+          "type": "p",
+          "text": "Molly already knew the answer, because she had cleaned that room every week for three years and knew its contents better than its current occupant likely did herself: a small antique display case, inherited with the room's furnishings from the hotel's original Edwardian fittings, containing a set of apothecary bottles that Mrs. Whitfield kept purely for decoration, one of which — Molly had noticed it only because dusting required noticing everything — had, for as long as she could remember, been missing its stopper."
+        }
+      ]
+    },
+    {
+      "id": "chapter-12",
+      "number": 12,
+      "label": "Book One — Chapter Twelve",
+      "title": "What the Ledger Showed",
+      "content": [
+        {
+          "type": "p",
+          "text": "Sam got them into the hotel's back office on the pretext of a supply requisition, a lie so far outside his usual honest character that Molly found herself oddly moved by how badly he stumbled through delivering it, and it was there, in a locked drawer neither of them had any legal right to be opening, that the second half of the shape revealed itself."
+        },
+        {
+          "type": "p",
+          "text": "The hotel's investment ledger — kept separately from the guest accounts, in Mrs. Vane's own cramped, precise hand — showed a pattern that took Molly, with her particular gift for noticing exactly the kind of detail a busy auditor might skim past, less than ten minutes to see clearly: a series of transfers over the past eighteen months, each one just small enough to avoid the threshold that would have required a second signature, each one flowing out of the hotel's renovation fund and into an account whose name Molly recognized instantly, because she had heard Mrs. Vane say it, once, on the telephone, in a tone she'd never used for hotel business — a private gaming club in the city, the very same one, it would emerge, where Teddy Fenwick had first met a man named Black."
+        },
+        {
+          "type": "p",
+          "text": "\"He found out,\" Sam said slowly, piecing it together at the same speed Molly already had. \"Black was an investor in this hotel. If he found she'd been skimming the renovation fund to cover her own debts at the same club young Fenwick owed money to—\""
+        },
+        {
+          "type": "p",
+          "text": "\"He didn't just find out,\" Molly said, the last piece settling with the quiet, complete finality of a lock turning. \"I think he confronted her with it. And I think she decided a dead investor was considerably less trouble than an exposed embezzler, and that a young man who already owed him money and had already lost his room key was, conveniently, sitting right there waiting to be blamed for it.\""
+        }
+      ]
+    },
+    {
+      "id": "chapter-13",
+      "number": 13,
+      "label": "Book One — Chapter Thirteen",
+      "title": "The Confrontation",
+      "content": [
+        {
+          "type": "p",
+          "text": "They brought it to Detective Rourke that evening, not as an accusation, which Mr. Ambrose had counseled sharply against — \"a policeman three years from his pension does not thank you for making his open-and-shut case complicated, Molly, he thanks you for handing him something he can close instead\" — but as a set of questions, laid out in the precise, evidentiary order Molly had learned from six years of noticing rooms tell the truth about the people who'd been in them."
+        },
+        {
+          "type": "p",
+          "text": "Mrs. Vane's composure held for exactly as long as it took Rourke to ask, in the flat, procedural voice of a man who had finally, belatedly, started actually listening, why her perfume had been found in a fifth-floor room she had no scheduled reason to enter on the night in question. It cracked entirely when he set the ledger — retrieved, this time, with an actual warrant — on the desk between them."
+        },
+        {
+          "type": "p",
+          "text": "\"He was going to destroy everything,\" she said, and her voice, when it finally broke, broke completely, the specific collapse of someone who had spent eighteen months building a wall around a decision she'd never fully forgiven herself for making in the first place. \"Thirty years I've run this hotel. Thirty years, and one bad year at the tables was going to hand it to a man who'd never worked a single day of it himself, simply because he'd found my numbers before I'd finished fixing them.\""
+        },
+        {
+          "type": "p",
+          "text": "\"So you decided a man's life mattered less than your numbers,\" Molly said, quietly, from the doorway where nobody had quite managed to ask her to leave, and something in the plain, unornamented honesty of the sentence — no cruelty in it, simply the fact, stated the way she stated everything — seemed to land on Mrs. Vane harder than any accusation Rourke had managed across the entire conversation."
+        }
+      ]
+    },
+    {
+      "id": "chapter-14",
+      "number": 14,
+      "label": "Book One — Chapter Fourteen",
+      "title": "What Gran Would Have Said",
+      "content": [
+        {
+          "type": "p",
+          "text": "Teddy Fenwick was released within the hour, considerably more sober than he'd been at any point since Molly had first found him in the bar, and made a point of finding her before he left the hotel entirely, to say a thank-you he clearly hadn't rehearsed and delivered badly, which somehow made it land better than a smooth one would have."
+        },
+        {
+          "type": "p",
+          "text": "\"I don't know how to repay you,\" he said, and Molly, who had never quite learned the trick of accepting gratitude gracefully, considered the question with the same literal seriousness she gave everything."
+        },
+        {
+          "type": "p",
+          "text": "\"You could pay off whatever you still owe at the club,\" she said, \"before it finds you another Mr. Black.\" Then, because it seemed important to say and nobody else was likely to say it to him: \"And you could stop assuming the people who notice things about you are a threat. Some of us just notice things. It doesn't have to mean anything about you.\""
+        },
+        {
+          "type": "p",
+          "text": "Mr. Ambrose, watching from his window that evening as she wheeled her cart back down the fifth-floor corridor for the first time since her reinstatement, allowed himself a small, satisfied smile over his chessboard. \"Your grandmother,\" he said, when she brought his tea, \"would have been unbearably smug about all this.\""
+        },
+        {
+          "type": "p",
+          "text": "\"She would have said I told you so,\" Molly agreed, \"and then she'd have told me to stop dwelling on it and finish the west corridor before the dinner service starts, because a clean room doesn't care whose reputation it just rescued.\""
+        }
+      ]
+    },
+    {
+      "id": "chapter-15",
+      "number": 15,
+      "label": "Book One — Chapter Fifteen",
+      "title": "Eighteen Months, in an Afternoon",
+      "content": [
+        {
+          "type": "p",
+          "text": "The life continued past the solved mystery, the way lives do, in a way that surprised Wren more than almost anything else about the Between — she had expected the door to close the moment the case did, a tidy narrative conclusion, and instead found herself still Molly Gray for what felt, from the inside, like a further eighteen months: a promotion to head housekeeper that Mrs. Vane's disgraced replacement was only too glad to approve, a slow, careful friendship with Sam Okafor that neither of them rushed toward anything more than it needed to be, weekly tea and chess with Mr. Ambrose that outlasted his ability to remember, by the end, which of them had taught the other more."
+        },
+        {
+          "type": "p",
+          "text": "It was, she understood somewhere around what her borrowed memory insisted was month fourteen, a genuinely good life — not a dramatic one, not the kind that made podcasts or filled newspapers, but the specific, sturdy kind built out of a hundred small, correct decisions made by someone who noticed things and had finally found people who valued the noticing instead of finding it strange."
+        },
+        {
+          "type": "p",
+          "text": "She thought, near the end of it, about her actual sister, about Mara, in the specific way that thoughts arrive in dreams that know they're dreams — sideways, unbidden, carrying weight from somewhere else entirely. She thought: I could have noticed things about my own life the way Molly notices things about a room. I had eleven years of evidence sitting right in front of me and I looked at all of it and called it normal, because I never once let myself stand in the doorway and simply look."
+        },
+        {
+          "type": "p",
+          "text": "The eighteenth month ended, as the Between's lives always did, without ceremony — a doorway appearing where a wall had been a moment earlier, a lobby beyond it that was not the Windermere Grand's lobby but the Between's own, dim and green-carpeted and entirely still, and Wren Calloway stepped back through it wearing, for one disorienting final second, hands that were both Molly's and her own at once."
+        }
+      ]
+    },
+    {
+      "id": "chapter-16",
+      "number": 16,
+      "label": "Book One — Chapter Sixteen",
+      "title": "What She Told Aldous",
+      "content": [
+        {
+          "type": "p",
+          "text": "\"Well,\" Aldous said, waiting for her exactly where she'd left him, a fresh cup of coffee already sitting on the reception desk as though no time at all had passed on his side of the door, which, she understood now, none had. \"Was it worth an eighteen-month murder investigation.\""
+        },
+        {
+          "type": "p",
+          "text": "\"She wasn't afraid of being wrong,\" Wren said, sitting down heavily in the leather chair beside the desk, still feeling, faintly, the specific ache of hands that had spent nearly two years turning down beds and noticing things. \"Molly. Everyone thought her bluntness was a flaw. It was the only honest thing in that entire hotel. Every single person around her was performing something — grief, innocence, authority — and she just kept saying true sentences into the middle of it, and it turned out the true sentences were the only thing sharp enough to cut through any of the performance.\""
+        },
+        {
+          "type": "p",
+          "text": "\"And what does that tell you,\" Aldous said, in the particular tone of a man who already knew the answer and was simply, patiently, waiting for his guest to arrive at it under her own power, \"about the eleven years you spent not saying a single true sentence into your own kitchen, on the night you're still avoiding the door for?\""
+        },
+        {
+          "type": "p",
+          "text": "Wren didn't answer that. Not yet. But for the first time since she'd signed the second line in the guestbook, she found herself looking down the length of the east wing corridor — past the door marked THE ONE WHO STAYED IN THE ORCHESTRA, past a dozen others whose plaques she hadn't yet let herself read — toward the far end, where the hallway curved out of sight around a final, unmarked door that she now understood, with the same complete certainty Molly Gray had once felt reading a disturbed pillow, she would eventually have to open."
+        },
+        {
+          "type": "p",
+          "text": "\"Not today,\" she said, mostly to herself."
+        },
+        {
+          "type": "p",
+          "text": "\"No,\" Aldous agreed, gently, refilling her coffee without being asked. \"But soon, Ms. Calloway. The hallway only gets so patient. Shall we find the next door, or would you like to sit with this one a little longer first?\""
+        }
+      ]
+    },
+    {
+      "id": "chapter-17",
+      "number": 17,
+      "label": "Book Two — Chapter One",
+      "title": "The Corridor Gets Longer",
+      "content": [
+        {
+          "type": "p",
+          "text": "Aldous did not ask her, the next time she came to the reception desk, whether she was ready. He had learned, over what she understood now had been considerably more than eleven subjective days together, that asking Wren Calloway whether she was ready to do something was the surest way to make her spend another hour insisting she wasn't."
+        },
+        {
+          "type": "p",
+          "text": "\"The corridor's rearranged itself again,\" he said instead, sliding a fresh cup of coffee toward her with the specific, unhurried ceremony he brought to everything, as though the Between ran on rituals precisely because rituals were the one thing that couldn't be argued with. \"It does that. The doors that matter most tend to migrate closer to the front as you go. I wouldn't read too much into which one's currently nearest the desk. Or I would, actually — I find guests who pretend not to notice the pattern usually notice it hardest.\""
+        },
+        {
+          "type": "p",
+          "text": "The door nearest the desk this time bore a plaque that read, in the same neat brass lettering as before: THE ONE WHO KEPT HER OWN NAME ON THE PAPER. Wren stood in front of it for a long moment before the memory arrived, the way they always did in the Between, sideways and complete and slightly too late to be comfortable — a chemistry classroom in her final year of school, a teacher named Mr. Osei who had told her, not unkindly, that she had \"the sharpest analytical mind he'd taught in a decade\" and then, in the very next sentence, that of course a career in the sciences would be difficult for someone who'd also want a family one day, as though the two things existed in a zero-sum ledger he'd already run the numbers on for her."
+        },
+        {
+          "type": "p",
+          "text": "She had taken up the violin more seriously the following year. She had never once, in the real version of her life, found out what the other answer might have looked like."
+        }
+      ]
+    },
+    {
+      "id": "chapter-18",
+      "number": 18,
+      "label": "Book Two — Chapter Two",
+      "title": "What Aldous Knew About This One",
+      "content": [
+        {
+          "type": "p",
+          "text": "\"This life runs longer than the last one,\" Aldous said, watching her hand hover near the brass handle with the same held-breath stillness she'd shown outside Room 402's door in another life entirely. \"Nearly nineteen years, subjectively, start to finish, though you're welcome to leave earlier if you've learned what you came for before the ending arrives. Some guests do. Most don't — this particular door tends to be a hard one to walk away from partway through, once its guest realizes what's actually at stake in it.\""
+        },
+        {
+          "type": "p",
+          "text": "\"What is at stake in it.\""
+        },
+        {
+          "type": "p",
+          "text": "\"A career, to begin with,\" he said. \"Then a reputation. Then, somewhere around year eleven, a rather large portion of the country's dinner tables, which is not a sentence I get to say about many of the lives in this hallway, and which I confess I've always found one of the more satisfying ones behind this particular door.\" He straightened the guestbook on the desk, an unnecessary gesture that Wren had come to recognize as the closest thing he had to nervousness. \"You were extraordinary at chemistry, Ms. Calloway. Before the violin, before your sister got sick the first time, before any of the choices that built the rest of your scaffolding. I've always thought it worth knowing what became of the version of you who never let that particular gift go quiet.\""
+        }
+      ]
+    },
+    {
+      "id": "chapter-19",
+      "number": 19,
+      "label": "Book Two — Chapter Three",
+      "title": "Through the Second Door",
+      "content": [
+        {
+          "type": "p",
+          "text": "The handle gave way to a smell she recognized before her eyes adjusted to the light behind it — acetone and Bunsen gas and the particular cold, mineral scent of a laboratory kept two degrees colder than comfortable because the equipment preferred it that way, even if the people using it never quite did."
+        },
+        {
+          "type": "p",
+          "text": "She was standing at a lab bench in a long white coat with a name embroidered above the pocket that her borrowed memory supplied instantly, completely, the way a life always arrived in the Between: DR. C. WINTERS. Around her, a research floor of gleaming steel and worn linoleum, mid-morning light coming in high through frosted windows, and on the bench in front of her a titration setup mid-experiment, her own handwriting filling three pages of a lab notebook in a hand both entirely hers and entirely someone else's at once."
+        },
+        {
+          "type": "p",
+          "text": "\"Winters,\" called a voice from the doorway of a glass-walled office at the end of the row — a man in his fifties, expensively unbothered, the particular ease of someone who had never once in his career had to wonder whether a room would take him seriously the moment he walked into it. \"My office. Now, if you can spare a moment from whatever you're playing at over there.\""
+        },
+        {
+          "type": "p",
+          "text": "Celeste Winters — Wren, still, somewhere underneath, watching this life the way you watch a film you already suspect you're going to cry at — set down her pipette, closed her notebook over three years of reaction-kinetics research that had, she would understand within the next four minutes, just been quietly stolen out from under her name, and went to find out exactly how much of her life a man named Dr. Aldridge Boone had already decided to take."
+        },
+        {
+          "type": "p",
+          "text": "• • •"
+        }
+      ]
+    },
+    {
+      "id": "chapter-20",
+      "number": 20,
+      "label": "Book Two — Chapter Four",
+      "title": "The Footnote",
+      "content": [
+        {
+          "type": "p",
+          "text": "Dr. Aldridge Boone's office smelled of pipe tobacco he wasn't technically permitted to smoke indoors and the particular, expensive leather of furniture bought to be seen rather than used, and he did not ask Celeste to sit down before he told her that the reaction-kinetics paper — three years of her bench work, her math, her late nights running the same titration forty different ways until the numbers finally behaved — would be submitted to the journal under his name, with hers listed, if she insisted on it, as a research assistant in the acknowledgments."
+        },
+        {
+          "type": "p",
+          "text": "\"It's how the department works,\" he said, in the tone of a man explaining weather rather than defending a decision. \"Grant committees respond to a name they recognize. Yours isn't one yet. Mine already is. This gets the work published at all, Celeste, which is more than most junior researchers in your position can say.\""
+        },
+        {
+          "type": "p",
+          "text": "\"My position,\" Celeste repeated, and something in the flat precision of the two words made him glance up from his pipe for the first time since she'd walked in. \"I ran every experiment in that paper. I designed the second methodology myself, after your first one produced results that didn't replicate, which I corrected quietly, in a footnote, so as not to embarrass you in front of the department. I wrote every word of the discussion section. Which part of that, exactly, constitutes assistance?\""
+        },
+        {
+          "type": "p",
+          "text": "\"The part where your name doesn't sell the paper and mine does,\" Boone said, not unkindly, which somehow made it worse, the specific cruelty of a man who genuinely believed himself to be doing her a favor. \"You can fight this, if you like. I'd think carefully about what fighting it costs you, in a department with exactly one tenured position opening this year and a great many men who've been here considerably longer than three years, all of them very interested in how quietly the junior researchers here learn to accept the way things work.\""
+        },
+        {
+          "type": "p",
+          "text": "She was informed, six weeks later, that her position had been eliminated in a round of budget reallocation that somehow left every other bench in the lab fully staffed. She did not sign the acknowledgments. The paper ran anyway, under Boone's name alone, and won a modest regional award eight months after that, which she read about in a trade newsletter with her daughter asleep in the next room and a stack of unpaid bills doing their own quiet arithmetic on the kitchen table in front of her."
+        }
+      ]
+    },
+    {
+      "id": "chapter-21",
+      "number": 21,
+      "label": "Book Two — Chapter Five",
+      "title": "Josie",
+      "content": [
+        {
+          "type": "p",
+          "text": "Josie Winters was seven years old that winter, sharp in the specific way children of scientists sometimes are, prone to asking questions with the relentless, delighted persistence of someone who had correctly identified that her mother, unlike most adults, would actually answer them properly instead of deflecting with a vague sentence about magic."
+        },
+        {
+          "type": "p",
+          "text": "\"Why does the bread get brown,\" Josie asked one evening, watching Celeste work at their small kitchen stove with the specific, controlled economy of a woman who had learned to make very little money stretch very far since her husband Daniel's death three years earlier — a laboratory fire at the university's east campus, ruled an accident, the details of which Celeste had gone over so many times in her own head that she'd stopped being able to tell which parts were memory and which parts were simply the shape grief had worn into the story by now."
+        },
+        {
+          "type": "p",
+          "text": "\"It's called the Maillard reaction,\" Celeste said, sliding the pan slightly to show her daughter the changing color at the crust's edge. \"Sugars and proteins in the bread, reacting to the heat, rearranging themselves into new compounds. It's not magic. It's chemistry. It happens exactly the same way every single time, if you understand the conditions, which means you can control it if you know what you're doing.\""
+        },
+        {
+          "type": "p",
+          "text": "\"Can girls do chemistry,\" Josie asked, with the specific bluntness of a seven-year-old repeating, almost verbatim, something a classmate or a schoolbook had told her that day, and Celeste set down the pan and crouched to her daughter's exact eye level before she answered, because this was not a question that could be answered from standing height."
+        },
+        {
+          "type": "p",
+          "text": "\"Girls invented half of what people call chemistry,\" she said, \"and the other half stole credit from them so thoroughly that most people have never heard their names. That doesn't mean the girls were wrong. It means the credit was.\""
+        }
+      ]
+    },
+    {
+      "id": "chapter-22",
+      "number": 22,
+      "label": "Book Two — Chapter Six",
+      "title": "The Grocer's Question",
+      "content": [
+        {
+          "type": "p",
+          "text": "It was a conversation at Halloran's, the corner grocer three blocks from their apartment, that changed the shape of the rest of Celeste Winters's life, though nobody involved recognized it as anything more than an ordinary Tuesday at the time."
+        },
+        {
+          "type": "p",
+          "text": "She was explaining, to Mr. Halloran himself, exactly why his bread rose unevenly whenever his wife adjusted the yeast quantity without adjusting the proofing time to match — a small, precise, unglamorous piece of chemistry that she delivered the way she delivered everything, with complete respect for the listener's intelligence and zero softening of the actual mechanism — when a woman two aisles over, who introduced herself afterward as Dot Kessler, a segment producer for the local station WKBS, interrupted with the particular electric excitement of someone who has just watched an ordinary moment reveal an entirely different shape."
+        },
+        {
+          "type": "p",
+          "text": "\"Say that again,\" Dot said. \"About the yeast. Exactly like that, exactly those words, don't soften a single one of them for me.\""
+        },
+        {
+          "type": "p",
+          "text": "\"I don't know how to soften chemistry,\" Celeste said, honestly, not yet understanding this was, to Dot Kessler, the single most interesting sentence she'd heard from anyone in three years of producing a mid-morning cooking segment that had been slowly, steadily losing viewers to a rival station's more polished, more conventionally charming host. \"Yeast is a living organism. It behaves according to conditions, not according to how confident you feel about the recipe. If you want consistent bread, you respect the organism's actual requirements. That's not a metaphor. It's simply true.\""
+        },
+        {
+          "type": "p",
+          "text": "\"How would you feel,\" Dot asked, already reaching for a card in her handbag, \"about saying sentences exactly like that one, on television, three mornings a week, to an audience of women who have spent their entire lives being told a recipe is a mystery instead of a formula?\""
+        }
+      ]
+    },
+    {
+      "id": "chapter-23",
+      "number": 23,
+      "label": "Book Two — Chapter Seven",
+      "title": "The Kitchen Reaction",
+      "content": [
+        {
+          "type": "p",
+          "text": "The station's programming director, a nervous, sweating man named Gerald Fitch who clearly saw the entire proposal as a professional risk he'd been talked into against his better judgment, insisted on exactly three conditions before Celeste's first broadcast: that she smile more than felt natural to her, that she refer to her ingredients by their \"friendly\" names rather than their chemical ones, and that she absolutely, under no circumstances, use the phrase sodium chloride when she meant salt."
+        },
+        {
+          "type": "p",
+          "text": "She agreed to none of the three, on air, in front of a live studio audience of forty women who had come expecting the usual gentle, decorative fare and instead watched a woman in a plain white coat — she'd insisted on the coat, over Fitch's strenuous objection, because she said a chemist dressed like a chemist and she saw no reason a kitchen should change that fact — measure two grams of sodium chloride into a bowl and explain, with the same unbothered precision she'd once used to correct Aldridge Boone's methodology, exactly why the specific crystalline structure of that particular compound mattered more to a dish's final texture than most cookbooks ever bothered to mention."
+        },
+        {
+          "type": "p",
+          "text": "\"This is not a cooking show,\" she told the audience, in the first sentence of her very first broadcast, a sentence Dot Kessler would later say gave her chills strong enough that she'd nearly dropped her clipboard. \"This is a chemistry lecture that happens to end in dinner. I don't intend to talk down to you, because I don't believe you're beneath the actual explanations. If that disappoints anyone hoping for something softer, I understand completely, and I hope you'll try us again next week regardless.\""
+        },
+        {
+          "type": "p",
+          "text": "Fitch called it a disaster within the hour. The station's phone lines, jammed for the rest of the day with women calling to ask when the next broadcast would air, told a considerably different story, one Fitch would spend the next several years pretending had been his idea all along."
+        }
+      ]
+    },
+    {
+      "id": "chapter-24",
+      "number": 24,
+      "label": "Book Two — Chapter Eight",
+      "title": "What the Letters Said",
+      "content": [
+        {
+          "type": "p",
+          "text": "The show found its actual name — The Kitchen Reaction — within its first month, syndication within its first year, and a national audience within its second, growing at a rate that left Gerald Fitch's network superiors considerably more comfortable overruling his instincts than they'd ever been about anything else in his tenure."
+        },
+        {
+          "type": "p",
+          "text": "The letters arrived by the sackful, and Celeste read every single one herself, an act her producers found faintly ridiculous given the volume and which she refused to delegate regardless, because she had built the entire show on the specific premise of respecting her audience and did not intend to stop respecting them the moment respecting them became inconvenient."
+        },
+        {
+          "type": "p",
+          "text": "Some of the letters were what anyone might have expected — recipes requested, thanks given, a genuinely enormous number of women writing simply to say that the show was the first place anyone had explained to them why a sauce split, in terms that assumed they were capable of understanding the answer. But a growing number of them said something else entirely, in handwriting that ranged from a teenager's careful cursive to an elderly widow's shaking scrawl: I was told I wasn't smart enough for science in school. Watching you has made me wonder if that was ever actually true, or just something they found convenient to tell me."
+        },
+        {
+          "type": "p",
+          "text": "She kept every one of those letters in a specific drawer of her desk, separate from the rest, and on the mornings the network's demands felt heaviest — and they came often, sponsors wanting brighter colors and softer language and fewer, as one memo memorably put it, unnecessary Latin words — she opened that drawer before every single broadcast, read one letter at random, and walked onto set exactly as unsoftened as she'd been on day one."
+        }
+      ]
+    },
+    {
+      "id": "chapter-25",
+      "number": 25,
+      "label": "Book Two — Chapter Nine",
+      "title": "The Network Man Who Wanted a Smile",
+      "content": [
+        {
+          "type": "p",
+          "text": "The pressure to change her arrived, eventually, in the shape of a network vice president named Roland Speck, who flew in from the coast specifically to explain to Celeste, over a lunch he clearly considered a great personal favor, that the show's numbers among men aged eighteen to forty-nine — a demographic she had, at no point, ever attempted to court — suggested she'd do considerably better with a softer opening segment, brighter set colors, and, in his exact words, \"a bit more twinkle in the delivery, Mrs. Winters, the science can stay, nobody's asking you to change the science, just the — the wrapping around it.\""
+        },
+        {
+          "type": "p",
+          "text": "\"The wrapping is the point, Mr. Speck,\" she said, setting down her fork with the same precise economy she brought to a lab bench. \"Women have been sold twinkle for their entire lives, in place of information they were told they weren't capable of handling. I built this show on the specific, deliberate refusal to do that to them again. If the show's numbers among men aged eighteen to forty-nine are disappointing, I'd suggest that says considerably more about what those men have been taught to expect from a woman on television than it does about my delivery.\""
+        },
+        {
+          "type": "p",
+          "text": "\"You realize I could pull the funding for next season entirely.\""
+        },
+        {
+          "type": "p",
+          "text": "\"You could,\" Celeste agreed, evenly. \"You'd also be pulling funding from the single highest-rated daytime program this network currently airs, three years running, in the exact demographic that does the actual grocery shopping in this country. I leave that calculation to you, Mr. Speck. I only ever intended to teach chemistry. The business decisions were always yours to make.\""
+        },
+        {
+          "type": "p",
+          "text": "Speck did not pull the funding. He did, however, spend the following eighteen months quietly circulating, among a small and carefully chosen group of his colleagues, a series of complaints about Dr. Winters's \"difficult temperament\" — complaints that would resurface, considerably sharpened, at exactly the moment they'd do the most damage."
+        }
+      ]
+    },
+    {
+      "id": "chapter-26",
+      "number": 26,
+      "label": "Book Two — Chapter Ten",
+      "title": "Boone's Second Theft",
+      "content": [
+        {
+          "type": "p",
+          "text": "It was Aldridge Boone, in the show's fourth year, who handed Speck the opening he'd apparently been waiting for all along, in a newspaper interview given with the specific, casual confidence of a man who had never once expected the woman he'd wronged to be reading, let alone in a position to answer back."
+        },
+        {
+          "type": "p",
+          "text": "\"People forget Celeste Winters was a research chemist before all this,\" Boone told the interviewer, with the particular tone of a man delivering praise that was actually something considerably narrower. \"A capable one, in fact — a great deal of the methodology in my '58 kinetics paper came out of work she assisted with in my lab. It's rather sweet, honestly, seeing her land somewhere she can still put that training to some use, even if it's rather a smaller stage than the one she once had access to.\""
+        },
+        {
+          "type": "p",
+          "text": "Celeste read the interview three times before she said a word to anyone, and what she felt, she would later tell Josie, by then old enough to hear the whole story properly, was not fury exactly — fury would have been easier to manage — but a very specific, very cold clarity, the same clarity she'd once brought to a titration that refused to behave until she found the one variable everyone else had missed."
+        },
+        {
+          "type": "p",
+          "text": "She did not respond to the interview directly. She did something considerably more precise: she requested, from a university archive she still had standing professional access to as an alumna, her own original lab notebooks from 1958 — three years of dated, witnessed, methodically kept documentation, every experiment logged in her own hand, every correction to Boone's flawed initial methodology noted and dated weeks before he had, according to his own published paper, supposedly arrived at the same correction independently."
+        }
+      ]
+    },
+    {
+      "id": "chapter-27",
+      "number": 27,
+      "label": "Book Two — Chapter Eleven",
+      "title": "Live, Unscripted",
+      "content": [
+        {
+          "type": "p",
+          "text": "Speck's opportunity arrived two weeks later, in the form of a network memo — leaked to her, though she never learned by whom, and never asked too hard — proposing her replacement for the following season with a younger host \"better suited to the show's core demographic's evolving tastes,\" citing, among its supporting materials, both Boone's interview and eighteen months of Speck's own quietly circulated complaints about her temperament."
+        },
+        {
+          "type": "p",
+          "text": "She did not fight it through lawyers, though Dot Kessler, furious on her behalf, offered to find her the best in the city. She fought it the only way she'd ever fought anything, in the one venue where she'd built genuine, undeniable power: live, on air, in front of eleven million viewers, on a Tuesday that had been scheduled, entirely coincidentally, to cover the chemistry of preserving citrus."
+        },
+        {
+          "type": "p",
+          "text": "\"Before we begin today's lesson,\" she said, in the plain, unhurried voice her audience had grown to trust precisely because it never changed for anyone, \"I'd like to correct a small error in the scientific record. Some of you may have read a recent interview suggesting a colleague of mine, Dr. Aldridge Boone, independently developed the corrected methodology behind his 1958 kinetics paper.\" She held up, for the camera, three pages of a lab notebook dated and witnessed nearly three weeks before Boone's claimed date of discovery. \"I developed it. It's here, in my own hand, properly dated, properly witnessed by two colleagues still living and still willing to confirm it. I share this not out of anger at Dr. Boone, who I'm sure remembers the timeline differently than the documentation does, but because I've spent four years on this program telling every woman watching that facts don't change based on who's more comfortable saying them aloud. I'd be a poor teacher if I didn't hold myself to the same standard.\""
+        },
+        {
+          "type": "p",
+          "text": "She moved directly into the citrus segment without another word on the subject. The network received four thousand calls of support by the following morning. The proposed replacement memo was never mentioned to her again."
+        }
+      ]
+    },
+    {
+      "id": "chapter-28",
+      "number": 28,
+      "label": "Book Two — Chapter Twelve",
+      "title": "What the Journal Finally Printed",
+      "content": [
+        {
+          "type": "p",
+          "text": "The correction ran in the journal eleven months later, a formality by then, prompted less by any editorial courage than by the sheer, unmanageable volume of public attention the broadcast had generated — a brief, dry paragraph, buried on page forty-one, acknowledging that primary methodological credit for the 1958 kinetics paper belonged, according to newly reviewed documentation, to Dr. Celeste Winters rather than Dr. Aldridge Boone."
+        },
+        {
+          "type": "p",
+          "text": "It was not, Celeste told Josie over dinner that night, the vindication she might once have imagined wanting, back when she was twenty-six and newly fired and reading about Boone's award in a trade newsletter with unpaid bills doing their quiet arithmetic on the table in front of her. It was smaller than that, and stranger, and considerably more satisfying in a way she hadn't expected — not the world declaring her right, exactly, but simply the record, at long last, agreeing with what she had known to be true the entire time."
+        },
+        {
+          "type": "p",
+          "text": "\"Does it feel good,\" Josie asked, seventeen now, sharp-eyed and already fielding her own first acceptance letter from a chemistry program that would, within another decade, count her among its most decorated graduates."
+        },
+        {
+          "type": "p",
+          "text": "\"It feels correct,\" Celeste said, which was, she'd come to understand over four years of live broadcasts and eleven million viewers and one very cold, very precise reckoning with a man who'd never expected her to keep her own notebooks, the highest form of praise she actually had left to give anything."
+        }
+      ]
+    },
+    {
+      "id": "chapter-29",
+      "number": 29,
+      "label": "Book Two — Chapter Thirteen",
+      "title": "Nineteen Years, in an Afternoon",
+      "content": [
+        {
+          "type": "p",
+          "text": "The life continued, as these lives did, well past its own climax — a marriage, eventually, to a widowed university librarian named Frank Alden who had written to the show four separate times over the years, always about the chemistry, never once about anything else, until a fifth letter finally invited her to dinner instead of simply thanking her for the previous week's segment. A scholarship fund, established in Daniel Winters's name, that would go on, over three subsequent decades, to send one hundred and forty-one young women to study the sciences at universities that had once told most of them, gently and with total confidence, that the work would be difficult for someone who'd also want a family one day."
+        },
+        {
+          "type": "p",
+          "text": "The Kitchen Reaction ran for eleven more years after the citrus broadcast, ending only when Celeste chose to end it herself, at sixty-one, with a final episode that taught, appropriately, the chemistry of fermentation — the slow, patient transformation of something ordinary into something considerably more complex than it had started out being, given the right conditions and enough time to work."
+        },
+        {
+          "type": "p",
+          "text": "Wren felt the nineteen years the way she'd felt Molly Gray's eighteen months — not as a montage, but as a genuine, lived accumulation, every argument with Speck and every letter from that specific desk drawer and every ordinary Tuesday dinner with Josie sitting in her chest with the full, complete weight of a memory rather than a story she'd merely been told. She thought, somewhere around what her borrowed memory placed as year fourteen: I had this in me the entire time. Not the fame. The refusal. The specific, unglamorous discipline of simply continuing to say true things in a room that would have preferred I said softer ones."
+        },
+        {
+          "type": "p",
+          "text": "The doorway appeared, as it always did, without ceremony — a wall dissolving into the Between's dim green corridor while Celeste Winters, sixty-one years old and utterly unbothered by the transition, was in the middle of explaining to a studio audience exactly why a proper caramel required patience rather than higher heat, a sentence that felt, to Wren, like the truest thing she'd said in either of her two lives combined."
+        }
+      ]
+    },
+    {
+      "id": "chapter-30",
+      "number": 30,
+      "label": "Book Two — Chapter Fourteen",
+      "title": "What Wren Told Aldous",
+      "content": [
+        {
+          "type": "p",
+          "text": "\"She never once raised her voice,\" Wren said, back in the leather chair beside the reception desk, still feeling the specific, settled weight of nineteen years in her shoulders. \"Not at Boone, not at Speck, not at anyone who tried to make her smaller. She just kept saying the true thing, at the same volume, until the room had no choice but to catch up to her.\""
+        },
+        {
+          "type": "p",
+          "text": "\"And you,\" Aldous said, refilling her coffee with the same unhurried ceremony as always. \"Did you raise your voice, in your own kitchen, on the night you're still not ready to walk back into?\""
+        },
+        {
+          "type": "p",
+          "text": "Wren was quiet for a long moment. \"I don't remember raising it,\" she said finally. \"I don't remember much of anything I said that night, honestly. Mara was — she'd been saying things for months I didn't want to hear, about him, about what she'd found in his study, and I kept telling her she was imagining it, because believing her would have meant admitting what I'd already half-noticed myself and decided, very deliberately, not to look at directly.\""
+        },
+        {
+          "type": "p",
+          "text": "\"That,\" Aldous said gently, \"sounds like the first true sentence you've said to me about that night since you arrived. Celeste Winters kept her own notebooks, Ms. Calloway. Dated, witnessed, impossible to argue with later. What would it have looked like, do you think, if you'd kept yours — if you'd written down, at the time, every single thing you noticed and decided not to look at?\""
+        },
+        {
+          "type": "p",
+          "text": "She didn't answer that either. But when she looked down the east wing corridor this time, the unmarked door at the far end seemed, for the first time, very slightly closer than it had before — not because the hallway had moved, Aldous would have told her, but because she had."
+        },
+        {
+          "type": "p",
+          "text": "\"Which door next,\" she said instead, and Aldous, watching her with the particular, patient satisfaction of a man who had learned to measure progress in inches rather than confessions, smiled and reached for the guestbook."
+        }
+      ]
+    },
+    {
+      "id": "chapter-31",
+      "number": 31,
+      "label": "Book Three — Chapter One",
+      "title": "The Door With No Plaque Yet",
+      "content": [
+        {
+          "type": "p",
+          "text": "The third door hadn't earned its brass plaque by the time Wren reached it, which Aldous explained was not an oversight but a courtesy — some lives, he said, were still writing their own names by the time a guest stood in front of them, and it seemed rude to summarize a person before they'd finished arriving."
+        },
+        {
+          "type": "p",
+          "text": "\"This one's different from the last two,\" he added, watching her study the blank rectangle of brass with the particular wariness she now brought to every door in the wing. \"The first door gave you a mystery to solve. The second gave you a wrong to correct. This one doesn't give you either of those things, not exactly. This one just gives you forty years of somebody's whole life, built slowly, alongside another person, with no villain in it at all — unless you count time, which I suppose you might, by the end.\""
+        },
+        {
+          "type": "p",
+          "text": "Wren thought of her sister before he'd finished the sentence — of course she did, she understood now that this was precisely how the Between worked, each door reaching backward into whichever version of her own life it most resembled and pulling the memory forward whether she wanted it or not. She thought of the two of them at nine and eleven, building an entire imaginary radio station out of a cardboard box and a broken tape recorder in Mara's bedroom, broadcasting to an audience of exactly nobody for three straight summers, utterly certain it was the most important work either of them would ever do."
+        },
+        {
+          "type": "p",
+          "text": "\"Who am I in this one,\" she asked."
+        },
+        {
+          "type": "p",
+          "text": "\"Someone who never stopped building the radio station,\" Aldous said, and something in his voice, for once, sounded almost wistful. \"Shall we find out what that costs, and what it's worth?\""
+        }
+      ]
+    },
+    {
+      "id": "chapter-32",
+      "number": 32,
+      "label": "Book Three — Chapter Two",
+      "title": "Two Chairs in a Waiting Room",
+      "content": [
+        {
+          "type": "p",
+          "text": "The memory arrived, as they always did, sideways and complete: a hospital waiting room in late autumn, the specific fluorescent hum of a pediatric ward, an eleven-year-old girl named Frances Merrick — Frankie, always, to everyone who'd ever known her for longer than a day — sitting with a cast on her left arm and a battered handheld game console balanced on her right knee, waiting for a bone-density scan that would, over the following six years, become a depressingly regular fixture of her childhood thanks to a bone condition the doctors kept calling manageable in a tone that suggested they meant something closer to inconvenient but survivable."
+        },
+        {
+          "type": "p",
+          "text": "Beside her, in the row of orange plastic chairs, sat a boy of the same age with a bandage over one ear and a stillness to him that Frankie would later understand, once she knew him well enough to ask, came from a car accident four months earlier that had cost him most of the hearing in that ear and, less visibly, his father, in the same collision. His name was Gil Osei. He was watching her play with the specific, undisguised hunger of a kid who badly wanted to be invited into something and had no idea how to ask."
+        },
+        {
+          "type": "p",
+          "text": "\"You're doing the jump wrong,\" he said finally, after eleven minutes of silence Frankie would later be able to recite from memory, down to the number, because it turned out to be the kind of eleven minutes a person remembers for the rest of their life without meaning to. \"You have to let go of the button a half-second before the ledge, not on it. The game's lying to you about the timing.\""
+        },
+        {
+          "type": "p",
+          "text": "\"Show me,\" Frankie said, and held out the console, and neither of them, in that moment, had the faintest idea they'd just started a forty-year conversation."
+        }
+      ]
+    },
+    {
+      "id": "chapter-33",
+      "number": 33,
+      "label": "Book Three — Chapter Three",
+      "title": "Through the Third Door",
+      "content": [
+        {
+          "type": "p",
+          "text": "The waiting room dissolved the way all the doors dissolved, not into a hallway or a threshold but simply into itself, more solid than a moment ago, the fluorescent hum sharpening into something with real weight, the plastic chair cold and specific beneath her."
+        },
+        {
+          "type": "p",
+          "text": "Wren became Frankie Merrick the way she'd become Molly Gray and Celeste Winters before her — completely, immediately, a childhood's worth of memory settling into place at once, eleven years of a body that ached in specific, familiar places and a mind that had already, at eleven, developed the particular resourcefulness of a kid who'd spent more of her life than most in waiting rooms and had gotten very good at finding the interesting thing in a boring situation because the alternative was letting the boredom win."
+        },
+        {
+          "type": "p",
+          "text": "Gil Osei was still holding the console out to her, a half-smile on his face that she would come to know across every decade of the next forty years — hopeful and a little embarrassed by its own hope, the exact expression of someone who has just taken a small, real risk and is waiting to find out whether it paid off."
+        },
+        {
+          "type": "p",
+          "text": "\"Show me,\" Frankie said again, meaning it now, meaning it completely, and took the console back from him, and let go of the button exactly where he'd told her to, and cleared the jump on her first try."
+        },
+        {
+          "type": "p",
+          "text": "• • •"
+        }
+      ]
+    },
+    {
+      "id": "chapter-34",
+      "number": 34,
+      "label": "Book Three — Chapter Four",
+      "title": "The Garage Years",
+      "content": [
+        {
+          "type": "p",
+          "text": "By seventeen, Frankie and Gil had built and abandoned eleven games between them, most of them on a secondhand computer in Gil's parents' garage that ran hot enough in summer to require a desk fan pointed directly at the tower, and all eleven of them, without exception, existed now only as folders on a floppy disk labeled in Gil's careful, engineering-student handwriting: THE GRAVEYARD."
+        },
+        {
+          "type": "p",
+          "text": "\"We keep starting things we're not ready to finish,\" Frankie said, during the specific kind of late-night conversation that only happens between two people who've stopped performing tiredness for each other years earlier. \"I think we're scared of what happens once one of them actually works.\""
+        },
+        {
+          "type": "p",
+          "text": "\"What happens,\" Gil said, \"is we find out whether we're actually good at this, or whether we've just been having a really long, elaborate hobby together since we were eleven.\""
+        },
+        {
+          "type": "p",
+          "text": "The twelfth game was the one that worked, though neither of them recognized it at the time as anything more than another idea Frankie had scribbled in the margin of a hospital discharge form during her third bone scan that year: a lighthouse keeper, alone on a rock in a storm that never fully ended, managing a single light that had to be kept burning through mechanisms the player learned, slowly, mattered more than any single dramatic choice — small, unglamorous maintenance, performed correctly and repeatedly, as the actual substance of survival. She called it, on the discharge form, in handwriting Gil would later have framed, Anchor Point."
+        }
+      ]
+    },
+    {
+      "id": "chapter-35",
+      "number": 35,
+      "label": "Book Three — Chapter Five",
+      "title": "Anchor Point",
+      "content": [
+        {
+          "type": "p",
+          "text": "They built it properly over the following two years, Gil handling the engineering with a patience Frankie never fully understood the depth of until she watched him rebuild the entire lighting system from scratch four separate times because the third version's shadows fell wrong during the game's longest, quietest storm sequence, and Frankie handling the writing and the specific, deliberate pacing of a game that refused, on principle, to explain its own metaphor to anyone who wasn't ready to find it themselves."
+        },
+        {
+          "type": "p",
+          "text": "It released, finally, on a small independent platform with no marketing budget beyond a handful of messages Gil sent personally to journalists he half-recognized from forum posts, and it did not become a phenomenon overnight, the way stories about this kind of thing sometimes get told afterward for tidiness. It became one slowly, the way real things usually do — a single glowing review from a critic who called it \"the first game I've played that understood chronic illness without once using the word,\" then a slow accumulation of players finding it and writing to Frankie directly, in messages she read the way Celeste Winters had once read her fan letters, every single one, because she'd built the entire game out of the specific loneliness of managing something ongoing and had not fully understood, until the messages started arriving, how many other people were managing something ongoing too."
+        },
+        {
+          "type": "p",
+          "text": "\"We should quit our other jobs,\" Gil said, six months after launch, holding a royalty statement that had gone from embarrassing to genuinely, frighteningly real in the span of a single financial quarter."
+        },
+        {
+          "type": "p",
+          "text": "\"We should be terrified,\" Frankie said, \"and also, yes, obviously, we should quit our other jobs.\""
+        }
+      ]
+    },
+    {
+      "id": "chapter-36",
+      "number": 36,
+      "label": "Book Three — Chapter Six",
+      "title": "The Studio",
+      "content": [
+        {
+          "type": "p",
+          "text": "Lighthouse Games occupied, by its fifth year, an actual office rather than a garage, forty employees rather than two friends and a desk fan, and a level of public attention that Frankie found, increasingly, she had not signed up for and did not particularly want, in the specific way that only becomes clear once it's already arrived and can no longer be politely declined."
+        },
+        {
+          "type": "p",
+          "text": "The press wanted, always, the same story — the sick girl who made a game about being sick, a narrative so tidy and marketable that Frankie began to feel, in interview after interview, like a symptom being asked to promote itself. Gil, meanwhile, increasingly protective of what he called the studio's \"creative integrity\" against a growing chorus of investors eager for a sequel that repeated Anchor Point's formula rather than the studio's next actual idea, found himself fighting battles Frankie had neither the health nor, if she was honest, the patience left to fight alongside him after a full day of being asked, yet again, to describe her bone scans for a lifestyle magazine's profile."
+        },
+        {
+          "type": "p",
+          "text": "\"You disappear into the business side and leave me to be the face of the thing,\" she told him, during an argument that would replay itself, with minor variations, for the following eighteen months. \"I didn't build a company to become a symptom with a keyboard, Gil.\""
+        },
+        {
+          "type": "p",
+          "text": "\"And I didn't build one to watch you burn out defending a version of yourself the press invented,\" he said, \"which is exactly what's happening, and which you won't let me help with, because you've decided asking for help about this specific thing means admitting the illness runs your life more than the games do.\""
+        },
+        {
+          "type": "p",
+          "text": "Neither of them was entirely wrong. Neither of them, in the moment, was willing to say so."
+        }
+      ]
+    },
+    {
+      "id": "chapter-37",
+      "number": 37,
+      "label": "Book Three — Chapter Seven",
+      "title": "Theo",
+      "content": [
+        {
+          "type": "p",
+          "text": "Theo Álvarez had joined Lighthouse in its second year, the studio's third true co-founder in every sense but the paperwork, a level designer with a gift for pacing that both Frankie and Gil separately, privately, considered better than either of their own, and the specific kind of steady, undramatic presence that had kept the studio's two founders from actually dissolving their partnership on at least four separate occasions that the wider public never learned about."
+        },
+        {
+          "type": "p",
+          "text": "He died on a Tuesday in the studio's seventh year, at his desk, of an aortic aneurysm nobody had known he carried, in the middle of an ordinary conversation with a junior designer about a puzzle sequence that would never, now, be finished the way he'd intended it. He was thirty-four. Frankie found out over the phone, in the middle of a press junket in a different city, and would remember for the rest of her life the specific, useless detail that the hotel carpet beneath her feet was patterned with small gold diamonds, because some part of her mind had apparently decided that detail was the only thing safe to focus on."
+        },
+        {
+          "type": "p",
+          "text": "Theo had been three months into designing the studio's most ambitious project yet — a game about a family slowly, patiently restoring a house that had been abandoned mid-construction by someone none of the characters had ever met, called, in his own working notes, The Unfinished House. He had left behind, on the studio's shared server, eleven months of design documents, four half-built levels, and a voice memo, recorded for reference during a meeting neither Frankie nor Gil had attended, that neither of them would be able to listen to for nearly three years after his death."
+        }
+      ]
+    },
+    {
+      "id": "chapter-38",
+      "number": 38,
+      "label": "Book Three — Chapter Eight",
+      "title": "The Fracture",
+      "content": [
+        {
+          "type": "p",
+          "text": "Grief, it turned out, did not bring Frankie and Gil closer together the way every story about loss they'd both half-absorbed from other people's lives had led them to expect. It found, instead, the exact fault line their eighteen months of unresolved argument had already carved between them, and split them cleanly along it."
+        },
+        {
+          "type": "p",
+          "text": "\"I can't finish his game,\" Gil said, three weeks after the funeral, standing in the doorway of the studio's design room where Theo's notes still sat exactly as he'd left them, because nobody had yet found the nerve to touch them. \"Not like this. Not without him here to tell us when we've gotten his vision wrong. I think we shelve it. Indefinitely. I think we let it be his, unfinished, rather than turn it into something we finished badly in his name.\""
+        },
+        {
+          "type": "p",
+          "text": "\"That's the coward's version of honoring him,\" Frankie said, and she would spend years afterward wishing she'd found gentler words for the same true feeling. \"He spent eleven months building something he believed in. Shelving it because finishing it scares us isn't respect, Gil, it's just grief wearing respect's clothes so we don't have to look at what we're actually avoiding.\""
+        },
+        {
+          "type": "p",
+          "text": "\"And building a version of it without him feels like grief wearing ambition's clothes to me,\" Gil said, quieter now, and something in the quiet was worse than the shouting either of them had done in every other argument of the previous eighteen months combined. \"I can't do this with you right now, Frankie. I don't think I can do any of this with you right now.\""
+        },
+        {
+          "type": "p",
+          "text": "He left the studio four months later, selling his half of Lighthouse to a majority investor at a price both of them would later agree, separately, in interviews neither read the other's, had been considerably less than fair, because neither of them had had the heart, at the time, to negotiate properly over the wreckage of a friendship neither had officially admitted was over."
+        }
+      ]
+    },
+    {
+      "id": "chapter-39",
+      "number": 39,
+      "label": "Book Three — Chapter Nine",
+      "title": "Six Years Apart",
+      "content": [
+        {
+          "type": "p",
+          "text": "They did not speak for six years, a fact that both of them, separately, found in the industry press coverage more accurate than either of their own memories of the period, which had each compressed the silence into something that felt, from the inside, considerably shorter and considerably worse."
+        },
+        {
+          "type": "p",
+          "text": "Frankie ran Lighthouse without him, shipped two competent, well-reviewed, entirely unremarkable games that critics politely compared to Anchor Point's brilliance without ever quite calling them its equal, and found herself, in the studio's ninth year, sitting alone in the same design room where Theo's notes had finally, eventually, been carefully archived rather than touched, wondering whether the thing that had made their early work extraordinary had simply been the specific chemistry of the three of them together, now permanently unrecoverable."
+        },
+        {
+          "type": "p",
+          "text": "Gil built smaller things, alone, under a different studio name, technically accomplished work that he would later admit, in the one interview he gave during those six years, felt to him like \"building furniture instead of houses — solid, useful, and missing whatever it was that used to make the whole room feel like it meant something.\""
+        },
+        {
+          "type": "p",
+          "text": "The letter that changed it arrived at both their addresses on the same week, forwarded from Lighthouse's old fan mail address, from a woman named Priya Deshpande who wrote to say that she had played Anchor Point during eleven months of chemotherapy nine years earlier, that the lighthouse's small, unglamorous, repeated maintenance tasks had taught her something about surviving her own treatment that no doctor or well-meaning friend had managed to say as clearly, and that she was writing now, cancer-free for six years, specifically to ask whether the people who'd made it were still making things together, because the world, she said, plainly and without any apparent awareness of how much weight the sentence would carry, needed more of whatever that had been."
+        }
+      ]
+    },
+    {
+      "id": "chapter-40",
+      "number": 40,
+      "label": "Book Three — Chapter Ten",
+      "title": "The Voice Memo",
+      "content": [
+        {
+          "type": "p",
+          "text": "They met, after six years, in a coffee shop neither of them had chosen for sentimental reasons and both privately suspected the other had, and said almost nothing of substance for the first forty minutes, filling the silence with the specific, careful small talk of two people who have loved each other too completely to know how to begin the actual conversation."
+        },
+        {
+          "type": "p",
+          "text": "It was Frankie who finally set Priya Deshpande's letter on the table between them, and Gil who read it twice before setting it down with hands that weren't entirely steady."
+        },
+        {
+          "type": "p",
+          "text": "\"I still have his voice memo,\" he said. \"I've never been able to listen to it. I kept telling myself I would, once I was ready, and it's been three years, Frankie, and I don't think readiness is coming on its own. I think somebody has to just press play.\""
+        },
+        {
+          "type": "p",
+          "text": "They listened to it together, that afternoon, in Gil's car in the coffee shop's parking lot, Theo's voice filling the small space with the exact, specific cadence they'd both spent seven years working alongside and three years trying not to remember too clearly — a technical note about level pacing, nothing sentimental in it at all, and somehow, for exactly that reason, more devastating than anything sentimental could have been, because it was so completely, unbearably him."
+        },
+        {
+          "type": "p",
+          "text": "\"I want to finish it,\" Frankie said, once the memo ended and neither of them had spoken for a full minute afterward. \"Not instead of grieving him. Because of it. I think Priya's right. I think the world needs more of whatever we used to make, and I think the only way either of us gets back to making it is together, the way it always actually worked.\""
+        }
+      ]
+    },
+    {
+      "id": "chapter-41",
+      "number": 41,
+      "label": "Book Three — Chapter Eleven",
+      "title": "The Unfinished House, Finished",
+      "content": [
+        {
+          "type": "p",
+          "text": "They rebuilt Lighthouse from something closer to scratch than either of them admitted publicly at the time, buying back creative control of the old studio's shell for a price that made their accountants visibly wince, and spent the following two years finishing Theo's game with a reverence that occasionally slowed the work to a near standstill, both of them terrified, in different ways, of getting it wrong in front of a man who'd never see the finished version."
+        },
+        {
+          "type": "p",
+          "text": "The game that finally released told the story Theo had left behind — a family restoring a house someone else had abandoned mid-construction — but ended, in a sequence Frankie added herself, in his memory, that none of his original notes had specified: the family finding, in the house's unfinished attic, a set of blueprints for a room the original builder had never gotten to add, and choosing, deliberately, not to complete it exactly as drawn, but to build something new in that space instead, something that honored the intention behind the blueprints without pretending to have been the person who drew them."
+        },
+        {
+          "type": "p",
+          "text": "\"He'd have hated that we changed his ending,\" Gil said, the night before release, both of them exhausted and sleepless in the studio's design room for the first time in years."
+        },
+        {
+          "type": "p",
+          "text": "\"He'd have hated us finishing his exact blueprint even more,\" Frankie said. \"He spent his whole career telling us the best level design leaves room for the player to build something the designer didn't fully anticipate. I think that's what we just did. I think that's the only honest way to finish somebody else's unfinished house.\""
+        }
+      ]
+    },
+    {
+      "id": "chapter-42",
+      "number": 42,
+      "label": "Book Three — Chapter Twelve",
+      "title": "What the Letters Said This Time",
+      "content": [
+        {
+          "type": "p",
+          "text": "The Unfinished House became, within a year of release, the single most decorated game either of them had ever made, and Frankie found herself, once again, reading a stack of letters that reminded her powerfully of Celeste Winters's desk drawer in a life she had no way of knowing she'd already lived — strangers writing to say the game had taught them something about grief, about unfinished business, about the specific difficulty of honoring someone's memory without freezing their legacy into something too fragile to keep growing."
+        },
+        {
+          "type": "p",
+          "text": "One letter, from a woman signing herself only as R., said simply: My sister and I built an entire radio station once, out of a cardboard box, when we were kids. We never finished a single broadcast. I think about that unfinished thing more than almost anything else from my whole childhood. Thank you for making a game about what it means to finish something that was never yours to finish alone."
+        },
+        {
+          "type": "p",
+          "text": "Frankie read that particular letter more times than any other in the pile, though she could never afterward explain to Gil exactly why it had lodged itself so completely, so specifically, in her chest — only that it felt, reading it, like being handed a small mirror angled toward a version of her own life she hadn't lived, and recognizing something true in it anyway."
+        }
+      ]
+    },
+    {
+      "id": "chapter-43",
+      "number": 43,
+      "label": "Book Three — Chapter Thirteen",
+      "title": "Forty Years, in an Afternoon",
+      "content": [
+        {
+          "type": "p",
+          "text": "The life continued for another two decades past The Unfinished House's release, the way these lives always continued, in ordinary accumulation rather than dramatic climax — five more games, none as celebrated but each one, Frankie always maintained, genuinely worth having made; Gil's eventual marriage to a sound designer named Priya Deshpande, the very same letter-writer, in a coincidence neither of them ever stopped finding faintly, delightedly absurd; Frankie's own illness, managed rather than cured, exactly the way Anchor Point had always insisted survival actually worked, one unglamorous maintenance task at a time, for the rest of a long and, by any honest accounting, extraordinary life."
+        },
+        {
+          "type": "p",
+          "text": "Wren felt all forty years the way she'd felt the eighteen months and the nineteen years before them — completely, as memory rather than narration — and understood, somewhere around what felt like year thirty-one, sitting beside an aging Gil in a design room they'd rebuilt twice over the decades, that the specific love she'd just spent a lifetime living was not a lesser version of any other kind. It was its own complete thing: two people choosing, over and over, across every kind of rupture grief and ego and illness could throw at them, to keep building something together rather than separately, because building it together had always been the actual point, long before either of them understood that the games themselves were only ever the excuse."
+        },
+        {
+          "type": "p",
+          "text": "The doorway appeared while Frankie Merrick, seventy-one years old, sat beside Gil Osei in a garden neither of them had ever expected to grow old enough to plant, discussing, with the same unhurried delight they'd brought to eleven abandoned games at seventeen, an idea for one more."
+        }
+      ]
+    },
+    {
+      "id": "chapter-44",
+      "number": 44,
+      "label": "Book Three — Chapter Fourteen",
+      "title": "What Wren Told Aldous This Time",
+      "content": [
+        {
+          "type": "p",
+          "text": "\"We never finished the radio station,\" Wren said, back in the leather chair, before Aldous had even asked, the coffee cooling untouched in her hands for the first time since she'd arrived at the Between. \"Mara and I. Three summers of broadcasting to nobody, and then I got the conservatory offer, and I just — stopped. Never told her why. Never finished it with her. I just walked away from the thing we'd built together, and I don't think I ever properly said sorry for that, not once, in twenty-six years, right up until the night I stopped talking altogether.\""
+        },
+        {
+          "type": "p",
+          "text": "\"Is that what the night in the kitchen was about,\" Aldous asked, gently, the same question he'd asked before, phrased slightly differently, the way he seemed to do every time, testing to see if a different angle finally found purchase. \"An unfinished thing between the two of you.\""
+        },
+        {
+          "type": "p",
+          "text": "\"Partly,\" Wren said, and it was the most she'd admitted yet, the word landing in the quiet corridor with a weight she felt all the way down. \"There's more. I know there's more. I think I've known the shape of it since the first door, honestly, and I keep opening every other door in this hallway specifically so I don't have to open that one yet.\""
+        },
+        {
+          "type": "p",
+          "text": "\"That's allowed,\" Aldous said. \"For now. But the hallway's getting shorter, Ms. Calloway, whether either of us says so out loud or not. How many more doors do you think you can open before the one at the end simply becomes the only one left?\""
+        },
+        {
+          "type": "p",
+          "text": "She looked down the corridor, and for the first time since she'd arrived, she thought she could see it clearly — not just a shape in the distance, but an actual door, dark wood, no plaque at all, standing very slightly ajar in a way none of the others ever had."
+        },
+        {
+          "type": "p",
+          "text": "\"Not yet,\" she said again, and Aldous, as he always did, did not argue with her. He simply reached for the guestbook, and waited to see which door she'd choose instead."
+        }
+      ]
+    }
+  ]
+}
 ];
