@@ -275,7 +275,7 @@ export default function Home() {
   const handleThemeChange = (newTheme) => {
     setTheme(newTheme)
     document.documentElement.setAttribute("data-theme", newTheme)
-    // Only persist dark themes â€” light is session-only, resets on refresh
+    // Only persist dark themes - light is session-only, resets on refresh
     const toStore = newTheme === "terminal" ? "terminal" : "oled"
     localStorage.setItem("absconded-theme", toStore)
   }
@@ -1104,7 +1104,7 @@ export default function Home() {
             <article className="book-text font-serif">
               {selectedChapter.epigraph && (
                 <div className="text-secondary italic text-center mb-16 px-8 leading-relaxed">
-                  â€œ{selectedChapter.epigraph}â€
+                  {"\u201C"}{selectedChapter.epigraph}{"\u201D"}
                 </div>
               )}
 
@@ -1377,7 +1377,7 @@ export default function Home() {
               <h2 className="text-[10px] tracking-[0.3em] uppercase text-secondary mb-6 border-b border-white/5 pb-4">Physical Editions & Availability</h2>
               <div className="space-y-6 text-sm font-light text-secondary/90 leading-relaxed font-serif">
                 <p>
-                  Physical chapbooks from the Signal Collection are currently available for delivery <span className="text-white">within India only</span>. All orders are printed and dispatched from Mumbai â€” expect 4â€“5 days for printing &amp; processing, followed by 4â€“5 days for delivery within India.
+                  Physical chapbooks from the Signal Collection are currently available for delivery <span className="text-white">within India only</span>. All orders are printed and dispatched from Mumbai {"\u2014"} expect 4{"\u2013"}5 days for printing &amp; processing, followed by 4{"\u2013"}5 days for delivery within India.
                 </p>
                 <p>
                   International print-on-demand is being explored for future releases. If you're outside India and want to be notified when that's available, reach out directly at <a href="mailto:tanizcoldz@gmail.com" className="text-white hover:text-white/80 border-b border-white/20 transition-colors">tanizcoldz@gmail.com</a>.
