@@ -115,6 +115,64 @@ const timelineSignals = [
   }
 ]
 
+const storeProducts = [
+  {
+    id: "absconded-chapbook",
+    title: "Absconded",
+    subtitle: "Premium Softcover Zine",
+    description: "The complete 45-minute manuscript exploring the transition from stable retail procurement to internet-native builder identity. Perfect-bound in matte black with white terminal logs.",
+    priceUsd: 12,
+    priceInr: 999,
+    coverImage: "/absconded-cover.png",
+    editionSize: 150,
+    paymentLink: "https://rzp.io/rzp/o6sgTed"
+  },
+  {
+    id: "mask-beneath-chapbook",
+    title: "The Mask Beneath",
+    subtitle: "Premium Softcover Zine",
+    description: "A corporate thriller exploring identity, success, and the masks we wear in a high-stakes digital world. Bound in textured softcover with algorithmic overlays.",
+    priceUsd: 12,
+    priceInr: 999,
+    coverImage: "/mask-cover.png",
+    editionSize: 150,
+    paymentLink: "https://rzp.io/rzp/NKSvTO4y"
+  },
+  {
+    id: "room-between-lives-chapbook",
+    title: "The Room Between Lives",
+    subtitle: "Premium Softcover Zine (Vol 1 & 2)",
+    description: "Features Book One (The Chambermaid's Door) and Book Two (The Chemist's Door). Bound in thick cream linen cardstock with minimalist debossed outlines.",
+    priceUsd: 15,
+    priceInr: 1299,
+    coverImage: "/room-between-lives-cover.png",
+    editionSize: 100,
+    paymentLink: "https://rzp.io/rzp/U9brK0r"
+  },
+  {
+    id: "silent-protocol-chapbook",
+    title: "Silent Protocol",
+    subtitle: "Premium Softcover Zine",
+    description: "The Meridian House tech-thriller. A physical manifestation of algorithmic guilt, digital surveillance, and corporate complicity. Matte black cover with neon-green terminal logs.",
+    priceUsd: 15,
+    priceInr: 1299,
+    coverImage: "/silent-protocol-cover.png",
+    editionSize: 120,
+    paymentLink: "https://rzp.io/rzp/6dJsUF7G"
+  },
+  {
+    id: "signal-stairs-chapbook",
+    title: "The Signal and the Stairs",
+    subtitle: "Premium Softcover Zine",
+    description: "A collection of cyber-existential notes on rebuilding yourself from the bottom floor of the internet. Perfect bound, charcoal grey card cover.",
+    priceUsd: 12,
+    priceInr: 999,
+    coverImage: "/signal-stairs-cover.png",
+    editionSize: 150,
+    paymentLink: "https://rzp.io/rzp/aRZHz4"
+  }
+]
+
 // Scroll Progress Bar component that tracks screen scroll percentage
 function ScrollProgressBar({ content }) {
   const [progress, setProgress] = useState(0)
@@ -133,7 +191,7 @@ function ScrollProgressBar({ content }) {
   }, [])
 
   return (
-    <div className="fixed left-0 right-0 z-[60] h-[2px] bg-white/5" style={{ top: "var(--safe-area-top, 0px)" }}>
+    <div className="fixed left-0 right-0 z-[50] h-[2px] bg-white/5" style={{ top: "var(--safe-area-top, 0px)" }}>
       <div className="h-full bg-white transition-all duration-100" style={{ width: `${progress}%` }} />
     </div>
   )
@@ -171,6 +229,12 @@ export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [bookStats, setBookStats] = useState({})
   const [activePart, setActivePart] = useState("book-1")
+  const [checkoutProduct, setCheckoutProduct] = useState(null)
+  const [shippingInfo, setShippingInfo] = useState({ name: "", email: "", address: "", city: "", state: "", zip: "", country: "IN" })
+  const [checkoutStep, setCheckoutStep] = useState(1)
+  const [paymentMethod, setPaymentMethod] = useState("razorpay")
+  const [customKeys, setCustomKeys] = useState({ razorpayKey: "", dodoKey: "" })
+  const [securedOrders, setSecuredOrders] = useState([])
 
   // Fetch book reader stats
   useEffect(() => {
@@ -190,14 +254,15 @@ export default function Home() {
 
   // Initialize and persist theme
   useEffect(() => {
-    const savedTheme = localStorage.getItem("absconded-theme") || "oled"
-    setTheme(savedTheme)
-    document.documentElement.setAttribute("data-theme", savedTheme)
+    const saved = localStorage.getItem("absconded-theme")
+    const resolved = saved === "terminal" ? "terminal" : "oled"
+    setTheme(resolved)
+    document.documentElement.setAttribute("data-theme", resolved)
   }, [])
 
-  // Disable body scroll when menu is open
+  // Disable body scroll when menu or checkout is open
   useEffect(() => {
-    if (menuOpen) {
+    if (menuOpen || checkoutProduct) {
       document.body.style.overflow = 'hidden'
     } else {
       document.body.style.overflow = ''
@@ -205,12 +270,14 @@ export default function Home() {
     return () => {
       document.body.style.overflow = ''
     }
-  }, [menuOpen])
+  }, [menuOpen, checkoutProduct])
 
   const handleThemeChange = (newTheme) => {
     setTheme(newTheme)
-    localStorage.setItem("absconded-theme", newTheme)
     document.documentElement.setAttribute("data-theme", newTheme)
+    // Only persist dark themes â€” light is session-only, resets on refresh
+    const toStore = newTheme === "terminal" ? "terminal" : "oled"
+    localStorage.setItem("absconded-theme", toStore)
   }
 
   // Dynamically update document title for SEO & UX browser tabs
@@ -230,7 +297,7 @@ export default function Home() {
     } else if (page === "store") {
       document.title = `The Storehouse | Physical Artifacts`
     } else {
-      document.title = `ABSCONDED | A Builder's Evolution`
+      document.title = `ABSCONDED | Scriptorium by VYRM`
     }
   }, [page, selectedBook, selectedChapter])
 
@@ -283,6 +350,24 @@ export default function Home() {
         })
       }
     }, 150)
+  }, [])
+
+  // Load secured orders on mount
+  useEffect(() => {
+    const savedOrders = localStorage.getItem("vyrm-secured-orders")
+    if (savedOrders) {
+      try {
+        const parsed = JSON.parse(savedOrders)
+        if (Array.isArray(parsed)) {
+          setSecuredOrders(parsed)
+        } else {
+          setSecuredOrders([])
+        }
+      } catch (e) {
+        console.error("Failed to load secured orders", e)
+        setSecuredOrders([])
+      }
+    }
   }, [])
 
   // Persist reading progress and scroll position
@@ -463,7 +548,7 @@ export default function Home() {
     const lowerQuery = rawQuery.toLowerCase()
 
     if (lowerQuery.includes("silent") || lowerQuery.includes("protocol") || lowerQuery.includes("meridian") || lowerQuery.includes("kabir") || lowerQuery.includes("rege")) {
-      synthesizedAnswer = "Silent Protocol is a high-stakes tech-thriller set at Meridian House off the coast of Karwar. During a Category-5 cyclone, nine guests face an algorithmic reckoning for their roles in covering up a fatal error in ORACLE—a predictive-risk model developed by company founder Kabir Rege that led to a factory supervisor's suicide. The manuscript explores corporate complicity, digital surveillance, and the psychological weight of guilt."
+      synthesizedAnswer = "Silent Protocol is a high-stakes tech-thriller set at Meridian House off the coast of Karwar. During a Category-5 cyclone, nine guests face an algorithmic reckoning for their roles in covering up a fatal error in ORACLEâ€”a predictive-risk model developed by company founder Kabir Rege that led to a factory supervisor's suicide. The manuscript explores corporate complicity, digital surveillance, and the psychological weight of guilt."
     } else if (lowerQuery.includes("mara") || lowerQuery.includes("sister")) {
       synthesizedAnswer = "Mara Calloway is Wren's sister. The central tragedy and psychological weight of the novel stems from a fateful night in their kitchen that ended with a gunshot, Mara's name on Wren's lips, and Wren checking into 'the Between' coma. Wren carries immense guilt for refusing to believe Mara for eleven months leading up to the incident. Facing the truth about Mara is the final locked door Wren must open to break her silence and wake up."
     } else if (lowerQuery.includes("maid") || lowerQuery.includes("murder") || lowerQuery.includes("chambermaid")) {
@@ -475,19 +560,19 @@ export default function Home() {
     } else if (lowerQuery.includes("astronaut") || lowerQuery.includes("space") || lowerQuery.includes("mission")) {
       synthesizedAnswer = "Book Four: The Astronaut's Door represents the final threshold of Wren's internal journey. In this unreleased part, a lone astronaut waking up on a ship falling toward a dying Earth learns that the target she was sent to destroy is the only thing that can save her home. It teaches her: 'Take your own name back.'"
     } else if (lowerQuery.includes("room") || lowerQuery.includes("between") || lowerQuery.includes("lives") || lowerQuery.includes("wren") || lowerQuery.includes("aldous") || lowerQuery.includes("calloway")) {
-      synthesizedAnswer = "The Room Between Lives is a four-book novel about Wren Calloway, who has been silent for six years after a traumatic kitchen gunshot incident. While in a coma, her mind checks into 'the Between'—a hotel in no place at all, run by the concierge Aldous. Each room represents a life she almost lived (chambermaid, chemist, world builder, astronaut). She must live out these lives to build the strength needed to face the truth behind the final door and wake up."
+      synthesizedAnswer = "The Room Between Lives is a four-book novel about Wren Calloway, who has been silent for six years after a traumatic kitchen gunshot incident. While in a coma, her mind checks into 'the Between'â€”a hotel in no place at all, run by the concierge Aldous. Each room represents a life she almost lived (chambermaid, chemist, world builder, astronaut). She must live out these lives to build the strength needed to face the truth behind the final door and wake up."
     } else if (lowerQuery.includes("signal") || lowerQuery.includes("organism") || lowerQuery.includes("simulation")) {
-      synthesizedAnswer = "The Signal Collection is a cyber-existential concept running through the digital manuscripts. First introduced in *Absconded* as 'absconded.space'—representing synthetic internet lifeforms—it represents software that feels alive. Later, in *The Mask Beneath*, the simulated organism shows signs of autonomous identity formation. It represents the boundary where lines of code begin to develop memory, personality, and persistent hunger in an era of infinite generation."
+      synthesizedAnswer = "The Signal Collection is a cyber-existential concept running through the digital manuscripts. First introduced in *Absconded* as 'absconded.space'â€”representing synthetic internet lifeformsâ€”it represents software that feels alive. Later, in *The Mask Beneath*, the simulated organism shows signs of autonomous identity formation. It represents the boundary where lines of code begin to develop memory, personality, and persistent hunger in an era of infinite generation."
     } else if (lowerQuery.includes("tanvir") || lowerQuery.includes("khan") || lowerQuery.includes("author") || lowerQuery.includes("builder")) {
       synthesizedAnswer = "Tanvir Khan is a builder from Mumbai who spent years inside the traditional supply chain machine before quietly absconding into the internet. His journey, documented in *Absconded*, traces a transition from stable retail procurement to crypto speculation, AI experimentation, and high-fidelity builder identity. He advocates that 'Lore before product' is the ultimate way to create resonance in the internet era."
     } else if (lowerQuery.includes("corporate") || lowerQuery.includes("job") || lowerQuery.includes("career") || lowerQuery.includes("office") || lowerQuery.includes("manager") || lowerQuery.includes("supply chain")) {
       synthesizedAnswer = "The Signal Collection repeatedly explores the stifling nature of corporate structures. In *Absconded*, Tanvir describes his stable corporate life as 'a resume that becomes a fiction everyone agrees to call your life.' The collection treats corporate roles as rigid identity anchors that AI will rapidly commoditize, forcing builders to abscond into internet-native portfolios where 'action produces confidence' and one can survive ambiguity as a conditioning phase."
     } else if (lowerQuery.includes("crypto") || lowerQuery.includes("solana") || lowerQuery.includes("bitcoin") || lowerQuery.includes("token") || lowerQuery.includes("wallet") || lowerQuery.includes("memecoin")) {
-      synthesizedAnswer = "Crypto acts as the first mutation in the builder's psychology. Rather than just financial gain, Web3 represents the ultimate 'editable world'—a space where narrative acts as infrastructure and communities form digital tribes. The manuscripts show how seeing a teenager with a laptop outperform centuries-old institutions permanently damages a builder's ability to return to standard wage labor."
+      synthesizedAnswer = "Crypto acts as the first mutation in the builder's psychology. Rather than just financial gain, Web3 represents the ultimate 'editable world'â€”a space where narrative acts as infrastructure and communities form digital tribes. The manuscripts show how seeing a teenager with a laptop outperform centuries-old institutions permanently damages a builder's ability to return to standard wage labor."
     } else if (lowerQuery.includes("ai") || lowerQuery.includes("model") || lowerQuery.includes("claude") || lowerQuery.includes("gemini") || lowerQuery.includes("gpt") || lowerQuery.includes("artificial")) {
-      synthesizedAnswer = "The collection addresses the rise of cognitive AI tools (like GPT-4, Claude, Gemini) not merely as productivity tools, but as disruptors of human identity anchors. In *Absconded* Chapter 6, Tanvir realizes that while AI can automate the 'execution tax' of coding and writing, it lacks 'want'—the specific, unreasonable human hunger and Failure-tempered intuition that creates taste."
+      synthesizedAnswer = "The collection addresses the rise of cognitive AI tools (like GPT-4, Claude, Gemini) not merely as productivity tools, but as disruptors of human identity anchors. In *Absconded* Chapter 6, Tanvir realizes that while AI can automate the 'execution tax' of coding and writing, it lacks 'want'â€”the specific, unreasonable human hunger and Failure-tempered intuition that creates taste."
     } else if (lowerQuery.includes("mumbai") || lowerQuery.includes("heat") || lowerQuery.includes("monsoon") || lowerQuery.includes("rain") || lowerQuery.includes("city")) {
-      synthesizedAnswer = "Mumbai represents the honest, indifferent environment against which the builder is stress-tested. The manuscripts detail the oppressive May heat and the sudden, flooding monsoons. The city’s utter indifference to digital startups and individual visions is portrayed as liberating: 'When the environment refuses to validate you, you stop building for validation.'"
+      synthesizedAnswer = "Mumbai represents the honest, indifferent environment against which the builder is stress-tested. The manuscripts detail the oppressive May heat and the sudden, flooding monsoons. The cityâ€™s utter indifference to digital startups and individual visions is portrayed as liberating: 'When the environment refuses to validate you, you stop building for validation.'"
     } else if (topResults.length > 0) {
       const sentences = topResults.map(chunk => {
         const text = chunk.text
@@ -551,6 +636,36 @@ export default function Home() {
     setShowCover(false)
   }
 
+  const handleOrderProduct = (product) => {
+    setCheckoutProduct(product)
+    setCheckoutStep(1)
+    setPaymentMethod("razorpay")
+    setShippingInfo({ name: "", email: "", address: "", city: "", state: "", zip: "", country: "IN" })
+  }
+
+  const handleShippingChange = (e) => {
+    const { name, value } = e.target
+    setShippingInfo(prev => {
+      const updated = { ...prev, [name]: value }
+      if (name === "country") {
+        if (value === "IN") {
+          setPaymentMethod("razorpay")
+        } else {
+          setPaymentMethod("dodo")
+        }
+      }
+      return updated
+    })
+  }
+
+  const handleCompleteOrder = () => {
+    if (!checkoutProduct) return
+    const updatedOrders = [...securedOrders, checkoutProduct.id]
+    setSecuredOrders(updatedOrders)
+    localStorage.setItem("vyrm-secured-orders", JSON.stringify(updatedOrders))
+    setCheckoutStep(4)
+  }
+
 
   // Reading pagination statistics helper
   const getChapterStats = () => {
@@ -577,13 +692,12 @@ export default function Home() {
   const isReading = page === "book" && selectedChapter
 
   return (
-    <main className={`min-h-screen bg-bg text-text transition-opacity duration-300 selection:bg-white/10 selection:text-white ${transitioning ? "opacity-0" : "opacity-100"}`}>
-      
+    <>
       {/* Scroll Progress Bar for Active Reading */}
       {isReading && <ScrollProgressBar content={selectedChapter.content} />}
 
       {/* Navigation */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-bg/85 backdrop-blur-md border-b border-white/5">
+      <nav className="fixed top-0 left-0 right-0 z-[60] bg-bg/85 backdrop-blur-md border-b border-white/5">
         <div className="max-w-6xl mx-auto px-6 py-5 flex items-center justify-between">
           <button 
             onClick={() => {
@@ -594,20 +708,23 @@ export default function Home() {
                 setMenuOpen(false);
               });
             }}
-            className="text-[10px] tracking-[0.3em] uppercase font-light hover:text-white transition-colors duration-300 text-secondary whitespace-nowrap z-[60]"
+            className="flex items-center gap-3 hover:opacity-90 transition-opacity duration-300 whitespace-nowrap z-[60]"
           >
-            Absconded Library
+            <img src="/logo.jpg" alt="Absconded // VYRM Logo" className="h-7 w-7 rounded-sm border border-white/10 object-cover bg-black" />
+            <span className="text-[11px] tracking-[0.3em] uppercase font-normal text-white/90 hover:text-white transition-colors duration-300">
+              Absconded // VYRM
+            </span>
           </button>
 
           {/* Reading Context indicator on Desktop */}
           {page === "book" && selectedBook && selectedChapter && (
             <div className="hidden md:flex items-center gap-3 text-[9px] tracking-[0.2em] uppercase text-secondary">
               <span>{selectedBook.title}</span>
-              <span className="text-white/20">·</span>
+              <span className="text-white/20">Â·</span>
               <span className="text-white">{selectedChapter.title}</span>
               {getChapterStats() && (
                 <>
-                  <span className="text-white/20">·</span>
+                  <span className="text-white/20">Â·</span>
                   <span>{getChapterStats().current} / {getChapterStats().total}</span>
                 </>
               )}
@@ -617,7 +734,7 @@ export default function Home() {
           {/* Hamburger Trigger */}
           <button 
             onClick={() => setMenuOpen(!menuOpen)}
-            className="relative w-8 h-8 flex flex-col justify-center items-center group z-[60] focus:outline-none"
+            className="relative w-8 h-8 flex flex-col justify-center items-center group focus:outline-none"
             aria-label="Toggle Menu"
           >
             <span 
@@ -644,7 +761,7 @@ export default function Home() {
 
       {/* Full-Screen Overlay Navigation Menu */}
       <div 
-        className={`fixed inset-0 z-40 bg-bg/95 backdrop-blur-xl transition-all duration-500 ease-in-out flex flex-col justify-between p-8 sm:p-16 ${
+        className={`fixed inset-0 z-[55] bg-bg/95 backdrop-blur-xl transition-all duration-500 ease-in-out flex flex-col justify-between p-8 sm:p-16 ${
           menuOpen ? "opacity-100 pointer-events-auto visible" : "opacity-0 pointer-events-none invisible"
         }`}
       >
@@ -727,10 +844,12 @@ export default function Home() {
           </div>
           
           <div className="text-[8px] tracking-[0.2em] uppercase text-secondary/60 text-center sm:text-right">
-            ABSCONDED ARCHIVE · 2026
+            ABSCONDED ARCHIVE // VYRM Â· 2026
           </div>
         </div>
       </div>
+
+      <main className={`min-h-screen bg-bg text-text transition-opacity duration-300 selection:bg-white/10 selection:text-white ${transitioning ? "opacity-0" : "opacity-100"}`}>
 
       {/* View 1: Shelf (Library) */}
       {page === "library" && (
@@ -775,24 +894,24 @@ export default function Home() {
                     <img 
                       src={book.coverImage} 
                       alt={book.title} 
-                      className="w-full h-full object-cover grayscale brightness-75 group-hover:grayscale-0 group-hover:brightness-90 transition-all duration-1000 scale-[1.01] group-hover:scale-105"
+                      className="w-full h-full object-cover grayscale brightness-90 group-hover:grayscale-0 group-hover:brightness-100 transition-all duration-1000 scale-[1.01] group-hover:scale-105"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-bg via-bg/20 to-transparent opacity-70" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/35 to-transparent opacity-85 z-10" />
                     
-                    <div className="absolute bottom-8 left-8 right-8">
-                      <h2 className="text-3xl font-serif italic mb-2">{book.title}</h2>
-                      <p className="text-[9px] tracking-[0.3em] uppercase text-secondary">{book.subtitle}</p>
+                    <div className="absolute bottom-8 left-8 right-8 z-20">
+                      <h2 className="text-3xl font-serif italic mb-2 text-always-white">{book.title}</h2>
+                      <p className="text-[9px] tracking-[0.3em] uppercase text-always-white-60">{book.subtitle}</p>
                     </div>
 
-                    <div className="absolute top-6 right-6 flex gap-2">
-                      <span className="text-[8px] tracking-[0.2em] uppercase text-secondary/80 border border-white/10 px-3 py-1 bg-bg/60 backdrop-blur-sm">
+                    <div className="absolute top-6 right-6 flex gap-2 z-20">
+                      <span className="text-[8px] tracking-[0.2em] uppercase text-always-white-80 border border-always-white-10 px-3 py-1 bg-always-black-40 backdrop-blur-sm">
                         {book.type === "manuscript" ? "Manuscript" : "Short Story"}
                       </span>
-                      <span className="text-[8px] tracking-[0.2em] uppercase text-secondary/60 border border-white/10 px-3 py-1 bg-bg/60 backdrop-blur-sm">
+                      <span className="text-[8px] tracking-[0.2em] uppercase text-always-white-60 border border-always-white-10 px-3 py-1 bg-always-black-40 backdrop-blur-sm">
                         {calculateBookReadingTime(book)} read
                       </span>
                       {bookStats[book.id] !== undefined && (
-                        <span className="text-[8px] tracking-[0.2em] uppercase text-secondary/60 border border-white/10 px-3 py-1 bg-bg/60 backdrop-blur-sm">
+                        <span className="text-[8px] tracking-[0.2em] uppercase text-always-white-60 border border-always-white-10 px-3 py-1 bg-always-black-40 backdrop-blur-sm">
                           {bookStats[book.id]} {bookStats[book.id] === 1 ? 'reader' : 'readers'}
                         </span>
                       )}
@@ -842,7 +961,7 @@ export default function Home() {
       {page === "book" && selectedBook && showCover && (
         <section className="min-h-screen flex items-center justify-center px-6 pt-20 fade-in">
           <div className="text-center max-w-2xl">
-            <p className="text-[9px] tracking-[0.4em] uppercase text-secondary mb-10">{selectedBook.subtitle} · {calculateBookReadingTime(selectedBook)} read</p>
+            <p className="text-[9px] tracking-[0.4em] uppercase text-secondary mb-10">{selectedBook.subtitle} Â· {calculateBookReadingTime(selectedBook)} read</p>
             <h1 className="text-6xl md:text-8xl font-serif italic mb-8 tracking-tight leading-none">{selectedBook.title}</h1>
             <div className="w-16 h-[1px] bg-white/20 mx-auto mb-12" />
             <div className="mb-16 text-secondary font-light leading-relaxed font-serif italic text-lg">
@@ -859,7 +978,7 @@ export default function Home() {
             </div>
 
             <div className="mt-20 text-[9px] tracking-[0.2em] text-secondary/40 uppercase">
-              Mumbai · Twenty-Twenty-Six
+              Mumbai Â· Twenty-Twenty-Six
             </div>
           </div>
         </section>
@@ -873,11 +992,11 @@ export default function Home() {
               onClick={() => setShowCover(true)}
               className="text-[9px] tracking-[0.3em] uppercase text-secondary hover:text-white transition-colors flex items-center gap-2"
             >
-              <span>←</span> Cover
+              <span>â†</span> Cover
             </button>
           </div>
 
-          <h2 className="text-xs uppercase tracking-[0.4em] text-secondary mb-4">Manuscript Index · {calculateBookReadingTime(selectedBook)} total read</h2>
+          <h2 className="text-xs uppercase tracking-[0.4em] text-secondary mb-4">Manuscript Index Â· {calculateBookReadingTime(selectedBook)} total read</h2>
           <p className="font-serif italic text-2xl mb-6">{selectedBook.title}</p>
           <p className="text-sm font-light text-secondary/80 leading-relaxed mb-16 font-serif italic max-w-xl">
             {selectedBook.description}
@@ -904,7 +1023,7 @@ export default function Home() {
 
           {selectedBook.parts && activePart === "book-4" ? (
             <div className="py-16 text-center border border-white/5 rounded-sm bg-white/[0.01] px-8 max-w-xl mx-auto fade-in">
-              <span className="text-3xl mb-6 block">🔒</span>
+              <span className="text-3xl mb-6 block">ðŸ”’</span>
               <h3 className="font-serif italic text-xl mb-4">Book Four: The Astronaut's Door</h3>
               <p className="text-sm font-light text-secondary leading-relaxed mb-6 font-serif">
                 The fourth door at the end of the wing is cold to the touch and lacks a brass plaque. 
@@ -940,7 +1059,7 @@ export default function Home() {
                       <div className="flex items-baseline gap-6">
                         <span className="text-[10px] font-light text-secondary group-hover:text-white/40 transition-colors">
                           {["prologue", "epilogue", "author-note", "mirror-threshold", "mirror-reflects"].includes(section.id) 
-                            ? "★" 
+                            ? "â˜…" 
                             : String(section.number).padStart(2, "0")}
                         </span>
                         <h3 className="text-2xl font-serif group-hover:italic transition-all duration-300">
@@ -985,7 +1104,7 @@ export default function Home() {
             <article className="book-text font-serif">
               {selectedChapter.epigraph && (
                 <div className="text-secondary italic text-center mb-16 px-8 leading-relaxed">
-                  “{selectedChapter.epigraph}”
+                  â€œ{selectedChapter.epigraph}â€
                 </div>
               )}
 
@@ -1011,7 +1130,7 @@ export default function Home() {
                   if (block.type === "twist") {
                     return (
                       <div key={t} className="twist-block">
-                        <span>↳</span>
+                        <span>â†³</span>
                         <span>{block.text}</span>
                       </div>
                     )
@@ -1040,7 +1159,7 @@ export default function Home() {
                         />
                         <div className="flex flex-col items-center gap-1">
                           <div className="text-[10px] tracking-[0.4em] uppercase text-secondary">Tanvir Khan</div>
-                          <div className="text-[9px] tracking-[0.2em] text-secondary/40 uppercase">Mumbai · 2026</div>
+                          <div className="text-[9px] tracking-[0.2em] text-secondary/40 uppercase">Mumbai Â· 2026</div>
                         </div>
                       </div>
                     )
@@ -1056,7 +1175,7 @@ export default function Home() {
                     onClick={() => navigate(() => setSelectedChapter(null))}
                     className="text-[9px] tracking-[0.3em] uppercase text-secondary hover:text-white transition-colors flex items-center gap-2"
                   >
-                    <span>←</span> Index
+                    <span>â†</span> Index
                   </button>
 
                   <button 
@@ -1073,7 +1192,7 @@ export default function Home() {
                           : selectedBook.sections[selectedBook.sections.findIndex(e => e.id === selectedChapter.id) + 1]?.title || "Finish"
                         }
                       </span>
-                      <span className="group-hover:translate-x-3 transition-transform duration-300">→</span>
+                      <span className="group-hover:translate-x-3 transition-transform duration-300">â†’</span>
                     </div>
                   </button>
                 </div>
@@ -1184,7 +1303,7 @@ export default function Home() {
                               [{index + 1}] {result.bookTitle}
                             </span>
                             <span className="text-[8px] tracking-[0.2em] uppercase text-secondary/40">
-                              {result.chapterLabel} · {result.chapterTitle}
+                              {result.chapterLabel} Â· {result.chapterTitle}
                             </span>
                           </div>
                           <span className="text-[8px] tracking-[0.2em] font-mono text-sky-400 border border-sky-400/20 px-2 py-0.5 rounded bg-sky-400/[0.01]">
@@ -1219,7 +1338,7 @@ export default function Home() {
               <h2 className="text-[10px] tracking-[0.3em] uppercase text-secondary mb-6 border-b border-white/5 pb-4">The Essence</h2>
               <div className="space-y-6 text-sm font-light text-secondary/90 leading-relaxed font-serif">
                 <p>
-                  <span className="text-white">I am Tanvir Khan.</span> For years, I existed inside the traditional supply chain machine, a builder locked into a corporate timeline that didn't belong to me. My essence of life is rooted in the quiet act of absconding—detaching from the narrative that others have built for you in order to construct your own reality from the ground up.
+                  <span className="text-white">I am Tanvir Khan.</span> For years, I existed inside the traditional supply chain machine, a builder locked into a corporate timeline that didn't belong to me. My essence of life is rooted in the quiet act of abscondingâ€”detaching from the narrative that others have built for you in order to construct your own reality from the ground up.
                 </p>
                 <p>
                   I believe that reality no longer moves first; narrative does. My thoughts and philosophies are poured into every terminal line and glitch aesthetic you see here. The internet is a canvas for those who dare to disappear and reinvent themselves. This manuscript library is the manifestation of that reinvention.
@@ -1232,7 +1351,7 @@ export default function Home() {
               <h2 className="text-[10px] tracking-[0.3em] uppercase text-secondary mb-6 border-b border-white/5 pb-4">The Fictions</h2>
               <div className="space-y-6 text-sm font-light text-secondary/90 leading-relaxed font-serif">
                 <p>
-                  While <span className="text-white italic">Absconded</span> holds elements of my truth, the majority of the stories within the Signal Collection—including <span className="text-white italic">The Mask Beneath</span> and the <span className="text-white italic">Signal Collection III</span>—are works of fiction. 
+                  While <span className="text-white italic">Absconded</span> holds elements of my truth, the majority of the stories within the Signal Collectionâ€”including <span className="text-white italic">The Mask Beneath</span> and the <span className="text-white italic">Signal Collection III</span>â€”are works of fiction. 
                 </p>
                 <p>
                   They are cyber-thrillers, corporate conspiracies, and techno-mysteries built to explore the paranoia, the identity fracturing, and the surveillance capital of our modern digital world. They are fictional architectures, but the anxiety and the systemic truths they expose are entirely real.
@@ -1245,7 +1364,7 @@ export default function Home() {
               <h2 className="text-[10px] tracking-[0.3em] uppercase text-secondary mb-6 border-b border-white/5 pb-4">What's Next for Absconded</h2>
               <div className="space-y-6 text-sm font-light text-secondary/90 leading-relaxed font-serif">
                 <p>
-                  Absconded is an evolving book. The immediate future holds deeper integration of the Oracle—our semantic RAG engine—allowing readers to interrogate the book as if it were a real database. 
+                  Absconded is an evolving book. The immediate future holds deeper integration of the Oracleâ€”our semantic RAG engineâ€”allowing readers to interrogate the book as if it were a real database. 
                 </p>
                 <p>
                   I am also actively developing the Absconded ecosystem, a decentralized network where digital identities and assets blur the lines between reality and simulation. The library will continue to expand, introducing new threads, new protagonists, and perhaps, eventually, a bridge into physical installations.
@@ -1255,13 +1374,16 @@ export default function Home() {
 
             {/* Contact & Collaborations */}
             <div>
-              <h2 className="text-[10px] tracking-[0.3em] uppercase text-secondary mb-6 border-b border-white/5 pb-4">Physical Editions & Collaborations</h2>
+              <h2 className="text-[10px] tracking-[0.3em] uppercase text-secondary mb-6 border-b border-white/5 pb-4">Physical Editions & Availability</h2>
               <div className="space-y-6 text-sm font-light text-secondary/90 leading-relaxed font-serif">
                 <p>
-                  If you are interested in acquiring a physical copy of the book, sponsoring the project, or placing bulk orders, feel free to reach out. I am open to partnerships with brands and organizations that resonate with the philosophy of the Signal Collection.
+                  Physical chapbooks from the Signal Collection are currently available for delivery <span className="text-white">within India only</span>. All orders are printed and dispatched from Mumbai â€” expect 4â€“5 days for printing &amp; processing, followed by 4â€“5 days for delivery within India.
                 </p>
                 <p>
-                  Additionally, if you are a fellow writer or builder who wants to collaborate, explore business opportunities, or submit your own manuscript to be featured on this reader platform, contact me directly at <a href="mailto:tanizcoldz@gmail.com" className="text-white hover:text-white/80 border-b border-white/20 transition-colors">tanizcoldz@gmail.com</a>.
+                  International print-on-demand is being explored for future releases. If you're outside India and want to be notified when that's available, reach out directly at <a href="mailto:tanizcoldz@gmail.com" className="text-white hover:text-white/80 border-b border-white/20 transition-colors">tanizcoldz@gmail.com</a>.
+                </p>
+                <p>
+                  For bulk orders, brand sponsorships, or collaboration inquiries, feel free to reach out at the same address.
                 </p>
               </div>
             </div>
@@ -1310,11 +1432,11 @@ export default function Home() {
                 {[
                   {
                     q: "Is it free?",
-                    a: "Always. The manuscript is meant to be read, shared, and felt. The digital reader interface makes that experience more immersive — no distractions, just the words."
+                    a: "Always. The manuscript is meant to be read, shared, and felt. The digital reader interface makes that experience more immersive â€” no distractions, just the words."
                   },
                   {
                     q: "What is Absconded actually about?",
-                    a: "It's about the quiet act of leaving — a corporate timeline, a version of yourself that no longer fits. Set in Mumbai, it traces a builder's journey through crypto, AI, and the strange courage it takes to become someone new."
+                    a: "It's about the quiet act of leaving â€” a corporate timeline, a version of yourself that no longer fits. Set in Mumbai, it traces a builder's journey through crypto, AI, and the strange courage it takes to become someone new."
                   },
                   {
                     q: "Who is Tanvir Khan?",
@@ -1331,7 +1453,6 @@ export default function Home() {
           </div>
         </section>
       )}
-
       {/* View 7: Storehouse (E-Commerce) */}
       {page === "store" && (
         <section className="pt-40 pb-20 px-6 max-w-6xl mx-auto fade-in">
@@ -1340,85 +1461,49 @@ export default function Home() {
             <h1 className="text-4xl sm:text-5xl font-serif italic text-white mb-8">The Storehouse</h1>
             <div className="w-16 h-[1px] bg-white/20 mx-auto mb-8"></div>
             <p className="text-sm font-light text-secondary max-w-2xl mx-auto leading-relaxed">
-              Artifacts, bound manuscripts, and operative gear pulled from the digital abyss into the physical realm. Worldwide shipping via integrated supply chains.
+              Premium softcover chapbooks and bound manuscripts from the Signal Collection {"\u2014"} printed and shipped <span className="text-white">within India only</span>. International editions via print-on-demand coming soon.
             </p>
           </header>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
-            {/* Product 1 */}
-            <div className="group border border-white/5 hover:border-white/20 rounded-sm bg-white/[0.01] overflow-hidden transition-all duration-500">
-              <div className="aspect-[4/5] bg-bg relative overflow-hidden flex items-center justify-center p-8">
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent z-10"></div>
-                <img src="/absconded-cover.png" alt="Absconded Hardcover" className="relative z-0 w-[70%] object-cover shadow-2xl group-hover:scale-105 transition-transform duration-700" />
-                <div className="absolute top-4 right-4 z-20 px-3 py-1 bg-white/10 backdrop-blur-md text-[8px] tracking-[0.2em] uppercase text-white rounded-full">
-                  $30 USD
+            {storeProducts.map((product) => {
+              const isSecured = Array.isArray(securedOrders) && securedOrders.includes(product.id)
+              return (
+                <div key={product.id} className="group border border-white/5 hover:border-white/20 rounded-sm bg-white/[0.01] overflow-hidden transition-all duration-500 flex flex-col justify-between">
+                  <div className="aspect-[4/5] bg-bg relative overflow-hidden flex items-center justify-center p-5">
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent z-10"></div>
+                    <img src={product.coverImage} alt={product.title} className="relative z-0 w-[82%] object-cover shadow-2xl group-hover:scale-105 transition-transform duration-700" />
+                    <div className="absolute top-4 right-4 z-20 px-3 py-1 bg-white/10 backdrop-blur-md text-[8px] tracking-[0.2em] uppercase text-white rounded-full font-mono">
+                      {"\u20B9"}{product.priceInr} INR
+                    </div>
+                  </div>
+                  <div className="p-8 flex-grow flex flex-col justify-between">
+                    <div>
+                      <h3 className="text-xl font-serif italic mb-2">{product.title}</h3>
+                      <p className="text-[9px] tracking-[0.2em] uppercase text-secondary mb-6">{product.subtitle}</p>
+                      <p className="text-sm font-light text-secondary/70 mb-8 leading-relaxed">
+                        {product.description}
+                      </p>
+                    </div>
+                    {isSecured ? (
+                      <button 
+                        disabled
+                        className="w-full py-4 border border-emerald-500/20 bg-emerald-500/10 text-emerald-400 rounded-sm text-[10px] tracking-[0.3em] uppercase transition-all duration-300 font-medium"
+                      >
+                        {"\u2713"} Artifact Secured
+                      </button>
+                    ) : (
+                      <button 
+                        onClick={() => handleOrderProduct(product)}
+                        className="w-full py-4 border border-white/10 hover:border-white/40 bg-white/[0.02] hover:bg-white/5 text-white rounded-sm text-[10px] tracking-[0.3em] uppercase transition-all duration-300"
+                      >
+                        Order Chapbook
+                      </button>
+                    )}
+                  </div>
                 </div>
-              </div>
-              <div className="p-8">
-                <h3 className="text-xl font-serif italic mb-2">Absconded</h3>
-                <p className="text-[9px] tracking-[0.2em] uppercase text-secondary mb-6">Premium Hardcover Edition</p>
-                <p className="text-sm font-light text-secondary/70 mb-8 leading-relaxed">
-                  The complete 45-minute manuscript exploring the quiet act of leaving the corporate timeline. Bound in matte black with foil-stamped typography.
-                </p>
-                <button 
-                  disabled
-                  className="w-full py-4 border border-white/5 bg-white/[0.02] text-secondary/40 cursor-not-allowed rounded-sm text-[10px] tracking-[0.3em] uppercase transition-all duration-300"
-                >
-                  Coming Soon
-                </button>
-              </div>
-            </div>
-
-            {/* Product 2 */}
-            <div className="group border border-white/5 hover:border-white/20 rounded-sm bg-white/[0.01] overflow-hidden transition-all duration-500">
-              <div className="aspect-[4/5] bg-bg relative overflow-hidden flex items-center justify-center p-8">
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent z-10"></div>
-                <img src="/cover-manuscript.png" alt="Signal Collection Hardcover" className="relative z-0 w-[70%] object-cover shadow-2xl group-hover:scale-105 transition-transform duration-700" />
-                <div className="absolute top-4 right-4 z-20 px-3 py-1 bg-white/10 backdrop-blur-md text-[8px] tracking-[0.2em] uppercase text-white rounded-full">
-                  $35 USD
-                </div>
-              </div>
-              <div className="p-8">
-                <h3 className="text-xl font-serif italic mb-2">Signal Collection III</h3>
-                <p className="text-[9px] tracking-[0.2em] uppercase text-secondary mb-6">Anthology Hardcover</p>
-                <p className="text-sm font-light text-secondary/70 mb-8 leading-relaxed">
-                  The complete connected universe anthology. Four stories. Sixteen chapters. One world hiding behind all of them.
-                </p>
-                <button 
-                  disabled
-                  className="w-full py-4 border border-white/5 bg-white/[0.02] text-secondary/40 cursor-not-allowed rounded-sm text-[10px] tracking-[0.3em] uppercase transition-all duration-300"
-                >
-                  Coming Soon
-                </button>
-              </div>
-            </div>
-
-            {/* Product 3 */}
-            <div className="group border border-white/5 hover:border-white/20 rounded-sm bg-white/[0.01] overflow-hidden transition-all duration-500">
-              <div className="aspect-[4/5] bg-white/[0.02] relative overflow-hidden flex items-center justify-center p-8">
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent z-10"></div>
-                <div className="relative z-0 flex flex-col items-center gap-4 text-secondary/40 group-hover:scale-105 transition-transform duration-700">
-                  <div className="w-16 h-16 border border-secondary/20 flex items-center justify-center text-2xl font-serif">?</div>
-                  <span className="text-[10px] tracking-[0.3em] uppercase">Encrypted</span>
-                </div>
-                <div className="absolute top-4 right-4 z-20 px-3 py-1 bg-white/10 backdrop-blur-md text-[8px] tracking-[0.2em] uppercase text-white rounded-full">
-                  $45 USD
-                </div>
-              </div>
-              <div className="p-8">
-                <h3 className="text-xl font-serif italic mb-2">Absconded Operative Gear</h3>
-                <p className="text-[9px] tracking-[0.2em] uppercase text-secondary mb-6">Heavyweight T-Shirt</p>
-                <p className="text-sm font-light text-secondary/70 mb-8 leading-relaxed">
-                  A 100% organic cotton heavyweight t-shirt featuring subtle terminal logs from the Absconded ecosystem. Available exclusively in Vantablack.
-                </p>
-                <button 
-                  disabled
-                  className="w-full py-4 border border-white/5 bg-white/[0.02] text-secondary/40 cursor-not-allowed rounded-sm text-[10px] tracking-[0.3em] uppercase transition-all duration-300"
-                >
-                  Coming Soon
-                </button>
-              </div>
-            </div>
+              )
+            })}
           </div>
         </section>
       )}
@@ -1431,10 +1516,217 @@ export default function Home() {
             <a href="https://x.com/ritmir11" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Twitter</a>
           </div>
           <div className="text-secondary/50">
-            Absconded · © 2026 · Tanvir Khan
+            Absconded by VYRM {"\u00B7"} {"\u00A9"} 2026 {"\u00B7"} Tanvir Khan
           </div>
         </div>
       </footer>
     </main>
+
+      {/* Checkout Modal — outside <main> to avoid stacking context trap */}
+      {checkoutProduct && (
+        <div
+          className="fixed inset-0 z-[65] flex items-end sm:items-center justify-center bg-black/85 backdrop-blur-md fade-in"
+          onClick={(e) => { if (e.target === e.currentTarget) setCheckoutProduct(null) }}
+        >
+          <div className="relative w-full sm:max-w-md bg-bg border border-white/10 rounded-t-xl sm:rounded shadow-2xl flex flex-col max-h-[92vh] sm:max-h-[90vh] overscroll-contain">
+            <button
+              onClick={() => setCheckoutProduct(null)}
+              className="absolute top-4 right-4 text-secondary hover:text-white transition-colors text-base p-2 z-30"
+              aria-label="Close Checkout"
+            >
+              {"\u2715"}
+            </button>
+
+            {/* Scrollable Content Container */}
+            <div className="p-5 sm:p-8 overflow-y-auto flex-grow overscroll-contain">
+              {/* Product Header Summary */}
+              <div className="flex gap-4 pb-5 border-b border-white/5 mb-5">
+                <img src={checkoutProduct.coverImage} className="w-10 h-14 object-cover shadow border border-white/10 flex-shrink-0" alt="" />
+                <div>
+                  <h4 className="font-serif italic text-base text-white">{checkoutProduct.title}</h4>
+                  <p className="text-[9px] tracking-[0.2em] text-secondary uppercase">{checkoutProduct.subtitle}</p>
+                  <p className="text-[10px] text-white/80 mt-1 font-mono">
+                    {"\u20B9"}{checkoutProduct.priceInr} INR
+                  </p>
+                </div>
+              </div>
+
+              {/* Step 1: Shipping Details */}
+              {checkoutStep === 1 && (
+                <div className="space-y-4 fade-in">
+                  <h3 className="text-[10px] tracking-[0.3em] uppercase text-secondary mb-6">Step 1: Shipping Details</h3>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="col-span-2 sm:col-span-1">
+                      <label className="text-[8px] tracking-[0.2em] uppercase text-secondary">Full Name</label>
+                      <input
+                        type="text"
+                        name="name"
+                        placeholder="John Doe"
+                        value={shippingInfo.name}
+                        onChange={handleShippingChange}
+                        className="w-full mt-1.5 bg-white/5 border border-white/10 rounded px-3 py-2.5 text-sm text-white placeholder:text-secondary/40 focus:outline-none focus:border-white/30 transition-colors"
+                      />
+                    </div>
+                    <div className="col-span-2 sm:col-span-1">
+                      <label className="text-[8px] tracking-[0.2em] uppercase text-secondary">Email Address</label>
+                      <input
+                        type="email"
+                        name="email"
+                        placeholder="john@example.com"
+                        value={shippingInfo.email}
+                        onChange={handleShippingChange}
+                        className="w-full mt-1.5 bg-white/5 border border-white/10 rounded px-3 py-2.5 text-sm text-white placeholder:text-secondary/40 focus:outline-none focus:border-white/30 transition-colors"
+                      />
+                    </div>
+                    <div className="col-span-2">
+                      <label className="text-[8px] tracking-[0.2em] uppercase text-secondary">Shipping Address</label>
+                      <input
+                        type="text"
+                        name="address"
+                        placeholder="123 Scriptorium Way"
+                        value={shippingInfo.address}
+                        onChange={handleShippingChange}
+                        className="w-full mt-1.5 bg-white/5 border border-white/10 rounded px-3 py-2.5 text-sm text-white placeholder:text-secondary/40 focus:outline-none focus:border-white/30 transition-colors"
+                      />
+                    </div>
+                    <div>
+                      <label className="text-[8px] tracking-[0.2em] uppercase text-secondary">City</label>
+                      <input
+                        type="text"
+                        name="city"
+                        placeholder="Mumbai"
+                        value={shippingInfo.city}
+                        onChange={handleShippingChange}
+                        className="w-full mt-1.5 bg-white/5 border border-white/10 rounded px-3 py-2.5 text-sm text-white placeholder:text-secondary/40 focus:outline-none focus:border-white/30 transition-colors"
+                      />
+                    </div>
+                    <div>
+                      <label className="text-[8px] tracking-[0.2em] uppercase text-secondary">State</label>
+                      <input
+                        type="text"
+                        name="state"
+                        placeholder="MH"
+                        value={shippingInfo.state}
+                        onChange={handleShippingChange}
+                        className="w-full mt-1.5 bg-white/5 border border-white/10 rounded px-3 py-2.5 text-sm text-white placeholder:text-secondary/40 focus:outline-none focus:border-white/30 transition-colors"
+                      />
+                    </div>
+                    <div>
+                      <label className="text-[8px] tracking-[0.2em] uppercase text-secondary">ZIP / PIN Code</label>
+                      <input
+                        type="text"
+                        name="zip"
+                        placeholder="400001"
+                        value={shippingInfo.zip}
+                        onChange={handleShippingChange}
+                        className="w-full mt-1.5 bg-white/5 border border-white/10 rounded px-3 py-2.5 text-sm text-white placeholder:text-secondary/40 focus:outline-none focus:border-white/30 transition-colors"
+                      />
+                    </div>
+                    <div>
+                      <label className="text-[8px] tracking-[0.2em] uppercase text-secondary">Country</label>
+                      <select
+                        name="country"
+                        value={shippingInfo.country}
+                        onChange={handleShippingChange}
+                        className="w-full mt-1.5 bg-bg border border-white/10 rounded px-3 py-2.5 text-sm text-white focus:outline-none focus:border-white/30 transition-colors"
+                      >
+                        <option value="IN">India (Razorpay Supported)</option>
+                      </select>
+                    </div>
+                  </div>
+                  <button
+                    onClick={() => {
+                      if (shippingInfo.name && shippingInfo.email && shippingInfo.address && shippingInfo.city) {
+                        setCheckoutStep(2)
+                      }
+                    }}
+                    className="w-full mt-6 py-3 bg-white text-bg hover:bg-white/90 rounded text-[10px] tracking-[0.3em] uppercase transition-all duration-300 font-medium"
+                  >
+                    Continue to Review {"\u2192"}
+                  </button>
+                </div>
+              )}
+
+              {/* Step 2: Order Review */}
+              {checkoutStep === 2 && (
+                <div className="space-y-6 fade-in">
+                  <h3 className="text-[10px] tracking-[0.3em] uppercase text-secondary mb-6">Step 2: Review Your Order</h3>
+                  <div className="space-y-3 text-xs text-secondary/80 font-mono bg-white/[0.02] border border-white/5 rounded p-4">
+                    <p><span className="text-white">SHIP TO:</span> {shippingInfo.name}, {shippingInfo.address}, {shippingInfo.city}, {shippingInfo.state} {shippingInfo.zip}</p>
+                    <p><span className="text-white">EMAIL:</span> {shippingInfo.email}</p>
+                    <p><span className="text-white">AMOUNT:</span> {"\u20B9"}{checkoutProduct.priceInr} INR</p>
+                    <p><span className="text-white">DELIVERY:</span> India only {"\u00B7"} 4{"\u2013"}5 days print + 4{"\u2013"}5 days ship</p>
+                  </div>
+                  <div className="flex gap-3">
+                    <button
+                      onClick={() => setCheckoutStep(1)}
+                      className="flex-1 py-3 border border-white/10 hover:border-white/30 rounded text-[10px] tracking-[0.2em] uppercase transition-all"
+                    >
+                      {"\u2190"} Back
+                    </button>
+                    <button
+                      onClick={() => setCheckoutStep(3)}
+                      className="flex-1 py-3 bg-white text-bg hover:bg-white/90 rounded text-[10px] tracking-[0.3em] uppercase transition-all font-medium"
+                    >
+                      Proceed to Pay {"\u2192"}
+                    </button>
+                  </div>
+                </div>
+              )}
+
+              {/* Step 3: Payment */}
+              {checkoutStep === 3 && (
+                <div className="space-y-6 fade-in">
+                  <h3 className="text-[10px] tracking-[0.3em] uppercase text-secondary mb-4">Step 3: Secure Payment</h3>
+                  <div className="space-y-3 text-xs text-secondary/70 leading-relaxed border border-white/5 rounded p-4 bg-white/[0.02]">
+                    <p>We are opening a secure payment portal in a new tab to complete your transaction for <span className="text-white">{checkoutProduct.title}</span>.</p>
+                    <p>{"\u2022"} <span className="text-white">Amount:</span> {"\u20B9"}{checkoutProduct.priceInr}</p>
+                    <p>{"\u2022"} <span className="text-white">Delivery:</span> 4{"\u2013"}5 days printing + 4{"\u2013"}5 days shipping (India only)</p>
+                    <p>{"\u2022"} <span className="text-white">Confirmation:</span> Email sent after payment</p>
+                  </div>
+                  <button
+                    className="w-full py-3.5 bg-white text-bg hover:bg-white/90 rounded text-[10px] tracking-[0.3em] uppercase font-bold transition-all duration-300 active:scale-95"
+                    onClick={() => {
+                      window.open(checkoutProduct.paymentLink, '_blank')
+                      setCheckoutStep(4)
+                    }}
+                  >
+                    Pay {"\u20B9"}{checkoutProduct.priceInr} via Razorpay {"\u2192"}
+                  </button>
+                  <button
+                    onClick={() => setCheckoutProduct(null)}
+                    className="w-full py-2 text-[9px] tracking-[0.2em] uppercase text-secondary/50 hover:text-secondary transition-colors"
+                  >
+                    Cancel
+                  </button>
+                </div>
+              )}
+
+              {/* Step 4: Confirmation */}
+              {checkoutStep === 4 && (
+                <div className="space-y-6 fade-in text-center py-4">
+                  <div className="text-3xl mb-2">{"\u2726"}</div>
+                  <h3 className="text-base font-serif italic text-white">Order Initiated</h3>
+                  <div className="space-y-2 text-xs text-secondary/70 font-mono text-left border border-white/5 rounded p-4 bg-white/[0.02]">
+                    <p><span className="text-white">ITEM:</span> {checkoutProduct.title}</p>
+                    <p><span className="text-white">STATUS:</span> Payment portal opened</p>
+                    <p><span className="text-white">NEXT:</span> Complete payment in the Razorpay tab</p>
+                    <p><span className="text-white">EMAIL:</span> Confirmation sent after payment</p>
+                    <p><span className="text-white">DELIVERY:</span> 4{"\u2013"}5 days print + 4{"\u2013"}5 days ship</p>
+                  </div>
+                  <button
+                    className="w-full mt-6 py-3 bg-white text-bg hover:bg-white/90 rounded text-[10px] tracking-[0.3em] uppercase transition-all duration-300 font-medium"
+                    onClick={() => setCheckoutProduct(null)}
+                  >
+                    Return to Storehouse
+                  </button>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+    </>
   )
 }
+

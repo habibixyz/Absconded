@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://absconded-book.vercel.app/sitemap.xml
+Sitemap: https://vyrm.space/sitemap.xml

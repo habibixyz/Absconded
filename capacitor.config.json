@@ -3,10 +3,10 @@
   "appName": "Absconded",
   "webDir": "out",
   "server": {
-    "url": "https://absconded-book.vercel.app",
+    "url": "https://vyrm.space",
     "cleartext": true,
     "allowNavigation": [
-      "absconded-book.vercel.app"
+      "vyrm.space"
     ]
   },
   "plugins": {

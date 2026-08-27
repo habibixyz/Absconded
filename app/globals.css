@@ -13,11 +13,19 @@
   --border: rgba(255, 255, 255, 0.1);
 }
 
+/* Permanent dark default — prevents white flash before JS hydration */
+html {
+  background-color: #050505;
+}
+body {
+  background-color: var(--bg, #050505);
+}
+
 [data-theme="light"] {
   --bg: #f8f6f0;
   --text: #1c1c1a;
   --accent: #000000;
-  --secondary: #666666;
+  --secondary: #42423e;
   --border: rgba(0, 0, 0, 0.12);
 }
 
@@ -348,6 +356,19 @@ body {
   background: rgba(255, 255, 255, 0.1);
   color: var(--accent);
 }
-
-
-
+/* Absolute Contrast Helper classes for Book Cards (ignored by theme overrides) */
+.text-always-white {
+  color: #ffffff !important;
+}
+.text-always-white-80 {
+  color: rgba(255, 255, 255, 0.8) !important;
+}
+.text-always-white-60 {
+  color: rgba(255, 255, 255, 0.6) !important;
+}
+.bg-always-black-40 {
+  background-color: rgba(0, 0, 0, 0.4) !important;
+}
+.border-always-white-10 {
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
