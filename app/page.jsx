@@ -720,11 +720,11 @@ export default function Home() {
           {page === "book" && selectedBook && selectedChapter && (
             <div className="hidden md:flex items-center gap-3 text-[9px] tracking-[0.2em] uppercase text-secondary">
               <span>{selectedBook.title}</span>
-              <span className="text-white/20">Â·</span>
+              <span className="text-white/20">{"\u00B7"}</span>
               <span className="text-white">{selectedChapter.title}</span>
               {getChapterStats() && (
                 <>
-                  <span className="text-white/20">Â·</span>
+                  <span className="text-white/20">{"\u00B7"}</span>
                   <span>{getChapterStats().current} / {getChapterStats().total}</span>
                 </>
               )}
@@ -844,7 +844,7 @@ export default function Home() {
           </div>
           
           <div className="text-[8px] tracking-[0.2em] uppercase text-secondary/60 text-center sm:text-right">
-            ABSCONDED ARCHIVE // VYRM Â· 2026
+            ABSCONDED ARCHIVE // VYRM {"\u00B7"} 2026
           </div>
         </div>
       </div>
@@ -961,7 +961,7 @@ export default function Home() {
       {page === "book" && selectedBook && showCover && (
         <section className="min-h-screen flex items-center justify-center px-6 pt-20 fade-in">
           <div className="text-center max-w-2xl">
-            <p className="text-[9px] tracking-[0.4em] uppercase text-secondary mb-10">{selectedBook.subtitle} Â· {calculateBookReadingTime(selectedBook)} read</p>
+            <p className="text-[9px] tracking-[0.4em] uppercase text-secondary mb-10">{selectedBook.subtitle} {"\u00B7"} {calculateBookReadingTime(selectedBook)} read</p>
             <h1 className="text-6xl md:text-8xl font-serif italic mb-8 tracking-tight leading-none">{selectedBook.title}</h1>
             <div className="w-16 h-[1px] bg-white/20 mx-auto mb-12" />
             <div className="mb-16 text-secondary font-light leading-relaxed font-serif italic text-lg">
@@ -978,7 +978,7 @@ export default function Home() {
             </div>
 
             <div className="mt-20 text-[9px] tracking-[0.2em] text-secondary/40 uppercase">
-              Mumbai Â· Twenty-Twenty-Six
+              Mumbai {"\u00B7"} Twenty-Twenty-Six
             </div>
           </div>
         </section>
@@ -992,11 +992,11 @@ export default function Home() {
               onClick={() => setShowCover(true)}
               className="text-[9px] tracking-[0.3em] uppercase text-secondary hover:text-white transition-colors flex items-center gap-2"
             >
-              <span>â†</span> Cover
+              <span>{"\u2190"}</span> Cover
             </button>
           </div>
 
-          <h2 className="text-xs uppercase tracking-[0.4em] text-secondary mb-4">Manuscript Index Â· {calculateBookReadingTime(selectedBook)} total read</h2>
+          <h2 className="text-xs uppercase tracking-[0.4em] text-secondary mb-4">Manuscript Index {"\u00B7"} {calculateBookReadingTime(selectedBook)} total read</h2>
           <p className="font-serif italic text-2xl mb-6">{selectedBook.title}</p>
           <p className="text-sm font-light text-secondary/80 leading-relaxed mb-16 font-serif italic max-w-xl">
             {selectedBook.description}
@@ -1023,7 +1023,7 @@ export default function Home() {
 
           {selectedBook.parts && activePart === "book-4" ? (
             <div className="py-16 text-center border border-white/5 rounded-sm bg-white/[0.01] px-8 max-w-xl mx-auto fade-in">
-              <span className="text-3xl mb-6 block">ðŸ”’</span>
+              <span className="text-3xl mb-6 block">{"\uD83D\uDD12"}</span>
               <h3 className="font-serif italic text-xl mb-4">Book Four: The Astronaut's Door</h3>
               <p className="text-sm font-light text-secondary leading-relaxed mb-6 font-serif">
                 The fourth door at the end of the wing is cold to the touch and lacks a brass plaque. 
@@ -1059,7 +1059,7 @@ export default function Home() {
                       <div className="flex items-baseline gap-6">
                         <span className="text-[10px] font-light text-secondary group-hover:text-white/40 transition-colors">
                           {["prologue", "epilogue", "author-note", "mirror-threshold", "mirror-reflects"].includes(section.id) 
-                            ? "â˜…" 
+                            ? "\u2605" 
                             : String(section.number).padStart(2, "0")}
                         </span>
                         <h3 className="text-2xl font-serif group-hover:italic transition-all duration-300">
@@ -1130,7 +1130,7 @@ export default function Home() {
                   if (block.type === "twist") {
                     return (
                       <div key={t} className="twist-block">
-                        <span>â†³</span>
+                        <span>{"\u21B3"}</span>
                         <span>{block.text}</span>
                       </div>
                     )
@@ -1159,7 +1159,7 @@ export default function Home() {
                         />
                         <div className="flex flex-col items-center gap-1">
                           <div className="text-[10px] tracking-[0.4em] uppercase text-secondary">Tanvir Khan</div>
-                          <div className="text-[9px] tracking-[0.2em] text-secondary/40 uppercase">Mumbai Â· 2026</div>
+                          <div className="text-[9px] tracking-[0.2em] text-secondary/40 uppercase">Mumbai {"\u00B7"} 2026</div>
                         </div>
                       </div>
                     )
@@ -1175,7 +1175,7 @@ export default function Home() {
                     onClick={() => navigate(() => setSelectedChapter(null))}
                     className="text-[9px] tracking-[0.3em] uppercase text-secondary hover:text-white transition-colors flex items-center gap-2"
                   >
-                    <span>â†</span> Index
+                    <span>{"\u2190"}</span> Index
                   </button>
 
                   <button 
@@ -1192,7 +1192,7 @@ export default function Home() {
                           : selectedBook.sections[selectedBook.sections.findIndex(e => e.id === selectedChapter.id) + 1]?.title || "Finish"
                         }
                       </span>
-                      <span className="group-hover:translate-x-3 transition-transform duration-300">â†’</span>
+                      <span className="group-hover:translate-x-3 transition-transform duration-300">{"\u2192"}</span>
                     </div>
                   </button>
                 </div>
@@ -1303,7 +1303,7 @@ export default function Home() {
                               [{index + 1}] {result.bookTitle}
                             </span>
                             <span className="text-[8px] tracking-[0.2em] uppercase text-secondary/40">
-                              {result.chapterLabel} Â· {result.chapterTitle}
+                              {result.chapterLabel} {"\u00B7"} {result.chapterTitle}
                             </span>
                           </div>
                           <span className="text-[8px] tracking-[0.2em] font-mono text-sky-400 border border-sky-400/20 px-2 py-0.5 rounded bg-sky-400/[0.01]">
@@ -1338,7 +1338,7 @@ export default function Home() {
               <h2 className="text-[10px] tracking-[0.3em] uppercase text-secondary mb-6 border-b border-white/5 pb-4">The Essence</h2>
               <div className="space-y-6 text-sm font-light text-secondary/90 leading-relaxed font-serif">
                 <p>
-                  <span className="text-white">I am Tanvir Khan.</span> For years, I existed inside the traditional supply chain machine, a builder locked into a corporate timeline that didn't belong to me. My essence of life is rooted in the quiet act of abscondingâ€”detaching from the narrative that others have built for you in order to construct your own reality from the ground up.
+                  <span className="text-white">I am Tanvir Khan.</span> For years, I existed inside the traditional supply chain machine, a builder locked into a corporate timeline that didn't belong to me. My essence of life is rooted in the quiet act of absconding{"\u2014"}detaching from the narrative that others have built for you in order to construct your own reality from the ground up.
                 </p>
                 <p>
                   I believe that reality no longer moves first; narrative does. My thoughts and philosophies are poured into every terminal line and glitch aesthetic you see here. The internet is a canvas for those who dare to disappear and reinvent themselves. This manuscript library is the manifestation of that reinvention.
@@ -1351,7 +1351,7 @@ export default function Home() {
               <h2 className="text-[10px] tracking-[0.3em] uppercase text-secondary mb-6 border-b border-white/5 pb-4">The Fictions</h2>
               <div className="space-y-6 text-sm font-light text-secondary/90 leading-relaxed font-serif">
                 <p>
-                  While <span className="text-white italic">Absconded</span> holds elements of my truth, the majority of the stories within the Signal Collectionâ€”including <span className="text-white italic">The Mask Beneath</span> and the <span className="text-white italic">Signal Collection III</span>â€”are works of fiction. 
+                  While <span className="text-white italic">Absconded</span> holds elements of my truth, the majority of the stories within the Signal Collection{"\u2014"}including <span className="text-white italic">The Mask Beneath</span> and the <span className="text-white italic">Signal Collection III</span>{"\u2014"}are works of fiction. 
                 </p>
                 <p>
                   They are cyber-thrillers, corporate conspiracies, and techno-mysteries built to explore the paranoia, the identity fracturing, and the surveillance capital of our modern digital world. They are fictional architectures, but the anxiety and the systemic truths they expose are entirely real.
@@ -1364,7 +1364,7 @@ export default function Home() {
               <h2 className="text-[10px] tracking-[0.3em] uppercase text-secondary mb-6 border-b border-white/5 pb-4">What's Next for Absconded</h2>
               <div className="space-y-6 text-sm font-light text-secondary/90 leading-relaxed font-serif">
                 <p>
-                  Absconded is an evolving book. The immediate future holds deeper integration of the Oracleâ€”our semantic RAG engineâ€”allowing readers to interrogate the book as if it were a real database. 
+                  Absconded is an evolving book. The immediate future holds deeper integration of the Oracle{"\u2014"}our semantic RAG engine{"\u2014"}allowing readers to interrogate the book as if it were a real database. 
                 </p>
                 <p>
                   I am also actively developing the Absconded ecosystem, a decentralized network where digital identities and assets blur the lines between reality and simulation. The library will continue to expand, introducing new threads, new protagonists, and perhaps, eventually, a bridge into physical installations.
@@ -1432,11 +1432,11 @@ export default function Home() {
                 {[
                   {
                     q: "Is it free?",
-                    a: "Always. The manuscript is meant to be read, shared, and felt. The digital reader interface makes that experience more immersive â€” no distractions, just the words."
+                    a: "Always. The manuscript is meant to be read, shared, and felt. The digital reader interface makes that experience more immersive \u2014 no distractions, just the words."
                   },
                   {
                     q: "What is Absconded actually about?",
-                    a: "It's about the quiet act of leaving â€” a corporate timeline, a version of yourself that no longer fits. Set in Mumbai, it traces a builder's journey through crypto, AI, and the strange courage it takes to become someone new."
+                    a: "It's about the quiet act of leaving \u2014 a corporate timeline, a version of yourself that no longer fits. Set in Mumbai, it traces a builder's journey through crypto, AI, and the strange courage it takes to become someone new."
                   },
                   {
                     q: "Who is Tanvir Khan?",
@@ -1473,7 +1473,7 @@ export default function Home() {
                   <div className="aspect-[4/5] bg-bg relative overflow-hidden flex items-center justify-center p-5">
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent z-10"></div>
                     <img src={product.coverImage} alt={product.title} className="relative z-0 w-[82%] object-cover shadow-2xl group-hover:scale-105 transition-transform duration-700" />
-                    <div className="absolute top-4 right-4 z-20 px-3 py-1 bg-white/10 backdrop-blur-md text-[8px] tracking-[0.2em] uppercase text-white rounded-full font-mono">
+                    <div className="absolute top-4 right-4 z-20 px-3.5 py-1.5 bg-black/85 border border-white/15 text-[10px] tracking-[0.15em] uppercase text-white rounded font-mono font-medium shadow-lg">
                       {"\u20B9"}{product.priceInr} INR
                     </div>
                   </div>
