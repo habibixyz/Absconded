@@ -8,9 +8,20 @@ import BookmarksDrawer from './components/BookmarksDrawer'
 // Timeline Signals Log for the Developer Signals Feed
 const timelineSignals = [
   {
+    id: 109,
+    type: "CORE",
+    date: "2026.09.01",
+    text: 'The Universal Reader is live: Explore 70,000+ open-source public domain classics or drop your own EPUB / Markdown files to read in pure OLED minimalism.'
+  },
+  {
+    id: 108,
+    type: "FEATURE",
+    date: "2026.09.01",
+    text: 'Client-Side Private Book Importer & 50+ Foundational Classics catalog deployed with instant 0ms real-time search across philosophy, sci-fi, strategy, and literature.'
+  },
+  {
     id: 107,
     type: "CORE",
-<<<<<<< HEAD
     date: "2026.08.27",
     text: 'Signal Collection VIII: "The Room Between Lives - A Novel in Four Books" launched. The complete narrative manuscript (Books 1, 2, 3), minimalist cover art, parts filtering, and semantic RAG search queries are now fully live.'
   },
@@ -19,16 +30,6 @@ const timelineSignals = [
     type: "UI",
     date: "2026.08.27",
     text: "Added multi-book part filtering and summary cards to the manuscript index view. Users can now navigate the 4 distinct books within 'The Room Between Lives'."
-=======
-    date: "2026.09.01",
-    text: 'The Universal Reader is live: Explore 70,000+ open-source public domain classics or drop your own EPUB / Markdown files to read in pure OLED minimalism.'
-  },
-  {
-    id: 106,
-    type: "FEATURE",
-    date: "2026.09.01",
-    text: 'Client-Side Private Book Importer & 50+ Foundational Classics catalog deployed with instant 0ms real-time search across philosophy, sci-fi, strategy, and literature.'
->>>>>>> 25b6a0c (feat: Universal Reader, 50+ classics catalog, bookmarks engine, and SEO updates)
   },
   {
     id: 105,
@@ -241,7 +242,6 @@ export default function Home() {
   const [copied, setCopied] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const [bookStats, setBookStats] = useState({})
-<<<<<<< HEAD
   const [activePart, setActivePart] = useState("book-1")
   const [checkoutProduct, setCheckoutProduct] = useState(null)
   const [shippingInfo, setShippingInfo] = useState({ name: "", email: "", address: "", city: "", state: "", zip: "", country: "IN" })
@@ -249,7 +249,6 @@ export default function Home() {
   const [paymentMethod, setPaymentMethod] = useState("razorpay")
   const [customKeys, setCustomKeys] = useState({ razorpayKey: "", dodoKey: "" })
   const [securedOrders, setSecuredOrders] = useState([])
-=======
   const [bookmarks, setBookmarks] = useState([])
   const [bookmarksOpen, setBookmarksOpen] = useState(false)
   const [bookmarkToast, setBookmarkToast] = useState("")
@@ -265,7 +264,6 @@ export default function Home() {
       console.warn("Failed to load bookmarks", e)
     }
   }, [])
->>>>>>> 25b6a0c (feat: Universal Reader, 50+ classics catalog, bookmarks engine, and SEO updates)
 
   // Fetch book reader stats
   useEffect(() => {
@@ -589,7 +587,6 @@ export default function Home() {
     let synthesizedAnswer = ""
     const lowerQuery = rawQuery.toLowerCase()
 
-<<<<<<< HEAD
     if (lowerQuery.includes("silent") || lowerQuery.includes("protocol") || lowerQuery.includes("meridian") || lowerQuery.includes("kabir") || lowerQuery.includes("rege")) {
       synthesizedAnswer = "Silent Protocol is a high-stakes tech-thriller set at Meridian House off the coast of Karwar. During a Category-5 cyclone, nine guests face an algorithmic reckoning for their roles in covering up a fatal error in ORACLEâ€”a predictive-risk model developed by company founder Kabir Rege that led to a factory supervisor's suicide. The manuscript explores corporate complicity, digital surveillance, and the psychological weight of guilt."
     } else if (lowerQuery.includes("mara") || lowerQuery.includes("sister")) {
@@ -603,13 +600,11 @@ export default function Home() {
     } else if (lowerQuery.includes("astronaut") || lowerQuery.includes("space") || lowerQuery.includes("mission")) {
       synthesizedAnswer = "Book Four: The Astronaut's Door represents the final threshold of Wren's internal journey. In this unreleased part, a lone astronaut waking up on a ship falling toward a dying Earth learns that the target she was sent to destroy is the only thing that can save her home. It teaches her: 'Take your own name back.'"
     } else if (lowerQuery.includes("room") || lowerQuery.includes("between") || lowerQuery.includes("lives") || lowerQuery.includes("wren") || lowerQuery.includes("aldous") || lowerQuery.includes("calloway")) {
-      synthesizedAnswer = "The Room Between Lives is a four-book novel about Wren Calloway, who has been silent for six years after a traumatic kitchen gunshot incident. While in a coma, her mind checks into 'the Between'â€”a hotel in no place at all, run by the concierge Aldous. Each room represents a life she almost lived (chambermaid, chemist, world builder, astronaut). She must live out these lives to build the strength needed to face the truth behind the final door and wake up."
-=======
-    if (lowerQuery.includes("universal") || lowerQuery.includes("reader") || lowerQuery.includes("transcoder") || lowerQuery.includes("upload") || lowerQuery.includes("epub") || lowerQuery.includes("gutenberg") || lowerQuery.includes("read any book") || lowerQuery.includes("classic")) {
+      synthesizedAnswer = "The Room Between Lives is a four-book novel about Wren Calloway, who has been silent for six years after a traumatic kitchen gunshot incident. While in a coma, her mind checks into 'the Between'—a hotel in no place at all, run by the concierge Aldous. Each room represents a life she almost lived (chambermaid, chemist, world builder, astronaut). She must live out these lives to build the strength needed to face the truth behind the final door and wake up."
+    } else if (lowerQuery.includes("universal") || lowerQuery.includes("reader") || lowerQuery.includes("transcoder") || lowerQuery.includes("upload") || lowerQuery.includes("epub") || lowerQuery.includes("gutenberg") || lowerQuery.includes("read any book") || lowerQuery.includes("classic")) {
       synthesizedAnswer = "The Universal Reader is Absconded's distraction-free digital reading engine. It allows anyone to search and read over 70,000+ public domain classics (from Kafka, Dostoevsky, and Nietzsche to Shelley, Plato, and Sun Tzu) or drag-and-drop their own .epub, .txt, and .md files. Everything parses 100% privately in the reader's local browser with OLED Dark, Paper Light, and Terminal themes, scroll tracking, and persistent reading progress."
     } else if (lowerQuery.includes("silent") || lowerQuery.includes("protocol") || lowerQuery.includes("meridian") || lowerQuery.includes("kabir") || lowerQuery.includes("rege")) {
       synthesizedAnswer = "Silent Protocol is a high-stakes tech-thriller set at Meridian House off the coast of Karwar. During a Category-5 cyclone, nine guests face an algorithmic reckoning for their roles in covering up a fatal error in ORACLE—a predictive-risk model developed by company founder Kabir Rege that led to a factory supervisor's suicide. The manuscript explores corporate complicity, digital surveillance, and the psychological weight of guilt."
->>>>>>> 25b6a0c (feat: Universal Reader, 50+ classics catalog, bookmarks engine, and SEO updates)
     } else if (lowerQuery.includes("signal") || lowerQuery.includes("organism") || lowerQuery.includes("simulation")) {
       synthesizedAnswer = "The Signal Collection is a cyber-existential concept running through the digital manuscripts. First introduced in *Absconded* as 'absconded.space'â€”representing synthetic internet lifeformsâ€”it represents software that feels alive. Later, in *The Mask Beneath*, the simulated organism shows signs of autonomous identity formation. It represents the boundary where lines of code begin to develop memory, personality, and persistent hunger in an era of infinite generation."
     } else if (lowerQuery.includes("tanvir") || lowerQuery.includes("khan") || lowerQuery.includes("author") || lowerQuery.includes("builder")) {
@@ -871,33 +866,6 @@ export default function Home() {
             </div>
           )}
 
-<<<<<<< HEAD
-          {/* Hamburger Trigger */}
-          <button 
-            onClick={() => setMenuOpen(!menuOpen)}
-            className="relative w-8 h-8 flex flex-col justify-center items-center group focus:outline-none"
-            aria-label="Toggle Menu"
-          >
-            <span 
-              style={{ backgroundColor: 'var(--text)' }}
-              className={`block w-6 h-[1.5px] transition-all duration-300 ease-out absolute ${
-                menuOpen ? "rotate-45" : "-translate-y-1.5"
-              }`} 
-            />
-            <span 
-              style={{ backgroundColor: 'var(--text)' }}
-              className={`block w-6 h-[1.5px] transition-all duration-300 ease-out absolute ${
-                menuOpen ? "opacity-0" : "opacity-100"
-              }`} 
-            />
-            <span 
-              style={{ backgroundColor: 'var(--text)' }}
-              className={`block w-6 h-[1.5px] transition-all duration-300 ease-out absolute ${
-                menuOpen ? "-rotate-45" : "translate-y-1.5"
-              }`} 
-            />
-          </button>
-=======
           <div className="flex items-center gap-4 z-[60]">
             {/* Direct Bookmark button when inside reader */}
             {isReading && (
@@ -951,17 +919,12 @@ export default function Home() {
               />
             </button>
           </div>
->>>>>>> 25b6a0c (feat: Universal Reader, 50+ classics catalog, bookmarks engine, and SEO updates)
         </div>
       </nav>
 
       {/* Full-Screen Overlay Navigation Menu */}
       <div 
-<<<<<<< HEAD
-        className={`fixed inset-0 z-[55] bg-bg/95 backdrop-blur-xl transition-all duration-500 ease-in-out flex flex-col justify-between p-8 sm:p-16 ${
-=======
         className={`fixed inset-0 z-40 bg-bg/95 backdrop-blur-xl transition-all duration-500 ease-in-out overflow-y-auto overscroll-contain ${
->>>>>>> 25b6a0c (feat: Universal Reader, 50+ classics catalog, bookmarks engine, and SEO updates)
           menuOpen ? "opacity-100 pointer-events-auto visible" : "opacity-0 pointer-events-none invisible"
         }`}
       >
@@ -1028,11 +991,6 @@ export default function Home() {
               </button>
             )}
           </div>
-<<<<<<< HEAD
-          
-          <div className="text-[8px] tracking-[0.2em] uppercase text-secondary/60 text-center sm:text-right">
-            ABSCONDED ARCHIVE // VYRM {"\u00B7"} 2026
-=======
 
           {/* Theme Switcher & Details */}
           <div className="w-full border-t border-white/5 pt-6 sm:pt-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 shrink-0 mt-6 pb-6 sm:pb-0">
@@ -1072,9 +1030,8 @@ export default function Home() {
             </div>
             
             <div className="text-[8px] tracking-[0.2em] uppercase text-secondary/60 text-left sm:text-right">
-              ABSCONDED ARCHIVE · 2026
+              ABSCONDED ARCHIVE // VYRM · 2026
             </div>
->>>>>>> 25b6a0c (feat: Universal Reader, 50+ classics catalog, bookmarks engine, and SEO updates)
           </div>
         </div>
       </div>
@@ -1706,11 +1663,7 @@ export default function Home() {
               <h2 className="text-[10px] tracking-[0.3em] uppercase text-secondary mb-6 border-b border-white/5 pb-4">What's Next for Absconded</h2>
               <div className="space-y-6 text-sm font-light text-secondary/90 leading-relaxed font-serif">
                 <p>
-<<<<<<< HEAD
-                  Absconded is an evolving book. The immediate future holds deeper integration of the Oracle{"\u2014"}our semantic RAG engine{"\u2014"}allowing readers to interrogate the book as if it were a real database. 
-=======
                   <span className="text-white">The Universal Reader:</span> We have expanded Absconded beyond a personal manuscript archive into an ambient, distraction-free reading sanctuary. Readers can now search 70,000+ open-source public domain classics (from Kafka and Dostoevsky to Nietzsche and Plato) or drop their own EPUB, Markdown, and text manuscripts to read them in pure OLED minimalism with persistent reading progress.
->>>>>>> 25b6a0c (feat: Universal Reader, 50+ classics catalog, bookmarks engine, and SEO updates)
                 </p>
                 <p>
                   The immediate roadmap also holds deeper cognitive integration of the Oracle—our semantic RAG engine—allowing readers to interrogate both the original manuscripts and the transcoded classics as dynamic, querying databases.
@@ -1778,9 +1731,6 @@ export default function Home() {
                 {[
                   {
                     q: "Is it free?",
-<<<<<<< HEAD
-                    a: "Always. The manuscript is meant to be read, shared, and felt. The digital reader interface makes that experience more immersive \u2014 no distractions, just the words."
-=======
                     a: "Always. All original manuscripts and the 70,000+ public domain classics in the Universal Reader are completely free to read, explore, and share."
                   },
                   {
@@ -1790,7 +1740,6 @@ export default function Home() {
                   {
                     q: "Are my uploaded books private?",
                     a: "100% private. Files you drop into the reader are parsed locally on your device via client-side JavaScript. No file content or reading telemetry is ever sent to or stored on any server."
->>>>>>> 25b6a0c (feat: Universal Reader, 50+ classics catalog, bookmarks engine, and SEO updates)
                   },
                   {
                     q: "What is Absconded actually about?",
