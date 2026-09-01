@@ -2,12 +2,15 @@
 
 import { useState, useEffect } from 'react'
 import { books } from './data'
+import Transcoder from './components/Transcoder'
+import BookmarksDrawer from './components/BookmarksDrawer'
 
 // Timeline Signals Log for the Developer Signals Feed
 const timelineSignals = [
   {
     id: 107,
     type: "CORE",
+<<<<<<< HEAD
     date: "2026.08.27",
     text: 'Signal Collection VIII: "The Room Between Lives - A Novel in Four Books" launched. The complete narrative manuscript (Books 1, 2, 3), minimalist cover art, parts filtering, and semantic RAG search queries are now fully live.'
   },
@@ -16,6 +19,16 @@ const timelineSignals = [
     type: "UI",
     date: "2026.08.27",
     text: "Added multi-book part filtering and summary cards to the manuscript index view. Users can now navigate the 4 distinct books within 'The Room Between Lives'."
+=======
+    date: "2026.09.01",
+    text: 'The Universal Reader is live: Explore 70,000+ open-source public domain classics or drop your own EPUB / Markdown files to read in pure OLED minimalism.'
+  },
+  {
+    id: 106,
+    type: "FEATURE",
+    date: "2026.09.01",
+    text: 'Client-Side Private Book Importer & 50+ Foundational Classics catalog deployed with instant 0ms real-time search across philosophy, sci-fi, strategy, and literature.'
+>>>>>>> 25b6a0c (feat: Universal Reader, 50+ classics catalog, bookmarks engine, and SEO updates)
   },
   {
     id: 105,
@@ -228,6 +241,7 @@ export default function Home() {
   const [copied, setCopied] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const [bookStats, setBookStats] = useState({})
+<<<<<<< HEAD
   const [activePart, setActivePart] = useState("book-1")
   const [checkoutProduct, setCheckoutProduct] = useState(null)
   const [shippingInfo, setShippingInfo] = useState({ name: "", email: "", address: "", city: "", state: "", zip: "", country: "IN" })
@@ -235,6 +249,23 @@ export default function Home() {
   const [paymentMethod, setPaymentMethod] = useState("razorpay")
   const [customKeys, setCustomKeys] = useState({ razorpayKey: "", dodoKey: "" })
   const [securedOrders, setSecuredOrders] = useState([])
+=======
+  const [bookmarks, setBookmarks] = useState([])
+  const [bookmarksOpen, setBookmarksOpen] = useState(false)
+  const [bookmarkToast, setBookmarkToast] = useState("")
+
+  // Load bookmarks on mount
+  useEffect(() => {
+    try {
+      const stored = localStorage.getItem("absconded-bookmarks")
+      if (stored) {
+        setBookmarks(JSON.parse(stored))
+      }
+    } catch (e) {
+      console.warn("Failed to load bookmarks", e)
+    }
+  }, [])
+>>>>>>> 25b6a0c (feat: Universal Reader, 50+ classics catalog, bookmarks engine, and SEO updates)
 
   // Fetch book reader stats
   useEffect(() => {
@@ -288,6 +319,8 @@ export default function Home() {
       } else {
         document.title = `${selectedBook.title} | The Signal Collection`
       }
+    } else if (page === "transcoder") {
+      document.title = `The Universal Reader | Read Any Book - The Signal Collection`
     } else if (page === "oracle") {
       document.title = `The Oracle | The Signal Collection`
     } else if (page === "signals") {
@@ -313,7 +346,16 @@ export default function Home() {
           setPage(parsed.page)
         }
         if (parsed.bookId) {
-          const targetBook = books.find(b => b.id === parsed.bookId)
+          let targetBook = books.find(b => b.id === parsed.bookId)
+          if (!targetBook) {
+            try {
+              const customStored = localStorage.getItem("absconded-custom-books")
+              if (customStored) {
+                const list = JSON.parse(customStored)
+                targetBook = list.find(b => b.id === parsed.bookId)
+              }
+            } catch (e) {}
+          }
           if (targetBook) {
             setSelectedBook(targetBook)
             if (parsed.chapterId) {
@@ -547,6 +589,7 @@ export default function Home() {
     let synthesizedAnswer = ""
     const lowerQuery = rawQuery.toLowerCase()
 
+<<<<<<< HEAD
     if (lowerQuery.includes("silent") || lowerQuery.includes("protocol") || lowerQuery.includes("meridian") || lowerQuery.includes("kabir") || lowerQuery.includes("rege")) {
       synthesizedAnswer = "Silent Protocol is a high-stakes tech-thriller set at Meridian House off the coast of Karwar. During a Category-5 cyclone, nine guests face an algorithmic reckoning for their roles in covering up a fatal error in ORACLEâ€”a predictive-risk model developed by company founder Kabir Rege that led to a factory supervisor's suicide. The manuscript explores corporate complicity, digital surveillance, and the psychological weight of guilt."
     } else if (lowerQuery.includes("mara") || lowerQuery.includes("sister")) {
@@ -561,6 +604,12 @@ export default function Home() {
       synthesizedAnswer = "Book Four: The Astronaut's Door represents the final threshold of Wren's internal journey. In this unreleased part, a lone astronaut waking up on a ship falling toward a dying Earth learns that the target she was sent to destroy is the only thing that can save her home. It teaches her: 'Take your own name back.'"
     } else if (lowerQuery.includes("room") || lowerQuery.includes("between") || lowerQuery.includes("lives") || lowerQuery.includes("wren") || lowerQuery.includes("aldous") || lowerQuery.includes("calloway")) {
       synthesizedAnswer = "The Room Between Lives is a four-book novel about Wren Calloway, who has been silent for six years after a traumatic kitchen gunshot incident. While in a coma, her mind checks into 'the Between'â€”a hotel in no place at all, run by the concierge Aldous. Each room represents a life she almost lived (chambermaid, chemist, world builder, astronaut). She must live out these lives to build the strength needed to face the truth behind the final door and wake up."
+=======
+    if (lowerQuery.includes("universal") || lowerQuery.includes("reader") || lowerQuery.includes("transcoder") || lowerQuery.includes("upload") || lowerQuery.includes("epub") || lowerQuery.includes("gutenberg") || lowerQuery.includes("read any book") || lowerQuery.includes("classic")) {
+      synthesizedAnswer = "The Universal Reader is Absconded's distraction-free digital reading engine. It allows anyone to search and read over 70,000+ public domain classics (from Kafka, Dostoevsky, and Nietzsche to Shelley, Plato, and Sun Tzu) or drag-and-drop their own .epub, .txt, and .md files. Everything parses 100% privately in the reader's local browser with OLED Dark, Paper Light, and Terminal themes, scroll tracking, and persistent reading progress."
+    } else if (lowerQuery.includes("silent") || lowerQuery.includes("protocol") || lowerQuery.includes("meridian") || lowerQuery.includes("kabir") || lowerQuery.includes("rege")) {
+      synthesizedAnswer = "Silent Protocol is a high-stakes tech-thriller set at Meridian House off the coast of Karwar. During a Category-5 cyclone, nine guests face an algorithmic reckoning for their roles in covering up a fatal error in ORACLE—a predictive-risk model developed by company founder Kabir Rege that led to a factory supervisor's suicide. The manuscript explores corporate complicity, digital surveillance, and the psychological weight of guilt."
+>>>>>>> 25b6a0c (feat: Universal Reader, 50+ classics catalog, bookmarks engine, and SEO updates)
     } else if (lowerQuery.includes("signal") || lowerQuery.includes("organism") || lowerQuery.includes("simulation")) {
       synthesizedAnswer = "The Signal Collection is a cyber-existential concept running through the digital manuscripts. First introduced in *Absconded* as 'absconded.space'â€”representing synthetic internet lifeformsâ€”it represents software that feels alive. Later, in *The Mask Beneath*, the simulated organism shows signs of autonomous identity formation. It represents the boundary where lines of code begin to develop memory, personality, and persistent hunger in an era of infinite generation."
     } else if (lowerQuery.includes("tanvir") || lowerQuery.includes("khan") || lowerQuery.includes("author") || lowerQuery.includes("builder")) {
@@ -689,6 +738,97 @@ export default function Home() {
     })
   }
 
+  // Bookmark toggle & save handler
+  const isCurrentBookmarked = bookmarks.some(
+    bm => bm.bookId === selectedBook?.id && bm.chapterId === selectedChapter?.id
+  )
+
+  const handleToggleBookmark = () => {
+    if (!selectedBook || !selectedChapter) return
+    const scrollTop = typeof window !== 'undefined' ? (window.scrollY || document.documentElement.scrollTop) : 0
+    const scrollHeight = typeof document !== 'undefined' ? (document.documentElement.scrollHeight - document.documentElement.clientHeight) : 0
+    const scrollPercent = scrollHeight > 0 ? Math.min(100, Math.round((scrollTop / scrollHeight) * 100)) : 0
+
+    let quoteSnippet = ""
+    if (selectedChapter.content && selectedChapter.content.length > 0) {
+      const pBlock = selectedChapter.content.find(b => b.type === 'p' && b.text)
+      if (pBlock) quoteSnippet = pBlock.text.slice(0, 95) + "..."
+    }
+
+    const existingIndex = bookmarks.findIndex(
+      bm => bm.bookId === selectedBook.id && bm.chapterId === selectedChapter.id
+    )
+
+    let updated = []
+    if (existingIndex !== -1) {
+      updated = bookmarks.filter((_, idx) => idx !== existingIndex)
+      setBookmarkToast("Bookmark removed")
+    } else {
+      const newBm = {
+        id: `bm-${Date.now()}`,
+        bookId: selectedBook.id,
+        bookTitle: selectedBook.title,
+        chapterId: selectedChapter.id,
+        chapterTitle: selectedChapter.title,
+        chapterLabel: selectedChapter.label || "Chapter",
+        scrollTop,
+        scrollPercent,
+        quoteSnippet,
+        dateFormatted: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })
+      }
+      updated = [newBm, ...bookmarks]
+      setBookmarkToast(`✦ Bookmark Saved (${scrollPercent}%)`)
+    }
+
+    setBookmarks(updated)
+    try {
+      localStorage.setItem("absconded-bookmarks", JSON.stringify(updated))
+    } catch (e) {}
+    setTimeout(() => setBookmarkToast(""), 2500)
+  }
+
+  const handleSelectBookmark = (bm) => {
+    let targetBook = books.find(b => b.id === bm.bookId)
+    if (!targetBook) {
+      try {
+        const stored = localStorage.getItem("absconded-custom-books")
+        if (stored) {
+          const list = JSON.parse(stored)
+          targetBook = list.find(b => b.id === bm.bookId)
+        }
+      } catch (e) {}
+    }
+
+    if (!targetBook) return
+
+    const targetChapter = targetBook.sections?.find(s => s.id === bm.chapterId) || targetBook.sections?.[0]
+    if (!targetChapter) return
+
+    navigate(() => {
+      setSelectedBook(targetBook)
+      setSelectedChapter(targetChapter)
+      setPage("book")
+      setShowCover(false)
+    })
+
+    setTimeout(() => {
+      if (typeof window !== 'undefined' && bm.scrollTop) {
+        window.scrollTo({
+          top: bm.scrollTop,
+          behavior: "smooth"
+        })
+      }
+    }, 400)
+  }
+
+  const handleDeleteBookmark = (id) => {
+    const updated = bookmarks.filter(b => b.id !== id)
+    setBookmarks(updated)
+    try {
+      localStorage.setItem("absconded-bookmarks", JSON.stringify(updated))
+    } catch (e) {}
+  }
+
   const isReading = page === "book" && selectedChapter
 
   return (
@@ -731,6 +871,7 @@ export default function Home() {
             </div>
           )}
 
+<<<<<<< HEAD
           {/* Hamburger Trigger */}
           <button 
             onClick={() => setMenuOpen(!menuOpen)}
@@ -756,95 +897,184 @@ export default function Home() {
               }`} 
             />
           </button>
+=======
+          <div className="flex items-center gap-4 z-[60]">
+            {/* Direct Bookmark button when inside reader */}
+            {isReading && (
+              <button
+                onClick={handleToggleBookmark}
+                className={`flex items-center gap-1.5 text-[9px] tracking-[0.2em] uppercase px-3 py-1.5 rounded-full border transition-all ${
+                  isCurrentBookmarked
+                    ? "border-emerald-500/40 text-emerald-400 bg-emerald-500/10 font-medium shadow-[0_0_12px_rgba(16,185,129,0.15)]"
+                    : "border-white/10 text-secondary hover:text-white hover:border-white/30 bg-white/[0.02]"
+                }`}
+                title="Bookmark current reading position"
+              >
+                <span>{isCurrentBookmarked ? "🔖 Saved" : "🔖 Bookmark"}</span>
+              </button>
+            )}
+
+            {/* Bookmarks Drawer Trigger if not reading */}
+            {bookmarks.length > 0 && !isReading && (
+              <button
+                onClick={() => setBookmarksOpen(true)}
+                className="hidden sm:flex items-center gap-1.5 text-[9px] tracking-[0.2em] uppercase text-secondary hover:text-white border border-white/10 hover:border-white/30 bg-white/[0.02] px-3.5 py-1.5 rounded-full transition-all"
+              >
+                <span>🔖</span>
+                <span>Bookmarks ({bookmarks.length})</span>
+              </button>
+            )}
+
+            {/* Hamburger Trigger */}
+            <button 
+              onClick={() => setMenuOpen(!menuOpen)}
+              className="relative w-8 h-8 flex flex-col justify-center items-center group focus:outline-none"
+              aria-label="Toggle Menu"
+            >
+              <span 
+                style={{ backgroundColor: 'var(--text)' }}
+                className={`block w-6 h-[1.5px] transition-all duration-300 ease-out absolute ${
+                  menuOpen ? "rotate-45" : "-translate-y-1.5"
+                }`} 
+              />
+              <span 
+                style={{ backgroundColor: 'var(--text)' }}
+                className={`block w-6 h-[1.5px] transition-all duration-300 ease-out absolute ${
+                  menuOpen ? "opacity-0" : "opacity-100"
+                }`} 
+              />
+              <span 
+                style={{ backgroundColor: 'var(--text)' }}
+                className={`block w-6 h-[1.5px] transition-all duration-300 ease-out absolute ${
+                  menuOpen ? "-rotate-45" : "translate-y-1.5"
+                }`} 
+              />
+            </button>
+          </div>
+>>>>>>> 25b6a0c (feat: Universal Reader, 50+ classics catalog, bookmarks engine, and SEO updates)
         </div>
       </nav>
 
       {/* Full-Screen Overlay Navigation Menu */}
       <div 
+<<<<<<< HEAD
         className={`fixed inset-0 z-[55] bg-bg/95 backdrop-blur-xl transition-all duration-500 ease-in-out flex flex-col justify-between p-8 sm:p-16 ${
+=======
+        className={`fixed inset-0 z-40 bg-bg/95 backdrop-blur-xl transition-all duration-500 ease-in-out overflow-y-auto overscroll-contain ${
+>>>>>>> 25b6a0c (feat: Universal Reader, 50+ classics catalog, bookmarks engine, and SEO updates)
           menuOpen ? "opacity-100 pointer-events-auto visible" : "opacity-0 pointer-events-none invisible"
         }`}
       >
         {/* Decorative Grid Lines */}
-        <div className="absolute inset-0 bg-[linear-gradient(var(--border)_1px,transparent_1px),linear-gradient(90deg,var(--border)_1px,transparent_1px)] bg-[size:40px_40px] opacity-[0.15] pointer-events-none" />
+        <div className="fixed inset-0 bg-[linear-gradient(var(--border)_1px,transparent_1px),linear-gradient(90deg,var(--border)_1px,transparent_1px)] bg-[size:40px_40px] opacity-[0.15] pointer-events-none" />
         
-        <div className="h-16" />
+        <div className="min-h-full flex flex-col justify-between p-6 sm:p-16 max-w-xl mx-auto w-full relative z-10">
+          <div className="h-16 shrink-0" />
 
-        {/* Navigation Links */}
-        <div className="flex flex-col gap-6 sm:gap-8 max-w-xl mx-auto w-full justify-center flex-1 z-10">
-          {[
-            { label: "Shelf", value: "library" },
-            { label: "Oracle", value: "oracle" },
-            { label: "Signals Feed", value: "signals" },
-            { label: "About", value: "about" },
-            { label: "Storehouse", value: "store" }
-          ].map((link, idx) => (
-            <button
-              key={link.value}
-              onClick={() => {
-                navigate(() => {
-                  setPage(link.value);
-                  setSelectedBook(null);
-                  setSelectedChapter(null);
+          {/* Navigation Links */}
+          <div className="flex flex-col gap-5 sm:gap-8 justify-center my-auto py-6">
+            {[
+              { label: "Shelf", value: "library" },
+              { label: "Universal Reader", value: "transcoder" },
+              { label: "Oracle", value: "oracle" },
+              { label: "Signals Feed", value: "signals" },
+              { label: "About", value: "about" },
+              { label: "Storehouse", value: "store" }
+            ].map((link, idx) => (
+              <button
+                key={link.value}
+                onClick={() => {
+                  navigate(() => {
+                    setPage(link.value);
+                    setSelectedBook(null);
+                    setSelectedChapter(null);
+                    setMenuOpen(false);
+                  });
+                }}
+                className="group text-left flex items-baseline gap-4 outline-none"
+              >
+                <span className="text-[10px] sm:text-xs font-mono text-secondary tracking-widest opacity-40">
+                  0{idx + 1}
+                </span>
+                <span className={`text-2xl sm:text-5xl font-serif italic tracking-wide transition-all duration-300 relative ${
+                  page === link.value ? "text-white" : "text-secondary hover:text-white"
+                }`}>
+                  {link.label}
+                  <span className={`absolute bottom-0 left-0 right-0 h-[1px] bg-white transition-all duration-500 origin-left scale-x-0 group-hover:scale-x-100 ${
+                    page === link.value ? "scale-x-100" : ""
+                  }`} />
+                </span>
+              </button>
+            ))}
+
+            {/* Bookmarks link in menu if any saved */}
+            {bookmarks.length > 0 && (
+              <button
+                onClick={() => {
                   setMenuOpen(false);
-                });
-              }}
-              className="group text-left flex items-baseline gap-4 outline-none"
-            >
-              <span className="text-[10px] sm:text-xs font-mono text-secondary tracking-widest opacity-40">
-                0{idx + 1}
-              </span>
-              <span className={`text-3xl sm:text-5xl font-serif italic tracking-wide transition-all duration-300 relative ${
-                page === link.value ? "text-white" : "text-secondary hover:text-white"
-              }`}>
-                {link.label}
-                <span className={`absolute bottom-0 left-0 right-0 h-[1px] bg-white transition-all duration-500 origin-left scale-x-0 group-hover:scale-x-100 ${
-                  page === link.value ? "scale-x-100" : ""
-                }`} />
-              </span>
-            </button>
-          ))}
-        </div>
-
-        {/* Theme Switcher & Details */}
-        <div className="max-w-xl mx-auto w-full border-t border-white/5 pt-8 flex flex-col sm:flex-row items-center justify-between gap-6 z-10">
-          <div className="flex flex-col gap-2">
-            <span className="text-[8px] tracking-[0.3em] uppercase text-secondary">Aesthetic Interface Mode</span>
-            <div className="flex items-center gap-3">
-              <button 
-                onClick={() => handleThemeChange("oled")}
-                className={`flex items-center gap-1.5 text-[9px] tracking-[0.2em] uppercase transition-all ${
-                  theme === "oled" ? "text-white font-bold" : "text-secondary hover:text-white"
-                }`}
+                  setBookmarksOpen(true);
+                }}
+                className="group text-left flex items-baseline gap-4 outline-none pt-4 border-t border-white/5"
               >
-                <span className="w-1.5 h-1.5 rounded-full bg-black border border-white/40" />
-                OLED Dark
+                <span className="text-[10px] sm:text-xs font-mono text-secondary tracking-widest opacity-40">
+                  ★
+                </span>
+                <span className="text-xl sm:text-3xl font-serif italic text-emerald-400/90 hover:text-emerald-300 transition-colors flex items-center gap-3">
+                  <span>Bookmarks</span>
+                  <span className="text-[8px] font-mono tracking-widest uppercase px-2.5 py-0.5 border border-emerald-500/30 rounded-full text-emerald-400 bg-emerald-500/10">
+                    {bookmarks.length} Saved
+                  </span>
+                </span>
               </button>
-              <span className="text-white/10">|</span>
-              <button 
-                onClick={() => handleThemeChange("light")}
-                className={`flex items-center gap-1.5 text-[9px] tracking-[0.2em] uppercase transition-all ${
-                  theme === "light" ? "text-black font-bold" : "text-secondary hover:text-white"
-                }`}
-              >
-                <span className="w-1.5 h-1.5 rounded-full bg-[#f8f5ee] border border-black/40" />
-                Paper Light
-              </button>
-              <span className="text-white/10">|</span>
-              <button 
-                onClick={() => handleThemeChange("terminal")}
-                className={`flex items-center gap-1.5 text-[9px] tracking-[0.2em] uppercase transition-all ${
-                  theme === "terminal" ? "text-white font-bold" : "text-secondary hover:text-white"
-                }`}
-              >
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-950 border border-[#00ff88]/30" />
-                Terminal
-              </button>
-            </div>
+            )}
           </div>
+<<<<<<< HEAD
           
           <div className="text-[8px] tracking-[0.2em] uppercase text-secondary/60 text-center sm:text-right">
             ABSCONDED ARCHIVE // VYRM {"\u00B7"} 2026
+=======
+
+          {/* Theme Switcher & Details */}
+          <div className="w-full border-t border-white/5 pt-6 sm:pt-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 shrink-0 mt-6 pb-6 sm:pb-0">
+            <div className="flex flex-col gap-2">
+              <span className="text-[8px] tracking-[0.3em] uppercase text-secondary">Aesthetic Interface Mode</span>
+              <div className="flex items-center gap-3">
+                <button 
+                  onClick={() => handleThemeChange("oled")}
+                  className={`flex items-center gap-1.5 text-[9px] tracking-[0.2em] uppercase transition-all ${
+                    theme === "oled" ? "text-white font-bold" : "text-secondary hover:text-white"
+                  }`}
+                >
+                  <span className="w-1.5 h-1.5 rounded-full bg-black border border-white/40" />
+                  OLED Dark
+                </button>
+                <span className="text-white/10">|</span>
+                <button 
+                  onClick={() => handleThemeChange("light")}
+                  className={`flex items-center gap-1.5 text-[9px] tracking-[0.2em] uppercase transition-all ${
+                    theme === "light" ? "text-black font-bold" : "text-secondary hover:text-white"
+                  }`}
+                >
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#f8f5ee] border border-black/40" />
+                  Paper Light
+                </button>
+                <span className="text-white/10">|</span>
+                <button 
+                  onClick={() => handleThemeChange("terminal")}
+                  className={`flex items-center gap-1.5 text-[9px] tracking-[0.2em] uppercase transition-all ${
+                    theme === "terminal" ? "text-white font-bold" : "text-secondary hover:text-white"
+                  }`}
+                >
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-950 border border-[#00ff88]/30" />
+                  Terminal
+                </button>
+              </div>
+            </div>
+            
+            <div className="text-[8px] tracking-[0.2em] uppercase text-secondary/60 text-left sm:text-right">
+              ABSCONDED ARCHIVE · 2026
+            </div>
+>>>>>>> 25b6a0c (feat: Universal Reader, 50+ classics catalog, bookmarks engine, and SEO updates)
           </div>
         </div>
       </div>
@@ -859,23 +1089,74 @@ export default function Home() {
             <h1 className="text-4xl font-serif italic">The Signal Collection</h1>
           </header>
 
-          {/* Filter Categories */}
-          <div className="flex gap-8 mb-16 border-b border-white/5 pb-4">
-            {["all", "manuscripts", "shorts"].map((cat) => (
-              <button 
-                key={cat}
-                onClick={() => setFilter(cat)}
-                className={`text-[10px] tracking-[0.3em] uppercase transition-all duration-300 relative pb-4 -mb-[17px] ${
-                  filter === cat ? "text-white font-medium" : "text-secondary hover:text-white"
-                }`}
-              >
-                {cat === "all" ? "All Signals" : cat === "manuscripts" ? "Manuscripts" : "Short Stories"}
-                {filter === cat && (
-                  <span className="absolute bottom-0 left-0 right-0 h-[1.5px] bg-white animate-fade-in" />
-                )}
-              </button>
-            ))}
+          {/* Filter Categories & Universal Reader Button */}
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 mb-12 sm:mb-16 border-b border-white/5 pb-4">
+            {/* Horizontal Scrollable/Spaced Tabs */}
+            <div className="flex items-center gap-6 sm:gap-8 overflow-x-auto no-scrollbar py-1">
+              {["all", "manuscripts", "shorts"].map((cat) => (
+                <button 
+                  key={cat}
+                  onClick={() => setFilter(cat)}
+                  className={`text-[9px] sm:text-[10px] tracking-[0.25em] sm:tracking-[0.3em] uppercase transition-all duration-300 relative py-2 whitespace-nowrap shrink-0 ${
+                    filter === cat ? "text-white font-medium" : "text-secondary hover:text-white"
+                  }`}
+                >
+                  {cat === "all" ? "All Signals" : cat === "manuscripts" ? "Manuscripts" : "Short Stories"}
+                  {filter === cat && (
+                    <span className="absolute bottom-0 left-0 right-0 h-[1.5px] bg-white animate-fade-in" />
+                  )}
+                </button>
+              ))}
+            </div>
+
+            {/* Read Any Book CTA Button */}
+            <button
+              onClick={() => {
+                navigate(() => {
+                  setPage("transcoder");
+                  setSelectedBook(null);
+                  setSelectedChapter(null);
+                });
+              }}
+              className="w-full sm:w-auto text-[9px] tracking-[0.2em] sm:tracking-[0.25em] uppercase text-secondary hover:text-white flex items-center justify-center sm:justify-start gap-2 border border-white/10 hover:border-white/30 px-4 py-2.5 sm:py-1.5 rounded-full transition-all bg-white/[0.02] hover:bg-white/5 active:scale-[0.98] shrink-0"
+            >
+              <span>✦ Read Any Book</span>
+              <span className="opacity-60 hidden md:inline">(Classics & Upload)</span>
+              <span>→</span>
+            </button>
           </div>
+
+          {/* Resume Reading Card if bookmarks exist */}
+          {bookmarks.length > 0 && (
+            <div className="mb-12 sm:mb-14 p-5 sm:p-8 border border-white/10 hover:border-white/20 rounded-sm bg-white/[0.02] flex flex-col sm:flex-row justify-between items-start sm:items-center gap-5 sm:gap-6 transition-all duration-300">
+              <div className="space-y-1">
+                <div className="flex items-center gap-2">
+                  <span className="text-xs text-emerald-400">🔖</span>
+                  <span className="text-[8px] tracking-[0.3em] uppercase text-secondary font-mono">Last Saved Bookmark</span>
+                </div>
+                <h3 className="text-lg sm:text-2xl font-serif italic text-white leading-tight">
+                  {bookmarks[0].chapterTitle}
+                </h3>
+                <p className="text-[9px] tracking-[0.2em] uppercase text-secondary/70">
+                  {bookmarks[0].bookTitle} · <span className="font-mono text-emerald-400">{bookmarks[0].scrollPercent}% read</span>
+                </p>
+              </div>
+              <div className="flex items-center gap-3 w-full sm:w-auto pt-2 sm:pt-0">
+                <button
+                  onClick={() => handleSelectBookmark(bookmarks[0])}
+                  className="flex-1 sm:flex-none px-5 sm:px-6 py-2.5 sm:py-3 bg-white text-bg hover:bg-white/90 text-[8px] sm:text-[9px] tracking-[0.25em] uppercase font-bold rounded-sm transition-all shadow-sm text-center"
+                >
+                  Resume Reading →
+                </button>
+                <button
+                  onClick={() => setBookmarksOpen(true)}
+                  className="px-3.5 sm:px-4 py-2.5 sm:py-3 border border-white/10 hover:border-white/30 text-secondary hover:text-white text-[8px] sm:text-[9px] tracking-[0.2em] uppercase rounded-sm transition-all shrink-0"
+                >
+                  All ({bookmarks.length})
+                </button>
+              </div>
+            </div>
+          )}
 
           {/* Books Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
@@ -1096,8 +1377,23 @@ export default function Home() {
               <h1 className="text-4xl md:text-5xl font-serif italic leading-tight">
                 {selectedChapter.title}
               </h1>
-              <div className="mt-4 text-[9px] tracking-[0.2em] text-secondary/40 uppercase">
-                {calculateReadingTime(selectedChapter.content)} chapter read
+              <div className="mt-4 flex items-center justify-center gap-4">
+                <span className="text-[9px] tracking-[0.2em] text-secondary/40 uppercase">
+                  {calculateReadingTime(selectedChapter.content)} chapter read
+                </span>
+                <span className="text-white/20">·</span>
+                <button
+                  onClick={handleToggleBookmark}
+                  className={`text-[9px] tracking-[0.2em] uppercase flex items-center gap-1.5 transition-all px-2.5 py-1 rounded-full border ${
+                    isCurrentBookmarked 
+                      ? "border-emerald-500/30 text-emerald-400 bg-emerald-500/10 font-medium" 
+                      : "border-white/10 text-secondary/70 hover:text-white hover:border-white/30"
+                  }`}
+                  title="Bookmark exact reading position"
+                >
+                  <span>🔖</span>
+                  <span>{isCurrentBookmarked ? "Saved Bookmark" : "Save Bookmark"}</span>
+                </button>
               </div>
             </header>
 
@@ -1229,22 +1525,68 @@ export default function Home() {
           </div>
 
           {/* Search Form */}
-          <form onSubmit={handleSearch} className="mb-16 relative">
-            <div className="relative flex items-center">
-              <input 
-                type="text"
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
-                placeholder="Ask the Oracle (e.g., 'Why did Tanvir leave corporate life?' or 'What is the Signal?')..."
-                className="w-full bg-black/40 border border-white/10 focus:border-white/30 rounded-lg py-5 px-6 pr-32 text-sm text-white placeholder-secondary/40 outline-none transition-all duration-300"
-              />
+          <form onSubmit={handleSearch} className="mb-14 relative">
+            <div className="flex flex-col sm:flex-row items-stretch gap-3">
+              <div className="relative flex-1">
+                <input 
+                  type="text"
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
+                  placeholder="Ask the Oracle (e.g., 'Why did Tanvir leave corporate life?' or 'What is the Signal?')..."
+                  className="w-full bg-black/40 border border-white/15 focus:border-white/40 rounded-lg py-4 px-5 pr-10 text-sm text-white placeholder-secondary/50 outline-none transition-all duration-300"
+                />
+                {query && (
+                  <button
+                    type="button"
+                    onClick={() => { setQuery(""); setActiveSearch(false); }}
+                    className="absolute right-3.5 top-1/2 -translate-y-1/2 text-secondary hover:text-white text-xs px-1"
+                    title="Clear"
+                  >
+                    ✕
+                  </button>
+                )}
+              </div>
+
               <button 
                 type="submit"
                 disabled={searching || !query.trim()}
-                className="absolute right-3 px-6 py-2.5 bg-white text-bg hover:bg-white/90 disabled:bg-white/10 disabled:text-secondary/50 rounded-md text-[9px] tracking-[0.3em] uppercase transition-all duration-300 font-medium"
+                className="px-8 py-4 bg-white text-black hover:bg-white/90 disabled:bg-white/15 disabled:text-white/30 disabled:border-white/10 border border-white/30 rounded-lg text-[10px] tracking-[0.3em] uppercase transition-all duration-300 font-bold flex items-center justify-center gap-2 shadow-lg active:scale-[0.98] shrink-0"
               >
-                {searching ? "Scanning..." : "Query"}
+                <span>{searching ? "Scanning..." : "Query Signal"}</span>
+                {!searching && <span>→</span>}
               </button>
+            </div>
+
+            {/* Quick Suggestion Chips */}
+            <div className="mt-4 flex flex-wrap items-center gap-2">
+              <span className="text-[8px] tracking-[0.2em] uppercase text-secondary/60 mr-1">Suggestions:</span>
+              {[
+                "Why did Tanvir abscond?",
+                "What is the Signal?",
+                "Universal Reader",
+                "AI vs Human Want",
+                "Memecoin Survival",
+                "Corporate machine"
+              ].map((suggestion, i) => (
+                <button
+                  key={i}
+                  type="button"
+                  onClick={() => {
+                    setQuery(suggestion);
+                    setSearching(true);
+                    setActiveSearch(true);
+                    setTimeout(() => {
+                      const { results, response } = searchLibrary(suggestion);
+                      setSearchResults(results);
+                      setSynthesizedResponse(response);
+                      setSearching(false);
+                    }, 500);
+                  }}
+                  className="text-[8px] tracking-[0.15em] uppercase px-3 py-1 border border-white/10 hover:border-white/30 rounded-full text-secondary hover:text-white bg-white/[0.02] hover:bg-white/5 transition-all"
+                >
+                  {suggestion}
+                </button>
+              ))}
             </div>
           </form>
 
@@ -1364,10 +1706,14 @@ export default function Home() {
               <h2 className="text-[10px] tracking-[0.3em] uppercase text-secondary mb-6 border-b border-white/5 pb-4">What's Next for Absconded</h2>
               <div className="space-y-6 text-sm font-light text-secondary/90 leading-relaxed font-serif">
                 <p>
+<<<<<<< HEAD
                   Absconded is an evolving book. The immediate future holds deeper integration of the Oracle{"\u2014"}our semantic RAG engine{"\u2014"}allowing readers to interrogate the book as if it were a real database. 
+=======
+                  <span className="text-white">The Universal Reader:</span> We have expanded Absconded beyond a personal manuscript archive into an ambient, distraction-free reading sanctuary. Readers can now search 70,000+ open-source public domain classics (from Kafka and Dostoevsky to Nietzsche and Plato) or drop their own EPUB, Markdown, and text manuscripts to read them in pure OLED minimalism with persistent reading progress.
+>>>>>>> 25b6a0c (feat: Universal Reader, 50+ classics catalog, bookmarks engine, and SEO updates)
                 </p>
                 <p>
-                  I am also actively developing the Absconded ecosystem, a decentralized network where digital identities and assets blur the lines between reality and simulation. The library will continue to expand, introducing new threads, new protagonists, and perhaps, eventually, a bridge into physical installations.
+                  The immediate roadmap also holds deeper cognitive integration of the Oracle—our semantic RAG engine—allowing readers to interrogate both the original manuscripts and the transcoded classics as dynamic, querying databases.
                 </p>
               </div>
             </div>
@@ -1432,7 +1778,19 @@ export default function Home() {
                 {[
                   {
                     q: "Is it free?",
+<<<<<<< HEAD
                     a: "Always. The manuscript is meant to be read, shared, and felt. The digital reader interface makes that experience more immersive \u2014 no distractions, just the words."
+=======
+                    a: "Always. All original manuscripts and the 70,000+ public domain classics in the Universal Reader are completely free to read, explore, and share."
+                  },
+                  {
+                    q: "What is the Universal Reader?",
+                    a: "It is our distraction-free digital reading room. It lets you search classic public domain literature (Project Gutenberg) or drag-and-drop your own .epub, .txt, or .md files to read them in pure OLED Dark, Paper Light, or Terminal modes with full chapter navigation."
+                  },
+                  {
+                    q: "Are my uploaded books private?",
+                    a: "100% private. Files you drop into the reader are parsed locally on your device via client-side JavaScript. No file content or reading telemetry is ever sent to or stored on any server."
+>>>>>>> 25b6a0c (feat: Universal Reader, 50+ classics catalog, bookmarks engine, and SEO updates)
                   },
                   {
                     q: "What is Absconded actually about?",
@@ -1441,6 +1799,10 @@ export default function Home() {
                   {
                     q: "Who is Tanvir Khan?",
                     a: "A builder from Mumbai. Spent years inside the traditional supply chain machine before quietly absconding into the internet. This library is what he found on the other side."
+                  },
+                  {
+                    q: "Does the reader save my progress?",
+                    a: "Yes. Your current chapter and exact scroll position are automatically saved in your browser's local storage so you can pick up exactly where you left off."
                   }
                 ].map((faq, i) => (
                   <div key={i}>
@@ -1508,6 +1870,16 @@ export default function Home() {
         </section>
       )}
 
+      {/* View: Transcoder */}
+      {page === "transcoder" && (
+        <Transcoder 
+          onOpenBook={(book) => {
+            handleSelectBook(book)
+          }} 
+          theme={theme}
+        />
+      )}
+
       {/* Footer */}
       <footer className="py-20 border-t border-white/5">
         <div className="max-w-4xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-8 text-[9px] tracking-[0.2em] text-secondary uppercase">
@@ -1520,6 +1892,23 @@ export default function Home() {
           </div>
         </div>
       </footer>
+
+      {/* Bookmarks Drawer Modal */}
+      <BookmarksDrawer
+        isOpen={bookmarksOpen}
+        onClose={() => setBookmarksOpen(false)}
+        bookmarks={bookmarks}
+        onSelectBookmark={handleSelectBookmark}
+        onDeleteBookmark={handleDeleteBookmark}
+      />
+
+      {/* Floating Bookmark Toast Notification */}
+      {bookmarkToast && (
+        <div className="fixed bottom-8 left-1/2 -translate-x-1/2 z-[80] px-6 py-3 bg-bg/95 border border-white/20 rounded-full text-[9px] tracking-[0.25em] uppercase text-white shadow-2xl backdrop-blur-md animate-fade-in flex items-center gap-2 font-mono">
+          <span className="text-emerald-400">✦</span>
+          <span>{bookmarkToast}</span>
+        </div>
+      )}
     </main>
 
       {/* Checkout Modal — outside <main> to avoid stacking context trap */}

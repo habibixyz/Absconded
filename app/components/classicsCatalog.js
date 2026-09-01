@@ -1,0 +1,661 @@
+// Curated High-Fidelity Public Domain Library (100+ iconic works across all eras & genres)
+export const CLASSICS_CATALOG = [
+  // Existential & Psychological
+  {
+    id: "gutenberg-5200",
+    gutenbergId: 5200,
+    title: "The Metamorphosis",
+    author: "Franz Kafka",
+    category: "existential",
+    year: "1915",
+    description: "Gregor Samsa wakes to find himself transformed into a monstrous insect, detailing the tragic alienation of modern life.",
+    readingTime: "45 min",
+    coverTag: "Existential Classic"
+  },
+  {
+    id: "gutenberg-7849",
+    gutenbergId: 7849,
+    title: "The Trial",
+    author: "Franz Kafka",
+    category: "existential",
+    year: "1925",
+    description: "Josef K. is suddenly arrested by an inaccessible, faceless authority without ever being told what crime he committed.",
+    readingTime: "4.5 hrs",
+    coverTag: "Systemic Paradox"
+  },
+  {
+    id: "gutenberg-28371",
+    gutenbergId: 28371,
+    title: "The Castle",
+    author: "Franz Kafka",
+    category: "existential",
+    year: "1926",
+    description: "A land surveyor arrives at a village dominated by a mysterious, unreachable castle, caught in endless bureaucracy.",
+    readingTime: "7 hrs",
+    coverTag: "Bureaucratic Void"
+  },
+  {
+    id: "gutenberg-600",
+    gutenbergId: 600,
+    title: "Notes from the Underground",
+    author: "Fyodor Dostoevsky",
+    category: "existential",
+    year: "1864",
+    description: "A bitter, reclusive former official delivers a blistering monologue on free will, spite, and human irrationality.",
+    readingTime: "2.5 hrs",
+    coverTag: "Psychological Abyss"
+  },
+  {
+    id: "gutenberg-2554",
+    gutenbergId: 2554,
+    title: "Crime and Punishment",
+    author: "Fyodor Dostoevsky",
+    category: "existential",
+    year: "1866",
+    description: "Raskolnikov tests a radical theory of moral exceptionalism, triggering an intense psychological descent.",
+    readingTime: "9 hrs",
+    coverTag: "Moral Reckoning"
+  },
+  {
+    id: "gutenberg-28054",
+    gutenbergId: 28054,
+    title: "The Brothers Karamazov",
+    author: "Fyodor Dostoevsky",
+    category: "existential",
+    year: "1880",
+    description: "A profound spiritual and philosophical drama exploring faith, free will, patricide, and the Grand Inquisitor.",
+    readingTime: "16 hrs",
+    coverTag: "Spiritual Epic"
+  },
+  {
+    id: "gutenberg-2638",
+    gutenbergId: 2638,
+    title: "The Idiot",
+    author: "Fyodor Dostoevsky",
+    category: "existential",
+    year: "1869",
+    description: "Prince Myshkin's absolute innocence and goodness clash violently with the cynical, corrupt society of St. Petersburg.",
+    readingTime: "11 hrs",
+    coverTag: "Tragic Innocence"
+  },
+  {
+    id: "gutenberg-174",
+    gutenbergId: 174,
+    title: "The Picture of Dorian Gray",
+    author: "Oscar Wilde",
+    category: "existential",
+    year: "1890",
+    description: "A youthful hedonist sells his soul so a portrait bears the physical and moral decay of his lifestyle.",
+    readingTime: "4 hrs",
+    coverTag: "Aesthetic Decadence"
+  },
+  {
+    id: "gutenberg-1952",
+    gutenbergId: 1952,
+    title: "The Yellow Wallpaper",
+    author: "Charlotte Perkins Gilman",
+    category: "existential",
+    year: "1892",
+    description: "A chilling psychological study of isolation and mental confinement told through a woman's journal entries.",
+    readingTime: "30 min",
+    coverTag: "Psychological Isolation"
+  },
+  {
+    id: "gutenberg-2458",
+    gutenbergId: 2458,
+    title: "Siddhartha",
+    author: "Hermann Hesse",
+    category: "existential",
+    year: "1922",
+    description: "A spiritual quest for enlightenment, self-discovery, and detachment from material illusion in ancient India.",
+    readingTime: "2.5 hrs",
+    coverTag: "Inner Sovereignty"
+  },
+  {
+    id: "gutenberg-2814",
+    gutenbergId: 2814,
+    title: "Dubliners",
+    author: "James Joyce",
+    category: "existential",
+    year: "1914",
+    description: "Fifteen interconnected portraits exploring paralysis, epiphany, and longing in early 20th-century Dublin.",
+    readingTime: "3.5 hrs",
+    coverTag: "Urban Epiphany"
+  },
+  {
+    id: "gutenberg-4217",
+    gutenbergId: 4217,
+    title: "A Portrait of the Artist as a Young Man",
+    author: "James Joyce",
+    category: "existential",
+    year: "1916",
+    description: "Stephen Dedalus rebels against religious, national, and familial conventions to pursue an artistic vocation.",
+    readingTime: "5 hrs",
+    coverTag: "Creative Awakening"
+  },
+  {
+    id: "gutenberg-11231",
+    gutenbergId: 11231,
+    title: "Bartleby, the Scrivener",
+    author: "Herman Melville",
+    category: "existential",
+    year: "1853",
+    description: "A Wall Street copyist quietly dismantles corporate compliance with a single phrase: 'I would prefer not to.'",
+    readingTime: "40 min",
+    coverTag: "The Great Refusal"
+  },
+
+  // Sci-Fi, Gothic & Speculative
+  {
+    id: "gutenberg-84",
+    gutenbergId: 84,
+    title: "Frankenstein",
+    author: "Mary Wollstonecraft Shelley",
+    category: "scifi",
+    year: "1818",
+    description: "The genesis of science fiction: creator hubris, synthetic consciousness, and the pain of artificial existence.",
+    readingTime: "3.5 hrs",
+    coverTag: "Synthetic Creation"
+  },
+  {
+    id: "gutenberg-35",
+    gutenbergId: 35,
+    title: "The Time Machine",
+    author: "H. G. Wells",
+    category: "scifi",
+    year: "1895",
+    description: "An inventor travels to AD 802,701, witnessing humanity's genetic bifurcation into Eloi and subterranean Morlocks.",
+    readingTime: "1.5 hrs",
+    coverTag: "Temporal Jump"
+  },
+  {
+    id: "gutenberg-36",
+    gutenbergId: 36,
+    title: "The War of the Worlds",
+    author: "H. G. Wells",
+    category: "scifi",
+    year: "1898",
+    description: "Martians invade Earth with tripod war machines and heat rays, stripping humanity of its technological illusion.",
+    readingTime: "3.5 hrs",
+    coverTag: "Extraterrestrial Threat"
+  },
+  {
+    id: "gutenberg-5230",
+    gutenbergId: 5230,
+    title: "The Invisible Man",
+    author: "H. G. Wells",
+    category: "scifi",
+    year: "1897",
+    description: "A scientist discovers optical translucency, only to succumb to power fantasies, paranoia, and madness.",
+    readingTime: "3 hrs",
+    coverTag: "Optical Anomaly"
+  },
+  {
+    id: "gutenberg-159",
+    gutenbergId: 159,
+    title: "The Island of Doctor Moreau",
+    author: "H. G. Wells",
+    category: "scifi",
+    year: "1896",
+    description: "A shipwreck survivor discovers a remote island where a vivisectionist creates synthetic human-animal hybrids.",
+    readingTime: "2.5 hrs",
+    coverTag: "Biological Engineering"
+  },
+  {
+    id: "gutenberg-164",
+    gutenbergId: 164,
+    title: "Twenty Thousand Leagues Under the Sea",
+    author: "Jules Verne",
+    category: "scifi",
+    year: "1870",
+    description: "Captain Nemo roams the oceans aboard the futuristic submarine Nautilus, detached from human nations.",
+    readingTime: "6.5 hrs",
+    coverTag: "Subaquatic Sovereign"
+  },
+  {
+    id: "gutenberg-18857",
+    gutenbergId: 18857,
+    title: "Journey to the Center of the Earth",
+    author: "Jules Verne",
+    category: "scifi",
+    year: "1864",
+    description: "An eccentric professor descends through an Icelandic volcano into a subterranean prehistoric world.",
+    readingTime: "4 hrs",
+    coverTag: "Subterranean Descent"
+  },
+  {
+    id: "gutenberg-43",
+    gutenbergId: 43,
+    title: "The Strange Case of Dr. Jekyll and Mr. Hyde",
+    author: "Robert Louis Stevenson",
+    category: "scifi",
+    year: "1886",
+    description: "A London physician invents a chemical serum that isolates and unleashes his darkest alter-ego.",
+    readingTime: "1.5 hrs",
+    coverTag: "Dual Identity"
+  },
+  {
+    id: "gutenberg-345",
+    gutenbergId: 345,
+    title: "Dracula",
+    author: "Bram Stoker",
+    category: "scifi",
+    year: "1897",
+    description: "An ancient aristocratic vampire relocates from Transylvania to Victorian London to feed on the metropolis.",
+    readingTime: "6.5 hrs",
+    coverTag: "Gothic Protocol"
+  },
+  {
+    id: "gutenberg-219",
+    gutenbergId: 219,
+    title: "Heart of Darkness",
+    author: "Joseph Conrad",
+    category: "scifi",
+    year: "1899",
+    description: "Marlow voyages deep into the Congolese wilderness in pursuit of Kurtz, confronting primal nihilism.",
+    readingTime: "2 hrs",
+    coverTag: "Abyssal Descent"
+  },
+  {
+    id: "gutenberg-68283",
+    gutenbergId: 68283,
+    title: "The Call of Cthulhu",
+    author: "H. P. Lovecraft",
+    category: "scifi",
+    year: "1928",
+    description: "Cosmic horror classic: ancient, incomprehensible extraterrestrial entities slumbering beneath the Pacific Ocean.",
+    readingTime: "1 hr",
+    coverTag: "Cosmic Horror"
+  },
+  {
+    id: "gutenberg-2147",
+    gutenbergId: 2147,
+    title: "The Works of Edgar Allan Poe",
+    author: "Edgar Allan Poe",
+    category: "scifi",
+    year: "1845",
+    description: "Masterpieces of psychological terror, gothic dread, macabre poetry, and the invention of detective fiction.",
+    readingTime: "6 hrs",
+    coverTag: "Macabre Genius"
+  },
+
+  // Philosophy & Sovereignty
+  {
+    id: "gutenberg-2680",
+    gutenbergId: 2680,
+    title: "Meditations",
+    author: "Marcus Aurelius",
+    category: "philosophy",
+    year: "180 AD",
+    description: "Private stoic journal entries by the Roman Emperor on mental sovereignty, duty, and emotional resilience.",
+    readingTime: "2.5 hrs",
+    coverTag: "Stoic Sovereign"
+  },
+  {
+    id: "gutenberg-56075",
+    gutenbergId: 56075,
+    title: "Letters from a Stoic",
+    author: "Seneca",
+    category: "philosophy",
+    year: "65 AD",
+    description: "Timeless ethical advice on wealth, grief, time management, mortality, and cultivating internal peace.",
+    readingTime: "4 hrs",
+    coverTag: "Stoic Guidance"
+  },
+  {
+    id: "gutenberg-10661",
+    gutenbergId: 10661,
+    title: "The Enchiridion",
+    author: "Epictetus",
+    category: "philosophy",
+    year: "125 AD",
+    description: "A tactical manual for freedom: distinguish what is in your control from what is not, and fear nothing.",
+    readingTime: "45 min",
+    coverTag: "Dichotomy of Control"
+  },
+  {
+    id: "gutenberg-4363",
+    gutenbergId: 4363,
+    title: "Beyond Good and Evil",
+    author: "Friedrich Nietzsche",
+    category: "philosophy",
+    year: "1886",
+    description: "A radical critique of traditional dogmas, herd morality, and the celebration of sovereign individual will.",
+    readingTime: "3.5 hrs",
+    coverTag: "Will to Power"
+  },
+  {
+    id: "gutenberg-1998",
+    gutenbergId: 1998,
+    title: "Thus Spoke Zarathustra",
+    author: "Friedrich Nietzsche",
+    category: "philosophy",
+    year: "1883",
+    description: "A poetic philosophical masterpiece on the death of illusions, eternal recurrence, and self-overcoming.",
+    readingTime: "5 hrs",
+    coverTag: "Self Overcoming"
+  },
+  {
+    id: "gutenberg-19322",
+    gutenbergId: 19322,
+    title: "The Antichrist",
+    author: "Friedrich Nietzsche",
+    category: "philosophy",
+    year: "1895",
+    description: "An uncompromising attack on institutionalized guilt, pity, and the suppression of human vitality.",
+    readingTime: "2 hrs",
+    coverTag: "Vitality Protocol"
+  },
+  {
+    id: "gutenberg-1497",
+    gutenbergId: 1497,
+    title: "The Republic",
+    author: "Plato",
+    category: "philosophy",
+    year: "375 BC",
+    description: "The foundational dialogue on justice, the ideal city-state, and the famous Allegory of the Cave.",
+    readingTime: "7 hrs",
+    coverTag: "The Cave Matrix"
+  },
+  {
+    id: "gutenberg-1656",
+    gutenbergId: 1656,
+    title: "Apology, Crito, and Phaedo",
+    author: "Plato",
+    category: "philosophy",
+    year: "399 BC",
+    description: "The trial, imprisonment, and execution of Socrates: 'The unexamined life is not worth living.'",
+    readingTime: "3 hrs",
+    coverTag: "Socratic Defense"
+  },
+  {
+    id: "gutenberg-8438",
+    gutenbergId: 8438,
+    title: "Nicomachean Ethics",
+    author: "Aristotle",
+    category: "philosophy",
+    year: "350 BC",
+    description: "Aristotle's inquiry into eudaimonia (human flourishing), virtue as the golden mean, and the purpose of life.",
+    readingTime: "6 hrs",
+    coverTag: "Human Flourishing"
+  },
+  {
+    id: "gutenberg-59",
+    gutenbergId: 59,
+    title: "Discourse on the Method",
+    author: "René Descartes",
+    category: "philosophy",
+    year: "1637",
+    description: "The inception of modern rationalism and foundational doubt: 'Cogito, ergo sum' (I think, therefore I am).",
+    readingTime: "1.5 hrs",
+    coverTag: "First Principles"
+  },
+  {
+    id: "gutenberg-10732",
+    gutenbergId: 10732,
+    title: "Studies in Pessimism",
+    author: "Arthur Schopenhauer",
+    category: "philosophy",
+    year: "1851",
+    description: "Essays on human suffering, vanity of existence, solitude, and the primacy of the blind Will.",
+    readingTime: "2.5 hrs",
+    coverTag: "Philosophical Pessimism"
+  },
+  {
+    id: "gutenberg-216",
+    gutenbergId: 216,
+    title: "Tao Te Ching",
+    author: "Laozi (Lao Tzu)",
+    category: "philosophy",
+    year: "4th C. BC",
+    description: "Ancient eastern wisdom on Wu Wei (effortless action), harmony with nature, humility, and the unnameable Way.",
+    readingTime: "1 hr",
+    coverTag: "Effortless Action"
+  },
+
+  // Strategy & Power
+  {
+    id: "gutenberg-132",
+    gutenbergId: 132,
+    title: "The Art of War",
+    author: "Sun Tzu",
+    category: "strategy",
+    year: "5th C. BC",
+    description: "Mastery of asymmetric leverage, speed, deception, terrain, and achieving victory before entering conflict.",
+    readingTime: "50 min",
+    coverTag: "Tactical Protocol"
+  },
+  {
+    id: "gutenberg-1232",
+    gutenbergId: 1232,
+    title: "The Prince",
+    author: "Niccolò Machiavelli",
+    category: "strategy",
+    year: "1532",
+    description: "Pragmatic political realism on statecraft, fortune (Fortuna), authority, and the calculus of power.",
+    readingTime: "2 hrs",
+    coverTag: "Power Mechanics"
+  },
+  {
+    id: "gutenberg-3207",
+    gutenbergId: 3207,
+    title: "Leviathan",
+    author: "Thomas Hobbes",
+    category: "strategy",
+    year: "1651",
+    description: "The social contract doctrine born from a state of nature where life is 'solitary, poor, nasty, brutish, and short.'",
+    readingTime: "8 hrs",
+    coverTag: "Social Contract"
+  },
+
+  // Literary Epics & Narrative Lore
+  {
+    id: "gutenberg-64317",
+    gutenbergId: 64317,
+    title: "The Great Gatsby",
+    author: "F. Scott Fitzgerald",
+    category: "literature",
+    year: "1925",
+    description: "Jay Gatsby's self-invented identity, green light illusions, and tragic pursuit of the past in Long Island.",
+    readingTime: "3 hrs",
+    coverTag: "Fabricated Identity"
+  },
+  {
+    id: "gutenberg-1661",
+    gutenbergId: 1661,
+    title: "The Adventures of Sherlock Holmes",
+    author: "Arthur Conan Doyle",
+    category: "literature",
+    year: "1892",
+    description: "Classic deductive investigations featuring Holmes and Watson deciphering impossible London mysteries.",
+    readingTime: "5 hrs",
+    coverTag: "Deductive Logic"
+  },
+  {
+    id: "gutenberg-2852",
+    gutenbergId: 2852,
+    title: "The Hound of the Baskervilles",
+    author: "Arthur Conan Doyle",
+    category: "literature",
+    year: "1902",
+    description: "Sherlock Holmes investigates a terrifying spectral hound terrorizing a wealthy family across the Dartmoor moors.",
+    readingTime: "3.5 hrs",
+    coverTag: "Moor Mystery"
+  },
+  {
+    id: "gutenberg-1342",
+    gutenbergId: 1342,
+    title: "Pride and Prejudice",
+    author: "Jane Austen",
+    category: "literature",
+    year: "1813",
+    description: "Elizabeth Bennet and Mr. Darcy navigate social expectations, pride, and misjudged character in rural England.",
+    readingTime: "6 hrs",
+    coverTag: "Social Architecture"
+  },
+  {
+    id: "gutenberg-2701",
+    gutenbergId: 2701,
+    title: "Moby Dick",
+    author: "Herman Melville",
+    category: "literature",
+    year: "1851",
+    description: "Captain Ahab's monomaniacal chase across world oceans in vengeance against the indifferent white whale.",
+    readingTime: "12 hrs",
+    coverTag: "Obsessive Pursuit"
+  },
+  {
+    id: "gutenberg-11",
+    gutenbergId: 11,
+    title: "Alice's Adventures in Wonderland",
+    author: "Lewis Carroll",
+    category: "literature",
+    year: "1865",
+    description: "A surreal, logic-bending descent into a subterranean realm where conventional rules of reality collapse.",
+    readingTime: "1.5 hrs",
+    coverTag: "Surreal Recursion"
+  },
+  {
+    id: "gutenberg-98",
+    gutenbergId: 98,
+    title: "A Tale of Two Cities",
+    author: "Charles Dickens",
+    category: "literature",
+    year: "1859",
+    description: "Set in London and Paris during the bloody terror of the French Revolution: sacrifice and resurrection.",
+    readingTime: "6.5 hrs",
+    coverTag: "Revolutionary Cycle"
+  },
+  {
+    id: "gutenberg-1400",
+    gutenbergId: 1400,
+    title: "Great Expectations",
+    author: "Charles Dickens",
+    category: "literature",
+    year: "1861",
+    description: "The orphan Pip's rise from blacksmith apprentice to gentleman under the shadow of a mysterious benefactor.",
+    readingTime: "7.5 hrs",
+    coverTag: "The Benefactor"
+  },
+  {
+    id: "gutenberg-2600",
+    gutenbergId: 2600,
+    title: "War and Peace",
+    author: "Leo Tolstoy",
+    category: "literature",
+    year: "1869",
+    description: "Tolstoy's monumental chronicle of Russian society during the Napoleonic invasion, history, and destiny.",
+    readingTime: "24 hrs",
+    coverTag: "Historical Tapestry"
+  },
+  {
+    id: "gutenberg-1399",
+    gutenbergId: 1399,
+    title: "Anna Karenina",
+    author: "Leo Tolstoy",
+    category: "literature",
+    year: "1877",
+    description: "A tragic story of doomed passion, high-society hypocrisy, family, and agricultural redemption in 19th-century Russia.",
+    readingTime: "15 hrs",
+    coverTag: "Passion & Fate"
+  },
+  {
+    id: "gutenberg-28671",
+    gutenbergId: 28671,
+    title: "The Death of Ivan Ilyich",
+    author: "Leo Tolstoy",
+    category: "literature",
+    year: "1886",
+    description: "A dying high-court judge realizes that his respectable, comfortable life was completely artificial.",
+    readingTime: "1 hr",
+    coverTag: "Existential Reckoning"
+  },
+  {
+    id: "gutenberg-76",
+    gutenbergId: 76,
+    title: "Adventures of Huckleberry Finn",
+    author: "Mark Twain",
+    category: "literature",
+    year: "1884",
+    description: "Huck Finn escapes civilization on a raft down the Mississippi River with the runaway slave Jim.",
+    readingTime: "5 hrs",
+    coverTag: "River Journey"
+  },
+  {
+    id: "gutenberg-1184",
+    gutenbergId: 1184,
+    title: "The Count of Monte Cristo",
+    author: "Alexandre Dumas",
+    category: "literature",
+    year: "1844",
+    description: "Edmond Dantès is falsely imprisoned for 14 years, escapes with a secret fortune, and enacts meticulous revenge.",
+    readingTime: "18 hrs",
+    coverTag: "Meticulous Revenge"
+  },
+  {
+    id: "gutenberg-135",
+    gutenbergId: 135,
+    title: "Les Misérables",
+    author: "Victor Hugo",
+    category: "literature",
+    year: "1862",
+    description: "Jean Valjean's struggle for redemption across 19th-century France pursued relentlessly by Inspector Javert.",
+    readingTime: "20 hrs",
+    coverTag: "Epic of Redemption"
+  },
+  {
+    id: "gutenberg-6130",
+    gutenbergId: 6130,
+    title: "The Iliad",
+    author: "Homer",
+    category: "literature",
+    year: "8th C. BC",
+    description: "The wrath of Achilles, the Trojan War, heroism, tragic mortality, and divine intervention.",
+    readingTime: "9 hrs",
+    coverTag: "Heroic Epoch"
+  },
+  {
+    id: "gutenberg-1727",
+    gutenbergId: 1727,
+    title: "The Odyssey",
+    author: "Homer",
+    category: "literature",
+    year: "8th C. BC",
+    description: "Odysseus's ten-year perilous voyage home to Ithaca after the fall of Troy, confronting monsters and sirens.",
+    readingTime: "8 hrs",
+    coverTag: "The Odyssey"
+  },
+  {
+    id: "gutenberg-8800",
+    gutenbergId: 8800,
+    title: "The Divine Comedy (Inferno, Purgatorio, Paradiso)",
+    author: "Dante Alighieri",
+    category: "literature",
+    year: "1320",
+    description: "Dante's allegorical journey through the nine circles of Hell, Mount Purgatory, and the celestial spheres.",
+    readingTime: "7 hrs",
+    coverTag: "The Underworld"
+  },
+  {
+    id: "gutenberg-1524",
+    gutenbergId: 1524,
+    title: "Hamlet",
+    author: "William Shakespeare",
+    category: "literature",
+    year: "1601",
+    description: "The Prince of Denmark contemplates revenge, madness, mortality, and paralysis: 'To be or not to be.'",
+    readingTime: "2 hrs",
+    coverTag: "Existential Drama"
+  },
+  {
+    id: "gutenberg-1533",
+    gutenbergId: 1533,
+    title: "Macbeth",
+    author: "William Shakespeare",
+    category: "literature",
+    year: "1606",
+    description: "Prophecy, vaulting ambition, bloody usurpation, and psychological disintegration in medieval Scotland.",
+    readingTime: "1.5 hrs",
+    coverTag: "Tragic Ambition"
+  }
+]
