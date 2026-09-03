@@ -205,8 +205,8 @@ function ScrollProgressBar({ content }) {
   }, [])
 
   return (
-    <div className="fixed left-0 right-0 z-[50] h-[2px] bg-white/5" style={{ top: "var(--safe-area-top, 0px)" }}>
-      <div className="h-full bg-white transition-all duration-100" style={{ width: `${progress}%` }} />
+    <div className="fixed left-0 right-0 z-[65] h-[2px] bg-white/5" style={{ top: "calc(var(--safe-area-top, 0px) + env(safe-area-inset-top, 0px))" }}>
+      <div className="h-full bg-white transition-all duration-100 shadow-[0_0_8px_rgba(255,255,255,0.4)]" style={{ width: `${progress}%` }} />
     </div>
   )
 }
@@ -832,8 +832,8 @@ export default function Home() {
       {isReading && <ScrollProgressBar content={selectedChapter.content} />}
 
       {/* Navigation */}
-      <nav className="fixed top-0 left-0 right-0 z-[60] bg-bg/85 backdrop-blur-md border-b border-white/5">
-        <div className="max-w-6xl mx-auto px-6 py-5 flex items-center justify-between">
+      <nav className="fixed top-0 left-0 right-0 z-[60] bg-bg/85 backdrop-blur-md border-b border-white/5 pt-[env(safe-area-inset-top,0px)]">
+        <div className="max-w-6xl mx-auto px-4 py-3 sm:px-6 sm:py-4 flex items-center justify-between">
           <button 
             onClick={() => {
               navigate(() => {
@@ -843,11 +843,12 @@ export default function Home() {
                 setMenuOpen(false);
               });
             }}
-            className="flex items-center gap-3 hover:opacity-90 transition-opacity duration-300 whitespace-nowrap z-[60]"
+            className="flex items-center gap-2.5 sm:gap-3 hover:opacity-90 transition-opacity duration-300 whitespace-nowrap z-[60] shrink-0"
           >
-            <img src="/logo.jpg" alt="Absconded // VYRM Logo" className="h-7 w-7 rounded-sm border border-white/10 object-cover bg-black" />
-            <span className="text-[11px] tracking-[0.3em] uppercase font-normal text-white/90 hover:text-white transition-colors duration-300">
-              Absconded // VYRM
+            <img src="/logo.jpg" alt="Absconded // VYRM Logo" className="h-6 w-6 sm:h-7 sm:w-7 rounded-sm border border-white/10 object-cover bg-black shrink-0" />
+            <span className="text-[10px] sm:text-[11px] tracking-[0.2em] sm:tracking-[0.3em] uppercase font-normal text-white/90 hover:text-white transition-colors duration-300">
+              <span>Absconded</span>
+              <span className="hidden sm:inline"> // VYRM</span>
             </span>
           </button>
 
@@ -866,19 +867,24 @@ export default function Home() {
             </div>
           )}
 
-          <div className="flex items-center gap-4 z-[60]">
+          <div className="flex items-center gap-2 sm:gap-4 z-[60] shrink-0">
             {/* Direct Bookmark button when inside reader */}
             {isReading && (
               <button
                 onClick={handleToggleBookmark}
-                className={`flex items-center gap-1.5 text-[9px] tracking-[0.2em] uppercase px-3 py-1.5 rounded-full border transition-all ${
+                className={`flex items-center gap-1.5 text-[9px] tracking-[0.15em] sm:tracking-[0.2em] uppercase px-2.5 py-1.5 sm:px-3 sm:py-1.5 rounded-full border transition-all ${
                   isCurrentBookmarked
                     ? "border-emerald-500/40 text-emerald-400 bg-emerald-500/10 font-medium shadow-[0_0_12px_rgba(16,185,129,0.15)]"
                     : "border-white/10 text-secondary hover:text-white hover:border-white/30 bg-white/[0.02]"
                 }`}
                 title="Bookmark current reading position"
+                aria-label="Bookmark position"
               >
-                <span>{isCurrentBookmarked ? "🔖 Saved" : "🔖 Bookmark"}</span>
+                <span className="text-xs">🔖</span>
+                <span className="hidden sm:inline">{isCurrentBookmarked ? "Saved" : "Bookmark"}</span>
+                {isCurrentBookmarked && (
+                  <span className="sm:hidden text-[8px] font-mono text-emerald-400 font-bold">Saved</span>
+                )}
               </button>
             )}
 
@@ -886,34 +892,39 @@ export default function Home() {
             {bookmarks.length > 0 && !isReading && (
               <button
                 onClick={() => setBookmarksOpen(true)}
-                className="hidden sm:flex items-center gap-1.5 text-[9px] tracking-[0.2em] uppercase text-secondary hover:text-white border border-white/10 hover:border-white/30 bg-white/[0.02] px-3.5 py-1.5 rounded-full transition-all"
+                className="flex items-center gap-1.5 text-[9px] tracking-[0.15em] sm:tracking-[0.2em] uppercase text-secondary hover:text-white border border-white/10 hover:border-white/30 bg-white/[0.02] px-2.5 py-1.5 sm:px-3.5 sm:py-1.5 rounded-full transition-all"
+                title="Open Bookmarks"
+                aria-label="Open Bookmarks"
               >
-                <span>🔖</span>
-                <span>Bookmarks ({bookmarks.length})</span>
+                <span className="text-xs">🔖</span>
+                <span className="hidden sm:inline">Bookmarks</span>
+                <span className="text-[8px] font-mono px-1.5 py-0.2 rounded-full bg-white/10 text-white/90 font-medium">
+                  {bookmarks.length}
+                </span>
               </button>
             )}
 
             {/* Hamburger Trigger */}
             <button 
               onClick={() => setMenuOpen(!menuOpen)}
-              className="relative w-8 h-8 flex flex-col justify-center items-center group focus:outline-none"
+              className="relative w-8 h-8 flex flex-col justify-center items-center group focus:outline-none shrink-0"
               aria-label="Toggle Menu"
             >
               <span 
                 style={{ backgroundColor: 'var(--text)' }}
-                className={`block w-6 h-[1.5px] transition-all duration-300 ease-out absolute ${
+                className={`block w-5 sm:w-6 h-[1.5px] transition-all duration-300 ease-out absolute ${
                   menuOpen ? "rotate-45" : "-translate-y-1.5"
                 }`} 
               />
               <span 
                 style={{ backgroundColor: 'var(--text)' }}
-                className={`block w-6 h-[1.5px] transition-all duration-300 ease-out absolute ${
+                className={`block w-5 sm:w-6 h-[1.5px] transition-all duration-300 ease-out absolute ${
                   menuOpen ? "opacity-0" : "opacity-100"
                 }`} 
               />
               <span 
                 style={{ backgroundColor: 'var(--text)' }}
-                className={`block w-6 h-[1.5px] transition-all duration-300 ease-out absolute ${
+                className={`block w-5 sm:w-6 h-[1.5px] transition-all duration-300 ease-out absolute ${
                   menuOpen ? "-rotate-45" : "translate-y-1.5"
                 }`} 
               />
@@ -1040,16 +1051,16 @@ export default function Home() {
 
       {/* View 1: Shelf (Library) */}
       {page === "library" && (
-        <section className="pt-40 pb-20 px-6 max-w-6xl mx-auto fade-in">
-          <header className="mb-20">
+        <section className="pt-24 sm:pt-36 pb-20 px-4 sm:px-6 max-w-6xl mx-auto fade-in">
+          <header className="mb-10 sm:mb-20">
             <p className="text-xs uppercase tracking-[0.4em] text-secondary mb-4">Digital Manuscript Library</p>
-            <h1 className="text-4xl font-serif italic">The Signal Collection</h1>
+            <h1 className="text-3xl sm:text-4xl font-serif italic">The Signal Collection</h1>
           </header>
 
           {/* Filter Categories & Universal Reader Button */}
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 mb-12 sm:mb-16 border-b border-white/5 pb-4">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 sm:gap-6 mb-8 sm:mb-14 border-b border-white/5 pb-4">
             {/* Horizontal Scrollable/Spaced Tabs */}
-            <div className="flex items-center gap-6 sm:gap-8 overflow-x-auto no-scrollbar py-1">
+            <div className="flex items-center gap-5 sm:gap-8 overflow-x-auto no-scrollbar py-1">
               {["all", "manuscripts", "shorts"].map((cat) => (
                 <button 
                   key={cat}
@@ -1085,13 +1096,13 @@ export default function Home() {
 
           {/* Resume Reading Card if bookmarks exist */}
           {bookmarks.length > 0 && (
-            <div className="mb-12 sm:mb-14 p-5 sm:p-8 border border-white/10 hover:border-white/20 rounded-sm bg-white/[0.02] flex flex-col sm:flex-row justify-between items-start sm:items-center gap-5 sm:gap-6 transition-all duration-300">
+            <div className="mb-10 sm:mb-14 p-4 sm:p-8 border border-white/10 hover:border-white/20 rounded-sm bg-white/[0.02] flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 sm:gap-6 transition-all duration-300">
               <div className="space-y-1">
                 <div className="flex items-center gap-2">
                   <span className="text-xs text-emerald-400">🔖</span>
                   <span className="text-[8px] tracking-[0.3em] uppercase text-secondary font-mono">Last Saved Bookmark</span>
                 </div>
-                <h3 className="text-lg sm:text-2xl font-serif italic text-white leading-tight">
+                <h3 className="text-base sm:text-2xl font-serif italic text-white leading-tight">
                   {bookmarks[0].chapterTitle}
                 </h3>
                 <p className="text-[9px] tracking-[0.2em] uppercase text-secondary/70">
@@ -1101,7 +1112,7 @@ export default function Home() {
               <div className="flex items-center gap-3 w-full sm:w-auto pt-2 sm:pt-0">
                 <button
                   onClick={() => handleSelectBookmark(bookmarks[0])}
-                  className="flex-1 sm:flex-none px-5 sm:px-6 py-2.5 sm:py-3 bg-white text-bg hover:bg-white/90 text-[8px] sm:text-[9px] tracking-[0.25em] uppercase font-bold rounded-sm transition-all shadow-sm text-center"
+                  className="flex-1 sm:flex-none px-4 sm:px-6 py-2.5 sm:py-3 bg-white text-bg hover:bg-white/90 text-[8px] sm:text-[9px] tracking-[0.25em] uppercase font-bold rounded-sm transition-all shadow-sm text-center"
                 >
                   Resume Reading →
                 </button>
@@ -1164,10 +1175,10 @@ export default function Home() {
 
       {/* View 2: Signals Feed */}
       {page === "signals" && (
-        <section className="pt-40 pb-20 px-6 max-w-2xl mx-auto fade-in">
-          <header className="mb-20">
+        <section className="pt-24 sm:pt-36 pb-20 px-4 sm:px-6 max-w-2xl mx-auto fade-in">
+          <header className="mb-10 sm:mb-20">
             <p className="text-xs uppercase tracking-[0.4em] text-secondary mb-4">Real-time Builder Activity</p>
-            <h1 className="text-4xl font-serif italic">The Signal Feed</h1>
+            <h1 className="text-3xl sm:text-4xl font-serif italic">The Signal Feed</h1>
           </header>
 
           <div className="space-y-12">
@@ -1197,11 +1208,11 @@ export default function Home() {
 
       {/* View 3: Book Cover Overlay */}
       {page === "book" && selectedBook && showCover && (
-        <section className="min-h-screen flex items-center justify-center px-6 pt-20 fade-in">
+        <section className="min-h-screen flex items-center justify-center px-4 sm:px-6 pt-16 sm:pt-20 fade-in">
           <div className="text-center max-w-2xl">
-            <p className="text-[9px] tracking-[0.4em] uppercase text-secondary mb-10">{selectedBook.subtitle} {"\u00B7"} {calculateBookReadingTime(selectedBook)} read</p>
-            <h1 className="text-6xl md:text-8xl font-serif italic mb-8 tracking-tight leading-none">{selectedBook.title}</h1>
-            <div className="w-16 h-[1px] bg-white/20 mx-auto mb-12" />
+            <p className="text-[9px] tracking-[0.4em] uppercase text-secondary mb-6 sm:mb-10">{selectedBook.subtitle} {"\u00B7"} {calculateBookReadingTime(selectedBook)} read</p>
+            <h1 className="text-4xl sm:text-6xl md:text-8xl font-serif italic mb-6 sm:mb-8 tracking-tight leading-none px-2">{selectedBook.title}</h1>
+            <div className="w-16 h-[1px] bg-white/20 mx-auto mb-8 sm:mb-12" />
             <div className="mb-16 text-secondary font-light leading-relaxed font-serif italic text-lg">
               {selectedBook.coverQuote || '"The beginning is always today."'}
             </div>
@@ -1224,8 +1235,8 @@ export default function Home() {
 
       {/* View 4: Book Chapter Index */}
       {page === "book" && selectedBook && !showCover && !selectedChapter && (
-        <section className="pt-40 pb-20 px-6 max-w-2xl mx-auto fade-in">
-          <div className="mb-16 flex items-center gap-4">
+        <section className="pt-24 sm:pt-36 pb-20 px-4 sm:px-6 max-w-2xl mx-auto fade-in">
+          <div className="mb-10 sm:mb-16 flex items-center gap-4">
             <button 
               onClick={() => setShowCover(true)}
               className="text-[9px] tracking-[0.3em] uppercase text-secondary hover:text-white transition-colors flex items-center gap-2"
@@ -1325,16 +1336,16 @@ export default function Home() {
 
       {/* View 5: Reading View (Chapter Mode) */}
       {page === "book" && selectedBook && selectedChapter && (
-        <section className="pt-40 pb-32 px-6 fade-in">
+        <section className="pt-24 sm:pt-36 pb-24 sm:pb-32 px-4 sm:px-6 fade-in">
           <div className="book-container">
-            <header className="mb-20 text-center">
+            <header className="mb-12 sm:mb-20 text-center">
               <div className="text-[10px] tracking-[0.3em] text-secondary mb-4 uppercase">
                 {selectedChapter.label}
               </div>
-              <h1 className="text-4xl md:text-5xl font-serif italic leading-tight">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl font-serif italic leading-tight px-2">
                 {selectedChapter.title}
               </h1>
-              <div className="mt-4 flex items-center justify-center gap-4">
+              <div className="mt-4 flex flex-wrap items-center justify-center gap-2 sm:gap-4">
                 <span className="text-[9px] tracking-[0.2em] text-secondary/40 uppercase">
                   {calculateReadingTime(selectedChapter.content)} chapter read
                 </span>
@@ -1457,10 +1468,10 @@ export default function Home() {
 
       {/* View: Oracle (Semantic Search & local RAG) */}
       {page === "oracle" && (
-        <section className="pt-40 pb-20 px-6 max-w-4xl mx-auto fade-in">
-          <header className="mb-16 text-center">
+        <section className="pt-24 sm:pt-36 pb-20 px-4 sm:px-6 max-w-4xl mx-auto fade-in">
+          <header className="mb-10 sm:mb-16 text-center">
             <p className="text-xs uppercase tracking-[0.4em] text-secondary mb-4">Neural Query Interface</p>
-            <h1 className="text-4xl sm:text-5xl font-serif italic text-white mb-6">The Signal Oracle</h1>
+            <h1 className="text-3xl sm:text-5xl font-serif italic text-white mb-6">The Signal Oracle</h1>
             <p className="text-sm font-light text-secondary max-w-2xl mx-auto leading-relaxed">
               Query the {books.length}-book manuscript collection via client-side TF-IDF BM25 retrieval. 
               The Oracle will scan all fragments, retrieve the most relevant passages, 
@@ -1624,10 +1635,10 @@ export default function Home() {
 
       {/* View 6: About & FAQ */}
       {page === "about" && (
-        <section className="pt-40 pb-20 px-6 max-w-3xl mx-auto fade-in">
-          <header className="mb-20 text-center">
+        <section className="pt-24 sm:pt-36 pb-20 px-4 sm:px-6 max-w-3xl mx-auto fade-in">
+          <header className="mb-10 sm:mb-20 text-center">
             <p className="text-xs uppercase tracking-[0.4em] text-secondary mb-4">The Author & The Archive</p>
-            <h1 className="text-4xl sm:text-5xl font-serif italic text-white mb-8">Behind the Signal</h1>
+            <h1 className="text-3xl sm:text-5xl font-serif italic text-white mb-8">Behind the Signal</h1>
             <div className="w-16 h-[1px] bg-white/20 mx-auto mb-8"></div>
           </header>
 
@@ -1766,10 +1777,10 @@ export default function Home() {
       )}
       {/* View 7: Storehouse (E-Commerce) */}
       {page === "store" && (
-        <section className="pt-40 pb-20 px-6 max-w-6xl mx-auto fade-in">
-          <header className="mb-20 text-center">
+        <section className="pt-24 sm:pt-36 pb-20 px-4 sm:px-6 max-w-6xl mx-auto fade-in">
+          <header className="mb-10 sm:mb-20 text-center">
             <p className="text-xs uppercase tracking-[0.4em] text-secondary mb-4">Physical Manifestations</p>
-            <h1 className="text-4xl sm:text-5xl font-serif italic text-white mb-8">The Storehouse</h1>
+            <h1 className="text-3xl sm:text-5xl font-serif italic text-white mb-8">The Storehouse</h1>
             <div className="w-16 h-[1px] bg-white/20 mx-auto mb-8"></div>
             <p className="text-sm font-light text-secondary max-w-2xl mx-auto leading-relaxed">
               Premium softcover chapbooks and bound manuscripts from the Signal Collection {"\u2014"} printed and shipped <span className="text-white">within India only</span>. International editions via print-on-demand coming soon.

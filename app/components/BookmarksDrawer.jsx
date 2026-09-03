@@ -6,16 +6,16 @@ export default function BookmarksDrawer({ isOpen, onClose, onSelectBookmark, boo
   if (!isOpen) return null
 
   return (
-    <div className="fixed inset-0 z-[70] flex items-center justify-center p-4 sm:p-6 bg-black/80 backdrop-blur-md fade-in">
+    <div className="fixed inset-0 z-[70] flex items-center justify-center p-3 sm:p-6 bg-black/80 backdrop-blur-md fade-in">
       <div 
         onClick={(e) => e.stopPropagation()}
-        className="w-full max-w-xl bg-bg border border-white/10 rounded-lg p-6 sm:p-8 shadow-2xl relative overflow-hidden max-h-[85vh] flex flex-col"
+        className="w-full max-w-xl bg-bg border border-white/10 rounded-lg p-4 sm:p-8 shadow-2xl relative overflow-hidden max-h-[90vh] sm:max-h-[85vh] flex flex-col"
       >
         {/* Header */}
-        <div className="flex items-center justify-between pb-6 border-b border-white/5 mb-6">
+        <div className="flex items-center justify-between pb-4 sm:pb-6 border-b border-white/5 mb-4 sm:mb-6">
           <div className="flex items-center gap-3">
             <span className="text-base text-white">🔖</span>
-            <h2 className="text-xs uppercase tracking-[0.3em] text-white font-medium">
+            <h2 className="text-[11px] sm:text-xs uppercase tracking-[0.25em] sm:tracking-[0.3em] text-white font-medium">
               Saved Bookmarks ({bookmarks.length})
             </h2>
           </div>
@@ -46,14 +46,14 @@ export default function BookmarksDrawer({ isOpen, onClose, onSelectBookmark, boo
                   onSelectBookmark(bm)
                   onClose()
                 }}
-                className="group border border-white/5 hover:border-white/20 rounded-md p-5 bg-white/[0.01] hover:bg-white/[0.03] cursor-pointer transition-all duration-300 flex flex-col justify-between gap-3"
+                className="group border border-white/5 hover:border-white/20 rounded-md p-4 sm:p-5 bg-white/[0.01] hover:bg-white/[0.03] cursor-pointer transition-all duration-300 flex flex-col justify-between gap-3"
               >
                 <div className="flex items-start justify-between gap-4">
                   <div>
                     <span className="text-[8px] tracking-[0.2em] font-mono text-secondary uppercase">
                       {bm.chapterLabel || 'Chapter'} {bm.scrollPercent ? `· ${bm.scrollPercent}% read` : ''}
                     </span>
-                    <h3 className="text-lg font-serif italic text-white group-hover:translate-x-1 transition-transform">
+                    <h3 className="text-base sm:text-lg font-serif italic text-white group-hover:translate-x-1 transition-transform">
                       {bm.chapterTitle || 'Untitled Section'}
                     </h3>
                     <p className="text-[9px] tracking-[0.2em] uppercase text-secondary/70 mt-0.5">
@@ -66,7 +66,7 @@ export default function BookmarksDrawer({ isOpen, onClose, onSelectBookmark, boo
                       e.stopPropagation()
                       onDeleteBookmark(bm.id)
                     }}
-                    className="text-secondary/40 hover:text-red-400 text-xs p-1.5 transition-colors"
+                    className="text-secondary/40 hover:text-red-400 text-sm p-2 sm:p-1.5 transition-colors shrink-0"
                     title="Delete Bookmark"
                   >
                     ✕

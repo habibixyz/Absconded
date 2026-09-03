@@ -409,17 +409,17 @@ export default function Transcoder({ onOpenBook, theme }) {
   }, [filteredCatalog, remoteResults])
 
   return (
-    <section className="pt-40 pb-20 px-6 max-w-6xl mx-auto fade-in">
-      <header className="mb-14 text-center">
+    <section className="pt-24 sm:pt-40 pb-20 px-4 sm:px-6 max-w-6xl mx-auto fade-in">
+      <header className="mb-10 sm:mb-14 text-center">
         <p className="text-xs uppercase tracking-[0.4em] text-secondary mb-4">Distraction-Free Reading Engine</p>
-        <h1 className="text-4xl sm:text-6xl font-serif italic text-white mb-6">The Universal Reader</h1>
+        <h1 className="text-3xl sm:text-6xl font-serif italic text-white mb-4 sm:mb-6">The Universal Reader</h1>
         <p className="text-sm font-light text-secondary max-w-2xl mx-auto leading-relaxed">
           Read any literature in the Absconded interface. Browse and search <span className="text-white">70,000+ public domain classics</span> (Kafka, Dostoevsky, Nietzsche, Shelley, Plato, Shakespeare, etc.) or drag-and-drop your own <span className="text-white font-mono">.epub</span>, <span className="text-white font-mono">.txt</span>, or <span className="text-white font-mono">.md</span> files for instant private reading.
         </p>
       </header>
 
       {/* Navigation Tabs */}
-      <div className="flex flex-wrap justify-center gap-6 sm:gap-8 mb-12 border-b border-white/5 pb-4">
+      <div className="flex flex-wrap justify-center gap-4 sm:gap-8 mb-8 sm:mb-12 border-b border-white/5 pb-4">
         {[
           { id: "explore", label: `Classic Books (${CLASSICS_CATALOG.length})` },
           { id: "upload", label: "Upload Book (EPUB / TXT)" },
