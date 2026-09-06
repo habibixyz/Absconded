@@ -1,4 +1,30 @@
 User-agent: *
 Allow: /
+Disallow: /api/
+
+# Google
+User-agent: Googlebot
+Allow: /
+Disallow: /api/
+Crawl-delay: 0
+
+# Bing
+User-agent: Bingbot
+Allow: /
+Disallow: /api/
+Crawl-delay: 1
+
+# Block AI scrapers that don't respect copyright / training requests
+User-agent: GPTBot
+Disallow: /
+
+User-agent: CCBot
+Disallow: /
+
+User-agent: anthropic-ai
+Disallow: /
+
+User-agent: Claude-Web
+Disallow: /
 
 Sitemap: https://vyrm.space/sitemap.xml

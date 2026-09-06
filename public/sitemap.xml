@@ -1,9 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+
+  <!-- Home / Library Shelf -->
   <url>
     <loc>https://vyrm.space/</loc>
-    <lastmod>2026-09-01</lastmod>
-    <changefreq>daily</changefreq>
+    <lastmod>2026-09-06</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://vyrm.space/absconded-cover.png</image:loc>
+      <image:title>Absconded — Digital Manuscript Library by VYRM</image:title>
+    </image:image>
   </url>
+
+  <!-- The Universal Reader (Transcoder / Classics) -->
+  <url>
+    <loc>https://vyrm.space/#reader</loc>
+    <lastmod>2026-09-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- The Oracle (Semantic Search) -->
+  <url>
+    <loc>https://vyrm.space/#oracle</loc>
+    <lastmod>2026-09-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- The Signal Feed -->
+  <url>
+    <loc>https://vyrm.space/#signals</loc>
+    <lastmod>2026-09-06</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- About / Behind the Signal -->
+  <url>
+    <loc>https://vyrm.space/#about</loc>
+    <lastmod>2026-09-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- The Storehouse (Physical Books) -->
+  <url>
+    <loc>https://vyrm.space/#storehouse</loc>
+    <lastmod>2026-09-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
 </urlset>

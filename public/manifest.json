@@ -1,0 +1,36 @@
+{
+  "name": "Absconded — Scriptorium by VYRM",
+  "short_name": "Absconded",
+  "description": "Digital manuscripts by Tanvir Khan and a distraction-free Universal Reader for 70,000+ public domain classics. Free. Beautiful. OLED-native.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#050505",
+  "theme_color": "#050505",
+  "lang": "en",
+  "categories": ["books", "education", "lifestyle"],
+  "icons": [
+    {
+      "src": "/icon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/favicon.ico",
+      "sizes": "any",
+      "type": "image/x-icon"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/absconded-cover.png",
+      "sizes": "800x1200",
+      "type": "image/png",
+      "label": "Absconded manuscript cover — digital library by VYRM"
+    }
+  ],
+  "related_applications": [],
+  "prefer_related_applications": false
+}

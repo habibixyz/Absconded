@@ -252,6 +252,27 @@ export default function Home() {
   const [bookmarks, setBookmarks] = useState([])
   const [bookmarksOpen, setBookmarksOpen] = useState(false)
   const [bookmarkToast, setBookmarkToast] = useState("")
+  const [showScrollTop, setShowScrollTop] = useState(false)
+
+  // Track scroll position for instant Back to Top button (only show outside reader)
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrolled = window.scrollY || document.documentElement.scrollTop
+      // Only show the scroll-to-top button when not inside a chapter reading view
+      const isInsideReader = page === "book" && selectedChapter
+      setShowScrollTop(!isInsideReader && scrolled > 280)
+    }
+    window.addEventListener("scroll", handleScroll, { passive: true })
+    handleScroll()
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [page, selectedChapter])
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    })
+  }
 
   // Load bookmarks on mount
   useEffect(() => {
@@ -355,9 +376,19 @@ export default function Home() {
             } catch (e) {}
           }
           if (targetBook) {
+            if (targetBook.sections) {
+              targetBook = {
+                ...targetBook,
+                sections: targetBook.sections.filter(s => {
+                  const text = s.content ? s.content.map(c => c.text || "").join(" ") : ""
+                  const romanCount = (text.match(/\b(?:I|II|III|IV|V|VI|VII|VIII|IX|X|XI|XII|XIII|XIV|XV)\.\s+[A-Z]/g) || []).length
+                  return !(romanCount >= 2 && (s.title.toLowerCase().includes("introduction") || s.title.toLowerCase().includes("contents") || s.title.toLowerCase().includes("inception")))
+                })
+              }
+            }
             setSelectedBook(targetBook)
             if (parsed.chapterId) {
-              const targetChapter = targetBook.sections.find(c => c.id === parsed.chapterId)
+              const targetChapter = targetBook.sections?.find(c => c.id === parsed.chapterId) || targetBook.sections?.[0]
               if (targetChapter) {
                 setSelectedChapter(targetChapter)
                 if (targetBook.parts) {
@@ -650,8 +681,20 @@ export default function Home() {
 
   // Handle clicking a book card
   const handleSelectBook = (book) => {
+    let cleanBook = book
+    if (cleanBook && cleanBook.sections) {
+      const cleanSections = cleanBook.sections.filter(s => {
+        const text = s.content ? s.content.map(c => c.text || "").join(" ") : ""
+        const romanCount = (text.match(/\b(?:I|II|III|IV|V|VI|VII|VIII|IX|X|XI|XII|XIII|XIV|XV)\.\s+[A-Z]/g) || []).length
+        return !(romanCount >= 2 && (s.title.toLowerCase().includes("introduction") || s.title.toLowerCase().includes("contents") || s.title.toLowerCase().includes("inception")))
+      })
+      if (cleanSections.length > 0) {
+        cleanBook = { ...cleanBook, sections: cleanSections }
+      }
+    }
+
     navigate(() => {
-      setSelectedBook(book)
+      setSelectedBook(cleanBook)
       setPage("book")
       setShowCover(true)
       setSelectedChapter(null)
@@ -1210,12 +1253,29 @@ export default function Home() {
       {page === "book" && selectedBook && showCover && (
         <section className="min-h-screen flex items-center justify-center px-4 sm:px-6 pt-16 sm:pt-20 fade-in">
           <div className="text-center max-w-2xl">
-            <p className="text-[9px] tracking-[0.4em] uppercase text-secondary mb-6 sm:mb-10">{selectedBook.subtitle} {"\u00B7"} {calculateBookReadingTime(selectedBook)} read</p>
+            {selectedBook.coverImage && (
+              <div className="mx-auto mb-8 w-44 sm:w-52 aspect-[2/3] relative rounded shadow-2xl overflow-hidden border border-white/10 group bg-black/50">
+                <img 
+                  src={selectedBook.coverImage} 
+                  alt={selectedBook.title}
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  onError={(e) => { e.currentTarget.style.display = 'none'; }}
+                />
+              </div>
+            )}
+            <p className="text-[9px] tracking-[0.4em] uppercase text-secondary mb-6 sm:mb-8">{selectedBook.subtitle} {"\u00B7"} {calculateBookReadingTime(selectedBook)} read</p>
             <h1 className="text-4xl sm:text-6xl md:text-8xl font-serif italic mb-6 sm:mb-8 tracking-tight leading-none px-2">{selectedBook.title}</h1>
-            <div className="w-16 h-[1px] bg-white/20 mx-auto mb-8 sm:mb-12" />
-            <div className="mb-16 text-secondary font-light leading-relaxed font-serif italic text-lg">
+            <div className="w-16 h-[1px] bg-white/20 mx-auto mb-8 sm:mb-10" />
+            <div className="mb-10 text-secondary font-light leading-relaxed font-serif italic text-lg px-4">
               {selectedBook.coverQuote || '"The beginning is always today."'}
             </div>
+
+            {selectedBook.credits && (
+              <div className="max-w-lg mx-auto mb-10 p-3.5 border border-white/10 rounded-sm bg-white/[0.02] text-[10px] tracking-[0.05em] text-secondary/70 font-mono leading-relaxed">
+                <span className="text-white/80 uppercase font-semibold">Provenance: </span>
+                {selectedBook.credits}
+              </div>
+            )}
             
             <div className="flex flex-col md:flex-row gap-4 justify-center items-center">
               <button 
@@ -1226,8 +1286,12 @@ export default function Home() {
               </button>
             </div>
 
-            <div className="mt-20 text-[9px] tracking-[0.2em] text-secondary/40 uppercase">
-              Mumbai {"\u00B7"} Twenty-Twenty-Six
+            <div className="mt-16 text-[9px] tracking-[0.2em] text-secondary/40 uppercase">
+              {books.some(b => b.id === selectedBook.id) ? (
+                "Mumbai · Twenty-Twenty-Six"
+              ) : (
+                `${selectedBook.edition ? `${selectedBook.edition} · ` : ""}Verified Public Domain · Distraction-Free Edition`
+              )}
             </div>
           </div>
         </section>
@@ -1324,13 +1388,16 @@ export default function Home() {
             </div>
           )}
 
-          <div className="mt-32 flex items-center gap-6 opacity-40 hover:opacity-100 transition-opacity duration-1000">
-            <img src="/author.png" className="w-12 h-12 rounded-full grayscale object-cover" alt="Author" />
-            <div className="flex flex-col">
-              <span className="text-[9px] tracking-[0.3em] uppercase text-secondary">Written by</span>
-              <span className="text-sm font-serif italic">Tanvir Khan</span>
+          {/* Only show "Written by Tanvir Khan" on front-page books */}
+          {books.some(b => b.id === selectedBook.id) && (
+            <div className="mt-32 flex items-center gap-6 opacity-40 hover:opacity-100 transition-opacity duration-1000">
+              <img src="/author.png" className="w-12 h-12 rounded-full grayscale object-cover" alt="Author" />
+              <div className="flex flex-col">
+                <span className="text-[9px] tracking-[0.3em] uppercase text-secondary">Written by</span>
+                <span className="text-sm font-serif italic">Tanvir Khan</span>
+              </div>
             </div>
-          </div>
+          )}
         </section>
       )}
 
@@ -1339,8 +1406,14 @@ export default function Home() {
         <section className="pt-24 sm:pt-36 pb-24 sm:pb-32 px-4 sm:px-6 fade-in">
           <div className="book-container">
             <header className="mb-12 sm:mb-20 text-center">
-              <div className="text-[10px] tracking-[0.3em] text-secondary mb-4 uppercase">
-                {selectedChapter.label}
+              <div className="text-[10px] tracking-[0.3em] text-secondary mb-3 uppercase flex items-center justify-center gap-2">
+                <span>{selectedChapter.label}</span>
+                {getChapterStats() && (
+                  <>
+                    <span className="text-white/20">·</span>
+                    <span className="text-secondary/60 font-mono">Part {getChapterStats().current} of {getChapterStats().total}</span>
+                  </>
+                )}
               </div>
               <h1 className="text-3xl sm:text-4xl md:text-5xl font-serif italic leading-tight px-2">
                 {selectedChapter.title}
@@ -1434,12 +1507,20 @@ export default function Home() {
 
               {/* Navigation within reading view */}
               <div className="mt-32 pt-16 border-t border-white/5">
-                <div className="flex items-center justify-between gap-8">
+                <div className="flex items-center justify-between gap-4 sm:gap-8">
                   <button 
                     onClick={() => navigate(() => setSelectedChapter(null))}
                     className="text-[9px] tracking-[0.3em] uppercase text-secondary hover:text-white transition-colors flex items-center gap-2"
                   >
                     <span>{"\u2190"}</span> Index
+                  </button>
+
+                  <button
+                    onClick={scrollToTop}
+                    className="text-[9px] tracking-[0.25em] uppercase text-secondary/60 hover:text-white transition-colors flex items-center gap-1.5 border border-white/10 hover:border-white/30 px-3.5 py-1.5 rounded-full bg-white/[0.02]"
+                    title="Return to top of chapter"
+                  >
+                    <span>{"\u2191"}</span> Top
                   </button>
 
                   <button 
@@ -2075,6 +2156,21 @@ export default function Home() {
           </div>
         </div>
       )}
+
+      {/* Global Floating Scroll To Top Button */}
+      <button
+        onClick={scrollToTop}
+        aria-label="Scroll back to top"
+        className={`fixed bottom-6 right-6 sm:bottom-8 sm:right-8 z-[75] flex items-center justify-center gap-1.5 px-3.5 py-2.5 rounded-full bg-black/85 backdrop-blur-md border border-white/20 hover:border-white hover:bg-white hover:text-black text-white shadow-[0_8px_32px_rgba(0,0,0,0.8)] transition-all duration-300 group cursor-pointer ${
+          showScrollTop ? "opacity-100 translate-y-0 scale-100 pointer-events-auto" : "opacity-0 translate-y-4 scale-95 pointer-events-none"
+        }`}
+        title="Instantly return to top of page"
+      >
+        <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4 transition-transform group-hover:-translate-y-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M5 10l7-7m0 0l7 7m-7-7v18" />
+        </svg>
+        <span className="text-[8px] sm:text-[9px] tracking-[0.25em] uppercase font-mono font-medium pr-0.5">Top</span>
+      </button>
     </>
   )
 }

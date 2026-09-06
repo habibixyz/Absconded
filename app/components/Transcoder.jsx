@@ -77,20 +77,36 @@ export default function Transcoder({ onOpenBook, theme }) {
     setStatusMessage(`Searching extended public domain archive for "${searchQuery}"...`)
 
     try {
-      const controller = new AbortController()
-      const timeoutId = setTimeout(() => controller.abort(), 6000)
-
       let data = null
+
+      // 1. Primary: server-side Next.js proxy route (no CORS on Vercel/prod)
       try {
+        const controller = new AbortController()
+        const timeoutId = setTimeout(() => controller.abort(), 6000)
         const localApiRes = await fetch(`/api/transcode?search=${encodeURIComponent(searchQuery.trim())}`, {
           signal: controller.signal
         })
+        clearTimeout(timeoutId)
         if (localApiRes.ok) {
           data = await localApiRes.json()
         }
-      } catch (err) {}
+      } catch (err) {
+        console.warn("Local API deep search bypassed, trying direct:", err.message)
+      }
 
-      clearTimeout(timeoutId)
+      // 2. Fallback: call gutendex.com directly from browser (works locally)
+      if (!data || !data.results) {
+        try {
+          const directRes = await fetch(`https://gutendex.com/books?search=${encodeURIComponent(searchQuery.trim())}`, {
+            headers: { 'Accept': 'application/json' }
+          })
+          if (directRes.ok) {
+            data = await directRes.json()
+          }
+        } catch (err) {
+          console.warn("Direct gutendex search failed:", err.message)
+        }
+      }
 
       const results = (data && data.results) ? data.results : []
       const formatted = results.slice(0, 18).map(item => {
@@ -127,127 +143,229 @@ export default function Transcoder({ onOpenBook, theme }) {
     }
   }
 
-  // Parse raw text into Absconded Chapter & Section Structure
+  // Parse raw text stream into beautifully formatted, balanced chapters
   const parseRawTextToBook = (rawText, title, author = "Public Domain Archive") => {
-    let cleanText = rawText
-    const startIdx = cleanText.search(/\*\*\* START OF (THE|THIS) PROJECT GUTENBERG/i)
+    let text = rawText || ""
+
+    // Strip Gutenberg header and footer blocks
+    const startIdx = text.search(/\*\*\* START OF (THE|THIS) PROJECT GUTENBERG/i)
     if (startIdx !== -1) {
-      const endHeaderIdx = cleanText.indexOf('\n', startIdx)
-      cleanText = cleanText.substring(endHeaderIdx + 1)
+      const endHeaderIdx = text.indexOf('\n', startIdx)
+      text = text.substring(endHeaderIdx + 1)
     }
-    const endIdx = cleanText.search(/\*\*\* END OF (THE|THIS) PROJECT GUTENBERG/i)
+    const endIdx = text.search(/\*\*\* END OF (THE|THIS) PROJECT GUTENBERG/i)
     if (endIdx !== -1) {
-      cleanText = cleanText.substring(0, endIdx)
+      text = text.substring(0, endIdx)
     }
 
-    const lines = cleanText.split(/\r?\n/)
-    const chapters = []
-    let currentChapter = {
-      id: "chapter-1",
-      number: 1,
-      label: "Chapter One",
-      title: "Inception",
-      epigraph: "",
-      content: []
-    }
+    // Strip illustrations and transcriber notes
+    text = text.replace(/\[Illustration:[^\]]*\]/gi, '')
+    text = text.replace(/\[Illustration\]/gi, '')
+    text = text.replace(/Transcriber[’']s Notes?:[\s\S]*?(?=\n\s*\n\s*[A-Z])/gi, '')
 
-    let currentParagraph = []
-    const chapterRegex = /^(?:CHAPTER|Chapter|BOOK|Book|PART|Part|ACT|Act|SCENE|Scene|SECTION|Section|LETTER|Letter|STAVE|Stave)\s+([IVXLCDM0-9]+)?(?:\s*[:.\-—]\s*(.*))?$/i
-    let chapterCount = 0
-
-    const pushParagraph = () => {
-      if (currentParagraph.length > 0) {
-        const text = currentParagraph.join(" ").trim()
-        if (text.length > 0) {
-          if (text.length < 140 && (text.startsWith('"') || text.startsWith('“') || text.endsWith('"') || text.endsWith('”'))) {
-            currentChapter.content.push({ type: "pull", text })
-          } else {
-            currentChapter.content.push({ type: "p", text })
-          }
-        }
-        currentParagraph = []
-      }
-    }
+    // Strip Table of Contents blocks (from 'Contents' until the first real Chapter or Preface)
+    const lines = text.split(/\r?\n/)
+    let inTOC = false
+    const filteredLines = []
 
     for (let i = 0; i < lines.length; i++) {
       const line = lines[i].trim()
-
-      if (!line) {
-        pushParagraph()
+      if (/^(?:Contents|Table of Contents|INDEX)$/i.test(line)) {
+        inTOC = true
         continue
       }
-
-      const match = line.match(chapterRegex)
-      if (match || (line.length < 40 && line.toUpperCase() === line && line.length > 3 && !line.includes('.'))) {
-        pushParagraph()
-        if (currentChapter.content.length > 0) {
-          chapters.push(currentChapter)
-          chapterCount++
-          currentChapter = {
-            id: `chapter-${chapterCount + 1}`,
-            number: chapterCount + 1,
-            label: `Chapter ${chapterCount + 1}`,
-            title: line.replace(/^[#\s*]+/, '').trim() || `Chapter ${chapterCount + 1}`,
-            epigraph: "",
-            content: []
-          }
-          continue
+      if (inTOC) {
+        if (/^(?:CHAPTER|BOOK|PART|ACT|STAVE|LETTER)\s+(?:[IVXLCDM0-9]+|ONE|FIRST)\b/i.test(line) ||
+            /^(?:PREFACE|FOREWORD|PROLOGUE|INTRODUCTION)\b/i.test(line)) {
+          inTOC = false
         } else {
-          currentChapter.title = line
           continue
         }
       }
-
-      currentParagraph.push(line)
+      filteredLines.push(lines[i])
     }
 
-    pushParagraph()
-    if (currentChapter.content.length > 0) {
-      chapters.push(currentChapter)
+    const rawParagraphs = []
+    let currentP = []
+
+    for (let line of filteredLines) {
+      const trimmed = line.trim()
+      if (!trimmed) {
+        if (currentP.length > 0) {
+          rawParagraphs.push(currentP.join(' ').trim())
+          currentP = []
+        }
+        continue
+      }
+      // Skip decorative divider lines (* * *, ---, ===)
+      if (/^[\*\-_=\s]{3,}$/.test(trimmed)) {
+        if (currentP.length > 0) {
+          rawParagraphs.push(currentP.join(' ').trim())
+          currentP = []
+        }
+        continue
+      }
+      currentP.push(trimmed)
+    }
+    if (currentP.length > 0) rawParagraphs.push(currentP.join(' ').trim())
+
+    // Identify Table of Contents blocks that got joined into a single paragraph
+    const isTOCParagraph = (p) => {
+      const romanCount = (p.match(/\b(?:I|II|III|IV|V|VI|VII|VIII|IX|X|XI|XII|XIII|XIV|XV)\.\s+[A-Z]/g) || []).length
+      if (romanCount >= 2) return true
+      const chapCount = (p.match(/\b(?:CHAPTER|Chapter)\s+[0-9IVXLCDM]+/gi) || []).length
+      if (chapCount >= 2) return true
+      return false
     }
 
-    // If no chapters detected or only 1 huge chapter, chunk into readable ~1,200 word sections
-    if (chapters.length <= 1 && (chapters[0]?.content?.length || 0) > 25) {
-      const allContent = chapters[0]?.content || []
-      const chunked = []
-      const chunkSize = 20
-      for (let i = 0; i < allContent.length; i += chunkSize) {
-        const partNum = Math.floor(i / chunkSize) + 1
-        chunked.push({
-          id: `section-${partNum}`,
-          number: partNum,
-          label: `Section ${String(partNum).padStart(2, '0')}`,
-          title: partNum === 1 ? "Inception" : `Part ${partNum}`,
+    // Identify front-matter boilerplate (publisher info, prices, TOC listings)
+    const isJunkLine = (p) => {
+      if (p.length < 3) return true
+      if (isTOCParagraph(p)) return true
+      if (/^(PRICE|PUBLISHED BY|COPYRIGHT|PRINTED IN|NEW YORK|LONDON|BOSTON|HOLYOKE|ALL RIGHTS RESERVED|Produced by|Author of)/i.test(p)) return true
+      if (/^BY\s+[A-Z\s\.]+$/i.test(p)) return true
+      if (/^CONTENTS$/i.test(p) || /^TABLE OF CONTENTS$/i.test(p) || /^PAGE$/i.test(p)) return true
+      if (/^(?:[IVXLCDM0-9]+[\.\s]+[A-Z\s,–—\-]+(?:\s+[0-9]+)?)$/i.test(p) && p.length < 80) return true
+      return false
+    }
+
+    // Locate the actual narrative starting point
+    let startIndex = 0
+    for (let i = 0; i < Math.min(rawParagraphs.length, 40); i++) {
+      const p = rawParagraphs[i]
+      if (p.length > 120 && !isJunkLine(p)) {
+        if (i > 0 && rawParagraphs[i - 1].length < 80 && !isJunkLine(rawParagraphs[i - 1])) {
+          startIndex = i - 1
+        } else {
+          startIndex = i
+        }
+        break
+      }
+    }
+
+    const cleanParagraphs = rawParagraphs.slice(startIndex).filter(p => !isJunkLine(p))
+
+    // Chapter heading detection
+    const chapterRegex = /^(?:CHAPTER|Chapter|BOOK|Book|PART|Part|ACT|Act|SECTION|Section|STAVE|Stave)\s+([IVXLCDM0-9]+)?(?:\s*[:.\-—]\s*(.*))?$/i
+    const romanTitleRegex = /^(?:[IVXLCDM0-9]+[\.\s]+)([A-Z\s,–—\-]{3,60})$/
+    const namedSectionRegex = /^(?:FOREWORD|PREFACE|PROLOGUE|INTRODUCTION|EPILOGUE|CONCLUSION|SERENITY|THE EPILOGUE)$/i
+
+    const isChapterHeading = (p) => {
+      if (p.length > 80) return false
+      if (chapterRegex.test(p)) return true
+      if (romanTitleRegex.test(p)) return true
+      if (namedSectionRegex.test(p)) return true
+      if (p === p.toUpperCase() && p.length >= 4 && p.length <= 55 && /^[A-Z\s,'’\-—–]+$/.test(p)) {
+        const words = p.split(/\s+/).length
+        return words >= 1 && words <= 8
+      }
+      return false
+    }
+
+    const rawChapters = []
+    let curChapter = { title: "Chapter 1", paragraphs: [] }
+
+    for (let p of cleanParagraphs) {
+      if (isChapterHeading(p) && curChapter.paragraphs.length > 0) {
+        rawChapters.push(curChapter)
+        curChapter = { title: p.replace(/^[#\s*]+/, '').trim(), paragraphs: [] }
+      } else if (isChapterHeading(p) && curChapter.paragraphs.length === 0) {
+        curChapter.title = p.replace(/^[#\s*]+/, '').trim()
+      } else {
+        curChapter.paragraphs.push(p)
+      }
+    }
+    if (curChapter.paragraphs.length > 0) rawChapters.push(curChapter)
+
+    // Merge any orphan short chapters and filter out TOC chapters
+    // A chapter is too short if it has ≤3 paragraphs OR ≤80 words total
+    const validChapters = []
+    for (let c of rawChapters) {
+      if (c.paragraphs.length === 0) continue
+      // If a chapter is actually a TOC block, discard it
+      if (c.paragraphs.some(isTOCParagraph)) continue
+
+      const totalWords = c.paragraphs.join(' ').split(/\s+/).length
+      const isTooShort = (c.paragraphs.length <= 3 && totalWords < 80) ||
+                         (c.paragraphs.length === 1 && totalWords < 120)
+      if (isTooShort && validChapters.length > 0) {
+        // Merge into the previous chapter
+        validChapters[validChapters.length - 1].paragraphs.push(...c.paragraphs)
+      } else {
+        validChapters.push(c)
+      }
+    }
+
+    // Smart Balanced Pagination:
+    // Target 10-16 paragraphs per section. If a chapter is longer, split it.
+    // Minimum 5 paragraphs per section (merge tiny tail chunks into the last section).
+    const finalSections = []
+    let sectionIndex = 1
+    const MIN_SECTION_PARAGRAPHS = 5
+    const MAX_SECTION_PARAGRAPHS = 14
+
+    for (let ch of validChapters) {
+      const pList = ch.paragraphs
+      if (pList.length <= MAX_SECTION_PARAGRAPHS) {
+        finalSections.push({
+          id: `section-${sectionIndex}`,
+          number: sectionIndex,
+          label: `Section ${String(sectionIndex).padStart(2, '0')}`,
+          title: ch.title,
           epigraph: "",
-          content: allContent.slice(i, i + chunkSize)
+          content: pList.map(text => ({
+            type: text.length < 130 && (text.startsWith('"') || text.startsWith('\u201C')) ? "pull" : "p",
+            text
+          }))
+        })
+        sectionIndex++
+      } else {
+        const chunkSize = 10 // ~10 paragraphs per part for comfortable reading
+        const chunks = []
+        for (let i = 0; i < pList.length; i += chunkSize) {
+          chunks.push(pList.slice(i, i + chunkSize))
+        }
+        // If the last chunk is too small, balance it into the previous chunk
+        if (chunks.length > 1 && chunks[chunks.length - 1].length < MIN_SECTION_PARAGRAPHS) {
+          const last = chunks.pop()
+          chunks[chunks.length - 1].push(...last)
+        }
+
+        const totalParts = chunks.length
+        chunks.forEach((slice, idx) => {
+          const partNum = idx + 1
+          finalSections.push({
+            id: `section-${sectionIndex}`,
+            number: sectionIndex,
+            label: `Section ${String(sectionIndex).padStart(2, '0')}`,
+            title: totalParts > 1 ? `${ch.title} · Part ${partNum}` : ch.title,
+            epigraph: "",
+            content: slice.map(text => ({
+              type: text.length < 130 && (text.startsWith('"') || text.startsWith('\u201C')) ? "pull" : "p",
+              text
+            }))
+          })
+          sectionIndex++
         })
       }
-      return {
-        id: `book-${Date.now()}`,
-        type: "manuscript",
-        title: title || "Transcoded Manuscript",
-        subtitle: `Archived by ${author}`,
-        coverQuote: `"Language is the ultimate protocol."`,
-        readingTime: `${Math.ceil(allContent.length * 45 / 60)} min`,
-        description: `Imported manuscript by ${author}. Transcoded for distraction-free synthesis.`,
-        sections: chunked
-      }
     }
+
+    const totalWords = cleanParagraphs.join(' ').split(/\s+/).filter(Boolean).length
 
     return {
       id: `book-${Date.now()}`,
       type: "manuscript",
       title: title || "Transcoded Manuscript",
       subtitle: `Archived by ${author}`,
-      coverQuote: `"Transcoded directly into the Signal Archive."`,
-      readingTime: `${Math.max(15, chapters.length * 8)} min`,
-      description: `Manuscript containing ${chapters.length} chapters by ${author}.`,
-      sections: chapters.length > 0 ? chapters : [{
+      coverQuote: `"Language is the ultimate protocol."`,
+      readingTime: `${Math.ceil(totalWords / 220)} min`,
+      description: `Complete manuscript by ${author}. Structured into ${finalSections.length} balanced reading sections.`,
+      sections: finalSections.length > 0 ? finalSections : [{
         id: "section-1",
         number: 1,
         label: "Manuscript",
         title: title || "Text",
-        content: [{ type: "p", text: rawText }]
+        content: cleanParagraphs.map(text => ({ type: "p", text }))
       }]
     }
   }
@@ -299,7 +417,14 @@ export default function Transcoder({ onOpenBook, theme }) {
 
       const book = parseRawTextToBook(rawText, item.title, item.author)
       book.id = item.id
-      book.coverImage = item.coverImage || "/cover-manuscript.png"
+      book.coverImage = item.coverImage || (item.gutenbergId ? `https://www.gutenberg.org/cache/epub/${item.gutenbergId}/pg${item.gutenbergId}.cover.medium.jpg` : "/cover-manuscript.png")
+      book.credits = item.credits || (item.gutenbergId ? `Archived via Project Gutenberg (#${item.gutenbergId}). Verified Public Domain.` : "")
+      book.edition = item.edition || ""
+      book.year = item.year || ""
+      if (item.keyQuote) {
+        book.coverQuote = `"${item.keyQuote}"`
+      }
+      book.coverTag = item.coverTag || "Public Domain Classic"
       
       persistCustomBook(book)
       setStatusMessage("")
@@ -491,10 +616,11 @@ export default function Transcoder({ onOpenBook, theme }) {
           <div className="flex flex-wrap justify-center gap-3">
             {[
               { id: "all", label: `All (${CLASSICS_CATALOG.length})` },
+              { id: "success", label: "Mindset & Wealth (Success Codex)" },
               { id: "existential", label: "Existential & Psychological" },
-              { id: "scifi", label: "Sci-Fi & Gothic" },
               { id: "philosophy", label: "Philosophy & Sovereignty" },
               { id: "strategy", label: "Strategy & Power" },
+              { id: "scifi", label: "Sci-Fi & Gothic" },
               { id: "literature", label: "Literary Epics" }
             ].map((cat) => (
               <button
@@ -549,9 +675,10 @@ export default function Transcoder({ onOpenBook, theme }) {
                 {allDisplayBooks.map((book) => (
                   <div
                     key={book.id}
-                    className="group border border-white/5 hover:border-white/20 rounded-sm bg-white/[0.01] hover:bg-white/[0.02] p-8 transition-all duration-500 flex flex-col justify-between"
+                    className="group border border-white/5 hover:border-white/20 rounded-sm bg-white/[0.01] hover:bg-white/[0.02] p-6 sm:p-7 transition-all duration-500 flex flex-col justify-between"
                   >
                     <div>
+                      {/* Top Header: Tag & Reading Time */}
                       <div className="flex justify-between items-start gap-4 mb-4">
                         <span className="text-[8px] tracking-[0.2em] uppercase px-2 py-0.5 border border-white/10 text-secondary">
                           {book.coverTag || "Public Domain"}
@@ -560,21 +687,60 @@ export default function Transcoder({ onOpenBook, theme }) {
                           {book.readingTime || "Classic"}
                         </span>
                       </div>
-                      <h4 className="text-2xl font-serif italic text-white mb-2 group-hover:translate-x-1 transition-transform">
-                        {book.title}
-                      </h4>
-                      <p className="text-[9px] tracking-[0.3em] uppercase text-secondary mb-4">
-                        {book.author} {book.year ? `· ${book.year}` : ''}
-                      </p>
-                      <p className="text-xs font-light text-secondary/70 leading-relaxed mb-8 line-clamp-3">
-                        {book.description || book.subjects}
-                      </p>
+
+                      {/* Cover Image & Metadata Layout */}
+                      <div className="flex gap-4 sm:gap-5 mb-4 items-start">
+                        {(book.coverImage || book.gutenbergId) && (
+                          <div className="w-20 sm:w-24 aspect-[2/3] flex-shrink-0 relative overflow-hidden rounded-sm border border-white/10 bg-black/40 shadow-xl group-hover:border-white/30 transition-all">
+                            <img
+                              src={book.coverImage || `https://www.gutenberg.org/cache/epub/${book.gutenbergId}/pg${book.gutenbergId}.cover.medium.jpg`}
+                              alt={book.title}
+                              loading="lazy"
+                              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                              onError={(e) => {
+                                e.currentTarget.style.display = 'none';
+                              }}
+                            />
+                          </div>
+                        )}
+                        <div className="flex-1 min-w-0">
+                          <h4 className="text-xl sm:text-2xl font-serif italic text-white mb-1.5 group-hover:translate-x-0.5 transition-transform leading-snug">
+                            {book.title}
+                          </h4>
+                          <p className="text-[9px] tracking-[0.25em] uppercase text-secondary mb-2">
+                            {book.author} {book.year ? `· ${book.year}` : ''}
+                          </p>
+                          {book.edition && (
+                            <p className="text-[8px] tracking-[0.15em] uppercase text-secondary/60 font-mono mb-2">
+                              {book.edition}
+                            </p>
+                          )}
+                          <p className="text-xs font-light text-secondary/70 leading-relaxed line-clamp-3">
+                            {book.description || book.subjects}
+                          </p>
+                        </div>
+                      </div>
+
+                      {/* Key Quote if available */}
+                      {book.keyQuote && (
+                        <div className="mb-4 pl-3 border-l border-white/20 text-xs italic font-serif text-secondary/80">
+                          "{book.keyQuote}"
+                        </div>
+                      )}
+
+                      {/* Proper Respects & Credits Provenance */}
+                      {book.credits && (
+                        <div className="mb-5 p-2.5 border border-white/5 rounded-sm bg-white/[0.01] text-[9px] font-mono text-secondary/50 leading-relaxed">
+                          <span className="text-secondary/80 uppercase font-semibold">Provenance: </span>
+                          {book.credits}
+                        </div>
+                      )}
                     </div>
 
                     <button
                       onClick={() => handleLoadGutenberg(book)}
                       disabled={loadingBookId === book.id}
-                      className="w-full py-3.5 border border-white/10 hover:border-white hover:bg-white hover:text-bg text-[9px] tracking-[0.3em] uppercase transition-all duration-300 rounded-sm font-medium disabled:opacity-50"
+                      className="w-full py-3.5 border border-white/10 hover:border-white hover:bg-white hover:text-bg text-[9px] tracking-[0.3em] uppercase transition-all duration-300 rounded-sm font-medium disabled:opacity-50 mt-2"
                     >
                       {loadingBookId === book.id ? "Opening Manuscript..." : "Read Manuscript →"}
                     </button>
