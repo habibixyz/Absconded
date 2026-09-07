@@ -143,17 +143,6 @@ const timelineSignals = [
 
 const storeProducts = [
   {
-    id: "absconded-chapbook",
-    title: "Absconded",
-    subtitle: "Premium Softcover Zine",
-    description: "The complete 45-minute manuscript exploring the transition from stable retail procurement to internet-native builder identity. Perfect-bound in matte black with white terminal logs.",
-    priceUsd: 12,
-    priceInr: 999,
-    coverImage: "/absconded-cover.png",
-    editionSize: 150,
-    paymentLink: "https://rzp.io/rzp/o6sgTed"
-  },
-  {
     id: "mask-beneath-chapbook",
     title: "The Mask Beneath",
     subtitle: "Premium Softcover Zine",
