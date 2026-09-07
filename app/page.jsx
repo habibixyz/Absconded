@@ -8,6 +8,18 @@ import BookmarksDrawer from './components/BookmarksDrawer'
 // Timeline Signals Log for the Developer Signals Feed
 const timelineSignals = [
   {
+    id: 112,
+    type: "CORE",
+    date: "2026.09.07",
+    text: "Android & iOS Native Architecture: Direct APK download modal deployed, Capacitor native lifecycle integration, hierarchical hardware back-button dismissals, and automated GitHub Actions cloud builder workflow configured."
+  },
+  {
+    id: 111,
+    type: "BUILD",
+    date: "2026.09.07",
+    text: "Viewport & Scroll Architecture: Resolved root scroll event capturing, scoped touch-action manipulation to interactive controls, added safe-area insets for iPhone Dynamic Island and Android navigation bars, and enabled full-screen Apple Web App capabilities."
+  },
+  {
     id: 109,
     type: "CORE",
     date: "2026.09.01",
@@ -205,8 +217,8 @@ function ScrollProgressBar({ content }) {
   }, [])
 
   return (
-    <div className="fixed left-0 right-0 z-[65] h-[2px] bg-white/5" style={{ top: "calc(var(--safe-area-top, 0px) + env(safe-area-inset-top, 0px))" }}>
-      <div className="h-full bg-white transition-all duration-100 shadow-[0_0_8px_rgba(255,255,255,0.4)]" style={{ width: `${progress}%` }} />
+    <div className="fixed left-0 right-0 z-[65] h-[2px] bg-white/5 pointer-events-none" style={{ top: "calc(var(--safe-area-top, 0px) + env(safe-area-inset-top, 0px))" }}>
+      <div className="h-full bg-white transition-all duration-100 shadow-[0_0_8px_rgba(255,255,255,0.4)] pointer-events-none" style={{ width: `${progress}%` }} />
     </div>
   )
 }
@@ -253,6 +265,7 @@ export default function Home() {
   const [bookmarksOpen, setBookmarksOpen] = useState(false)
   const [bookmarkToast, setBookmarkToast] = useState("")
   const [showScrollTop, setShowScrollTop] = useState(false)
+  const [apkModalOpen, setApkModalOpen] = useState(false)
 
   // Track scroll position for instant Back to Top button (only show outside reader)
   useEffect(() => {
@@ -263,7 +276,6 @@ export default function Home() {
       setShowScrollTop(!isInsideReader && scrolled > 280)
     }
     window.addEventListener("scroll", handleScroll, { passive: true })
-    handleScroll()
     return () => window.removeEventListener("scroll", handleScroll)
   }, [page, selectedChapter])
 
@@ -286,13 +298,10 @@ export default function Home() {
     }
   }, [])
 
-  // Fetch book reader stats
+  // Fetch initial reader statistics
   useEffect(() => {
     fetch('/api/stats')
-      .then(res => {
-        if (!res.ok) throw new Error("API not available");
-        return res.json();
-      })
+      .then(res => res.json())
       .then(data => {
         if (data && data.stats) {
           setBookStats(data.stats)
@@ -310,9 +319,9 @@ export default function Home() {
     document.documentElement.setAttribute("data-theme", resolved)
   }, [])
 
-  // Disable body scroll when menu or checkout is open
+  // Disable body scroll when menu, checkout, or app modal is open
   useEffect(() => {
-    if (menuOpen || checkoutProduct) {
+    if (menuOpen || checkoutProduct || apkModalOpen) {
       document.body.style.overflow = 'hidden'
     } else {
       document.body.style.overflow = ''
@@ -320,7 +329,7 @@ export default function Home() {
     return () => {
       document.body.style.overflow = ''
     }
-  }, [menuOpen, checkoutProduct])
+  }, [menuOpen, checkoutProduct, apkModalOpen])
 
   const handleThemeChange = (newTheme) => {
     setTheme(newTheme)
@@ -978,8 +987,8 @@ export default function Home() {
 
       {/* Full-Screen Overlay Navigation Menu */}
       <div 
-        className={`fixed inset-0 z-40 bg-bg/95 backdrop-blur-xl transition-all duration-500 ease-in-out overflow-y-auto overscroll-contain ${
-          menuOpen ? "opacity-100 pointer-events-auto visible" : "opacity-0 pointer-events-none invisible"
+        className={`fixed inset-0 z-40 bg-bg/95 backdrop-blur-xl transition-all duration-300 ease-in-out ${
+          menuOpen ? "opacity-100 pointer-events-auto visible overflow-y-auto overscroll-contain" : "opacity-0 pointer-events-none invisible hidden"
         }`}
       >
         {/* Decorative Grid Lines */}
@@ -1044,6 +1053,25 @@ export default function Home() {
                 </span>
               </button>
             )}
+
+            {/* Mobile App Download & Install Button */}
+            <button
+              onClick={() => {
+                setMenuOpen(false);
+                setApkModalOpen(true);
+              }}
+              className="group text-left flex items-baseline gap-4 outline-none pt-4 border-t border-white/5"
+            >
+              <span className="text-[10px] sm:text-xs font-mono text-secondary tracking-widest opacity-40">
+                ⤓
+              </span>
+              <span className="text-xl sm:text-3xl font-serif italic text-white/90 hover:text-white transition-colors flex items-center gap-3">
+                <span>Get App (.APK)</span>
+                <span className="text-[8px] font-mono tracking-widest uppercase px-2.5 py-0.5 border border-white/20 rounded-full text-white/80 bg-white/5">
+                  Android & iOS
+                </span>
+              </span>
+            </button>
           </div>
 
           {/* Theme Switcher & Details */}
@@ -1924,7 +1952,14 @@ export default function Home() {
       {/* Footer */}
       <footer className="py-20 border-t border-white/5">
         <div className="max-w-4xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-8 text-[9px] tracking-[0.2em] text-secondary uppercase">
-          <div className="flex gap-8">
+          <div className="flex flex-wrap items-center justify-center gap-6 sm:gap-8">
+            <button 
+              onClick={() => setApkModalOpen(true)}
+              className="hover:text-white transition-colors flex items-center gap-1.5 font-mono text-emerald-400 font-medium"
+            >
+              <span>⤓</span>
+              <span>Get App (.APK)</span>
+            </button>
             <a href="https://github.com/habibixyz/Absconded" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">GitHub</a>
             <a href="https://x.com/ritmir11" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Twitter</a>
           </div>
@@ -2156,6 +2191,87 @@ export default function Home() {
           </div>
         </div>
       )}
+
+      {/* Mobile App Download & Install Modal */}
+      {apkModalOpen && (
+        <div className="fixed inset-0 z-[80] flex items-center justify-center p-4 sm:p-6 bg-black/85 backdrop-blur-md fade-in">
+          <div 
+            className="relative w-full max-w-lg bg-[#0a0a0a] border border-white/10 rounded-xl p-6 sm:p-8 text-text shadow-[0_16px_48px_rgba(0,0,0,0.9)] overflow-hidden"
+            data-drawer-open="true"
+          >
+            {/* Ambient subtle glow */}
+            <div className="absolute top-0 right-0 w-48 h-48 bg-white/5 rounded-full blur-3xl pointer-events-none" />
+
+            <div className="flex items-center justify-between pb-4 border-b border-white/10">
+              <div className="flex items-center gap-2.5">
+                <div className="w-8 h-8 rounded-lg bg-black border border-white/15 flex items-center justify-center font-mono text-sm text-white font-bold">
+                  V
+                </div>
+                <div>
+                  <h3 className="text-sm font-serif italic text-white tracking-wide">Absconded Mobile</h3>
+                  <p className="text-[9px] font-mono tracking-widest uppercase text-secondary">Android & iOS Edition</p>
+                </div>
+              </div>
+              <button 
+                data-back-close="true"
+                data-drawer-close="true"
+                aria-label="Close"
+                onClick={() => setApkModalOpen(false)}
+                className="w-8 h-8 rounded-full border border-white/10 flex items-center justify-center text-secondary hover:text-white hover:border-white/30 transition-all"
+              >
+                ✕
+              </button>
+            </div>
+
+            <div className="mt-6 space-y-6">
+              {/* Android Card */}
+              <div className="border border-white/10 rounded-lg p-4 bg-white/[0.02] space-y-3">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <span className="text-base">🤖</span>
+                    <span className="text-xs font-mono font-semibold tracking-wider text-white uppercase">Android Direct APK</span>
+                  </div>
+                  <span className="text-[8px] font-mono tracking-widest uppercase px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">
+                    Latest Build v1.0.4
+                  </span>
+                </div>
+                <p className="text-xs text-secondary/80 leading-relaxed font-sans">
+                  Download the standalone Android package file (.apk) directly to your device for OLED dark reading, haptic feedback, and offline support.
+                </p>
+                <a
+                  href="/absconded.apk"
+                  download="absconded.apk"
+                  className="flex items-center justify-center gap-2 w-full py-3 bg-white text-black hover:bg-white/90 rounded-md text-[10px] tracking-[0.25em] uppercase font-bold transition-all duration-200 active:scale-95 shadow-md"
+                >
+                  <span>⤓</span>
+                  <span>Download APK (Direct)</span>
+                </a>
+                <div className="text-[9px] text-secondary/60 font-mono space-y-1 pt-1">
+                  <p>1. Tap Download APK & confirm download prompt.</p>
+                  <p>2. Open the downloaded file and choose <span className="text-white/80">Install</span>.</p>
+                </div>
+              </div>
+
+              {/* iOS / iPhone Card */}
+              <div className="border border-white/5 rounded-lg p-4 bg-white/[0.01] space-y-2">
+                <div className="flex items-center gap-2">
+                  <span className="text-base">🍏</span>
+                  <span className="text-xs font-mono font-semibold tracking-wider text-white/90 uppercase">iPhone & iPad (Instant App)</span>
+                </div>
+                <p className="text-xs text-secondary/80 leading-relaxed">
+                  No App Store download required. Open <span className="text-white">vyrm.space</span> in Safari, tap the <span className="text-white">Share</span> button, then select <span className="text-white font-medium">"Add to Home Screen"</span> for full-screen OLED reading.
+                </p>
+              </div>
+            </div>
+
+            <div className="mt-6 pt-4 border-t border-white/5 flex items-center justify-between text-[8px] font-mono tracking-widest text-secondary/50 uppercase">
+              <span>Pure Client-Side Private</span>
+              <span>Scriptorium by VYRM</span>
+            </div>
+          </div>
+        </div>
+      )}
+
 
       {/* Global Floating Scroll To Top Button */}
       <button

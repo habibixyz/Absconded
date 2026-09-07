@@ -16,9 +16,20 @@
 /* Permanent dark default — prevents white flash before JS hydration */
 html {
   background-color: #050505;
+  -webkit-tap-highlight-color: transparent;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 body {
   background-color: var(--bg, #050505);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* Fast tap response for buttons & links without locking root window scroll */
+button, a, input, select, textarea, [role="button"], label {
+  touch-action: manipulation;
 }
 
 [data-theme="light"] {
@@ -372,3 +383,45 @@ body {
 .border-always-white-10 {
   border-color: rgba(255, 255, 255, 0.1) !important;
 }
+
+/* ── Mobile Safe Area Insets (iOS Notch, Dynamic Island & Android Nav Bar) ── */
+.pt-safe {
+  padding-top: max(1rem, env(safe-area-inset-top));
+}
+.pb-safe {
+  padding-bottom: max(1.25rem, env(safe-area-inset-bottom));
+}
+.pl-safe {
+  padding-left: max(1rem, env(safe-area-inset-left));
+}
+.pr-safe {
+  padding-right: max(1rem, env(safe-area-inset-right));
+}
+.p-safe {
+  padding-top: max(1rem, env(safe-area-inset-top));
+  padding-bottom: max(1.25rem, env(safe-area-inset-bottom));
+  padding-left: max(1rem, env(safe-area-inset-left));
+  padding-right: max(1rem, env(safe-area-inset-right));
+}
+.min-h-screen-safe {
+  min-height: calc(100vh - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+}
+
+/* ── Mobile Interactive Optimization ── */
+.touch-press {
+  transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.15s ease;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.touch-press:active {
+  transform: scale(0.97);
+  opacity: 0.85;
+}
+
+/* Reader readable text selection */
+.reading-text {
+  -webkit-user-select: text !important;
+  user-select: text !important;
+  -webkit-touch-callout: default !important;
+}
+

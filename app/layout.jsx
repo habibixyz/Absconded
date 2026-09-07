@@ -94,6 +94,15 @@ export const metadata = {
     shortcut: '/favicon.ico',
   },
 
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: 'black-translucent',
+    title: 'Absconded',
+  },
+  formatDetection: {
+    telephone: false,
+  },
+
   manifest: '/manifest.json',
 
   robots: {
