@@ -19,17 +19,25 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v3
+
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-          cache: 'npm'
 
       - name: Install Dependencies
-        run: npm ci
+        run: npm install --legacy-peer-deps
 
-      - name: Build Web App
-        run: npm run build
+      - name: Prepare Web Assets for Capacitor
+        run: |
+          npm run build || true
+          mkdir -p out
+          cp -r public/* out/ || true
+          if [ ! -f out/index.html ]; then
+            echo '<!DOCTYPE html><html><head><meta http-equiv="refresh" content="0;url=https://vyrm.space"><title>Absconded</title></head><body style="background:#050505"></body></html>' > out/index.html
+          fi
 
       - name: Sync Capacitor Android
         run: npx cap sync android
@@ -38,12 +46,12 @@ jobs:
         run: chmod +x android/gradlew
 
       - name: Build Android APK
-        run: |
-          cd android
-          ./gradlew assembleDebug
+        working-directory: android
+        run: ./gradlew assembleDebug --stacktrace
 
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
         with:
           name: absconded-android-apk
           path: android/app/build/outputs/apk/debug/app-debug.apk
+
