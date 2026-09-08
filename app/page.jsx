@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { books } from './data'
 import Transcoder from './components/Transcoder'
 import BookmarksDrawer from './components/BookmarksDrawer'
+import ReaderHUD from './components/ReaderHUD'
 
 // Timeline Signals Log for the Developer Signals Feed
 const timelineSignals = [
@@ -231,6 +232,26 @@ function calculateBookReadingTime(book) {
   return `${minutes} min`
 }
 
+// Bionic reading text formatter: bolds initial fixations of words
+function renderFormattedText(text, isBionic) {
+  if (!text) return text
+  if (!isBionic) return text
+
+  const words = text.split(" ")
+  return words.map((word, wIdx) => {
+    if (word.length <= 1) return word + " "
+    const fixLen = Math.ceil(word.length * 0.45)
+    const boldPart = word.slice(0, fixLen)
+    const rest = word.slice(fixLen)
+    return (
+      <span key={wIdx}>
+        <b className="font-semibold text-white/95">{boldPart}</b>
+        {rest}{" "}
+      </span>
+    )
+  })
+}
+
 export default function Home() {
   const [page, setPage] = useState("library") // "library" (Shelf), "oracle", "signals", "faq", "book"
   const [selectedBook, setSelectedBook] = useState(null)
@@ -255,6 +276,12 @@ export default function Home() {
   const [bookmarkToast, setBookmarkToast] = useState("")
   const [showScrollTop, setShowScrollTop] = useState(false)
   const [apkModalOpen, setApkModalOpen] = useState(false)
+
+  // Reader Appearance & Speed Suite
+  const [bionicReading, setBionicReading] = useState(false)
+  const [readerFontSize, setReaderFontSize] = useState("medium") // "small", "medium", "large", "xlarge"
+  const [readerFontFamily, setReaderFontFamily] = useState("serif") // "serif", "sans", "mono"
+  const [readerLineHeight, setReaderLineHeight] = useState("relaxed") // "compact", "relaxed", "spacious"
 
   // Track scroll position for instant Back to Top button (only show outside reader)
   useEffect(() => {
@@ -908,7 +935,7 @@ export default function Home() {
             </div>
           )}
 
-          <div className="flex items-center gap-2 sm:gap-4 z-[60] shrink-0">
+          <div className="flex items-center gap-2 sm:gap-4 z-[80] shrink-0">
             {/* Direct Bookmark button when inside reader */}
             {isReading && (
               <button
@@ -921,7 +948,9 @@ export default function Home() {
                 title="Bookmark current reading position"
                 aria-label="Bookmark position"
               >
-                <span className="text-xs">🔖</span>
+                <svg className="w-2.5 h-2.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
+                </svg>
                 <span className="hidden sm:inline">{isCurrentBookmarked ? "Saved" : "Bookmark"}</span>
                 {isCurrentBookmarked && (
                   <span className="sm:hidden text-[8px] font-mono text-emerald-400 font-bold">Saved</span>
@@ -937,7 +966,9 @@ export default function Home() {
                 title="Open Bookmarks"
                 aria-label="Open Bookmarks"
               >
-                <span className="text-xs">🔖</span>
+                <svg className="w-2.5 h-2.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
+                </svg>
                 <span className="hidden sm:inline">Bookmarks</span>
                 <span className="text-[8px] font-mono px-1.5 py-0.2 rounded-full bg-white/10 text-white/90 font-medium">
                   {bookmarks.length}
@@ -976,7 +1007,7 @@ export default function Home() {
 
       {/* Full-Screen Overlay Navigation Menu */}
       <div 
-        className={`fixed inset-0 z-40 bg-bg/95 backdrop-blur-xl transition-all duration-300 ease-in-out ${
+        className={`fixed inset-0 z-[75] bg-bg/98 backdrop-blur-2xl transition-all duration-300 ease-in-out ${
           menuOpen ? "opacity-100 pointer-events-auto visible overflow-y-auto overscroll-contain" : "opacity-0 pointer-events-none invisible hidden"
         }`}
       >
@@ -1420,7 +1451,7 @@ export default function Home() {
 
       {/* View 5: Reading View (Chapter Mode) */}
       {page === "book" && selectedBook && selectedChapter && (
-        <section className="pt-24 sm:pt-36 pb-24 sm:pb-32 px-4 sm:px-6 fade-in">
+        <section className="pt-20 sm:pt-36 pb-36 sm:pb-48 px-3.5 sm:px-6 fade-in">
           <div className="book-container">
             <header className="mb-12 sm:mb-20 text-center">
               <div className="text-[10px] tracking-[0.3em] text-secondary mb-3 uppercase flex items-center justify-center gap-2">
@@ -1449,13 +1480,23 @@ export default function Home() {
                   }`}
                   title="Bookmark exact reading position"
                 >
-                  <span>🔖</span>
+                  <svg className="w-2.5 h-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
+                  </svg>
                   <span>{isCurrentBookmarked ? "Saved Bookmark" : "Save Bookmark"}</span>
                 </button>
               </div>
             </header>
 
-            <article className="book-text font-serif">
+            <article 
+              className={`book-text transition-all duration-300 ${
+                readerFontFamily === 'mono' ? 'font-mono' : readerFontFamily === 'sans' ? 'font-sans' : 'font-serif'
+              } ${
+                readerFontSize === 'small' ? 'text-base sm:text-lg' : readerFontSize === 'large' ? 'text-xl sm:text-2xl' : readerFontSize === 'xlarge' ? 'text-2xl sm:text-3xl' : 'text-lg sm:text-xl'
+              } ${
+                readerLineHeight === 'compact' ? 'leading-relaxed' : readerLineHeight === 'spacious' ? 'leading-[2.2]' : 'leading-[1.9]'
+              }`}
+            >
               {selectedChapter.epigraph && (
                 <div className="text-secondary italic text-center mb-16 px-8 leading-relaxed">
                   {"\u201C"}{selectedChapter.epigraph}{"\u201D"}
@@ -1467,7 +1508,7 @@ export default function Home() {
                   if (block.type === "heading") {
                     return (
                       <h3 key={t} className="book-heading">
-                        {block.text}
+                        {renderFormattedText(block.text, bionicReading)}
                       </h3>
                     )
                   }
@@ -1477,7 +1518,7 @@ export default function Home() {
                         key={t} 
                         className={t === 0 || (t === 1 && selectedChapter.epigraph) ? "drop-cap" : ""}
                       >
-                        {block.text}
+                        {renderFormattedText(block.text, bionicReading)}
                       </p>
                     )
                   }
@@ -1485,14 +1526,14 @@ export default function Home() {
                     return (
                       <div key={t} className="twist-block">
                         <span>{"\u21B3"}</span>
-                        <span>{block.text}</span>
+                        <span>{renderFormattedText(block.text, bionicReading)}</span>
                       </div>
                     )
                   }
                   if (block.type === "pull") {
                     return (
                       <div key={t} className="pull-quote">
-                        {block.text}
+                        {renderFormattedText(block.text, bionicReading)}
                       </div>
                     )
                   }
@@ -1562,6 +1603,29 @@ export default function Home() {
             </article>
           </div>
         </section>
+      )}
+
+      {/* Reader HUD Floating Controls */}
+      {page === "book" && selectedBook && selectedChapter && !menuOpen && !bookmarksOpen && !apkModalOpen && !checkoutProduct && (
+        <ReaderHUD
+          bookTitle={selectedBook.title}
+          chapterTitle={selectedChapter.title}
+          author={selectedBook.author || "Tanvir Khan"}
+          content={selectedChapter.content}
+          epigraph={selectedChapter.epigraph}
+          bionic={bionicReading}
+          setBionic={setBionicReading}
+          fontSize={readerFontSize}
+          setFontSize={setReaderFontSize}
+          fontFamily={readerFontFamily}
+          setFontFamily={setReaderFontFamily}
+          lineHeight={readerLineHeight}
+          setLineHeight={setReaderLineHeight}
+          onCopyQuote={() => {
+            setBookmarkToast("Quote copied to clipboard")
+            setTimeout(() => setBookmarkToast(""), 3000)
+          }}
+        />
       )}
 
       {/* View: Oracle (Semantic Search & local RAG) */}

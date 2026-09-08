@@ -6,7 +6,7 @@ export default function BookmarksDrawer({ isOpen, onClose, onSelectBookmark, boo
   if (!isOpen) return null
 
   return (
-    <div className="fixed inset-0 z-[70] flex items-center justify-center p-3 sm:p-6 bg-black/80 backdrop-blur-md fade-in">
+    <div className="fixed inset-0 z-[85] flex items-center justify-center p-3 sm:p-6 bg-black/80 backdrop-blur-md fade-in">
       <div 
         onClick={(e) => e.stopPropagation()}
         className="w-full max-w-xl bg-bg border border-white/10 rounded-lg p-4 sm:p-8 shadow-2xl relative overflow-hidden max-h-[90vh] sm:max-h-[85vh] flex flex-col"
@@ -14,7 +14,9 @@ export default function BookmarksDrawer({ isOpen, onClose, onSelectBookmark, boo
         {/* Header */}
         <div className="flex items-center justify-between pb-4 sm:pb-6 border-b border-white/5 mb-4 sm:mb-6">
           <div className="flex items-center gap-3">
-            <span className="text-base text-white">🔖</span>
+            <svg className="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
+            </svg>
             <h2 className="text-[11px] sm:text-xs uppercase tracking-[0.25em] sm:tracking-[0.3em] text-white font-medium">
               Saved Bookmarks ({bookmarks.length})
             </h2>
@@ -32,7 +34,11 @@ export default function BookmarksDrawer({ isOpen, onClose, onSelectBookmark, boo
         <div className="overflow-y-auto space-y-4 pr-1 flex-1">
           {bookmarks.length === 0 ? (
             <div className="text-center py-16 space-y-3">
-              <div className="text-2xl text-secondary/40">🔖</div>
+              <div className="flex justify-center">
+                <svg className="w-8 h-8 text-secondary/30" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
+                </svg>
+              </div>
               <p className="text-sm font-serif italic text-secondary">No bookmarks saved yet.</p>
               <p className="text-xs text-secondary/50 max-w-xs mx-auto leading-relaxed">
                 Click the bookmark icon while reading any manuscript to save your exact reading position.
