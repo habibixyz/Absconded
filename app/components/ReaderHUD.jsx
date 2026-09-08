@@ -177,7 +177,7 @@ export default function ReaderHUD({
   // Audio narration with Personas, Cadence Modulation & Sentence Queuing
   const [speechState, setSpeechState] = useState('idle') // 'idle', 'playing', 'paused'
   const [speechRate, setSpeechRate] = useState(1.0)
-  const [speechSupported, setSpeechSupported] = useState(false)
+  const [speechSupported, setSpeechSupported] = useState(true)
   const [personaKey, setPersonaKey] = useState('noir') // 'noir', 'storyteller', 'british', 'studio'
   const [selectedVoiceURI, setSelectedVoiceURI] = useState('')
   const [availableVoices, setAvailableVoices] = useState([])
@@ -244,22 +244,32 @@ export default function ReaderHUD({
 
   // 2. Initialize Web Speech & Voice Cache
   useEffect(() => {
-    if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
-      setSpeechSupported(true)
-      const loadVoices = () => {
-        const v = window.speechSynthesis.getVoices()
-        voicesRef.current = v
-        const en = v.filter(x => x.lang && x.lang.toLowerCase().startsWith('en'))
-        setAvailableVoices(en)
+    if (typeof window === 'undefined') return
+    try {
+      if ('speechSynthesis' in window && window.speechSynthesis) {
+        setSpeechSupported(true)
+        const loadVoices = () => {
+          try {
+            const raw = window.speechSynthesis.getVoices()
+            const v = Array.isArray(raw) ? raw : []
+            voicesRef.current = v
+            const en = v.filter(x => x && x.lang && typeof x.lang === 'string' && x.lang.toLowerCase().startsWith('en'))
+            setAvailableVoices(en.length > 0 ? en : v)
+          } catch (e) {
+            console.warn('Voice enumeration note:', e)
+          }
+        }
+        loadVoices()
+        window.speechSynthesis.onvoiceschanged = loadVoices
       }
-      loadVoices()
-      window.speechSynthesis.onvoiceschanged = loadVoices
+    } catch (err) {
+      console.warn('SpeechSynthesis initialization:', err)
     }
     return () => {
       if (typeof window !== 'undefined' && window.speechSynthesis) {
         isPlayingRef.current = false
         if (pauseTimeoutRef.current) clearTimeout(pauseTimeoutRef.current)
-        window.speechSynthesis.cancel()
+        try { window.speechSynthesis.cancel() } catch (e) {}
       }
     }
   }, [])
@@ -976,94 +986,92 @@ export default function ReaderHUD({
         </div>
 
         {/* Text-to-Speech Narration */}
-        {speechSupported && (
-          <div className="flex items-center gap-1 border-r border-white/10 pr-1 sm:pr-2 shrink-0">
-            {speechState === 'idle' && (
-              <div className="flex items-center gap-1">
-                <button
-                  onClick={handleStartNarration}
-                  className="flex items-center gap-1 sm:gap-1.5 px-2 sm:px-2.5 py-1 rounded-full text-[8px] sm:text-[9px] font-mono uppercase tracking-[0.15em] sm:tracking-[0.2em] transition-all border border-transparent text-secondary hover:text-white hover:bg-white/5 min-h-[30px]"
-                  title={`Listen with ${PERSONAS[personaKey]?.label}`}
-                >
-                  <svg className="w-3 h-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                  <span>LISTEN</span>
-                </button>
-                <button
-                  onClick={cyclePersona}
-                  className="px-1.5 py-0.5 text-[8px] font-mono text-emerald-400 hover:text-emerald-300 uppercase tracking-wider rounded border border-emerald-500/30 bg-emerald-500/10 min-h-[26px]"
-                  title="Cycle Voice Persona (Noir / Warm / UK / Studio)"
-                >
-                  {PERSONAS[personaKey]?.badge}
-                </button>
-              </div>
-            )}
+        <div className="flex items-center gap-1 border-r border-white/10 pr-1 sm:pr-2 shrink-0">
+          {speechState === 'idle' && (
+            <div className="flex items-center gap-1">
+              <button
+                onClick={handleStartNarration}
+                className="flex items-center gap-1 sm:gap-1.5 px-2 sm:px-2.5 py-1 rounded-full text-[8px] sm:text-[9px] font-mono uppercase tracking-[0.15em] sm:tracking-[0.2em] transition-all border border-transparent text-secondary hover:text-white hover:bg-white/5 min-h-[30px]"
+                title={`Listen with ${PERSONAS[personaKey]?.label}`}
+              >
+                <svg className="w-3 h-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <span>LISTEN</span>
+              </button>
+              <button
+                onClick={cyclePersona}
+                className="px-1.5 py-0.5 text-[8px] font-mono text-emerald-400 hover:text-emerald-300 uppercase tracking-wider rounded border border-emerald-500/30 bg-emerald-500/10 min-h-[26px]"
+                title="Cycle Voice Persona (Noir / Warm / UK / Studio)"
+              >
+                {PERSONAS[personaKey]?.badge}
+              </button>
+            </div>
+          )}
 
-            {speechState === 'playing' && (
-              <div className="flex items-center gap-1">
-                <button
-                  onClick={handlePauseNarration}
-                  className="flex items-center gap-1 px-2 py-1 rounded-full text-[8px] sm:text-[9px] font-mono uppercase tracking-[0.15em] sm:tracking-[0.2em] border border-emerald-500/40 bg-emerald-500/10 text-emerald-400 font-semibold min-h-[30px]"
-                  title="Pause Narration"
-                >
-                  <svg className="w-2.5 h-2.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 9v6m4-6v6" />
-                  </svg>
-                  <span>PAUSE</span>
-                </button>
-                <button
-                  onClick={handleStopNarration}
-                  className="px-2 py-1 rounded-full text-[8px] font-mono uppercase tracking-[0.15em] border border-red-500/40 bg-red-500/10 text-red-400 hover:bg-red-500/20 transition-colors font-bold min-h-[30px]"
-                  title="Stop Narration Completely"
-                >
-                  STOP
-                </button>
-                <button
-                  onClick={cycleSpeechRate}
-                  className="px-1.5 py-0.5 text-[8px] font-mono text-secondary hover:text-white uppercase tracking-wider rounded border border-white/10 min-h-[26px]"
-                  title="Change playback speed"
-                >
-                  {speechRate}x
-                </button>
-                <button
-                  onClick={cyclePersona}
-                  className="px-1.5 py-0.5 text-[8px] font-mono text-emerald-400 hover:text-emerald-300 uppercase tracking-wider rounded border border-emerald-500/30 bg-emerald-500/10 min-h-[26px]"
-                  title="Cycle Voice Persona (Noir / Warm / UK / Studio)"
-                >
-                  {PERSONAS[personaKey]?.badge}
-                </button>
-              </div>
-            )}
+          {speechState === 'playing' && (
+            <div className="flex items-center gap-1">
+              <button
+                onClick={handlePauseNarration}
+                className="flex items-center gap-1 px-2 py-1 rounded-full text-[8px] sm:text-[9px] font-mono uppercase tracking-[0.15em] sm:tracking-[0.2em] border border-emerald-500/40 bg-emerald-500/10 text-emerald-400 font-semibold min-h-[30px]"
+                title="Pause Narration"
+              >
+                <svg className="w-2.5 h-2.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 9v6m4-6v6" />
+                </svg>
+                <span>PAUSE</span>
+              </button>
+              <button
+                onClick={handleStopNarration}
+                className="px-2 py-1 rounded-full text-[8px] font-mono uppercase tracking-[0.15em] border border-red-500/40 bg-red-500/10 text-red-400 hover:bg-red-500/20 transition-colors font-bold min-h-[30px]"
+                title="Stop Narration Completely"
+              >
+                STOP
+              </button>
+              <button
+                onClick={cycleSpeechRate}
+                className="px-1.5 py-0.5 text-[8px] font-mono text-secondary hover:text-white uppercase tracking-wider rounded border border-white/10 min-h-[26px]"
+                title="Change playback speed"
+              >
+                {speechRate}x
+              </button>
+              <button
+                onClick={cyclePersona}
+                className="px-1.5 py-0.5 text-[8px] font-mono text-emerald-400 hover:text-emerald-300 uppercase tracking-wider rounded border border-emerald-500/30 bg-emerald-500/10 min-h-[26px]"
+                title="Cycle Voice Persona (Noir / Warm / UK / Studio)"
+              >
+                {PERSONAS[personaKey]?.badge}
+              </button>
+            </div>
+          )}
 
-            {speechState === 'paused' && (
-              <div className="flex items-center gap-1">
-                <button
-                  onClick={handleResumeNarration}
-                  className="flex items-center gap-1 px-2 py-1 rounded-full text-[8px] sm:text-[9px] font-mono uppercase tracking-[0.15em] border border-amber-500/40 bg-amber-500/10 text-amber-400 font-semibold min-h-[30px]"
-                  title="Resume Narration"
-                >
-                  <span>RESUME</span>
-                </button>
-                <button
-                  onClick={handleStopNarration}
-                  className="px-2 py-1 rounded-full text-[8px] font-mono uppercase tracking-[0.15em] border border-red-500/40 bg-red-500/10 text-red-400 hover:bg-red-500/20 transition-colors font-bold min-h-[30px]"
-                  title="Stop Narration Completely"
-                >
-                  STOP
-                </button>
-                <button
-                  onClick={cyclePersona}
-                  className="px-1.5 py-0.5 text-[8px] font-mono text-emerald-400 hover:text-emerald-300 uppercase tracking-wider rounded border border-emerald-500/30 bg-emerald-500/10 min-h-[26px]"
-                  title="Cycle Voice Persona"
-                >
-                  {PERSONAS[personaKey]?.badge}
-                </button>
-              </div>
-            )}
-          </div>
-        )}
+          {speechState === 'paused' && (
+            <div className="flex items-center gap-1">
+              <button
+                onClick={handleResumeNarration}
+                className="flex items-center gap-1 px-2 py-1 rounded-full text-[8px] sm:text-[9px] font-mono uppercase tracking-[0.15em] border border-amber-500/40 bg-amber-500/10 text-amber-400 font-semibold min-h-[30px]"
+                title="Resume Narration"
+              >
+                <span>RESUME</span>
+              </button>
+              <button
+                onClick={handleStopNarration}
+                className="px-2 py-1 rounded-full text-[8px] font-mono uppercase tracking-[0.15em] border border-red-500/40 bg-red-500/10 text-red-400 hover:bg-red-500/20 transition-colors font-bold min-h-[30px]"
+                title="Stop Narration Completely"
+              >
+                STOP
+              </button>
+              <button
+                onClick={cyclePersona}
+                className="px-1.5 py-0.5 text-[8px] font-mono text-emerald-400 hover:text-emerald-300 uppercase tracking-wider rounded border border-emerald-500/30 bg-emerald-500/10 min-h-[26px]"
+                title="Cycle Voice Persona"
+              >
+                {PERSONAS[personaKey]?.badge}
+              </button>
+            </div>
+          )}
+        </div>
 
         {/* Ambient Noise (Focus) */}
         <div className="flex items-center gap-1 border-r border-white/10 pr-1 sm:pr-2 shrink-0">
