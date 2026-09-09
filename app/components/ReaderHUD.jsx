@@ -62,95 +62,78 @@ export const MALE_NARRATOR = {
   quotePause: 460
 }
 
-// Select the single most natural human male voice available on the device
+// Known female voice name fragments — never select these
+const FEMALE_VOICE_FRAGMENTS = [
+  'zira', 'samantha', 'serena', 'jenny', 'aria', 'victoria',
+  'karen', 'hazel', 'susan', 'catherine', 'linda', 'moira',
+  'sonia', 'tessa', 'fiona', 'kathy', 'vicki', 'alice',
+  'ioana', 'monica', 'paulina', 'female', 'woman'
+]
+
+// Priority order: try each pattern in order; first match is used
+const MALE_VOICE_PRIORITY = [
+  // Edge Neural Cloud (only in Edge browser)
+  { pattern: (n, isEdge) => isEdge && n.includes('christopher') && (n.includes('natural') || n.includes('online')), label: 'Edge Christopher Natural' },
+  { pattern: (n, isEdge) => isEdge && n.includes('guy') && (n.includes('natural') || n.includes('online')), label: 'Edge Guy Natural' },
+  { pattern: (n, isEdge) => isEdge && n.includes('ryan') && (n.includes('natural') || n.includes('online')), label: 'Edge Ryan Natural' },
+  { pattern: (n, isEdge) => isEdge && n.includes('eric') && (n.includes('natural') || n.includes('online')), label: 'Edge Eric Natural' },
+  // Google Chrome native
+  { pattern: (n) => n === 'google uk english male', label: 'Google UK Male' },
+  { pattern: (n) => n.includes('google') && n.includes('uk') && n.includes('male'), label: 'Google UK Male (fuzzy)' },
+  { pattern: (n) => n.includes('google') && n.includes('us english'), label: 'Google US English' },
+  // Apple macOS / iOS
+  { pattern: (n, _, isApple) => isApple && n.includes('daniel') && (n.includes('enhanced') || n.includes('premium')), label: 'Apple Daniel Enhanced' },
+  { pattern: (n, _, isApple) => isApple && n.includes('arthur') && n.includes('enhanced'), label: 'Apple Arthur Enhanced' },
+  { pattern: (n, _, isApple) => isApple && n.includes('oliver') && n.includes('enhanced'), label: 'Apple Oliver Enhanced' },
+  { pattern: (n, _, isApple) => isApple && n.includes('daniel'), label: 'Apple Daniel' },
+  { pattern: (n, _, isApple) => isApple && n.includes('alex'), label: 'Apple Alex' },
+  // Generic male patterns
+  { pattern: (n) => n.includes('male') && !n.includes('female'), label: 'Generic male' },
+  { pattern: (n) => n.includes('david') && !n.includes('desktop'), label: 'David (non-desktop)' },
+  { pattern: (n) => n.includes('george'), label: 'George' },
+  { pattern: (n) => n.includes('daniel'), label: 'Daniel (any)' },
+]
+
+// Select the single best human male voice. Returns null (not a female voice) if nothing suitable found.
 function selectSingleMaleVoice(voices) {
   if (!voices || voices.length === 0) return null
 
   const isEdge = typeof navigator !== 'undefined' && /Edg\//i.test(navigator.userAgent)
   const isApple = typeof navigator !== 'undefined' && /Mac|iPhone|iPad|iPod/i.test(navigator.userAgent)
 
-  const enVoices = voices.filter(v => v.lang && v.lang.toLowerCase().startsWith('en'))
-  const candidatePool = enVoices.length > 0 ? enVoices : voices
-
-  const scored = candidatePool.map(voice => {
-    const name = (voice.name || '').toLowerCase()
-    const lang = (voice.lang || '').toLowerCase()
-    let score = 10
-
-    // Strict filter: Heavily penalize female voices so only male voices are selected
-    if (
-      name.includes('female') ||
-      name.includes('zira') ||
-      name.includes('samantha') ||
-      name.includes('serena') ||
-      name.includes('jenny') ||
-      name.includes('aria') ||
-      name.includes('victoria') ||
-      name.includes('karen') ||
-      name.includes('hazel') ||
-      name.includes('susan') ||
-      name.includes('catherine') ||
-      name.includes('linda')
-    ) {
-      score -= 500
-    }
-
-    // 1. In Microsoft Edge: Use neural natural male cloud voices
-    if (isEdge && (name.includes('natural') || name.includes('online'))) {
-      if (name.includes('christopher') || name.includes('guy') || name.includes('ryan') || name.includes('eric') || name.includes('brian')) {
-        score += 350
-      } else if (name.includes('male')) {
-        score += 260
-      }
-    }
-
-    // In Chrome/Firefox on Windows/Linux: Penalize Edge online voices to prevent silent voice-unavailable failure
-    if (!isEdge && (name.includes('online') || name.includes('natural'))) {
-      score -= 500
-    }
-
-    // 2. Google UK English Male (Chrome/Android gold standard - deep, smooth, natural British narrator)
-    if (name.includes('google uk english male')) {
-      score += 300
-    } else if (name.includes('google') && (name.includes('uk') || name.includes('male') || lang.includes('gb'))) {
-      score += 240
-    } else if (name.includes('google') && name.includes('us english')) {
-      score += 180
-    } else if (name.includes('google')) {
-      score += 140
-    }
-
-    // 3. Apple Enhanced / Premium Male Voices (Safari, macOS, iOS)
-    if (isApple) {
-      if ((name.includes('daniel') || name.includes('oliver') || name.includes('arthur') || name.includes('alex')) && (name.includes('enhanced') || name.includes('premium'))) {
-        score += 280
-      } else if (name.includes('daniel') || name.includes('oliver') || name.includes('arthur') || name.includes('alex')) {
-        score += 220
-      }
-    }
-
-    // 4. Other male voices
-    if (name.includes('male') || name.includes('daniel') || name.includes('guy') || name.includes('ryan') || name.includes('george') || name.includes('david')) {
-      score += 80
-    }
-
-    // Language preference: UK or US English
-    if (lang === 'en-gb' || name.includes('uk english')) {
-      score += 30
-    } else if (lang === 'en-us' || name.includes('us english')) {
-      score += 15
-    }
-
-    // Heavy penalty for legacy robotic desktop synthesizers (e.g. Microsoft David Desktop)
-    if (name.includes('desktop') && name.includes('david')) {
-      score -= 150
-    }
-
-    return { voice, score }
+  // Only English voices as candidates
+  const enVoices = voices.filter(v => {
+    if (!v || !v.lang) return false
+    const lang = v.lang.toLowerCase()
+    return lang.startsWith('en')
   })
+  const pool = enVoices.length > 0 ? enVoices : voices
 
-  scored.sort((a, b) => b.score - a.score)
-  return scored[0]?.voice || candidatePool[0] || null
+  // Apply priority list in order — first match wins
+  for (const rule of MALE_VOICE_PRIORITY) {
+    for (const v of pool) {
+      const name = (v.name || '').toLowerCase()
+      // Skip any known female voice
+      if (FEMALE_VOICE_FRAGMENTS.some(f => name.includes(f))) continue
+      // Skip Edge online voices in non-Edge browsers (will fail silently)
+      if (!isEdge && (name.includes('online') || name.includes('natural'))) continue
+      if (rule.pattern(name, isEdge, isApple)) {
+        return v
+      }
+    }
+  }
+
+  // Last resort: any voice without female fragments — but ONLY if no female, otherwise return null
+  for (const v of pool) {
+    const name = (v.name || '').toLowerCase()
+    if (!FEMALE_VOICE_FRAGMENTS.some(f => name.includes(f))) {
+      if (!isEdge && (name.includes('online') || name.includes('natural'))) continue
+      return v
+    }
+  }
+
+  // If every voice in the pool is female, return null — browser default is safer than a female voice
+  return null
 }
 
 export default function ReaderHUD({
@@ -379,19 +362,35 @@ export default function ReaderHUD({
       window._activeUtterance = utterance
     }
 
-    const voices = voicesRef.current.length > 0 ? voicesRef.current : synth.getVoices()
+    // Always fetch the latest voices (Chromium sometimes returns empty list on first call)
+    let freshVoices = synth.getVoices()
+    if (!freshVoices || freshVoices.length === 0) {
+      freshVoices = voicesRef.current
+    } else {
+      // Keep cache up to date
+      voicesRef.current = freshVoices
+    }
+
     let chosenVoice = null
 
-    if (selectedVoiceURI) {
-      chosenVoice = voices.find(v => v.voiceURI === selectedVoiceURI)
+    if (selectedVoiceURI && freshVoices.length > 0) {
+      chosenVoice = freshVoices.find(v => v.voiceURI === selectedVoiceURI) || null
     }
     if (!chosenVoice) {
-      chosenVoice = selectSingleMaleVoice(voices)
+      chosenVoice = selectSingleMaleVoice(freshVoices)
     }
+
+    // Debug log: visible in browser console to diagnose voice issues
+    if (index === 0) {
+      console.log('[NARRATOR] Available voices:', freshVoices.map(v => v.name).join(', '))
+      console.log('[NARRATOR] Selected voice:', chosenVoice ? chosenVoice.name : 'browser default (no male voice found)')
+    }
+
     if (chosenVoice) {
       utterance.voice = chosenVoice
       if (chosenVoice.lang) utterance.lang = chosenVoice.lang
     }
+    // If chosenVoice is null, do NOT assign utterance.voice — let browser use its default male/system voice
 
     utterance.onstart = () => {
       currentIndexRef.current = index
