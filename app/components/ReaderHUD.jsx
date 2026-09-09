@@ -121,37 +121,63 @@ export const PERSONAS = {
 function selectVoiceForPersona(voices, personaKey) {
   if (!voices || voices.length === 0) return null
   const enVoices = voices.filter(v => v.lang && v.lang.toLowerCase().startsWith('en'))
-  if (enVoices.length === 0) return voices[0] || null
+  const candidatePool = enVoices.length > 0 ? enVoices : voices
 
-  const scored = enVoices.map(voice => {
-    const name = voice.name.toLowerCase()
+  const isEdge = typeof navigator !== 'undefined' && /Edg\//i.test(navigator.userAgent)
+  const isChrome = typeof navigator !== 'undefined' && /Chrome\//i.test(navigator.userAgent) && !isEdge
+
+  const scored = candidatePool.map(voice => {
+    const name = (voice.name || '').toLowerCase()
     let score = 10
 
-    // Neural / Online natural voices give massive quality leap
-    if (name.includes('natural') || name.includes('online')) score += 100
-    if (name.includes('neural')) score += 90
-    if (name.includes('premium') || name.includes('enhanced') || name.includes('studio')) score += 80
+    // Google voices in Chrome/Android are super reliable and have clean diction
+    if (name.includes('google')) {
+      score += 120
+      if (personaKey === 'noir' && (name.includes('uk english male') || name.includes('us english'))) score += 50
+    }
+
+    // Microsoft Online / Natural voices:
+    // Work natively only in Edge! In Chrome on Windows, they fail silently with network/auth error.
+    if (name.includes('natural') || name.includes('online')) {
+      if (isEdge) {
+        score += 150
+      } else {
+        // Heavy penalty in Chrome/Firefox to prevent selecting incompatible cloud voices
+        score -= 200
+      }
+    }
+
+    if (name.includes('neural')) {
+      score += isEdge ? 100 : 10
+    }
+
+    // Apple / Safari enhanced voices
+    if (name.includes('premium') || name.includes('enhanced') || name.includes('studio')) {
+      score += 80
+    }
 
     // Specific persona affinities
     if (personaKey === 'noir') {
-      if (name.includes('christopher') || name.includes('guy') || name.includes('ryan') || name.includes('male') || name.includes('daniel')) score += 50
-      if (name.includes('uk english male')) score += 55
+      if (name.includes('christopher') || name.includes('guy') || name.includes('ryan') || name.includes('male') || name.includes('daniel') || name.includes('george')) score += 50
+      if (name.includes('uk english male')) score += 60
     } else if (personaKey === 'storyteller') {
       if (name.includes('jenny') || name.includes('sonia') || name.includes('samantha') || name.includes('serena') || name.includes('female') || name.includes('aria')) score += 50
     } else if (personaKey === 'british') {
-      if (name.includes('uk') || name.includes('great britain') || name.includes('daniel') || name.includes('ryan') || name.includes('oliver') || name.includes('sonia')) score += 50
+      if (name.includes('uk') || name.includes('great britain') || name.includes('daniel') || name.includes('ryan') || name.includes('oliver') || name.includes('sonia') || name.includes('hazel')) score += 60
+    } else if (personaKey === 'studio') {
+      if (name.includes('studio') || name.includes('google') || (isEdge && name.includes('natural'))) score += 40
     }
 
-    // Heavy penalty for legacy flat desktop voices (e.g. Microsoft David Desktop)
+    // Heavy penalty for legacy robotic desktop voices (e.g. Microsoft David Desktop, Mark, Zira)
     if (name.includes('desktop') && (name.includes('david') || name.includes('zira') || name.includes('mark'))) {
-      score -= 60
+      score -= 80
     }
 
     return { voice, score }
   })
 
   scored.sort((a, b) => b.score - a.score)
-  return scored[0]?.voice || enVoices[0]
+  return scored[0]?.voice || candidatePool[0] || null
 }
 
 export default function ReaderHUD({
@@ -321,7 +347,7 @@ export default function ReaderHUD({
   const speakSegment = useCallback((index) => {
     if (!isPlayingRef.current || typeof window === 'undefined' || !window.speechSynthesis) return
     const segments = segmentsRef.current
-    if (index >= segments.length) {
+    if (!segments || index >= segments.length) {
       isPlayingRef.current = false
       setSpeechState('idle')
       currentIndexRef.current = 0
@@ -331,9 +357,27 @@ export default function ReaderHUD({
     }
 
     const synth = window.speechSynthesis
+    if (synth.paused) {
+      try { synth.resume() } catch (e) {}
+    }
+
     const segment = segments[index]
+    if (!segment || !segment.text) {
+      if (index + 1 < segments.length) {
+        speakSegment(index + 1)
+      } else {
+        isPlayingRef.current = false
+        setSpeechState('idle')
+        currentIndexRef.current = 0
+      }
+      return
+    }
+
     const persona = PERSONAS[personaRef.current] || PERSONAS.noir
     const utterance = new SpeechSynthesisUtterance(segment.text)
+
+    // Set standard language fallback
+    utterance.lang = 'en-US'
 
     // Dynamic literary inflection: adjust pitch & rate by block type
     let computedPitch = persona.basePitch
@@ -375,6 +419,7 @@ export default function ReaderHUD({
     }
     if (chosenVoice) {
       utterance.voice = chosenVoice
+      if (chosenVoice.lang) utterance.lang = chosenVoice.lang
     }
 
     utterance.onstart = () => {
@@ -397,6 +442,10 @@ export default function ReaderHUD({
 
         pauseTimeoutRef.current = setTimeout(() => {
           if (isPlayingRef.current) {
+            const s = window.speechSynthesis
+            if (s && s.paused) {
+              try { s.resume() } catch (e) {}
+            }
             speakSegment(index + 1)
           }
         }, pauseDuration)
@@ -404,23 +453,64 @@ export default function ReaderHUD({
     }
 
     utterance.onerror = (e) => {
+      console.warn('Utterance note:', e)
       utteranceRef.current = null
       if (typeof window !== 'undefined') window._activeUtterance = null
-      // Ignore cancellation/interruption caused by user pause or stop
+
+      // If browser fails because of voice incompatibility (e.g. voice-unavailable or not-allowed), retry once with default voice
+      if (utterance.voice && (e.error === 'voice-unavailable' || e.error === 'network' || e.error === 'not-allowed') && isPlayingRef.current) {
+        try {
+          const fallback = new SpeechSynthesisUtterance(segment.text)
+          fallback.lang = 'en-US'
+          fallback.rate = utterance.rate
+          fallback.pitch = utterance.pitch
+          fallback.onend = utterance.onend
+          fallback.onerror = () => {
+            if (isPlayingRef.current) {
+              currentIndexRef.current = index + 1
+              speakSegment(index + 1)
+            }
+          }
+          utteranceRef.current = fallback
+          if (typeof window !== 'undefined') window._activeUtterance = fallback
+          synth.speak(fallback)
+          return
+        } catch (err) {}
+      }
+
+      // Ignore normal interruptions from user pause or stop
       if (e.error !== 'interrupted' && e.error !== 'canceled' && isPlayingRef.current) {
         currentIndexRef.current = index + 1
         speakSegment(index + 1)
       }
     }
 
-    synth.speak(utterance)
+    try {
+      synth.speak(utterance)
+    } catch (err) {
+      console.warn('SpeechSynthesis speak call error:', err)
+    }
   }, [selectedVoiceURI])
 
-  // Handle Narration: Play, Pause, Resume, Stop, Persona Switch
+  // Handle Narration: Play, Pause, Resume, Stop, Persona Switch (Synchronous user activation)
   const handleStartNarration = useCallback(() => {
-    if (!speechSupported || typeof window === 'undefined' || !window.speechSynthesis) return
+    if (typeof window === 'undefined' || !window.speechSynthesis) return
     const segments = getCleanSegments()
-    if (segments.length === 0) return
+    if (!segments || segments.length === 0) return
+
+    const synth = window.speechSynthesis
+
+    // Ensure voices are populated if first load was delayed
+    if (voicesRef.current.length === 0) {
+      try {
+        const raw = synth.getVoices()
+        if (Array.isArray(raw) && raw.length > 0) {
+          voicesRef.current = raw
+          const en = raw.filter(x => x && x.lang && typeof x.lang === 'string' && x.lang.toLowerCase().startsWith('en'))
+          setAvailableVoices(en.length > 0 ? en : raw)
+        }
+      } catch (e) {}
+    }
 
     segmentsRef.current = segments
     currentIndexRef.current = 0
@@ -428,20 +518,24 @@ export default function ReaderHUD({
     setSpeechState('playing')
 
     if (pauseTimeoutRef.current) clearTimeout(pauseTimeoutRef.current)
-    window.speechSynthesis.cancel()
-    setTimeout(() => {
-      if (isPlayingRef.current) {
-        speakSegment(0)
-      }
-    }, 60)
-  }, [speechSupported, getCleanSegments, speakSegment])
+    
+    try {
+      synth.cancel()
+      if (synth.paused) synth.resume()
+    } catch (e) {}
+
+    // Execute immediately in current user gesture frame!
+    speakSegment(0)
+  }, [getCleanSegments, speakSegment])
 
   const handlePauseNarration = () => {
     if (typeof window === 'undefined' || !window.speechSynthesis) return
     isPlayingRef.current = false
     setSpeechState('paused')
     if (pauseTimeoutRef.current) clearTimeout(pauseTimeoutRef.current)
-    window.speechSynthesis.cancel()
+    try {
+      window.speechSynthesis.cancel()
+    } catch (e) {}
   }
 
   const handleResumeNarration = () => {
@@ -449,12 +543,15 @@ export default function ReaderHUD({
     isPlayingRef.current = true
     setSpeechState('playing')
     if (pauseTimeoutRef.current) clearTimeout(pauseTimeoutRef.current)
-    window.speechSynthesis.cancel()
-    setTimeout(() => {
-      if (isPlayingRef.current) {
-        speakSegment(currentIndexRef.current)
-      }
-    }, 60)
+    
+    const synth = window.speechSynthesis
+    try {
+      synth.cancel()
+      if (synth.paused) synth.resume()
+    } catch (e) {}
+
+    // Execute immediately in current user gesture frame!
+    speakSegment(currentIndexRef.current)
   }
 
   const handleStopNarration = () => {
@@ -463,7 +560,9 @@ export default function ReaderHUD({
     currentIndexRef.current = 0
     setSpeechState('idle')
     if (pauseTimeoutRef.current) clearTimeout(pauseTimeoutRef.current)
-    window.speechSynthesis.cancel()
+    try {
+      window.speechSynthesis.cancel()
+    } catch (e) {}
   }
 
   const cycleSpeechRate = () => {
