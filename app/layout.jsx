@@ -151,6 +151,7 @@ const jsonLd = {
       sameAs: [
         'https://x.com/ritmir11',
         'https://github.com/habibixyz/Absconded',
+        'https://www.amazon.com/dp/B0HBZPBXZR',
       ],
       jobTitle: 'Author & Builder',
       description:
@@ -171,7 +172,7 @@ const jsonLd = {
       operatingSystem: 'All',
       browserRequirements: 'Requires JavaScript',
       description:
-        'A distraction-free reading engine. Read 70,000+ public domain classics from Project Gutenberg or upload your own EPUB, TXT, and Markdown files. 100% client-side and private.',
+        'A distraction-free reading engine with studio-grade neural audiobook narration. Read 70,000+ public domain classics from Project Gutenberg or upload your own EPUB, TXT, and Markdown files.',
       offers: {
         '@type': 'Offer',
         price: '0',
@@ -180,27 +181,14 @@ const jsonLd = {
       },
     },
 
-    // 4. Original Books (Book schema for each manuscript)
-    {
-      '@type': 'Book',
-      '@id': `${SITE_URL}/#book-absconded`,
-      name: 'Absconded',
-      url: SITE_URL,
-      author: { '@id': `${SITE_URL}/#person` },
-      publisher: { '@type': 'Organization', name: 'VYRM Press' },
-      datePublished: '2026-05-17',
-      inLanguage: 'en',
-      genre: ['Autofiction', 'Essays', 'Builder Memoir'],
-      description:
-        'The story of a builder unravelling from the corporate timeline in Mumbai. Tracing a transition from stable retail procurement to crypto speculation, AI experimentation, and internet-native identity.',
-      bookFormat: 'EBook',
-      isAccessibleForFree: true,
-    },
+    // 4. Original Books & Audiobooks (Book schema for each manuscript)
     {
       '@type': 'Book',
       '@id': `${SITE_URL}/#book-silent-protocol`,
       name: 'Silent Protocol',
       url: SITE_URL,
+      sameAs: 'https://www.amazon.com/dp/B0HBZPBXZR',
+      image: `${SITE_URL}/silent-protocol-cover.png`,
       author: { '@id': `${SITE_URL}/#person` },
       publisher: { '@type': 'Organization', name: 'VYRM Press' },
       datePublished: '2026-08-23',
@@ -208,7 +196,49 @@ const jsonLd = {
       genre: ['Thriller', 'Tech Fiction', 'Corporate Drama'],
       description:
         'A high-stakes tech-thriller set at Meridian House during a Category-5 cyclone. Nine guests face an algorithmic reckoning for covering up a fatal AI error.',
-      bookFormat: 'EBook',
+      bookFormat: 'https://schema.org/EBook',
+      isAccessibleForFree: true,
+      offers: [
+        {
+          '@type': 'Offer',
+          url: 'https://www.amazon.com/dp/B0HBZPBXZR',
+          price: '9.99',
+          priceCurrency: 'USD',
+          availability: 'https://schema.org/InStock',
+          category: 'Amazon Edition',
+        },
+      ],
+    },
+    {
+      '@type': 'Audiobook',
+      '@id': `${SITE_URL}/#audiobook-silent-protocol`,
+      name: 'Silent Protocol (Neural Audio Edition)',
+      url: SITE_URL,
+      author: { '@id': `${SITE_URL}/#person` },
+      readBy: {
+        '@type': 'Person',
+        name: 'Christopher (Studio Narrator)',
+      },
+      publisher: { '@type': 'Organization', name: 'VYRM Press' },
+      datePublished: '2026-09-10',
+      inLanguage: 'en',
+      isAccessibleForFree: true,
+    },
+    {
+      '@type': 'Book',
+      '@id': `${SITE_URL}/#book-absconded`,
+      name: 'Absconded',
+      url: SITE_URL,
+      sameAs: 'https://www.amazon.com/dp/B0HBZPBXZR',
+      image: `${SITE_URL}/absconded-cover.png`,
+      author: { '@id': `${SITE_URL}/#person` },
+      publisher: { '@type': 'Organization', name: 'VYRM Press' },
+      datePublished: '2026-05-17',
+      inLanguage: 'en',
+      genre: ['Autofiction', 'Essays', 'Builder Memoir'],
+      description:
+        'The story of a builder unravelling from the corporate timeline in Mumbai. Tracing a transition from stable retail procurement to crypto speculation, AI experimentation, and internet-native identity.',
+      bookFormat: 'https://schema.org/EBook',
       isAccessibleForFree: true,
     },
     {
@@ -216,6 +246,7 @@ const jsonLd = {
       '@id': `${SITE_URL}/#book-room-between-lives`,
       name: 'The Room Between Lives',
       url: SITE_URL,
+      image: `${SITE_URL}/room-between-lives-cover.png`,
       author: { '@id': `${SITE_URL}/#person` },
       publisher: { '@type': 'Organization', name: 'VYRM Press' },
       datePublished: '2026-08-27',
@@ -223,7 +254,7 @@ const jsonLd = {
       genre: ['Literary Fiction', 'Psychological Drama', 'Mystery'],
       description:
         'A four-book novel about Wren Calloway who checks into a hotel between lives — a coma-space where she must live four alternate existences to find the courage to wake up.',
-      bookFormat: 'EBook',
+      bookFormat: 'https://schema.org/EBook',
       isAccessibleForFree: true,
     },
     {
@@ -238,7 +269,7 @@ const jsonLd = {
       genre: ['Non-Fiction', 'Crypto', 'Finance', 'Builder Memoir'],
       description:
         'A raw, unfiltered builder\'s field guide to surviving, failing, and finding signal in the chaos of Solana memecoin markets.',
-      bookFormat: 'EBook',
+      bookFormat: 'https://schema.org/EBook',
       isAccessibleForFree: true,
     },
 

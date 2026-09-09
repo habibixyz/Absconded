@@ -144,6 +144,17 @@ const timelineSignals = [
 
 const storeProducts = [
   {
+    id: "absconded-amazon-edition",
+    title: "ABSCONDED",
+    subtitle: "Paperback & Kindle Edition",
+    description: "A Builder's Evolution by Tanvir Khan. The complete manuscript published globally on Amazon.",
+    priceUsd: 9.99,
+    priceInr: 499,
+    coverImage: "/absconded-cover.png",
+    editionSize: "Live on Amazon",
+    paymentLink: "https://www.amazon.com/dp/B0HBZPBXZR"
+  },
+  {
     id: "mask-beneath-chapbook",
     title: "The Mask Beneath",
     subtitle: "Premium Softcover Zine",
@@ -168,13 +179,13 @@ const storeProducts = [
   {
     id: "silent-protocol-chapbook",
     title: "Silent Protocol",
-    subtitle: "Premium Softcover Zine",
-    description: "The Meridian House tech-thriller. A physical manifestation of algorithmic guilt, digital surveillance, and corporate complicity. Matte black cover with neon-green terminal logs.",
+    subtitle: "Published on Amazon Kindle & Paperback",
+    description: "The Meridian House tech-thriller. A physical manifestation of algorithmic guilt, digital surveillance, and corporate complicity. Live on Amazon.",
     priceUsd: 15,
     priceInr: 1299,
     coverImage: "/silent-protocol-cover.png",
-    editionSize: 120,
-    paymentLink: "https://rzp.io/rzp/6dJsUF7G"
+    editionSize: "Live on Amazon",
+    paymentLink: "https://www.amazon.com/dp/B0HBZPBXZR"
   },
   {
     id: "signal-stairs-chapbook",
@@ -1243,7 +1254,12 @@ export default function Home() {
                       <p className="text-[9px] tracking-[0.3em] uppercase text-always-white-60">{book.subtitle}</p>
                     </div>
 
-                    <div className="absolute top-6 right-6 flex gap-2 z-20">
+                    <div className="absolute top-6 right-6 flex flex-wrap gap-2 z-20 justify-end">
+                      {book.amazonUrl && (
+                        <span className="text-[8px] tracking-[0.2em] uppercase text-amber-300 border border-amber-500/40 px-3 py-1 bg-black/60 backdrop-blur-sm font-mono shadow-sm">
+                          Amazon Edition ↗
+                        </span>
+                      )}
                       <span className="text-[8px] tracking-[0.2em] uppercase text-always-white-80 border border-always-white-10 px-3 py-1 bg-always-black-40 backdrop-blur-sm">
                         {book.type === "manuscript" ? "Manuscript" : "Short Story"}
                       </span>
@@ -1325,13 +1341,24 @@ export default function Home() {
               </div>
             )}
             
-            <div className="flex flex-col md:flex-row gap-4 justify-center items-center">
+            <div className="flex flex-col sm:flex-row gap-3 justify-center items-center">
               <button 
                 onClick={() => handleBeginReading(selectedBook.id)}
-                className="px-12 py-4 border border-white/10 hover:border-white/40 hover:bg-white/5 rounded-full text-[10px] tracking-[0.3em] uppercase transition-all duration-500"
+                className="px-10 py-3.5 border border-white/20 bg-white/5 hover:border-white/50 hover:bg-white/10 rounded-full text-[10px] tracking-[0.3em] uppercase transition-all duration-500 font-medium"
               >
                 Begin Reading
               </button>
+              {(selectedBook.amazonUrl || selectedBook.id === 'absconded') && (
+                <a
+                  href={selectedBook.amazonUrl || "https://www.amazon.com/dp/B0HBZPBXZR"}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-7 py-3.5 border border-amber-500/40 bg-amber-500/10 hover:bg-amber-500/20 text-amber-300 hover:text-amber-200 rounded-full text-[10px] tracking-[0.2em] uppercase transition-all duration-300 flex items-center gap-1.5 font-mono"
+                >
+                  <span>Amazon Edition</span>
+                  <span className="text-xs">↗</span>
+                </a>
+              )}
             </div>
 
             <div className="mt-16 text-[9px] tracking-[0.2em] text-secondary/40 uppercase">
@@ -1359,9 +1386,27 @@ export default function Home() {
 
           <h2 className="text-xs uppercase tracking-[0.4em] text-secondary mb-4">Manuscript Index {"\u00B7"} {calculateBookReadingTime(selectedBook)} total read</h2>
           <p className="font-serif italic text-2xl mb-6">{selectedBook.title}</p>
-          <p className="text-sm font-light text-secondary/80 leading-relaxed mb-16 font-serif italic max-w-xl">
+          <p className="text-sm font-light text-secondary/80 leading-relaxed mb-8 font-serif italic max-w-xl">
             {selectedBook.description}
           </p>
+
+          {selectedBook.amazonUrl && (
+            <div className="mb-12 p-3.5 sm:p-4 border border-amber-500/30 bg-amber-500/[0.04] rounded flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+              <div className="text-[11px] font-mono text-amber-200/90 leading-relaxed">
+                <span className="font-bold text-amber-300">Live on Amazon: </span> 
+                Paperback & Kindle edition available globally.
+              </div>
+              <a
+                href={selectedBook.amazonUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-4 py-2 border border-amber-500/40 bg-amber-500/15 hover:bg-amber-500/30 text-amber-300 hover:text-amber-200 text-[9px] font-mono tracking-wider uppercase rounded shrink-0 transition-all flex items-center gap-1.5"
+              >
+                <span>View on Amazon</span>
+                <span className="text-xs">↗</span>
+              </a>
+            </div>
+          )}
 
           {selectedBook.parts && (
             <div className="flex flex-wrap gap-8 mb-16 border-b border-white/5 pb-4">
