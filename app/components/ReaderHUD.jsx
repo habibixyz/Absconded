@@ -45,132 +45,105 @@ function splitIntoSentences(text) {
   return matches.map(s => s.trim()).filter(Boolean)
 }
 
-// Voice Personas curated for literary essence, human inflection, and dynamic cadence
-export const PERSONAS = {
-  noir: {
-    id: 'noir',
-    label: 'Noir Baritone',
-    badge: 'NOIR',
-    desc: 'Deep, measured, contemplative baritone',
-    basePitch: 0.88,
-    baseRate: 0.88,
-    epigraphPitch: 0.84,
-    epigraphRate: 0.84,
-    quotePitch: 0.84,
-    quoteRate: 0.85,
-    twistPitch: 0.82,
-    twistRate: 0.85,
-    sentencePause: 180,
-    paragraphPause: 450,
-    quotePause: 480
-  },
-  storyteller: {
-    id: 'storyteller',
-    label: 'Warm Memoir',
-    badge: 'WARM',
-    desc: 'Intimate, warm, conversational cadence',
-    basePitch: 0.96,
-    baseRate: 0.93,
-    epigraphPitch: 0.92,
-    epigraphRate: 0.90,
-    quotePitch: 0.92,
-    quoteRate: 0.90,
-    twistPitch: 0.90,
-    twistRate: 0.92,
-    sentencePause: 140,
-    paragraphPause: 380,
-    quotePause: 420
-  },
-  british: {
-    id: 'british',
-    label: 'Literary British',
-    badge: 'UK',
-    desc: 'Classic, crisp Oxford/BBC narrative cadence',
-    basePitch: 0.98,
-    baseRate: 0.95,
-    epigraphPitch: 0.94,
-    epigraphRate: 0.92,
-    quotePitch: 0.94,
-    quoteRate: 0.92,
-    twistPitch: 0.92,
-    twistRate: 0.94,
-    sentencePause: 140,
-    paragraphPause: 360,
-    quotePause: 400
-  },
-  studio: {
-    id: 'studio',
-    label: 'Modern Studio',
-    badge: 'STUDIO',
-    desc: 'Clear, modern, fluid audio-essay',
-    basePitch: 1.0,
-    baseRate: 1.02,
-    epigraphPitch: 0.96,
-    epigraphRate: 0.96,
-    quotePitch: 0.96,
-    quoteRate: 0.96,
-    twistPitch: 0.95,
-    twistRate: 0.98,
-    sentencePause: 120,
-    paragraphPause: 280,
-    quotePause: 320
-  }
+// Curated acoustic parameters for natural, warm male literary narration
+export const MALE_NARRATOR = {
+  id: 'male',
+  label: 'Literary Male Narrator',
+  basePitch: 0.90, // Rich, warm baritone tone removing robotic high frequencies
+  baseRate: 0.92,  // Measured, contemplative literary cadence
+  epigraphPitch: 0.86,
+  epigraphRate: 0.86,
+  quotePitch: 0.86,
+  quoteRate: 0.88,
+  twistPitch: 0.84,
+  twistRate: 0.88,
+  sentencePause: 160,
+  paragraphPause: 420,
+  quotePause: 460
 }
 
-// Select the most natural human voice available for the chosen persona
-function selectVoiceForPersona(voices, personaKey) {
+// Select the single most natural human male voice available on the device
+function selectSingleMaleVoice(voices) {
   if (!voices || voices.length === 0) return null
+
+  const isEdge = typeof navigator !== 'undefined' && /Edg\//i.test(navigator.userAgent)
+  const isApple = typeof navigator !== 'undefined' && /Mac|iPhone|iPad|iPod/i.test(navigator.userAgent)
+
   const enVoices = voices.filter(v => v.lang && v.lang.toLowerCase().startsWith('en'))
   const candidatePool = enVoices.length > 0 ? enVoices : voices
 
-  const isEdge = typeof navigator !== 'undefined' && /Edg\//i.test(navigator.userAgent)
-  const isChrome = typeof navigator !== 'undefined' && /Chrome\//i.test(navigator.userAgent) && !isEdge
-
   const scored = candidatePool.map(voice => {
     const name = (voice.name || '').toLowerCase()
+    const lang = (voice.lang || '').toLowerCase()
     let score = 10
 
-    // Google voices in Chrome/Android are super reliable and have clean diction
-    if (name.includes('google')) {
-      score += 120
-      if (personaKey === 'noir' && (name.includes('uk english male') || name.includes('us english'))) score += 50
+    // Strict filter: Heavily penalize female voices so only male voices are selected
+    if (
+      name.includes('female') ||
+      name.includes('zira') ||
+      name.includes('samantha') ||
+      name.includes('serena') ||
+      name.includes('jenny') ||
+      name.includes('aria') ||
+      name.includes('victoria') ||
+      name.includes('karen') ||
+      name.includes('hazel') ||
+      name.includes('susan') ||
+      name.includes('catherine') ||
+      name.includes('linda')
+    ) {
+      score -= 500
     }
 
-    // Microsoft Online / Natural voices:
-    // Work natively only in Edge! In Chrome on Windows, they fail silently with network/auth error.
-    if (name.includes('natural') || name.includes('online')) {
-      if (isEdge) {
-        score += 150
-      } else {
-        // Heavy penalty in Chrome/Firefox to prevent selecting incompatible cloud voices
-        score -= 200
+    // 1. In Microsoft Edge: Use neural natural male cloud voices
+    if (isEdge && (name.includes('natural') || name.includes('online'))) {
+      if (name.includes('christopher') || name.includes('guy') || name.includes('ryan') || name.includes('eric') || name.includes('brian')) {
+        score += 350
+      } else if (name.includes('male')) {
+        score += 260
       }
     }
 
-    if (name.includes('neural')) {
-      score += isEdge ? 100 : 10
+    // In Chrome/Firefox on Windows/Linux: Penalize Edge online voices to prevent silent voice-unavailable failure
+    if (!isEdge && (name.includes('online') || name.includes('natural'))) {
+      score -= 500
     }
 
-    // Apple / Safari enhanced voices
-    if (name.includes('premium') || name.includes('enhanced') || name.includes('studio')) {
+    // 2. Google UK English Male (Chrome/Android gold standard - deep, smooth, natural British narrator)
+    if (name.includes('google uk english male')) {
+      score += 300
+    } else if (name.includes('google') && (name.includes('uk') || name.includes('male') || lang.includes('gb'))) {
+      score += 240
+    } else if (name.includes('google') && name.includes('us english')) {
+      score += 180
+    } else if (name.includes('google')) {
+      score += 140
+    }
+
+    // 3. Apple Enhanced / Premium Male Voices (Safari, macOS, iOS)
+    if (isApple) {
+      if ((name.includes('daniel') || name.includes('oliver') || name.includes('arthur') || name.includes('alex')) && (name.includes('enhanced') || name.includes('premium'))) {
+        score += 280
+      } else if (name.includes('daniel') || name.includes('oliver') || name.includes('arthur') || name.includes('alex')) {
+        score += 220
+      }
+    }
+
+    // 4. Other male voices
+    if (name.includes('male') || name.includes('daniel') || name.includes('guy') || name.includes('ryan') || name.includes('george') || name.includes('david')) {
       score += 80
     }
 
-    // Specific persona affinities
-    if (personaKey === 'noir') {
-      if (name.includes('christopher') || name.includes('guy') || name.includes('ryan') || name.includes('male') || name.includes('daniel') || name.includes('george')) score += 50
-      if (name.includes('uk english male')) score += 60
-    } else if (personaKey === 'storyteller') {
-      if (name.includes('jenny') || name.includes('sonia') || name.includes('samantha') || name.includes('serena') || name.includes('female') || name.includes('aria')) score += 50
-    } else if (personaKey === 'british') {
-      if (name.includes('uk') || name.includes('great britain') || name.includes('daniel') || name.includes('ryan') || name.includes('oliver') || name.includes('sonia') || name.includes('hazel')) score += 60
-    } else if (personaKey === 'studio') {
-      if (name.includes('studio') || name.includes('google') || (isEdge && name.includes('natural'))) score += 40
+    // Language preference: UK or US English
+    if (lang === 'en-gb' || name.includes('uk english')) {
+      score += 30
+    } else if (lang === 'en-us' || name.includes('us english')) {
+      score += 15
     }
 
-    // Heavy penalty for legacy robotic desktop voices (e.g. Microsoft David Desktop, Mark, Zira)
-    if (name.includes('desktop') && (name.includes('david') || name.includes('zira') || name.includes('mark'))) {
-      score -= 80
+    // Heavy penalty for legacy robotic desktop synthesizers (e.g. Microsoft David Desktop)
+    if (name.includes('desktop') && name.includes('david')) {
+      score -= 150
     }
 
     return { voice, score }
@@ -200,14 +173,12 @@ export default function ReaderHUD({
   const [timeLeftMinutes, setTimeLeftMinutes] = useState(1)
   const [settingsOpen, setSettingsOpen] = useState(false)
   
-  // Audio narration with Personas, Cadence Modulation & Sentence Queuing
+  // Audio narration with Single Male Narrator & Natural literary cadence
   const [speechState, setSpeechState] = useState('idle') // 'idle', 'playing', 'paused'
   const [speechRate, setSpeechRate] = useState(1.0)
   const [speechSupported, setSpeechSupported] = useState(true)
-  const [personaKey, setPersonaKey] = useState('noir') // 'noir', 'storyteller', 'british', 'studio'
   const [selectedVoiceURI, setSelectedVoiceURI] = useState('')
   const [availableVoices, setAvailableVoices] = useState([])
-  const personaRef = useRef(personaKey)
   const segmentsRef = useRef([])
   const currentIndexRef = useRef(0)
   const isPlayingRef = useRef(false)
@@ -219,10 +190,6 @@ export default function ReaderHUD({
   useEffect(() => {
     rateRef.current = speechRate
   }, [speechRate])
-
-  useEffect(() => {
-    personaRef.current = personaKey
-  }, [personaKey])
 
   // Ambient sound synthesizer (Web Audio API)
   const [ambientType, setAmbientType] = useState('off') // 'off', 'rain', 'deep'
@@ -300,29 +267,34 @@ export default function ReaderHUD({
     }
   }, [])
 
-  // Auto-reset narration if reader chapter changes
+  // Auto-reset narration if reader book, chapter, or content changes
   useEffect(() => {
     if (typeof window !== 'undefined' && window.speechSynthesis) {
       isPlayingRef.current = false
       currentIndexRef.current = 0
       if (pauseTimeoutRef.current) clearTimeout(pauseTimeoutRef.current)
-      window.speechSynthesis.cancel()
+      try { window.speechSynthesis.cancel() } catch (e) {}
       setSpeechState('idle')
     }
-  }, [chapterTitle, content])
+  }, [bookTitle, chapterTitle, content])
 
-  // Build clean segments with literary block context: epigraph, paragraphs, middle quotes (pull), twists, terminals
+  // Build clean segments across ALL book structures: manuscripts, classics, imported EPUBs, and plain text
   const getCleanSegments = useCallback(() => {
     const rawBlocks = []
-    if (epigraph) {
-      rawBlocks.push({ text: epigraph, type: 'epigraph' })
+    if (epigraph && typeof epigraph === 'string' && epigraph.trim()) {
+      rawBlocks.push({ text: epigraph.trim(), type: 'epigraph' })
     }
     if (Array.isArray(content)) {
       content.forEach(b => {
-        if (b && b.text && b.type !== 'portrait') {
-          rawBlocks.push({ text: b.text, type: b.type || 'p' })
+        if (!b) return
+        if (typeof b === 'string' && b.trim()) {
+          rawBlocks.push({ text: b.trim(), type: 'p' })
+        } else if (typeof b === 'object' && b.text && b.type !== 'portrait') {
+          rawBlocks.push({ text: String(b.text).trim(), type: b.type || 'p' })
         }
       })
+    } else if (typeof content === 'string' && content.trim()) {
+      rawBlocks.push({ text: content.trim(), type: 'p' })
     }
 
     const segments = []
@@ -343,7 +315,7 @@ export default function ReaderHUD({
     return segments
   }, [content, epigraph])
 
-  // Speak segment sequentially with dynamic persona inflection and breath pacing
+  // Speak segment sequentially with dynamic male narrator inflection and breath pacing
   const speakSegment = useCallback((index) => {
     if (!isPlayingRef.current || typeof window === 'undefined' || !window.speechSynthesis) return
     const segments = segmentsRef.current
@@ -373,30 +345,29 @@ export default function ReaderHUD({
       return
     }
 
-    const persona = PERSONAS[personaRef.current] || PERSONAS.noir
     const utterance = new SpeechSynthesisUtterance(segment.text)
 
     // Set standard language fallback
     utterance.lang = 'en-US'
 
-    // Dynamic literary inflection: adjust pitch & rate by block type
-    let computedPitch = persona.basePitch
-    let computedRate = persona.baseRate * rateRef.current
+    // Dynamic literary inflection: adjust pitch & rate by block type with warm male acoustic tuning
+    let computedPitch = MALE_NARRATOR.basePitch
+    let computedRate = MALE_NARRATOR.baseRate * rateRef.current
 
     if (segment.type === 'epigraph') {
-      computedPitch = persona.epigraphPitch
-      computedRate = persona.epigraphRate * rateRef.current
+      computedPitch = MALE_NARRATOR.epigraphPitch
+      computedRate = MALE_NARRATOR.epigraphRate * rateRef.current
     } else if (segment.type === 'pull') {
-      computedPitch = persona.quotePitch
-      computedRate = persona.quoteRate * rateRef.current
+      computedPitch = MALE_NARRATOR.quotePitch
+      computedRate = MALE_NARRATOR.quoteRate * rateRef.current
     } else if (segment.type === 'twist') {
-      computedPitch = persona.twistPitch
-      computedRate = persona.twistRate * rateRef.current
+      computedPitch = MALE_NARRATOR.twistPitch
+      computedRate = MALE_NARRATOR.twistRate * rateRef.current
     } else if (segment.type === 'heading') {
-      computedPitch = Math.min(1.2, persona.basePitch * 1.04)
-      computedRate = persona.baseRate * 0.96 * rateRef.current
+      computedPitch = Math.min(1.2, MALE_NARRATOR.basePitch * 1.04)
+      computedRate = MALE_NARRATOR.baseRate * 0.96 * rateRef.current
     } else if (segment.text.endsWith('?')) {
-      computedPitch = Math.min(1.2, persona.basePitch * 1.03)
+      computedPitch = Math.min(1.2, MALE_NARRATOR.basePitch * 1.03)
     }
 
     utterance.pitch = Math.max(0.6, Math.min(1.5, computedPitch))
@@ -415,7 +386,7 @@ export default function ReaderHUD({
       chosenVoice = voices.find(v => v.voiceURI === selectedVoiceURI)
     }
     if (!chosenVoice) {
-      chosenVoice = selectVoiceForPersona(voices, personaRef.current)
+      chosenVoice = selectSingleMaleVoice(voices)
     }
     if (chosenVoice) {
       utterance.voice = chosenVoice
@@ -433,11 +404,11 @@ export default function ReaderHUD({
         currentIndexRef.current = index + 1
 
         // Natural human breath pause between sentences & paragraphs
-        let pauseDuration = persona.sentencePause
+        let pauseDuration = MALE_NARRATOR.sentencePause
         if (segment.isLastInBlock) {
-          pauseDuration = persona.paragraphPause
+          pauseDuration = MALE_NARRATOR.paragraphPause
         } else if (segment.type === 'pull' || segment.type === 'epigraph') {
-          pauseDuration = persona.quotePause
+          pauseDuration = MALE_NARRATOR.quotePause
         }
 
         pauseTimeoutRef.current = setTimeout(() => {
@@ -569,23 +540,6 @@ export default function ReaderHUD({
     const nextRate = speechRate === 1.0 ? 1.25 : speechRate === 1.25 ? 1.5 : 1.0
     setSpeechRate(nextRate)
     rateRef.current = nextRate
-    if (speechState === 'playing') {
-      if (pauseTimeoutRef.current) clearTimeout(pauseTimeoutRef.current)
-      window.speechSynthesis.cancel()
-      setTimeout(() => {
-        if (isPlayingRef.current) {
-          speakSegment(currentIndexRef.current)
-        }
-      }, 60)
-    }
-  }
-
-  const cyclePersona = () => {
-    const keys = ['noir', 'storyteller', 'british', 'studio']
-    const nextIdx = (keys.indexOf(personaKey) + 1) % keys.length
-    const nextKey = keys[nextIdx]
-    setPersonaKey(nextKey)
-    personaRef.current = nextKey
     if (speechState === 'playing') {
       if (pauseTimeoutRef.current) clearTimeout(pauseTimeoutRef.current)
       window.speechSynthesis.cancel()
@@ -974,85 +928,70 @@ export default function ReaderHUD({
               </div>
             </div>
 
-            {/* Narration Voice Persona & Atmosphere */}
+            {/* Audio Narrator Settings (Single Natural Male Voice) */}
             <div className="space-y-2.5 border-t border-white/10 pt-3">
               <div className="flex items-center justify-between">
                 <span className="text-[10px] font-mono tracking-[0.2em] uppercase text-secondary block">
-                  Voice Atmosphere
+                  Audio Narrator
                 </span>
-                <span className="text-[9px] font-mono text-emerald-400">
-                  {PERSONAS[personaKey]?.label}
+                <span className="text-[9px] font-mono text-emerald-400 uppercase tracking-widest">
+                  MALE VOICE
                 </span>
-              </div>
-              <div className="grid grid-cols-2 gap-2">
-                {[
-                  { id: 'noir', label: 'Noir Baritone', desc: 'Cinematic & Deep' },
-                  { id: 'storyteller', label: 'Warm Memoir', desc: 'Intimate & Natural' },
-                  { id: 'british', label: 'Literary British', desc: 'Classic Oxford' },
-                  { id: 'studio', label: 'Modern Studio', desc: 'Fluid & Crisp' }
-                ].map(p => (
-                  <button
-                    key={p.id}
-                    onClick={() => {
-                      setPersonaKey(p.id)
-                      personaRef.current = p.id
-                      if (speechState === 'playing') {
-                        if (pauseTimeoutRef.current) clearTimeout(pauseTimeoutRef.current)
-                        window.speechSynthesis.cancel()
-                        setTimeout(() => {
-                          if (isPlayingRef.current) speakSegment(currentIndexRef.current)
-                        }, 60)
-                      }
-                    }}
-                    className={`p-2.5 rounded-lg text-left transition-all border ${
-                      personaKey === p.id
-                        ? 'border-emerald-500/50 bg-emerald-500/10 text-white font-semibold'
-                        : 'border-white/10 text-secondary hover:text-white bg-white/[0.02]'
-                    }`}
-                  >
-                    <div className="text-[11px] font-mono leading-tight">{p.label}</div>
-                    <div className="text-[9px] text-secondary/70 font-sans mt-0.5">{p.desc}</div>
-                  </button>
-                ))}
               </div>
 
-              {/* Specific Voice Override Dropdown */}
-              {availableVoices.length > 1 && (
-                <div className="pt-1">
-                  <div className="flex items-center justify-between text-[9px] font-mono text-secondary mb-1">
-                    <span>NARRATOR ENGINE</span>
-                    {selectedVoiceURI && (
-                      <button 
-                        onClick={() => setSelectedVoiceURI('')}
-                        className="text-amber-400 hover:underline"
-                      >
-                        Auto-select
-                      </button>
-                    )}
-                  </div>
-                  <select
-                    value={selectedVoiceURI}
-                    onChange={(e) => {
-                      setSelectedVoiceURI(e.target.value)
-                      if (speechState === 'playing') {
-                        if (pauseTimeoutRef.current) clearTimeout(pauseTimeoutRef.current)
-                        window.speechSynthesis.cancel()
-                        setTimeout(() => {
-                          if (isPlayingRef.current) speakSegment(currentIndexRef.current)
-                        }, 60)
+              {/* Active Voice Card */}
+              <div className="p-3 rounded-xl border border-white/10 bg-white/[0.02] flex items-center justify-between">
+                <div>
+                  <div className="text-xs font-mono text-white font-medium">
+                    {(() => {
+                      if (selectedVoiceURI) {
+                        const found = availableVoices.find(v => v.voiceURI === selectedVoiceURI)
+                        if (found) return found.name
                       }
-                    }}
-                    className="w-full bg-[#111] border border-white/15 rounded-lg px-2.5 py-1.5 text-[10px] font-mono text-white outline-none focus:border-white/40"
-                  >
-                    <option value="">Auto Natural ({PERSONAS[personaKey]?.label})</option>
-                    {availableVoices.map(v => (
-                      <option key={v.voiceURI} value={v.voiceURI}>
-                        {v.name} {v.name.includes('Natural') || v.name.includes('Online') ? '[Natural]' : ''}
-                      </option>
-                    ))}
-                  </select>
+                      const single = selectSingleMaleVoice(availableVoices)
+                      return single?.name || 'Natural Male Voice'
+                    })()}
+                  </div>
+                  <div className="text-[9px] text-secondary/70 font-sans mt-0.5">
+                    Curated warm baritone cadence with dynamic literary pacing
+                  </div>
                 </div>
-              )}
+                <span className="px-2 py-0.5 text-[8px] font-mono uppercase tracking-wider text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 rounded shrink-0">
+                  ACTIVE
+                </span>
+              </div>
+
+              {/* Playback speed selector */}
+              <div className="space-y-1.5 pt-1">
+                <span className="text-[9px] font-mono text-secondary uppercase tracking-wider block">
+                  Playback Speed
+                </span>
+                <div className="grid grid-cols-4 gap-2">
+                  {[0.85, 1.0, 1.25, 1.5].map(rate => (
+                    <button
+                      key={rate}
+                      onClick={() => {
+                        setSpeechRate(rate)
+                        rateRef.current = rate
+                        if (speechState === 'playing') {
+                          if (pauseTimeoutRef.current) clearTimeout(pauseTimeoutRef.current)
+                          try { window.speechSynthesis.cancel() } catch (e) {}
+                          setTimeout(() => {
+                            if (isPlayingRef.current) speakSegment(currentIndexRef.current)
+                          }, 60)
+                        }
+                      }}
+                      className={`py-1.5 rounded-lg text-[10px] font-mono transition-all border min-h-[32px] ${
+                        speechRate === rate
+                          ? 'border-white/40 bg-white/15 text-white font-semibold'
+                          : 'border-white/10 text-secondary hover:text-white'
+                      }`}
+                    >
+                      {rate}x
+                    </button>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -1087,26 +1026,17 @@ export default function ReaderHUD({
         {/* Text-to-Speech Narration */}
         <div className="flex items-center gap-1 border-r border-white/10 pr-1 sm:pr-2 shrink-0">
           {speechState === 'idle' && (
-            <div className="flex items-center gap-1">
-              <button
-                onClick={handleStartNarration}
-                className="flex items-center gap-1 sm:gap-1.5 px-2 sm:px-2.5 py-1 rounded-full text-[8px] sm:text-[9px] font-mono uppercase tracking-[0.15em] sm:tracking-[0.2em] transition-all border border-transparent text-secondary hover:text-white hover:bg-white/5 min-h-[30px]"
-                title={`Listen with ${PERSONAS[personaKey]?.label}`}
-              >
-                <svg className="w-3 h-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-                <span>LISTEN</span>
-              </button>
-              <button
-                onClick={cyclePersona}
-                className="px-1.5 py-0.5 text-[8px] font-mono text-emerald-400 hover:text-emerald-300 uppercase tracking-wider rounded border border-emerald-500/30 bg-emerald-500/10 min-h-[26px]"
-                title="Cycle Voice Persona (Noir / Warm / UK / Studio)"
-              >
-                {PERSONAS[personaKey]?.badge}
-              </button>
-            </div>
+            <button
+              onClick={handleStartNarration}
+              className="flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3 py-1 rounded-full text-[8px] sm:text-[9px] font-mono uppercase tracking-[0.15em] sm:tracking-[0.2em] transition-all border border-transparent text-secondary hover:text-white hover:bg-white/5 min-h-[30px]"
+              title="Listen to chapter narration with natural male voice"
+            >
+              <svg className="w-3 h-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <span>LISTEN</span>
+            </button>
           )}
 
           {speechState === 'playing' && (
@@ -1135,13 +1065,6 @@ export default function ReaderHUD({
               >
                 {speechRate}x
               </button>
-              <button
-                onClick={cyclePersona}
-                className="px-1.5 py-0.5 text-[8px] font-mono text-emerald-400 hover:text-emerald-300 uppercase tracking-wider rounded border border-emerald-500/30 bg-emerald-500/10 min-h-[26px]"
-                title="Cycle Voice Persona (Noir / Warm / UK / Studio)"
-              >
-                {PERSONAS[personaKey]?.badge}
-              </button>
             </div>
           )}
 
@@ -1160,13 +1083,6 @@ export default function ReaderHUD({
                 title="Stop Narration Completely"
               >
                 STOP
-              </button>
-              <button
-                onClick={cyclePersona}
-                className="px-1.5 py-0.5 text-[8px] font-mono text-emerald-400 hover:text-emerald-300 uppercase tracking-wider rounded border border-emerald-500/30 bg-emerald-500/10 min-h-[26px]"
-                title="Cycle Voice Persona"
-              >
-                {PERSONAS[personaKey]?.badge}
               </button>
             </div>
           )}
