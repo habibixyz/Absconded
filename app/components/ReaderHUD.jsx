@@ -67,41 +67,82 @@ const FEMALE_VOICE_FRAGMENTS = [
   'zira', 'samantha', 'serena', 'jenny', 'aria', 'victoria',
   'karen', 'hazel', 'susan', 'catherine', 'linda', 'moira',
   'sonia', 'tessa', 'fiona', 'kathy', 'vicki', 'alice',
-  'ioana', 'monica', 'paulina', 'female', 'woman'
+  'ioana', 'monica', 'paulina', 'female', 'woman', 'girl',
+  'eva', 'ava', 'allison', 'zoe', 'stephanie', 'sangeeta',
+  'veena', 'priya', 'sfg', 'tpf', 'gda', 'afh', 'female_1',
+  'female_2', 'female#', '#female', 'smt_en_us_f', 'f01',
+  'siri voice 1', 'siri voice 4', 'google us english'
 ]
+
+// Check if a voice is female
+export function isFemaleVoice(voice) {
+  if (!voice) return false
+  const name = (voice.name || '').toLowerCase()
+  const uri = (voice.voiceURI || '').toLowerCase()
+  return FEMALE_VOICE_FRAGMENTS.some(f => name.includes(f) || uri.includes(f))
+}
 
 // Priority order: try each pattern in order; first match is used
 const MALE_VOICE_PRIORITY = [
   // Edge Neural Cloud (only in Edge browser)
-  { pattern: (n, isEdge) => isEdge && n.includes('christopher') && (n.includes('natural') || n.includes('online')), label: 'Edge Christopher Natural' },
-  { pattern: (n, isEdge) => isEdge && n.includes('guy') && (n.includes('natural') || n.includes('online')), label: 'Edge Guy Natural' },
-  { pattern: (n, isEdge) => isEdge && n.includes('ryan') && (n.includes('natural') || n.includes('online')), label: 'Edge Ryan Natural' },
-  { pattern: (n, isEdge) => isEdge && n.includes('eric') && (n.includes('natural') || n.includes('online')), label: 'Edge Eric Natural' },
-  // Google Chrome native
-  { pattern: (n) => n === 'google uk english male', label: 'Google UK Male' },
-  { pattern: (n) => n.includes('google') && n.includes('uk') && n.includes('male'), label: 'Google UK Male (fuzzy)' },
-  { pattern: (n) => n.includes('google') && n.includes('us english'), label: 'Google US English' },
-  // Apple macOS / iOS
-  { pattern: (n, _, isApple) => isApple && n.includes('daniel') && (n.includes('enhanced') || n.includes('premium')), label: 'Apple Daniel Enhanced' },
-  { pattern: (n, _, isApple) => isApple && n.includes('arthur') && n.includes('enhanced'), label: 'Apple Arthur Enhanced' },
-  { pattern: (n, _, isApple) => isApple && n.includes('oliver') && n.includes('enhanced'), label: 'Apple Oliver Enhanced' },
-  { pattern: (n, _, isApple) => isApple && n.includes('daniel'), label: 'Apple Daniel' },
-  { pattern: (n, _, isApple) => isApple && n.includes('alex'), label: 'Apple Alex' },
+  { pattern: (n, uri, isEdge) => isEdge && (n.includes('christopher') || uri.includes('christopher')) && (n.includes('natural') || n.includes('online')), label: 'Edge Christopher Natural' },
+  { pattern: (n, uri, isEdge) => isEdge && (n.includes('guy') || uri.includes('guy')) && (n.includes('natural') || n.includes('online')), label: 'Edge Guy Natural' },
+  { pattern: (n, uri, isEdge) => isEdge && (n.includes('ryan') || uri.includes('ryan')) && (n.includes('natural') || n.includes('online')), label: 'Edge Ryan Natural' },
+  { pattern: (n, uri, isEdge) => isEdge && (n.includes('eric') || uri.includes('eric')) && (n.includes('natural') || n.includes('online')), label: 'Edge Eric Natural' },
+
+  // Google Chrome & Android Google TTS Male Voices
+  { pattern: (n, uri) => n === 'google uk english male' || uri === 'google uk english male', label: 'Google UK Male' },
+  { pattern: (n, uri) => (n.includes('google') || uri.includes('google')) && (n.includes('male') || uri.includes('male')) && !n.includes('female'), label: 'Google UK Male (fuzzy)' },
+  { pattern: (n, uri) => n.includes('#male') || uri.includes('#male') || n.includes('male_1') || uri.includes('male_1'), label: 'Android Google TTS Male (explicit)' },
+  { pattern: (n, uri) => uri.includes('en-us-x-iom') || uri.includes('en-us-x-iob') || uri.includes('en-us-x-iol') || uri.includes('en-gb-x-rjs') || uri.includes('en-in-x-cce') || uri.includes('en-au-x-aub'), label: 'Android Male Voice Package' },
+
+  // Apple macOS / iOS (iPhone & iPad & Mac)
+  { pattern: (n, uri, _, isApple) => isApple && (n.includes('daniel') || uri.includes('daniel')) && (n.includes('enhanced') || n.includes('premium')), label: 'Apple Daniel Enhanced' },
+  { pattern: (n, uri, _, isApple) => isApple && (n.includes('arthur') || uri.includes('arthur')), label: 'Apple Arthur' },
+  { pattern: (n, uri, _, isApple) => isApple && (n.includes('aaron') || uri.includes('aaron')), label: 'Apple Aaron' },
+  { pattern: (n, uri, _, isApple) => isApple && (n.includes('gordon') || uri.includes('gordon')), label: 'Apple Gordon' },
+  { pattern: (n, uri, _, isApple) => isApple && (n.includes('oliver') || uri.includes('oliver')), label: 'Apple Oliver' },
+  { pattern: (n, uri, _, isApple) => isApple && (n.includes('rishi') || uri.includes('rishi')), label: 'Apple Rishi' },
+  { pattern: (n, uri, _, isApple) => isApple && (n.includes('alex') || uri.includes('alex')), label: 'Apple Alex' },
+  { pattern: (n, uri, _, isApple) => isApple && (n.includes('daniel') || uri.includes('daniel')), label: 'Apple Daniel' },
+  { pattern: (n, uri, _, isApple) => isApple && (n.includes('fred') || uri.includes('fred')), label: 'Apple Fred' },
+  { pattern: (n, uri, _, isApple) => isApple && (n.includes('siri voice 2') || n.includes('siri voice 3')), label: 'Apple Siri Male' },
+
+  // Samsung Mobile TTS Male
+  { pattern: (n, uri) => (n.includes('samsung') || uri.includes('samsung')) && (n.includes('male') || uri.includes('m01') || uri.includes('m02')), label: 'Samsung Male' },
+
+  // Windows Desktop SAPI / OneCore
+  { pattern: (n) => n.includes('david') && !n.includes('desktop'), label: 'Microsoft David' },
+  { pattern: (n) => n.includes('mark') && !n.includes('desktop'), label: 'Microsoft Mark' },
+  { pattern: (n) => n.includes('george'), label: 'Microsoft George' },
+  { pattern: (n) => n.includes('ravi'), label: 'Microsoft Ravi' },
+  { pattern: (n) => n.includes('richard'), label: 'Microsoft Richard' },
+  { pattern: (n) => n.includes('james'), label: 'Microsoft James' },
+  { pattern: (n) => n.includes('david'), label: 'Microsoft David' },
+
   // Generic male patterns
-  { pattern: (n) => n.includes('male') && !n.includes('female'), label: 'Generic male' },
-  { pattern: (n) => n.includes('david') && !n.includes('desktop'), label: 'David (non-desktop)' },
-  { pattern: (n) => n.includes('george'), label: 'George' },
-  { pattern: (n) => n.includes('daniel'), label: 'Daniel (any)' },
+  { pattern: (n, uri) => (n.includes('male') || uri.includes('male')) && !n.includes('female') && !uri.includes('female'), label: 'Generic male' },
 ]
 
-// Select the single best human male voice. Returns null (not a female voice) if nothing suitable found.
-function selectSingleMaleVoice(voices) {
+// Determine if a given voice is a recognized male voice
+export function isMaleVoiceCandidate(voice) {
+  if (!voice) return false
+  if (isFemaleVoice(voice)) return false
+  const name = (voice.name || '').toLowerCase()
+  const uri = (voice.voiceURI || '').toLowerCase()
+  const isEdge = typeof navigator !== 'undefined' && /Edg\//i.test(navigator.userAgent)
+  const isApple = typeof navigator !== 'undefined' && /Mac|iPhone|iPad|iPod/i.test(navigator.userAgent)
+  return MALE_VOICE_PRIORITY.some(rule => rule.pattern(name, uri, isEdge, isApple))
+}
+
+// Select the single best human male voice. Returns best male voice or null.
+export function selectSingleMaleVoice(voices) {
   if (!voices || voices.length === 0) return null
 
   const isEdge = typeof navigator !== 'undefined' && /Edg\//i.test(navigator.userAgent)
   const isApple = typeof navigator !== 'undefined' && /Mac|iPhone|iPad|iPod/i.test(navigator.userAgent)
 
-  // Only English voices as candidates
+  // Only English voices as candidates if available
   const enVoices = voices.filter(v => {
     if (!v || !v.lang) return false
     const lang = v.lang.toLowerCase()
@@ -109,31 +150,31 @@ function selectSingleMaleVoice(voices) {
   })
   const pool = enVoices.length > 0 ? enVoices : voices
 
-  // Apply priority list in order — first match wins
+  // 1. Apply priority list in order — first match wins
   for (const rule of MALE_VOICE_PRIORITY) {
     for (const v of pool) {
+      if (isFemaleVoice(v)) continue
       const name = (v.name || '').toLowerCase()
-      // Skip any known female voice
-      if (FEMALE_VOICE_FRAGMENTS.some(f => name.includes(f))) continue
+      const uri = (v.voiceURI || '').toLowerCase()
       // Skip Edge online voices in non-Edge browsers (will fail silently)
       if (!isEdge && (name.includes('online') || name.includes('natural'))) continue
-      if (rule.pattern(name, isEdge, isApple)) {
+      if (rule.pattern(name, uri, isEdge, isApple)) {
         return v
       }
     }
   }
 
-  // Last resort: any voice without female fragments — but ONLY if no female, otherwise return null
+  // 2. Secondary fallback: any voice in pool that is confirmed NOT female
   for (const v of pool) {
-    const name = (v.name || '').toLowerCase()
-    if (!FEMALE_VOICE_FRAGMENTS.some(f => name.includes(f))) {
+    if (!isFemaleVoice(v)) {
+      const name = (v.name || '').toLowerCase()
       if (!isEdge && (name.includes('online') || name.includes('natural'))) continue
       return v
     }
   }
 
-  // If every voice in the pool is female, return null — browser default is safer than a female voice
-  return null
+  // 3. Last fallback: return the first voice in pool rather than null (with lowered pitch in speakSegment)
+  return pool[0] || null
 }
 
 export default function ReaderHUD({
@@ -230,7 +271,20 @@ export default function ReaderHUD({
             const v = Array.isArray(raw) ? raw : []
             voicesRef.current = v
             const en = v.filter(x => x && x.lang && typeof x.lang === 'string' && x.lang.toLowerCase().startsWith('en'))
-            setAvailableVoices(en.length > 0 ? en : v)
+            const pool = en.length > 0 ? en : v
+            setAvailableVoices(pool)
+
+            try {
+              const savedUri = typeof window !== 'undefined' ? localStorage.getItem('reader_preferred_voice_uri') : null
+              if (savedUri && pool.some(x => x.voiceURI === savedUri)) {
+                setSelectedVoiceURI(savedUri)
+              } else {
+                const auto = selectSingleMaleVoice(pool)
+                if (auto?.voiceURI) {
+                  setSelectedVoiceURI(auto.voiceURI)
+                }
+              }
+            } catch (e) {}
           } catch (e) {
             console.warn('Voice enumeration note:', e)
           }
@@ -940,8 +994,8 @@ export default function ReaderHUD({
 
               {/* Active Voice Card */}
               <div className="p-3 rounded-xl border border-white/10 bg-white/[0.02] flex items-center justify-between">
-                <div>
-                  <div className="text-xs font-mono text-white font-medium">
+                <div className="min-w-0 pr-2">
+                  <div className="text-xs font-mono text-white font-medium truncate">
                     {(() => {
                       if (selectedVoiceURI) {
                         const found = availableVoices.find(v => v.voiceURI === selectedVoiceURI)
@@ -959,6 +1013,43 @@ export default function ReaderHUD({
                   ACTIVE
                 </span>
               </div>
+
+              {/* Voice Selector Dropdown (when multiple system/device voices exist) */}
+              {availableVoices.length > 1 && (
+                <div className="space-y-1.5 pt-1">
+                  <label htmlFor="narrator-voice-picker" className="text-[9px] font-mono text-secondary uppercase tracking-wider block">
+                    Voice ({availableVoices.length} detected)
+                  </label>
+                  <select
+                    id="narrator-voice-picker"
+                    value={selectedVoiceURI || (selectSingleMaleVoice(availableVoices)?.voiceURI || '')}
+                    onChange={(e) => {
+                      const val = e.target.value
+                      setSelectedVoiceURI(val)
+                      try {
+                        localStorage.setItem('reader_preferred_voice_uri', val)
+                      } catch (err) {}
+                      if (speechState === 'playing') {
+                        if (pauseTimeoutRef.current) clearTimeout(pauseTimeoutRef.current)
+                        try { window.speechSynthesis.cancel() } catch (err) {}
+                        setTimeout(() => {
+                          if (isPlayingRef.current) speakSegment(currentIndexRef.current)
+                        }, 60)
+                      }
+                    }}
+                    className="w-full bg-[#121212] border border-white/15 hover:border-white/30 rounded-lg px-2.5 py-1.5 text-[11px] font-mono text-white focus:outline-none focus:border-emerald-400 cursor-pointer"
+                  >
+                    {availableVoices.map(v => {
+                      const isMale = isMaleVoiceCandidate(v)
+                      return (
+                        <option key={v.voiceURI || v.name} value={v.voiceURI} className="bg-[#181818] text-white">
+                          {v.name} {isMale ? '⭐ [Male Narrator]' : ''}
+                        </option>
+                      )
+                    })}
+                  </select>
+                </div>
+              )}
 
               {/* Playback speed selector */}
               <div className="space-y-1.5 pt-1">
