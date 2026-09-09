@@ -144,17 +144,6 @@ const timelineSignals = [
 
 const storeProducts = [
   {
-    id: "absconded-amazon-edition",
-    title: "ABSCONDED",
-    subtitle: "Paperback & Kindle Edition",
-    description: "A Builder's Evolution by Tanvir Khan. The complete manuscript published globally on Amazon.",
-    priceUsd: 9.99,
-    priceInr: 499,
-    coverImage: "/absconded-cover.png",
-    editionSize: "Live on Amazon",
-    paymentLink: "https://www.amazon.com/dp/B0HBZPBXZR"
-  },
-  {
     id: "mask-beneath-chapbook",
     title: "The Mask Beneath",
     subtitle: "Premium Softcover Zine",
@@ -1348,9 +1337,9 @@ export default function Home() {
               >
                 Begin Reading
               </button>
-              {(selectedBook.amazonUrl || selectedBook.id === 'absconded') && (
+              {selectedBook.amazonUrl && (
                 <a
-                  href={selectedBook.amazonUrl || "https://www.amazon.com/dp/B0HBZPBXZR"}
+                  href={selectedBook.amazonUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="px-7 py-3.5 border border-amber-500/40 bg-amber-500/10 hover:bg-amber-500/20 text-amber-300 hover:text-amber-200 rounded-full text-[10px] tracking-[0.2em] uppercase transition-all duration-300 flex items-center gap-1.5 font-mono"

@@ -197,22 +197,20 @@ export default function ReaderHUD({
   const [timeLeftMinutes, setTimeLeftMinutes] = useState(1)
   const [settingsOpen, setSettingsOpen] = useState(false)
   
-  // Audio narration with Single Natural Studio Male Narrator (Audible / Amazon quality)
+  // Audio narration with Single Natural Male Voice
   const [speechState, setSpeechState] = useState('idle') // 'idle', 'playing', 'paused'
   const [speechRate, setSpeechRate] = useState(1.0)
+  const [availableVoices, setAvailableVoices] = useState([])
   const segmentsRef = useRef([])
   const currentIndexRef = useRef(0)
   const isPlayingRef = useRef(false)
   const rateRef = useRef(speechRate)
-  const audioPlayerRef = useRef(null)
-  const preloadAudioRef = useRef(null)
+  const utteranceRef = useRef(null)
+  const voicesRef = useRef([])
   const pauseTimeoutRef = useRef(null)
 
   useEffect(() => {
     rateRef.current = speechRate
-    if (audioPlayerRef.current) {
-      audioPlayerRef.current.playbackRate = speechRate
-    }
   }, [speechRate])
 
   // Stop audio on unmount or chapter change
@@ -220,11 +218,6 @@ export default function ReaderHUD({
     return () => {
       isPlayingRef.current = false
       if (pauseTimeoutRef.current) clearTimeout(pauseTimeoutRef.current)
-      if (audioPlayerRef.current) {
-        audioPlayerRef.current.pause()
-        audioPlayerRef.current.src = ''
-        audioPlayerRef.current = null
-      }
       if (typeof window !== 'undefined' && window.speechSynthesis) {
         try { window.speechSynthesis.cancel() } catch (e) {}
       }
@@ -280,7 +273,6 @@ export default function ReaderHUD({
     if (typeof window === 'undefined') return
     try {
       if ('speechSynthesis' in window && window.speechSynthesis) {
-        setSpeechSupported(true)
         const loadVoices = () => {
           try {
             const raw = window.speechSynthesis.getVoices()
@@ -289,18 +281,6 @@ export default function ReaderHUD({
             const en = v.filter(x => x && x.lang && typeof x.lang === 'string' && x.lang.toLowerCase().startsWith('en'))
             const pool = en.length > 0 ? en : v
             setAvailableVoices(pool)
-
-            try {
-              const savedUri = typeof window !== 'undefined' ? localStorage.getItem('reader_preferred_voice_uri') : null
-              if (savedUri && pool.some(x => x.voiceURI === savedUri)) {
-                setSelectedVoiceURI(savedUri)
-              } else {
-                const auto = selectSingleMaleVoice(pool)
-                if (auto?.voiceURI) {
-                  setSelectedVoiceURI(auto.voiceURI)
-                }
-              }
-            } catch (e) {}
           } catch (e) {
             console.warn('Voice enumeration note:', e)
           }
@@ -368,53 +348,22 @@ export default function ReaderHUD({
     return segments
   }, [content, epigraph])
 
-  // Fallback speech synthesis if device is offline
-  const speakFallbackSpeechSynthesis = useCallback((segment, index) => {
-    if (typeof window === 'undefined' || !window.speechSynthesis || !isPlayingRef.current) return
-    try {
-      const synth = window.speechSynthesis
-      synth.cancel()
-      const utterance = new SpeechSynthesisUtterance(segment.text)
-      utterance.lang = 'en-US'
-      utterance.rate = MALE_NARRATOR.baseRate * rateRef.current
-      utterance.pitch = 0.68 // Baritone modulation
-      utterance.onend = () => {
-        if (isPlayingRef.current) {
-          currentIndexRef.current = index + 1
-          const pauseTime = segment.isLastInBlock ? 380 : 140
-          pauseTimeoutRef.current = setTimeout(() => {
-            if (isPlayingRef.current) speakSegment(index + 1)
-          }, pauseTime)
-        }
-      }
-      utterance.onerror = () => {
-        if (isPlayingRef.current) {
-          currentIndexRef.current = index + 1
-          speakSegment(index + 1)
-        }
-      }
-      synth.speak(utterance)
-    } catch (err) {
-      if (isPlayingRef.current) {
-        currentIndexRef.current = index + 1
-        speakSegment(index + 1)
-      }
-    }
-  }, [])
-
-  // Speak segment sequentially with Studio-grade Neural Audiobook Voice (Christopher)
+  // Speak segment sequentially with dynamic male narrator inflection and breath pacing
   const speakSegment = useCallback((index) => {
-    if (!isPlayingRef.current || typeof window === 'undefined') return
+    if (!isPlayingRef.current || typeof window === 'undefined' || !window.speechSynthesis) return
     const segments = segmentsRef.current
     if (!segments || index >= segments.length) {
       isPlayingRef.current = false
       setSpeechState('idle')
       currentIndexRef.current = 0
-      if (audioPlayerRef.current) {
-        audioPlayerRef.current.pause()
-        audioPlayerRef.current.src = ''
-      }
+      utteranceRef.current = null
+      if (typeof window !== 'undefined') window._activeUtterance = null
       return
+    }
+
+    const synth = window.speechSynthesis
+    if (synth.paused) {
+      try { synth.resume() } catch (e) {}
     }
 
     const segment = segments[index]
@@ -431,67 +380,113 @@ export default function ReaderHUD({
 
     currentIndexRef.current = index
 
-    // Stop any currently playing audio
-    if (audioPlayerRef.current) {
-      try {
-        audioPlayerRef.current.pause()
-        audioPlayerRef.current.src = ''
-      } catch (e) {}
-    }
-    if (window.speechSynthesis) {
-      try { window.speechSynthesis.cancel() } catch (e) {}
-    }
+    const utterance = new SpeechSynthesisUtterance(segment.text)
+    utterance.lang = 'en-US'
 
-    // Preload next segment in background for zero-latency gapless transitions
-    if (index + 1 < segments.length && segments[index + 1]?.text) {
-      try {
-        const nextUrl = `/api/tts?text=${encodeURIComponent(segments[index + 1].text)}&rate=${rateRef.current}`
-        if (!preloadAudioRef.current) {
-          preloadAudioRef.current = new Audio()
-        }
-        preloadAudioRef.current.src = nextUrl
-        preloadAudioRef.current.preload = 'auto'
-      } catch (e) {}
+    // Fetch latest voices
+    let freshVoices = synth.getVoices()
+    if (!freshVoices || freshVoices.length === 0) {
+      freshVoices = voicesRef.current
+    } else {
+      voicesRef.current = freshVoices
     }
 
-    // Stream studio-grade natural human audio from our dedicated TTS endpoint
-    const audioUrl = `/api/tts?text=${encodeURIComponent(segment.text)}&rate=${rateRef.current}`
-    const audio = new Audio(audioUrl)
-    audioPlayerRef.current = audio
+    const chosenVoice = selectSingleMaleVoice(freshVoices)
+    const isRecognizedMale = isMaleVoiceCandidate(chosenVoice)
+    const isFemale = isFemaleVoice(chosenVoice)
 
-    audio.onended = () => {
-      audioPlayerRef.current = null
+    // Deep warm baritone if female or default
+    let computedPitch = (isFemale || !isRecognizedMale) ? 0.70 : MALE_NARRATOR.basePitch
+    let computedRate = MALE_NARRATOR.baseRate * rateRef.current
+
+    if (segment.type === 'epigraph') {
+      computedPitch *= 0.95
+      computedRate = MALE_NARRATOR.epigraphRate * rateRef.current
+    } else if (segment.type === 'pull') {
+      computedPitch *= 0.95
+      computedRate = MALE_NARRATOR.quoteRate * rateRef.current
+    } else if (segment.type === 'twist') {
+      computedPitch *= 0.93
+      computedRate = MALE_NARRATOR.twistRate * rateRef.current
+    } else if (segment.type === 'heading') {
+      computedPitch = Math.min(1.2, computedPitch * 1.04)
+      computedRate = MALE_NARRATOR.baseRate * 0.96 * rateRef.current
+    } else if (segment.text.endsWith('?')) {
+      computedPitch = Math.min(1.2, computedPitch * 1.03)
+    }
+
+    utterance.pitch = Math.max(0.55, Math.min(1.4, computedPitch))
+    utterance.rate = Math.max(0.6, Math.min(2.0, computedRate))
+
+    if (chosenVoice) {
+      utterance.voice = chosenVoice
+      if (chosenVoice.lang) utterance.lang = chosenVoice.lang
+    }
+
+    // Keep reference in window to prevent V8 garbage collection mid-sentence
+    utteranceRef.current = utterance
+    if (typeof window !== 'undefined') {
+      window._activeUtterance = utterance
+    }
+
+    utterance.onstart = () => {
+      currentIndexRef.current = index
+    }
+
+    utterance.onend = () => {
+      utteranceRef.current = null
+      if (typeof window !== 'undefined') window._activeUtterance = null
       if (isPlayingRef.current) {
         currentIndexRef.current = index + 1
-        const pauseTime = segment.isLastInBlock ? 380 : (segment.type === 'pull' || segment.type === 'epigraph' ? 420 : 160)
+        const pauseTime = segment.isLastInBlock ? MALE_NARRATOR.paragraphPause : (segment.type === 'pull' || segment.type === 'epigraph' ? MALE_NARRATOR.quotePause : MALE_NARRATOR.sentencePause)
         pauseTimeoutRef.current = setTimeout(() => {
           if (isPlayingRef.current) {
+            const s = window.speechSynthesis
+            if (s && s.paused) {
+              try { s.resume() } catch (e) {}
+            }
             speakSegment(index + 1)
           }
         }, pauseTime)
       }
     }
 
-    audio.onerror = () => {
-      console.warn('Audio streaming notice: Falling back to local synthesizer')
-      speakFallbackSpeechSynthesis(segment, index)
+    utterance.onerror = (e) => {
+      console.warn('SpeechSynthesis note:', e)
+      utteranceRef.current = null
+      if (typeof window !== 'undefined') window._activeUtterance = null
+      if (e.error !== 'interrupted' && e.error !== 'canceled' && isPlayingRef.current) {
+        currentIndexRef.current = index + 1
+        speakSegment(index + 1)
+      }
     }
 
-    const playPromise = audio.play()
-    if (playPromise !== undefined) {
-      playPromise.catch((err) => {
-        console.warn('Audio playback notice:', err)
-        // If audio stream fails or blocked by user gesture, try fallback
-        speakFallbackSpeechSynthesis(segment, index)
-      })
+    try {
+      synth.speak(utterance)
+    } catch (err) {
+      console.warn('SpeechSynthesis speak call error:', err)
     }
-  }, [speakFallbackSpeechSynthesis])
+  }, [])
 
   // Handle Narration: Play, Pause, Resume, Stop (Synchronous user activation)
   const handleStartNarration = useCallback(() => {
-    if (typeof window === 'undefined') return
+    if (typeof window === 'undefined' || !window.speechSynthesis) return
     const segments = getCleanSegments()
     if (!segments || segments.length === 0) return
+
+    const synth = window.speechSynthesis
+
+    // Ensure voices are populated if first load was delayed
+    if (voicesRef.current.length === 0) {
+      try {
+        const raw = synth.getVoices()
+        if (Array.isArray(raw) && raw.length > 0) {
+          voicesRef.current = raw
+          const en = raw.filter(x => x && x.lang && typeof x.lang === 'string' && x.lang.toLowerCase().startsWith('en'))
+          setAvailableVoices(en.length > 0 ? en : raw)
+        }
+      } catch (e) {}
+    }
 
     segmentsRef.current = segments
     currentIndexRef.current = 0
@@ -499,55 +494,51 @@ export default function ReaderHUD({
     setSpeechState('playing')
 
     if (pauseTimeoutRef.current) clearTimeout(pauseTimeoutRef.current)
+    
+    try {
+      synth.cancel()
+      if (synth.paused) synth.resume()
+    } catch (e) {}
 
     // Execute immediately in current user gesture frame!
     speakSegment(0)
   }, [getCleanSegments, speakSegment])
 
   const handlePauseNarration = () => {
-    if (typeof window === 'undefined') return
+    if (typeof window === 'undefined' || !window.speechSynthesis) return
     isPlayingRef.current = false
     setSpeechState('paused')
     if (pauseTimeoutRef.current) clearTimeout(pauseTimeoutRef.current)
-    if (audioPlayerRef.current) {
-      try { audioPlayerRef.current.pause() } catch (e) {}
-    }
-    if (window.speechSynthesis) {
-      try { window.speechSynthesis.cancel() } catch (e) {}
-    }
+    try {
+      window.speechSynthesis.cancel()
+    } catch (e) {}
   }
 
   const handleResumeNarration = () => {
-    if (typeof window === 'undefined') return
+    if (typeof window === 'undefined' || !window.speechSynthesis) return
     isPlayingRef.current = true
     setSpeechState('playing')
     if (pauseTimeoutRef.current) clearTimeout(pauseTimeoutRef.current)
+    
+    const synth = window.speechSynthesis
+    try {
+      synth.cancel()
+      if (synth.paused) synth.resume()
+    } catch (e) {}
 
-    if (audioPlayerRef.current && audioPlayerRef.current.src && !audioPlayerRef.current.ended) {
-      audioPlayerRef.current.play().catch(() => {
-        speakSegment(currentIndexRef.current)
-      })
-    } else {
-      speakSegment(currentIndexRef.current)
-    }
+    // Execute immediately in current user gesture frame!
+    speakSegment(currentIndexRef.current)
   }
 
   const handleStopNarration = () => {
-    if (typeof window === 'undefined') return
+    if (typeof window === 'undefined' || !window.speechSynthesis) return
     isPlayingRef.current = false
     currentIndexRef.current = 0
     setSpeechState('idle')
     if (pauseTimeoutRef.current) clearTimeout(pauseTimeoutRef.current)
-    if (audioPlayerRef.current) {
-      try {
-        audioPlayerRef.current.pause()
-        audioPlayerRef.current.src = ''
-        audioPlayerRef.current = null
-      } catch (e) {}
-    }
-    if (window.speechSynthesis) {
-      try { window.speechSynthesis.cancel() } catch (e) {}
-    }
+    try {
+      window.speechSynthesis.cancel()
+    } catch (e) {}
   }
 
   const cycleSpeechRate = () => {
@@ -556,9 +547,9 @@ export default function ReaderHUD({
     rateRef.current = nextRate
     if (speechState === 'playing') {
       if (pauseTimeoutRef.current) clearTimeout(pauseTimeoutRef.current)
-      if (audioPlayerRef.current) {
-        try { audioPlayerRef.current.pause() } catch (e) {}
-      }
+      try {
+        window.speechSynthesis.cancel()
+      } catch (e) {}
       setTimeout(() => {
         if (isPlayingRef.current) {
           speakSegment(currentIndexRef.current)

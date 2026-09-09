@@ -5,7 +5,6 @@ export const books = [
     "coverImage": "/absconded-cover.png",
     "title": "Absconded",
     "subtitle": "A Builder's Evolution",
-    "amazonUrl": "https://www.amazon.com/dp/B0HBZPBXZR",
     "coverQuote": "\"Disappearing is easy. Becoming is the hard part.\"",
     "readingTime": "45 min",
     "description": "The story of a builder unravelling from the corporate timeline in Mumbai to find the signal in the noise.",

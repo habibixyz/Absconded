@@ -229,7 +229,6 @@ const jsonLd = {
       '@id': `${SITE_URL}/#book-absconded`,
       name: 'Absconded',
       url: SITE_URL,
-      sameAs: 'https://www.amazon.com/dp/B0HBZPBXZR',
       image: `${SITE_URL}/absconded-cover.png`,
       author: { '@id': `${SITE_URL}/#person` },
       publisher: { '@type': 'Organization', name: 'VYRM Press' },
