@@ -45,7 +45,25 @@ function splitIntoSentences(text) {
   return matches.map(s => s.trim()).filter(Boolean)
 }
 
-// Curated acoustic parameters for natural, warm male literary narration
+// Group sentences into TTS-ready text chunks (max maxLen chars each)
+function groupSentencesIntoChunks(sentences, maxLen = 260) {
+  const chunks = []
+  let current = ''
+  for (const s of sentences) {
+    const sentence = s.trim()
+    if (!sentence) continue
+    if (current && (current + ' ' + sentence).length > maxLen) {
+      chunks.push(current)
+      current = sentence
+    } else {
+      current = current ? current + ' ' + sentence : sentence
+    }
+  }
+  if (current) chunks.push(current)
+  return chunks
+}
+
+// Kept for legacy export compatibility
 export const MALE_NARRATOR = {
   id: 'male',
   label: 'Literary Male Narrator',
@@ -62,120 +80,8 @@ export const MALE_NARRATOR = {
   quotePause: 460
 }
 
-// Known female voice name fragments — never select these
-const FEMALE_VOICE_FRAGMENTS = [
-  'zira', 'samantha', 'serena', 'jenny', 'aria', 'victoria',
-  'karen', 'hazel', 'susan', 'catherine', 'linda', 'moira',
-  'sonia', 'tessa', 'fiona', 'kathy', 'vicki', 'alice',
-  'ioana', 'monica', 'paulina', 'female', 'woman', 'girl',
-  'eva', 'ava', 'allison', 'zoe', 'stephanie', 'sangeeta',
-  'veena', 'priya', 'sfg', 'tpf', 'gda', 'afh', 'female_1',
-  'female_2', 'female#', '#female', 'smt_en_us_f', 'f01',
-  'siri voice 1', 'siri voice 4', 'google us english'
-]
+// ─── End of narration helpers ───
 
-// Check if a voice is female
-export function isFemaleVoice(voice) {
-  if (!voice) return false
-  const name = (voice.name || '').toLowerCase()
-  const uri = (voice.voiceURI || '').toLowerCase()
-  return FEMALE_VOICE_FRAGMENTS.some(f => name.includes(f) || uri.includes(f))
-}
-
-// Priority order: try each pattern in order; first match is used
-const MALE_VOICE_PRIORITY = [
-  // Edge Neural Cloud (only in Edge browser)
-  { pattern: (n, uri, isEdge) => isEdge && (n.includes('christopher') || uri.includes('christopher')) && (n.includes('natural') || n.includes('online')), label: 'Edge Christopher Natural' },
-  { pattern: (n, uri, isEdge) => isEdge && (n.includes('guy') || uri.includes('guy')) && (n.includes('natural') || n.includes('online')), label: 'Edge Guy Natural' },
-  { pattern: (n, uri, isEdge) => isEdge && (n.includes('ryan') || uri.includes('ryan')) && (n.includes('natural') || n.includes('online')), label: 'Edge Ryan Natural' },
-  { pattern: (n, uri, isEdge) => isEdge && (n.includes('eric') || uri.includes('eric')) && (n.includes('natural') || n.includes('online')), label: 'Edge Eric Natural' },
-
-  // Google Chrome & Android Google TTS Male Voices
-  { pattern: (n, uri) => n === 'google uk english male' || uri === 'google uk english male', label: 'Google UK Male' },
-  { pattern: (n, uri) => (n.includes('google') || uri.includes('google')) && (n.includes('male') || uri.includes('male')) && !n.includes('female'), label: 'Google UK Male (fuzzy)' },
-  { pattern: (n, uri) => n.includes('#male') || uri.includes('#male') || n.includes('male_1') || uri.includes('male_1'), label: 'Android Google TTS Male (explicit)' },
-  { pattern: (n, uri) => uri.includes('en-us-x-iom') || uri.includes('en-us-x-iob') || uri.includes('en-us-x-iol') || uri.includes('en-gb-x-rjs') || uri.includes('en-in-x-cce') || uri.includes('en-au-x-aub'), label: 'Android Male Voice Package' },
-
-  // Apple macOS / iOS (iPhone & iPad & Mac)
-  { pattern: (n, uri, _, isApple) => isApple && (n.includes('daniel') || uri.includes('daniel')) && (n.includes('enhanced') || n.includes('premium')), label: 'Apple Daniel Enhanced' },
-  { pattern: (n, uri, _, isApple) => isApple && (n.includes('arthur') || uri.includes('arthur')), label: 'Apple Arthur' },
-  { pattern: (n, uri, _, isApple) => isApple && (n.includes('aaron') || uri.includes('aaron')), label: 'Apple Aaron' },
-  { pattern: (n, uri, _, isApple) => isApple && (n.includes('gordon') || uri.includes('gordon')), label: 'Apple Gordon' },
-  { pattern: (n, uri, _, isApple) => isApple && (n.includes('oliver') || uri.includes('oliver')), label: 'Apple Oliver' },
-  { pattern: (n, uri, _, isApple) => isApple && (n.includes('rishi') || uri.includes('rishi')), label: 'Apple Rishi' },
-  { pattern: (n, uri, _, isApple) => isApple && (n.includes('alex') || uri.includes('alex')), label: 'Apple Alex' },
-  { pattern: (n, uri, _, isApple) => isApple && (n.includes('daniel') || uri.includes('daniel')), label: 'Apple Daniel' },
-  { pattern: (n, uri, _, isApple) => isApple && (n.includes('fred') || uri.includes('fred')), label: 'Apple Fred' },
-  { pattern: (n, uri, _, isApple) => isApple && (n.includes('siri voice 2') || n.includes('siri voice 3')), label: 'Apple Siri Male' },
-
-  // Samsung Mobile TTS Male
-  { pattern: (n, uri) => (n.includes('samsung') || uri.includes('samsung')) && (n.includes('male') || uri.includes('m01') || uri.includes('m02')), label: 'Samsung Male' },
-
-  // Windows Desktop SAPI / OneCore
-  { pattern: (n) => n.includes('david') && !n.includes('desktop'), label: 'Microsoft David' },
-  { pattern: (n) => n.includes('mark') && !n.includes('desktop'), label: 'Microsoft Mark' },
-  { pattern: (n) => n.includes('george'), label: 'Microsoft George' },
-  { pattern: (n) => n.includes('ravi'), label: 'Microsoft Ravi' },
-  { pattern: (n) => n.includes('richard'), label: 'Microsoft Richard' },
-  { pattern: (n) => n.includes('james'), label: 'Microsoft James' },
-  { pattern: (n) => n.includes('david'), label: 'Microsoft David' },
-
-  // Generic male patterns
-  { pattern: (n, uri) => (n.includes('male') || uri.includes('male')) && !n.includes('female') && !uri.includes('female'), label: 'Generic male' },
-]
-
-// Determine if a given voice is a recognized male voice
-export function isMaleVoiceCandidate(voice) {
-  if (!voice) return false
-  if (isFemaleVoice(voice)) return false
-  const name = (voice.name || '').toLowerCase()
-  const uri = (voice.voiceURI || '').toLowerCase()
-  const isEdge = typeof navigator !== 'undefined' && /Edg\//i.test(navigator.userAgent)
-  const isApple = typeof navigator !== 'undefined' && /Mac|iPhone|iPad|iPod/i.test(navigator.userAgent)
-  return MALE_VOICE_PRIORITY.some(rule => rule.pattern(name, uri, isEdge, isApple))
-}
-
-// Select the single best human male voice. Returns best male voice or null.
-export function selectSingleMaleVoice(voices) {
-  if (!voices || voices.length === 0) return null
-
-  const isEdge = typeof navigator !== 'undefined' && /Edg\//i.test(navigator.userAgent)
-  const isApple = typeof navigator !== 'undefined' && /Mac|iPhone|iPad|iPod/i.test(navigator.userAgent)
-
-  // Only English voices as candidates if available
-  const enVoices = voices.filter(v => {
-    if (!v || !v.lang) return false
-    const lang = v.lang.toLowerCase()
-    return lang.startsWith('en')
-  })
-  const pool = enVoices.length > 0 ? enVoices : voices
-
-  // 1. Apply priority list in order — first match wins
-  for (const rule of MALE_VOICE_PRIORITY) {
-    for (const v of pool) {
-      if (isFemaleVoice(v)) continue
-      const name = (v.name || '').toLowerCase()
-      const uri = (v.voiceURI || '').toLowerCase()
-      // Skip Edge online voices in non-Edge browsers (will fail silently)
-      if (!isEdge && (name.includes('online') || name.includes('natural'))) continue
-      if (rule.pattern(name, uri, isEdge, isApple)) {
-        return v
-      }
-    }
-  }
-
-  // 2. Secondary fallback: any voice in pool that is confirmed NOT female
-  for (const v of pool) {
-    if (!isFemaleVoice(v)) {
-      const name = (v.name || '').toLowerCase()
-      if (!isEdge && (name.includes('online') || name.includes('natural'))) continue
-      return v
-    }
-  }
-
-  // 3. Last fallback: return the first voice in pool rather than null (with lowered pitch in speakSegment)
-  return pool[0] || null
-}
 
 export default function ReaderHUD({
   bookTitle,
@@ -197,17 +103,17 @@ export default function ReaderHUD({
   const [timeLeftMinutes, setTimeLeftMinutes] = useState(1)
   const [settingsOpen, setSettingsOpen] = useState(false)
   
-  // Audio narration with Single Natural Male Voice
-  const [speechState, setSpeechState] = useState('idle') // 'idle', 'playing', 'paused'
+  // Audio narration — Brian voice (StreamElements/Amazon Polly, works on all devices)
+  const [speechState, setSpeechState] = useState('idle') // 'idle'|'loading'|'playing'|'paused'
   const [speechRate, setSpeechRate] = useState(1.0)
-  const [availableVoices, setAvailableVoices] = useState([])
-  const segmentsRef = useRef([])
-  const currentIndexRef = useRef(0)
+  const audioPlayerRef = useRef(null)   // <audio> element
+  const chunkQueueRef = useRef([])      // Array of text strings
+  const currentChunkRef = useRef(0)     // Index of current playing chunk
   const isPlayingRef = useRef(false)
-  const rateRef = useRef(speechRate)
-  const utteranceRef = useRef(null)
-  const voicesRef = useRef([])
-  const pauseTimeoutRef = useRef(null)
+  const rateRef = useRef(1.0)
+  const blobUrlsRef = useRef([])        // Blob URLs to revoke on stop
+  const prefetchedBlobRef = useRef(null) // Pre-fetched next chunk URL
+  const pauseTimeoutRef = useRef(null)  // Kept for compatibility
 
   useEffect(() => {
     rateRef.current = speechRate
@@ -218,9 +124,12 @@ export default function ReaderHUD({
     return () => {
       isPlayingRef.current = false
       if (pauseTimeoutRef.current) clearTimeout(pauseTimeoutRef.current)
-      if (typeof window !== 'undefined' && window.speechSynthesis) {
-        try { window.speechSynthesis.cancel() } catch (e) {}
+      if (audioPlayerRef.current) {
+        try { audioPlayerRef.current.pause(); audioPlayerRef.current.src = '' } catch (e) {}
       }
+      blobUrlsRef.current.forEach(u => { try { URL.revokeObjectURL(u) } catch(e) {} })
+      blobUrlsRef.current = []
+      prefetchedBlobRef.current = null
     }
   }, [bookTitle, chapterTitle, content])
 
@@ -268,48 +177,99 @@ export default function ReaderHUD({
     return () => window.removeEventListener('scroll', updateScrollMetrics)
   }, [content])
 
-  // 2. Initialize Web Speech & Voice Cache
+  // 2. Auto-reset narration when book/chapter changes
   useEffect(() => {
-    if (typeof window === 'undefined') return
-    try {
-      if ('speechSynthesis' in window && window.speechSynthesis) {
-        const loadVoices = () => {
-          try {
-            const raw = window.speechSynthesis.getVoices()
-            const v = Array.isArray(raw) ? raw : []
-            voicesRef.current = v
-            const en = v.filter(x => x && x.lang && typeof x.lang === 'string' && x.lang.toLowerCase().startsWith('en'))
-            const pool = en.length > 0 ? en : v
-            setAvailableVoices(pool)
-          } catch (e) {
-            console.warn('Voice enumeration note:', e)
-          }
-        }
-        loadVoices()
-        window.speechSynthesis.onvoiceschanged = loadVoices
-      }
-    } catch (err) {
-      console.warn('SpeechSynthesis initialization:', err)
+    isPlayingRef.current = false
+    currentChunkRef.current = 0
+    if (pauseTimeoutRef.current) clearTimeout(pauseTimeoutRef.current)
+    if (audioPlayerRef.current) {
+      try { audioPlayerRef.current.pause(); audioPlayerRef.current.src = '' } catch (e) {}
     }
-    return () => {
-      if (typeof window !== 'undefined' && window.speechSynthesis) {
-        isPlayingRef.current = false
-        if (pauseTimeoutRef.current) clearTimeout(pauseTimeoutRef.current)
-        try { window.speechSynthesis.cancel() } catch (e) {}
-      }
-    }
+    blobUrlsRef.current.forEach(u => { try { URL.revokeObjectURL(u) } catch(e) {} })
+    blobUrlsRef.current = []
+    prefetchedBlobRef.current = null
+    setSpeechState('idle')
+  }, [bookTitle, chapterTitle, content])
+
+  // (placeholder — kept as unused effect stub so line references stay stable)
+  useEffect(() => {
+    // Audio element init — no-op, just ensures effect runs once
   }, [])
 
-  // Auto-reset narration if reader book, chapter, or content changes
-  useEffect(() => {
-    if (typeof window !== 'undefined' && window.speechSynthesis) {
+  // ── TTS Audio Engine ──────────────────────────────────────────────────────
+
+  // Cleanup all blob URLs to free memory
+  const cleanupBlobs = useCallback(() => {
+    blobUrlsRef.current.forEach(u => { try { URL.revokeObjectURL(u) } catch(e) {} })
+    blobUrlsRef.current = []
+    prefetchedBlobRef.current = null
+  }, [])
+
+  // Fetch one text chunk from TTS API, returns blob URL
+  const fetchTTSBlob = useCallback(async (text) => {
+    const res = await fetch(`/api/tts?text=${encodeURIComponent(text)}`)
+    if (!res.ok) throw new Error(`TTS ${res.status}`)
+    const blob = await res.blob()
+    const url = URL.createObjectURL(blob)
+    blobUrlsRef.current.push(url)
+    return url
+  }, [])
+
+  // Play chunk at given index — chains via onended
+  const startPlayingChunk = useCallback(async (index) => {
+    if (!isPlayingRef.current || !audioPlayerRef.current) return
+    const chunks = chunkQueueRef.current
+    if (index >= chunks.length) {
       isPlayingRef.current = false
-      currentIndexRef.current = 0
-      if (pauseTimeoutRef.current) clearTimeout(pauseTimeoutRef.current)
-      try { window.speechSynthesis.cancel() } catch (e) {}
       setSpeechState('idle')
+      cleanupBlobs()
+      currentChunkRef.current = 0
+      return
     }
-  }, [bookTitle, chapterTitle, content])
+    currentChunkRef.current = index
+
+    try {
+      let blobUrl
+      if (prefetchedBlobRef.current) {
+        blobUrl = prefetchedBlobRef.current
+        prefetchedBlobRef.current = null
+      } else {
+        blobUrl = await fetchTTSBlob(chunks[index])
+      }
+
+      if (!isPlayingRef.current) {
+        try { URL.revokeObjectURL(blobUrl) } catch(e) {}
+        return
+      }
+
+      // Pre-fetch next chunk in background while current plays
+      if (index + 1 < chunks.length) {
+        fetchTTSBlob(chunks[index + 1]).then(nextUrl => {
+          if (isPlayingRef.current) {
+            prefetchedBlobRef.current = nextUrl
+          } else {
+            try { URL.revokeObjectURL(nextUrl) } catch(e) {}
+          }
+        }).catch(() => {})
+      }
+
+      const audio = audioPlayerRef.current
+      audio.src = blobUrl
+      audio.playbackRate = Math.max(0.5, Math.min(2.0, rateRef.current))
+      audio.onended = () => {
+        if (isPlayingRef.current) startPlayingChunk(index + 1)
+      }
+      audio.onerror = () => {
+        if (isPlayingRef.current) startPlayingChunk(index + 1)
+      }
+
+      setSpeechState('playing')
+      await audio.play()
+    } catch (err) {
+      console.warn('[TTS] Chunk error:', err?.message || err)
+      if (isPlayingRef.current) startPlayingChunk(index + 1)
+    }
+  }, [fetchTTSBlob, cleanupBlobs])
 
   // Build clean segments across ALL book structures: manuscripts, classics, imported EPUBs, and plain text
   const getCleanSegments = useCallback(() => {
@@ -348,213 +308,75 @@ export default function ReaderHUD({
     return segments
   }, [content, epigraph])
 
-  // Speak segment sequentially with dynamic male narrator inflection and breath pacing
-  const speakSegment = useCallback((index) => {
-    if (!isPlayingRef.current || typeof window === 'undefined' || !window.speechSynthesis) return
-    const segments = segmentsRef.current
-    if (!segments || index >= segments.length) {
-      isPlayingRef.current = false
-      setSpeechState('idle')
-      currentIndexRef.current = 0
-      utteranceRef.current = null
-      if (typeof window !== 'undefined') window._activeUtterance = null
-      return
-    }
+  // (legacy speakSegment — no longer used)
+  const speakSegment = useCallback((_index) => {}, [])
 
-    const synth = window.speechSynthesis
-    if (synth.paused) {
-      try { synth.resume() } catch (e) {}
-    }
+  // ── Narration Handlers ───────────────────────────────────────────────────
 
-    const segment = segments[index]
-    if (!segment || !segment.text) {
-      if (index + 1 < segments.length) {
-        speakSegment(index + 1)
-      } else {
-        isPlayingRef.current = false
-        setSpeechState('idle')
-        currentIndexRef.current = 0
-      }
-      return
-    }
-
-    currentIndexRef.current = index
-
-    const utterance = new SpeechSynthesisUtterance(segment.text)
-    utterance.lang = 'en-US'
-
-    // Fetch latest voices
-    let freshVoices = synth.getVoices()
-    if (!freshVoices || freshVoices.length === 0) {
-      freshVoices = voicesRef.current
-    } else {
-      voicesRef.current = freshVoices
-    }
-
-    const chosenVoice = selectSingleMaleVoice(freshVoices)
-    const isRecognizedMale = isMaleVoiceCandidate(chosenVoice)
-    const isFemale = isFemaleVoice(chosenVoice)
-
-    // Deep warm baritone if female or default
-    let computedPitch = (isFemale || !isRecognizedMale) ? 0.70 : MALE_NARRATOR.basePitch
-    let computedRate = MALE_NARRATOR.baseRate * rateRef.current
-
-    if (segment.type === 'epigraph') {
-      computedPitch *= 0.95
-      computedRate = MALE_NARRATOR.epigraphRate * rateRef.current
-    } else if (segment.type === 'pull') {
-      computedPitch *= 0.95
-      computedRate = MALE_NARRATOR.quoteRate * rateRef.current
-    } else if (segment.type === 'twist') {
-      computedPitch *= 0.93
-      computedRate = MALE_NARRATOR.twistRate * rateRef.current
-    } else if (segment.type === 'heading') {
-      computedPitch = Math.min(1.2, computedPitch * 1.04)
-      computedRate = MALE_NARRATOR.baseRate * 0.96 * rateRef.current
-    } else if (segment.text.endsWith('?')) {
-      computedPitch = Math.min(1.2, computedPitch * 1.03)
-    }
-
-    utterance.pitch = Math.max(0.55, Math.min(1.4, computedPitch))
-    utterance.rate = Math.max(0.6, Math.min(2.0, computedRate))
-
-    if (chosenVoice) {
-      utterance.voice = chosenVoice
-      if (chosenVoice.lang) utterance.lang = chosenVoice.lang
-    }
-
-    // Keep reference in window to prevent V8 garbage collection mid-sentence
-    utteranceRef.current = utterance
-    if (typeof window !== 'undefined') {
-      window._activeUtterance = utterance
-    }
-
-    utterance.onstart = () => {
-      currentIndexRef.current = index
-    }
-
-    utterance.onend = () => {
-      utteranceRef.current = null
-      if (typeof window !== 'undefined') window._activeUtterance = null
-      if (isPlayingRef.current) {
-        currentIndexRef.current = index + 1
-        const pauseTime = segment.isLastInBlock ? MALE_NARRATOR.paragraphPause : (segment.type === 'pull' || segment.type === 'epigraph' ? MALE_NARRATOR.quotePause : MALE_NARRATOR.sentencePause)
-        pauseTimeoutRef.current = setTimeout(() => {
-          if (isPlayingRef.current) {
-            const s = window.speechSynthesis
-            if (s && s.paused) {
-              try { s.resume() } catch (e) {}
-            }
-            speakSegment(index + 1)
-          }
-        }, pauseTime)
-      }
-    }
-
-    utterance.onerror = (e) => {
-      console.warn('SpeechSynthesis note:', e)
-      utteranceRef.current = null
-      if (typeof window !== 'undefined') window._activeUtterance = null
-      if (e.error !== 'interrupted' && e.error !== 'canceled' && isPlayingRef.current) {
-        currentIndexRef.current = index + 1
-        speakSegment(index + 1)
-      }
-    }
-
-    try {
-      synth.speak(utterance)
-    } catch (err) {
-      console.warn('SpeechSynthesis speak call error:', err)
-    }
-  }, [])
-
-  // Handle Narration: Play, Pause, Resume, Stop (Synchronous user activation)
-  const handleStartNarration = useCallback(() => {
-    if (typeof window === 'undefined' || !window.speechSynthesis) return
+  const handleStartNarration = useCallback(async () => {
+    if (!audioPlayerRef.current) return
     const segments = getCleanSegments()
     if (!segments || segments.length === 0) return
 
-    const synth = window.speechSynthesis
+    // Build all text as sentence chunks
+    const allSentences = segments.flatMap(seg => splitIntoSentences(seg.text))
+    const chunks = groupSentencesIntoChunks(allSentences)
+    if (chunks.length === 0) return
 
-    // Ensure voices are populated if first load was delayed
-    if (voicesRef.current.length === 0) {
-      try {
-        const raw = synth.getVoices()
-        if (Array.isArray(raw) && raw.length > 0) {
-          voicesRef.current = raw
-          const en = raw.filter(x => x && x.lang && typeof x.lang === 'string' && x.lang.toLowerCase().startsWith('en'))
-          setAvailableVoices(en.length > 0 ? en : raw)
-        }
-      } catch (e) {}
-    }
-
-    segmentsRef.current = segments
-    currentIndexRef.current = 0
+    cleanupBlobs()
+    chunkQueueRef.current = chunks
+    currentChunkRef.current = 0
     isPlayingRef.current = true
-    setSpeechState('playing')
+    setSpeechState('loading')
 
-    if (pauseTimeoutRef.current) clearTimeout(pauseTimeoutRef.current)
-    
-    try {
-      synth.cancel()
-      if (synth.paused) synth.resume()
-    } catch (e) {}
-
-    // Execute immediately in current user gesture frame!
-    speakSegment(0)
-  }, [getCleanSegments, speakSegment])
+    await startPlayingChunk(0)
+  }, [getCleanSegments, startPlayingChunk, cleanupBlobs])
 
   const handlePauseNarration = () => {
-    if (typeof window === 'undefined' || !window.speechSynthesis) return
     isPlayingRef.current = false
     setSpeechState('paused')
-    if (pauseTimeoutRef.current) clearTimeout(pauseTimeoutRef.current)
-    try {
-      window.speechSynthesis.cancel()
-    } catch (e) {}
+    if (audioPlayerRef.current) {
+      try { audioPlayerRef.current.pause() } catch(e) {}
+    }
   }
 
-  const handleResumeNarration = () => {
-    if (typeof window === 'undefined' || !window.speechSynthesis) return
+  const handleResumeNarration = async () => {
     isPlayingRef.current = true
-    setSpeechState('playing')
-    if (pauseTimeoutRef.current) clearTimeout(pauseTimeoutRef.current)
-    
-    const synth = window.speechSynthesis
-    try {
-      synth.cancel()
-      if (synth.paused) synth.resume()
-    } catch (e) {}
-
-    // Execute immediately in current user gesture frame!
-    speakSegment(currentIndexRef.current)
+    const audio = audioPlayerRef.current
+    if (audio && audio.src && !audio.ended && audio.readyState >= 2) {
+      try {
+        audio.playbackRate = rateRef.current
+        await audio.play()
+        setSpeechState('playing')
+      } catch(e) {
+        // Blob URL may have been revoked — re-fetch chunk
+        setSpeechState('loading')
+        await startPlayingChunk(currentChunkRef.current)
+      }
+    } else {
+      setSpeechState('loading')
+      await startPlayingChunk(currentChunkRef.current)
+    }
   }
 
   const handleStopNarration = () => {
-    if (typeof window === 'undefined' || !window.speechSynthesis) return
     isPlayingRef.current = false
-    currentIndexRef.current = 0
+    currentChunkRef.current = 0
     setSpeechState('idle')
-    if (pauseTimeoutRef.current) clearTimeout(pauseTimeoutRef.current)
-    try {
-      window.speechSynthesis.cancel()
-    } catch (e) {}
+    if (audioPlayerRef.current) {
+      try { audioPlayerRef.current.pause(); audioPlayerRef.current.src = '' } catch(e) {}
+    }
+    cleanupBlobs()
   }
 
   const cycleSpeechRate = () => {
-    const nextRate = speechRate === 1.0 ? 1.25 : speechRate === 1.25 ? 1.5 : 1.0
+    const rates = [0.85, 1.0, 1.25, 1.5]
+    const idx = rates.indexOf(speechRate)
+    const nextRate = rates[(idx + 1) % rates.length]
     setSpeechRate(nextRate)
     rateRef.current = nextRate
-    if (speechState === 'playing') {
-      if (pauseTimeoutRef.current) clearTimeout(pauseTimeoutRef.current)
-      try {
-        window.speechSynthesis.cancel()
-      } catch (e) {}
-      setTimeout(() => {
-        if (isPlayingRef.current) {
-          speakSegment(currentIndexRef.current)
-        }
-      }, 50)
+    if (audioPlayerRef.current && speechState === 'playing') {
+      audioPlayerRef.current.playbackRate = nextRate
     }
   }
 
@@ -987,12 +809,8 @@ export default function ReaderHUD({
                       onClick={() => {
                         setSpeechRate(rate)
                         rateRef.current = rate
-                        if (speechState === 'playing') {
-                          if (pauseTimeoutRef.current) clearTimeout(pauseTimeoutRef.current)
-                          try { window.speechSynthesis.cancel() } catch (e) {}
-                          setTimeout(() => {
-                            if (isPlayingRef.current) speakSegment(currentIndexRef.current)
-                          }, 60)
+                        if (audioPlayerRef.current && speechState === 'playing') {
+                          audioPlayerRef.current.playbackRate = rate
                         }
                       }}
                       className={`py-1.5 rounded-lg text-[10px] font-mono transition-all border min-h-[32px] ${
@@ -1037,13 +855,16 @@ export default function ReaderHUD({
           </span>
         </div>
 
+        {/* Hidden audio element — Brian voice playback engine */}
+        <audio ref={audioPlayerRef} preload="none" style={{ display: 'none' }} />
+
         {/* Text-to-Speech Narration */}
         <div className="flex items-center gap-1 border-r border-white/10 pr-1 sm:pr-2 shrink-0">
-          {speechState === 'idle' && (
+          {(speechState === 'idle') && (
             <button
               onClick={handleStartNarration}
               className="flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3 py-1 rounded-full text-[8px] sm:text-[9px] font-mono uppercase tracking-[0.15em] sm:tracking-[0.2em] transition-all border border-transparent text-secondary hover:text-white hover:bg-white/5 min-h-[30px]"
-              title="Listen to chapter narration with natural male voice"
+              title="Listen to chapter narration — Brian voice"
             >
               <svg className="w-3 h-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
@@ -1051,6 +872,16 @@ export default function ReaderHUD({
               </svg>
               <span>LISTEN</span>
             </button>
+          )}
+
+          {(speechState === 'loading') && (
+            <div className="flex items-center gap-1.5 px-2.5 py-1 min-h-[30px]">
+              <svg className="w-3 h-3 text-emerald-400 animate-spin shrink-0" fill="none" viewBox="0 0 24 24">
+                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"/>
+                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"/>
+              </svg>
+              <span className="text-[8px] font-mono uppercase tracking-[0.15em] text-emerald-400">Loading…</span>
+            </div>
           )}
 
           {speechState === 'playing' && (

@@ -347,6 +347,20 @@ export default function Home() {
     }
   }, [menuOpen, checkoutProduct, apkModalOpen])
 
+  // Escape key closes open menus & modals
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') {
+        if (menuOpen) setMenuOpen(false)
+        if (checkoutProduct) setCheckoutProduct(null)
+        if (apkModalOpen) setApkModalOpen(false)
+        if (bookmarksOpen) setBookmarksOpen(false)
+      }
+    }
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [menuOpen, checkoutProduct, apkModalOpen, bookmarksOpen])
+
   const handleThemeChange = (newTheme) => {
     setTheme(newTheme)
     document.documentElement.setAttribute("data-theme", newTheme)
@@ -900,7 +914,7 @@ export default function Home() {
       {isReading && <ScrollProgressBar content={selectedChapter.content} />}
 
       {/* Navigation */}
-      <nav className="fixed top-0 left-0 right-0 z-[60] bg-bg/85 backdrop-blur-md border-b border-white/5 pt-[env(safe-area-inset-top,0px)]">
+      <nav className="fixed top-0 left-0 right-0 z-[80] bg-bg/85 backdrop-blur-md border-b border-white/5 pt-[env(safe-area-inset-top,0px)]">
         <div className="max-w-6xl mx-auto px-4 py-3 sm:px-6 sm:py-4 flex items-center justify-between">
           <button 
             onClick={() => {
@@ -911,7 +925,7 @@ export default function Home() {
                 setMenuOpen(false);
               });
             }}
-            className="flex items-center gap-2.5 sm:gap-3 hover:opacity-90 transition-opacity duration-300 whitespace-nowrap z-[60] shrink-0"
+            className="flex items-center gap-2.5 sm:gap-3 hover:opacity-90 transition-opacity duration-300 whitespace-nowrap z-[85] shrink-0"
           >
             <img src="/logo.jpg" alt="Absconded // VYRM Logo" className="h-6 w-6 sm:h-7 sm:w-7 rounded-sm border border-white/10 object-cover bg-black shrink-0" />
             <span className="text-[10px] sm:text-[11px] tracking-[0.2em] sm:tracking-[0.3em] uppercase font-normal text-white/90 hover:text-white transition-colors duration-300">
@@ -935,7 +949,7 @@ export default function Home() {
             </div>
           )}
 
-          <div className="flex items-center gap-2 sm:gap-4 z-[80] shrink-0">
+          <div className="flex items-center gap-2 sm:gap-4 z-[85] shrink-0">
             {/* Direct Bookmark button when inside reader */}
             {isReading && (
               <button
@@ -978,8 +992,8 @@ export default function Home() {
 
             {/* Hamburger Trigger */}
             <button 
-              onClick={() => setMenuOpen(!menuOpen)}
-              className="relative w-8 h-8 flex flex-col justify-center items-center group focus:outline-none shrink-0"
+              onClick={() => setMenuOpen(prev => !prev)}
+              className="relative w-9 h-9 sm:w-10 sm:h-10 flex flex-col justify-center items-center group focus:outline-none shrink-0 cursor-pointer touch-manipulation"
               aria-label="Toggle Menu"
             >
               <span 
@@ -1006,137 +1020,137 @@ export default function Home() {
       </nav>
 
       {/* Full-Screen Overlay Navigation Menu */}
-      <div 
-        className={`fixed inset-0 z-[75] bg-bg/98 backdrop-blur-2xl transition-all duration-300 ease-in-out ${
-          menuOpen ? "opacity-100 pointer-events-auto visible overflow-y-auto overscroll-contain" : "opacity-0 pointer-events-none invisible hidden"
-        }`}
-      >
-        {/* Decorative Grid Lines */}
-        <div className="fixed inset-0 bg-[linear-gradient(var(--border)_1px,transparent_1px),linear-gradient(90deg,var(--border)_1px,transparent_1px)] bg-[size:40px_40px] opacity-[0.15] pointer-events-none" />
-        
-        <div className="min-h-full flex flex-col justify-between p-6 sm:p-16 max-w-xl mx-auto w-full relative z-10">
-          <div className="h-16 shrink-0" />
+      {menuOpen && (
+        <div 
+          className="fixed inset-0 z-[75] bg-bg/98 backdrop-blur-2xl transition-all duration-300 ease-in-out opacity-100 pointer-events-auto visible overflow-y-auto overscroll-contain fade-in"
+        >
+          {/* Decorative Grid Lines */}
+          <div className="fixed inset-0 bg-[linear-gradient(var(--border)_1px,transparent_1px),linear-gradient(90deg,var(--border)_1px,transparent_1px)] bg-[size:40px_40px] opacity-[0.15] pointer-events-none" />
+          
+          <div className="min-h-full flex flex-col justify-between p-6 sm:p-16 max-w-xl mx-auto w-full relative z-10">
+            <div className="h-16 shrink-0" />
 
-          {/* Navigation Links */}
-          <div className="flex flex-col gap-5 sm:gap-8 justify-center my-auto py-6">
-            {[
-              { label: "Shelf", value: "library" },
-              { label: "Universal Reader", value: "transcoder" },
-              { label: "Oracle", value: "oracle" },
-              { label: "Signals Feed", value: "signals" },
-              { label: "About", value: "about" },
-              { label: "Storehouse", value: "store" }
-            ].map((link, idx) => (
-              <button
-                key={link.value}
-                onClick={() => {
-                  navigate(() => {
-                    setPage(link.value);
-                    setSelectedBook(null);
-                    setSelectedChapter(null);
+            {/* Navigation Links */}
+            <div className="flex flex-col gap-5 sm:gap-8 justify-center my-auto py-6">
+              {[
+                { label: "Shelf", value: "library" },
+                { label: "Universal Reader", value: "transcoder" },
+                { label: "Oracle", value: "oracle" },
+                { label: "Signals Feed", value: "signals" },
+                { label: "About", value: "about" },
+                { label: "Storehouse", value: "store" }
+              ].map((link, idx) => (
+                <button
+                  key={link.value}
+                  onClick={() => {
+                    navigate(() => {
+                      setPage(link.value);
+                      setSelectedBook(null);
+                      setSelectedChapter(null);
+                      setMenuOpen(false);
+                    });
+                  }}
+                  className="group text-left flex items-baseline gap-4 outline-none"
+                >
+                  <span className="text-[10px] sm:text-xs font-mono text-secondary tracking-widest opacity-40">
+                    0{idx + 1}
+                  </span>
+                  <span className={`text-2xl sm:text-5xl font-serif italic tracking-wide transition-all duration-300 relative ${
+                    page === link.value ? "text-white" : "text-secondary hover:text-white"
+                  }`}>
+                    {link.label}
+                    <span className={`absolute bottom-0 left-0 right-0 h-[1px] bg-white transition-all duration-500 origin-left scale-x-0 group-hover:scale-x-100 ${
+                      page === link.value ? "scale-x-100" : ""
+                    }`} />
+                  </span>
+                </button>
+              ))}
+
+              {/* Bookmarks link in menu if any saved */}
+              {bookmarks.length > 0 && (
+                <button
+                  onClick={() => {
                     setMenuOpen(false);
-                  });
-                }}
-                className="group text-left flex items-baseline gap-4 outline-none"
-              >
-                <span className="text-[10px] sm:text-xs font-mono text-secondary tracking-widest opacity-40">
-                  0{idx + 1}
-                </span>
-                <span className={`text-2xl sm:text-5xl font-serif italic tracking-wide transition-all duration-300 relative ${
-                  page === link.value ? "text-white" : "text-secondary hover:text-white"
-                }`}>
-                  {link.label}
-                  <span className={`absolute bottom-0 left-0 right-0 h-[1px] bg-white transition-all duration-500 origin-left scale-x-0 group-hover:scale-x-100 ${
-                    page === link.value ? "scale-x-100" : ""
-                  }`} />
-                </span>
-              </button>
-            ))}
+                    setBookmarksOpen(true);
+                  }}
+                  className="group text-left flex items-baseline gap-4 outline-none pt-4 border-t border-white/5"
+                >
+                  <span className="text-[10px] sm:text-xs font-mono text-secondary tracking-widest opacity-40">
+                    ★
+                  </span>
+                  <span className="text-xl sm:text-3xl font-serif italic text-emerald-400/90 hover:text-emerald-300 transition-colors flex items-center gap-3">
+                    <span>Bookmarks</span>
+                    <span className="text-[8px] font-mono tracking-widest uppercase px-2.5 py-0.5 border border-emerald-500/30 rounded-full text-emerald-400 bg-emerald-500/10">
+                      {bookmarks.length} Saved
+                    </span>
+                  </span>
+                </button>
+              )}
 
-            {/* Bookmarks link in menu if any saved */}
-            {bookmarks.length > 0 && (
+              {/* Mobile App Download & Install Button */}
               <button
                 onClick={() => {
                   setMenuOpen(false);
-                  setBookmarksOpen(true);
+                  setApkModalOpen(true);
                 }}
                 className="group text-left flex items-baseline gap-4 outline-none pt-4 border-t border-white/5"
               >
                 <span className="text-[10px] sm:text-xs font-mono text-secondary tracking-widest opacity-40">
-                  ★
+                  ⤓
                 </span>
-                <span className="text-xl sm:text-3xl font-serif italic text-emerald-400/90 hover:text-emerald-300 transition-colors flex items-center gap-3">
-                  <span>Bookmarks</span>
-                  <span className="text-[8px] font-mono tracking-widest uppercase px-2.5 py-0.5 border border-emerald-500/30 rounded-full text-emerald-400 bg-emerald-500/10">
-                    {bookmarks.length} Saved
+                <span className="text-xl sm:text-3xl font-serif italic text-white/90 hover:text-white transition-colors flex items-center gap-3">
+                  <span>Get App (.APK)</span>
+                  <span className="text-[8px] font-mono tracking-widest uppercase px-2.5 py-0.5 border border-white/20 rounded-full text-white/80 bg-white/5">
+                    Android & iOS
                   </span>
                 </span>
               </button>
-            )}
-
-            {/* Mobile App Download & Install Button */}
-            <button
-              onClick={() => {
-                setMenuOpen(false);
-                setApkModalOpen(true);
-              }}
-              className="group text-left flex items-baseline gap-4 outline-none pt-4 border-t border-white/5"
-            >
-              <span className="text-[10px] sm:text-xs font-mono text-secondary tracking-widest opacity-40">
-                ⤓
-              </span>
-              <span className="text-xl sm:text-3xl font-serif italic text-white/90 hover:text-white transition-colors flex items-center gap-3">
-                <span>Get App (.APK)</span>
-                <span className="text-[8px] font-mono tracking-widest uppercase px-2.5 py-0.5 border border-white/20 rounded-full text-white/80 bg-white/5">
-                  Android & iOS
-                </span>
-              </span>
-            </button>
-          </div>
-
-          {/* Theme Switcher & Details */}
-          <div className="w-full border-t border-white/5 pt-6 sm:pt-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 shrink-0 mt-6 pb-6 sm:pb-0">
-            <div className="flex flex-col gap-2">
-              <span className="text-[8px] tracking-[0.3em] uppercase text-secondary">Aesthetic Interface Mode</span>
-              <div className="flex items-center gap-3">
-                <button 
-                  onClick={() => handleThemeChange("oled")}
-                  className={`flex items-center gap-1.5 text-[9px] tracking-[0.2em] uppercase transition-all ${
-                    theme === "oled" ? "text-white font-bold" : "text-secondary hover:text-white"
-                  }`}
-                >
-                  <span className="w-1.5 h-1.5 rounded-full bg-black border border-white/40" />
-                  OLED Dark
-                </button>
-                <span className="text-white/10">|</span>
-                <button 
-                  onClick={() => handleThemeChange("light")}
-                  className={`flex items-center gap-1.5 text-[9px] tracking-[0.2em] uppercase transition-all ${
-                    theme === "light" ? "text-black font-bold" : "text-secondary hover:text-white"
-                  }`}
-                >
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#f8f5ee] border border-black/40" />
-                  Paper Light
-                </button>
-                <span className="text-white/10">|</span>
-                <button 
-                  onClick={() => handleThemeChange("terminal")}
-                  className={`flex items-center gap-1.5 text-[9px] tracking-[0.2em] uppercase transition-all ${
-                    theme === "terminal" ? "text-white font-bold" : "text-secondary hover:text-white"
-                  }`}
-                >
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-950 border border-[#00ff88]/30" />
-                  Terminal
-                </button>
-              </div>
             </div>
-            
-            <div className="text-[8px] tracking-[0.2em] uppercase text-secondary/60 text-left sm:text-right">
-              ABSCONDED ARCHIVE // VYRM · 2026
+
+            {/* Theme Switcher & Details */}
+            <div className="w-full border-t border-white/5 pt-6 sm:pt-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 shrink-0 mt-6 pb-6 sm:pb-0">
+              <div className="flex flex-col gap-2">
+                <span className="text-[8px] tracking-[0.3em] uppercase text-secondary">Aesthetic Interface Mode</span>
+                <div className="flex items-center gap-3">
+                  <button 
+                    onClick={() => handleThemeChange("oled")}
+                    className={`flex items-center gap-1.5 text-[9px] tracking-[0.2em] uppercase transition-all ${
+                      theme === "oled" ? "text-white font-bold" : "text-secondary hover:text-white"
+                    }`}
+                  >
+                    <span className="w-1.5 h-1.5 rounded-full bg-black border border-white/40" />
+                    OLED Dark
+                  </button>
+                  <span className="text-white/10">|</span>
+                  <button 
+                    onClick={() => handleThemeChange("light")}
+                    className={`flex items-center gap-1.5 text-[9px] tracking-[0.2em] uppercase transition-all ${
+                      theme === "light" ? "text-black font-bold" : "text-secondary hover:text-white"
+                    }`}
+                  >
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#f8f5ee] border border-black/40" />
+                    Paper Light
+                  </button>
+                  <span className="text-white/10">|</span>
+                  <button 
+                    onClick={() => handleThemeChange("terminal")}
+                    className={`flex items-center gap-1.5 text-[9px] tracking-[0.2em] uppercase transition-all ${
+                      theme === "terminal" ? "text-white font-bold" : "text-secondary hover:text-white"
+                    }`}
+                  >
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-950 border border-[#00ff88]/30" />
+                    Terminal
+                  </button>
+                </div>
+              </div>
+              
+              <div className="text-[8px] tracking-[0.2em] uppercase text-secondary/60 text-left sm:text-right">
+                ABSCONDED ARCHIVE // VYRM · 2026
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      )}
 
       <main className={`min-h-screen bg-bg text-text transition-opacity duration-300 selection:bg-white/10 selection:text-white ${transitioning ? "opacity-0" : "opacity-100"}`}>
 
