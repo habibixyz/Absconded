@@ -1,78 +1,105 @@
-# ABSCONDED - The Signal Collection
+# ABSCONDED // VYRM Scriptorium
 
 > "Disappearing is easy. Becoming is the hard part."
 
-This is not a blog. It is not a portfolio. It is a record of someone mid-becoming — manuscripts written in the hours between the life that was expected and the one being built instead. Fifteen stories. Real cities. Fictional names. The gap between the two is where the truth lives.
+This is not a blog. It is not a portfolio. It is a record of someone mid-becoming — original digital manuscripts and literature designed for high-fidelity, distraction-free OLED reading.
 
-**ABSCONDED** is a premium digital manuscript reading platform built by **Tanvir Khan** — a digital library for his original long-form works, short fiction, and novels, designed for high-fidelity immersive reading.
+**ABSCONDED** is a next-generation web manuscript reader and literature archive authored and engineered by **Tanvir Khan**.
 
 ---
 
-## 📖 Features
+## 📖 Key Features
 
-- **The Signal Collection Shelf**: 
-  - **Absconded**: A meditation on the internet, ambition, and the process of becoming (Prologue + 10 Chapters + Epilogue).
-  - **Tethered**: An intimate chronicle of a builder absconding from corporate stability, balancing Web3 trading, AI prompts, fatherhood, and his wife's grueling 4-hour commute (Prologue + 10 Chapters + Epilogue).
-  - **The Signal and the Stairs**: Notes on building yourself back from the bottom floor (Introduction + 14 Chapters + Epilogue).
-  - **The Mask Beneath** & **What the City Knows**: Interactive companion manuscripts and short-form pieces.
-- **🎨 Interactive Custom Themes**: 
-  - Switch seamlessly between **OLED Dark** (deep obsidian and crisp text), **Paper Light** (warm cream and soft charcoal), and **Terminal Green** (retro glow green on black).
-- **💾 Reading Progress Persistence**: 
-  - Automatically saves your reading configuration (selected book, active chapter, cover status, and exact scroll position) to `localStorage` so you can resume exactly where you left off.
-- **🔮 The Oracle (AI Search)**: 
-  - A client-side context-aware RAG search and exploration interface. Users can search terms like *"diapers"*, *"AI sandbox"*, or *"commute"*, and the Oracle will answer, citing the matching manuscripts dynamically.
-- **📊 Vercel Analytics**: 
-  - Live performance and telemetry tracking.
-- **🔍 SEO Optimized**: 
-  - Advanced dynamic tab title adjustments and openGraph metadata for high-fidelity sharing on Twitter (X).
+### 📚 The Signal Collection & Manuscripts Shelf
+- **Absconded**: A meditation on the internet, ambition, and the process of becoming (*Prologue + 10 Chapters + Epilogue*).
+- **Tethered**: An intimate chronicle of a builder absconding from corporate stability, balancing Web3 trading, AI prompts, fatherhood, and a grueling 4-hour commute (*Prologue + 10 Chapters + Epilogue*).
+- **The Signal and the Stairs**: Notes on building yourself back from the bottom floor (*Introduction + 14 Chapters + Epilogue*).
+- **Silent Protocol - A Meridian House Thriller**: High-stakes narrative tracking digital surveillance, micro-signals, and corporate intrigue.
+- **The Room Between Lives**: Complete 4-part novel with dedicated multi-book filtering.
+- **The Mask Beneath & What the City Knows**: Interactive companion pieces and short-form manuscripts.
+
+### 🌐 Universal Reader & Public Domain Classics
+- **70,000+ Classics Catalog**: Instant 0ms real-time search across philosophy, sci-fi, strategy, and world literature.
+- **Client-Side Transcoder & Importer**: Drop any local `.epub`, `.md`, or `.txt` file for private on-device parsing and instant distraction-free reading.
+
+### 🔗 Deep-Linking & Native Web Sharing
+- **Direct Chapter & Book Deep Links**: Real-time URL query parameter synchronization (`?book=<id>&chapter=<id>`).
+- **Web Share API (`navigator.share`)**: Seamless native share sheet support on iOS, Android, macOS, and Chrome with automatic clipboard fallback on desktop.
+- **Passage & Quote Tooling**: Highlight any text to look up definitions (`Define`), copy formatted citations (`Quote`), or share excerpt snippets directly.
+
+### 🎧 Reader HUD & Audio Studio Narration
+- **Audible-Grade Studio Voice**: Integrated narration engine with natural literary cadence, pause handling, and adjustable playback speeds (0.85x – 1.5x).
+- **Ambient Focus Generator**: Built-in Web Audio API synthesizers for rain and deep focus hum.
+- **Bionic Reading Mode**: Optional fixation bolds for rapid comprehension.
+- **Custom Typography Engine**: Granular control over font sizing, typefaces (Serif, Sans, Mono), and line spacing.
+- **Dynamic Reading Timers**: Live chapter scroll progress percentage and dynamic remaining read-time estimations.
+
+### 🔖 Bookmarks & Reading Progress Persistence
+- **Offline Progress Recovery**: Automatic state recovery for active books, chapters, and scroll positions across sessions.
+- **Interactive Bookmarks Drawer**: Save multiple reading positions with snippet previews and timestamps.
+
+### 🔮 The Signal Oracle (AI / Neural Query Interface)
+- Client-side context-aware TF-IDF BM25 semantic retrieval across the entire 300,000+ word manuscript library.
+- Synthesizes intelligent answers with clickable source citations back to exact passages.
+
+### 📱 Android Native Architecture (Capacitor)
+- Native Android app configuration with automated GitHub Actions cloud APK builds, lifecycle integration, safe-area inset adjustments, and direct download modal.
 
 ---
 
 ## 🛠 Tech Stack
 
 - **Core Framework**: [Next.js 14 (App Router)](https://nextjs.org/)
-- **Mobile Packaging**: [Capacitor](https://capacitorjs.com) (configured for Android build exports to `/out`)
+- **Audio & Media**: Web Audio API ambient synthesis + Edge TTS Narration API
+- **Mobile Packaging**: [Capacitor 8](https://capacitorjs.com) (Android native bridge)
+- **Styling**: Vanilla CSS design systems (`globals.css`) + Tailwind CSS utilities
+- **Typography**: Lora, Outfit, Inter & JetBrains Mono via Google Fonts
 - **Telemetry & Traffic**: [@vercel/analytics](https://vercel.com/docs/analytics)
-- **Styling**: Vanilla CSS (globals.css design systems) + Tailwind CSS utilities
-- **Typography**: Google Fonts - Lora (Serif) & Inter (Sans-Serif)
-- **State & Sync**: HTML5 LocalStorage API for offline progress persistence
-- **Deployment**: [Vercel](https://vercel.com/) (Next.js serverless architecture)
+- **Deployment**: [Vercel](https://vercel.com/)
 
 ---
 
 ## 🚀 Getting Started
 
-1. **Clone & Install**:
-   ```bash
-   git clone https://github.com/habibixyz/Absconded.git
-   cd absconded
-   npm install
-   ```
+### 1. Clone & Install
+```bash
+git clone https://github.com/habibixyz/Absconded.git
+cd absconded
+npm install
+```
 
-2. **Run Locally**:
-   ```bash
-   npm run dev
-   ```
+### 2. Run Locally
+```bash
+npm run dev
+```
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-3. **Production Export & Build**:
-   ```bash
-   npm run build
-   ```
-   *Note: Next.js is configured for static exports (`output: 'export'`), producing files in the `/out` directory suitable for both Capacitor Android builds and static hosting.*
+### 3. Production Build & Export
+```bash
+npm run build
+```
 
 ---
 
 ## 📂 Project Structure
 
-- `app/page.jsx`: Core interface, shelf layout, theme switcher, progress persistence hooks, and the Oracle interface.
-- `app/layout.jsx`: Root layout, `@vercel/analytics` integration, and global SEO metadata.
-- `app/globals.css`: Customized theme variable systems and Tailwind utility overrides.
-- `app/data.js`: Central content database — 15 stories, 130+ chapters, 300,000+ words of original fiction and memoir.
-- `app/data/manuscripts.js`: Local fallback database for offline reading.
-- `public/`: Static cover images, icons, and sitemap configuration.
+```
+├── app/
+│   ├── api/             # TTS, transcoder, and reader stats routes
+│   ├── components/      # ReaderHUD, Transcoder, BookmarksDrawer, etc.
+│   ├── data/            # Local manuscript fallback datasets
+│   ├── data.js          # Central manuscript repository (130+ chapters)
+│   ├── globals.css      # Core OLED design tokens and typography rules
+│   ├── layout.jsx       # Root layout, analytics, and metadata
+│   └── page.jsx         # Application shell, routing, state, and reader
+├── android/             # Capacitor Android native project & gradle setup
+├── public/              # Static assets, book covers, icons, manifests
+├── scripts/             # PDF, Word docx, and asset generation toolchain
+└── capacitor.config.json # Mobile runtime configuration
+```
 
 ---
 
 **Published by Tanvir Khan**  
-Mumbai / Twenty-Twenty-Six  
-[GitHub](https://github.com/habibixyz/Absconded) | [Twitter](https://x.com/ritmir11)
+Mumbai · Twenty-Twenty-Six  
+[Website](https://vyrm.space) · [GitHub](https://github.com/habibixyz/Absconded) · [Twitter (X)](https://x.com/ritmir11)
