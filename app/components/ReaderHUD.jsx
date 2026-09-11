@@ -97,7 +97,8 @@ export default function ReaderHUD({
   setFontFamily,
   lineHeight,
   setLineHeight,
-  onCopyQuote
+  onCopyQuote,
+  onShare
 }) {
   const [scrollPercent, setScrollPercent] = useState(0)
   const [timeLeftMinutes, setTimeLeftMinutes] = useState(1)
@@ -546,6 +547,30 @@ export default function ReaderHUD({
     setSelectionPos(null)
   }
 
+  // Share selected passage directly
+  const handleShareQuote = async () => {
+    const quoteText = `"${selectedText}"\n— ${author}, ${bookTitle || ''} (${chapterTitle || ''})`
+    if (typeof navigator !== 'undefined' && navigator.share) {
+      try {
+        await navigator.share({
+          title: `${bookTitle || 'Manuscript'} — Passage`,
+          text: quoteText,
+          url: typeof window !== 'undefined' ? window.location.href : undefined
+        })
+      } catch (err) {
+        if (err.name !== 'AbortError') {
+          navigator.clipboard.writeText(quoteText)
+          if (onCopyQuote) onCopyQuote()
+        }
+      }
+    } else {
+      navigator.clipboard.writeText(quoteText)
+      if (onCopyQuote) onCopyQuote()
+    }
+    setSelectedText('')
+    setSelectionPos(null)
+  }
+
   return (
     <>
       {/* ── Selection Floating Pill ── */}
@@ -579,6 +604,17 @@ export default function ReaderHUD({
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
             </svg>
             <span>Quote</span>
+          </button>
+
+          <button
+            onClick={handleShareQuote}
+            className="px-2.5 py-1 text-[9px] font-mono uppercase tracking-[0.2em] text-white hover:text-cyan-400 hover:bg-white/10 rounded-full transition-colors flex items-center gap-1.5"
+            title="Share Quote"
+          >
+            <svg className="w-2.5 h-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+            </svg>
+            <span>Share</span>
           </button>
         </div>
       )}
@@ -999,6 +1035,21 @@ export default function ReaderHUD({
         >
           <span>Aa</span>
         </button>
+
+        {/* Share Button */}
+        {onShare && (
+          <button
+            onClick={onShare}
+            className="flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[8px] sm:text-[9px] font-mono uppercase tracking-[0.15em] sm:tracking-[0.2em] transition-all border border-transparent text-secondary hover:text-white hover:bg-white/5 shrink-0 min-h-[30px]"
+            title="Share Chapter / Manuscript"
+            aria-label="Share"
+          >
+            <svg className="w-2.5 h-2.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+            </svg>
+            <span className="hidden sm:inline">SHARE</span>
+          </button>
+        )}
       </nav>
     </>
   )

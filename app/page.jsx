@@ -392,28 +392,30 @@ export default function Home() {
     }
   }, [page, selectedBook, selectedChapter])
 
-  // Restore progress on mount
+  // Restore progress or handle URL deep link on mount
   useEffect(() => {
-    const savedProgress = localStorage.getItem("absconded-progress")
+    let urlLoaded = false
     let restoredScrollTop = 0
 
-    if (savedProgress) {
-      try {
-        const parsed = JSON.parse(savedProgress)
-        if (parsed.page) {
-          setPage(parsed.page)
-        }
-        if (parsed.bookId) {
-          let targetBook = books.find(b => b.id === parsed.bookId)
+    try {
+      if (typeof window !== "undefined") {
+        const searchParams = new URLSearchParams(window.location.search)
+        const bookParam = searchParams.get("book")
+        const chapterParam = searchParams.get("chapter") || searchParams.get("ch")
+        const viewParam = searchParams.get("view")
+
+        if (bookParam) {
+          let targetBook = books.find(b => b.id === bookParam)
           if (!targetBook) {
             try {
               const customStored = localStorage.getItem("absconded-custom-books")
               if (customStored) {
                 const list = JSON.parse(customStored)
-                targetBook = list.find(b => b.id === parsed.bookId)
+                targetBook = list.find(b => b.id === bookParam)
               }
             } catch (e) {}
           }
+
           if (targetBook) {
             if (targetBook.sections) {
               targetBook = {
@@ -426,27 +428,90 @@ export default function Home() {
               }
             }
             setSelectedBook(targetBook)
-            if (parsed.chapterId) {
-              const targetChapter = targetBook.sections?.find(c => c.id === parsed.chapterId) || targetBook.sections?.[0]
+            setPage("book")
+
+            if (chapterParam) {
+              const targetChapter = targetBook.sections?.find(c => c.id === chapterParam || String(c.number) === chapterParam) || targetBook.sections?.[0]
               if (targetChapter) {
                 setSelectedChapter(targetChapter)
+                setShowCover(false)
                 if (targetBook.parts) {
-                  if (targetChapter.number >= 1 && targetChapter.number <= 16) {
-                    setActivePart("book-1")
-                  } else if (targetChapter.number >= 17 && targetChapter.number <= 30) {
-                    setActivePart("book-2")
-                  } else if (targetChapter.number >= 31 && targetChapter.number <= 44) {
-                    setActivePart("book-3")
+                  if (targetChapter.number >= 1 && targetChapter.number <= 16) setActivePart("book-1")
+                  else if (targetChapter.number >= 17 && targetChapter.number <= 30) setActivePart("book-2")
+                  else if (targetChapter.number >= 31 && targetChapter.number <= 44) setActivePart("book-3")
+                }
+              }
+            } else if (viewParam === "index") {
+              setShowCover(false)
+              setSelectedChapter(null)
+            } else {
+              setShowCover(true)
+              setSelectedChapter(null)
+            }
+            urlLoaded = true
+          }
+        } else if (viewParam && ["library", "store", "transcoder", "signals"].includes(viewParam)) {
+          setPage(viewParam)
+          urlLoaded = true
+        }
+      }
+    } catch (e) {
+      console.error("Failed to parse URL query params", e)
+    }
+
+    if (!urlLoaded) {
+      const savedProgress = localStorage.getItem("absconded-progress")
+      if (savedProgress) {
+        try {
+          const parsed = JSON.parse(savedProgress)
+          if (parsed.page) {
+            setPage(parsed.page)
+          }
+          if (parsed.bookId) {
+            let targetBook = books.find(b => b.id === parsed.bookId)
+            if (!targetBook) {
+              try {
+                const customStored = localStorage.getItem("absconded-custom-books")
+                if (customStored) {
+                  const list = JSON.parse(customStored)
+                  targetBook = list.find(b => b.id === parsed.bookId)
+                }
+              } catch (e) {}
+            }
+            if (targetBook) {
+              if (targetBook.sections) {
+                targetBook = {
+                  ...targetBook,
+                  sections: targetBook.sections.filter(s => {
+                    const text = s.content ? s.content.map(c => c.text || "").join(" ") : ""
+                    const romanCount = (text.match(/\b(?:I|II|III|IV|V|VI|VII|VIII|IX|X|XI|XII|XIII|XIV|XV)\.\s+[A-Z]/g) || []).length
+                    return !(romanCount >= 2 && (s.title.toLowerCase().includes("introduction") || s.title.toLowerCase().includes("contents") || s.title.toLowerCase().includes("inception")))
+                  })
+                }
+              }
+              setSelectedBook(targetBook)
+              if (parsed.chapterId) {
+                const targetChapter = targetBook.sections?.find(c => c.id === parsed.chapterId) || targetBook.sections?.[0]
+                if (targetChapter) {
+                  setSelectedChapter(targetChapter)
+                  if (targetBook.parts) {
+                    if (targetChapter.number >= 1 && targetChapter.number <= 16) {
+                      setActivePart("book-1")
+                    } else if (targetChapter.number >= 17 && targetChapter.number <= 30) {
+                      setActivePart("book-2")
+                    } else if (targetChapter.number >= 31 && targetChapter.number <= 44) {
+                      setActivePart("book-3")
+                    }
                   }
                 }
               }
             }
           }
+          setShowCover(parsed.showCover !== undefined ? parsed.showCover : true)
+          restoredScrollTop = parsed.scrollTop || 0
+        } catch (e) {
+          console.error("Failed to restore progress", e)
         }
-        setShowCover(parsed.showCover !== undefined ? parsed.showCover : true)
-        restoredScrollTop = parsed.scrollTop || 0
-      } catch (e) {
-        console.error("Failed to restore progress", e)
       }
     }
 
@@ -479,6 +544,36 @@ export default function Home() {
       }
     }
   }, [])
+
+  // Keep browser URL in sync with active page / book / chapter for clean sharing
+  useEffect(() => {
+    if (isRestoring || typeof window === 'undefined') return
+
+    try {
+      const url = new URL(window.location.href)
+      url.searchParams.delete("book")
+      url.searchParams.delete("chapter")
+      url.searchParams.delete("ch")
+      url.searchParams.delete("view")
+
+      if (page === "book" && selectedBook) {
+        url.searchParams.set("book", selectedBook.id)
+        if (selectedChapter) {
+          url.searchParams.set("chapter", selectedChapter.id)
+        } else if (!showCover) {
+          url.searchParams.set("view", "index")
+        }
+      } else if (page && page !== "landing") {
+        url.searchParams.set("view", page)
+      }
+
+      const newQuery = url.searchParams.toString()
+      const newRelativePathQuery = url.pathname + (newQuery ? `?${newQuery}` : '')
+      window.history.replaceState(null, '', newRelativePathQuery)
+    } catch (e) {
+      console.error("Failed to sync URL state", e)
+    }
+  }, [page, selectedBook, selectedChapter, showCover, isRestoring])
 
   // Persist reading progress and scroll position
   useEffect(() => {
@@ -906,6 +1001,57 @@ export default function Home() {
     } catch (e) {}
   }
 
+  // Native Web Share API + Clipboard Fallback
+  const handleShare = async (customData) => {
+    let shareTitle = "Absconded // VYRM Scriptorium"
+    let shareText = "Read original digital manuscripts and classics in distraction-free OLED minimalism."
+    let shareUrl = typeof window !== 'undefined' ? window.location.href : "https://vyrm.space"
+
+    if (customData) {
+      if (customData.title) shareTitle = customData.title
+      if (customData.text) shareText = customData.text
+      if (customData.url) shareUrl = customData.url
+    } else if (page === "book" && selectedBook) {
+      const origin = typeof window !== 'undefined' ? window.location.origin : 'https://vyrm.space'
+      const pathname = typeof window !== 'undefined' ? window.location.pathname : '/'
+      const url = new URL(origin + pathname)
+      url.searchParams.set("book", selectedBook.id)
+
+      if (selectedChapter) {
+        shareTitle = `${selectedChapter.title} | ${selectedBook.title}`
+        shareText = `Read "${selectedChapter.title}" from ${selectedBook.title} on VYRM.`
+        url.searchParams.set("chapter", selectedChapter.id)
+      } else {
+        shareTitle = `${selectedBook.title} — Digital Manuscript`
+        shareText = selectedBook.subtitle ? `${selectedBook.title} (${selectedBook.subtitle})` : selectedBook.description || `Read ${selectedBook.title} on VYRM.`
+      }
+      shareUrl = url.toString()
+    }
+
+    if (typeof navigator !== 'undefined' && navigator.share) {
+      try {
+        await navigator.share({
+          title: shareTitle,
+          text: shareText,
+          url: shareUrl,
+        })
+        return
+      } catch (err) {
+        if (err.name === 'AbortError') return
+      }
+    }
+
+    // Fallback: Copy canonical link to clipboard
+    try {
+      await navigator.clipboard.writeText(shareUrl)
+      setBookmarkToast("✦ Link copied to clipboard")
+      setTimeout(() => setBookmarkToast(""), 2500)
+    } catch (e) {
+      setBookmarkToast("Unable to copy link")
+      setTimeout(() => setBookmarkToast(""), 2500)
+    }
+  }
+
   const isReading = page === "book" && selectedChapter
 
   return (
@@ -949,7 +1095,22 @@ export default function Home() {
             </div>
           )}
 
-          <div className="flex items-center gap-2 sm:gap-4 z-[85] shrink-0">
+          <div className="flex items-center gap-2 sm:gap-3 z-[85] shrink-0">
+            {/* Share Button when looking at a book or chapter */}
+            {selectedBook && (
+              <button
+                onClick={() => handleShare()}
+                className="flex items-center gap-1.5 text-[9px] tracking-[0.15em] sm:tracking-[0.2em] uppercase px-2.5 py-1.5 sm:px-3 sm:py-1.5 rounded-full border border-white/10 text-secondary hover:text-white hover:border-white/30 bg-white/[0.02] transition-all"
+                title="Share Manuscript or Chapter"
+                aria-label="Share"
+              >
+                <svg className="w-2.5 h-2.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+                </svg>
+                <span className="hidden sm:inline">Share</span>
+              </button>
+            )}
+
             {/* Direct Bookmark button when inside reader */}
             {isReading && (
               <button
@@ -1351,6 +1512,16 @@ export default function Home() {
               >
                 Begin Reading
               </button>
+              <button
+                onClick={() => handleShare()}
+                className="px-7 py-3.5 border border-white/15 hover:border-white/40 bg-white/[0.02] hover:bg-white/10 text-white/90 hover:text-white rounded-full text-[10px] tracking-[0.2em] uppercase transition-all duration-300 flex items-center gap-2 font-mono"
+                title="Share Manuscript"
+              >
+                <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+                </svg>
+                <span>Share</span>
+              </button>
               {selectedBook.amazonUrl && (
                 <a
                   href={selectedBook.amazonUrl}
@@ -1378,12 +1549,22 @@ export default function Home() {
       {/* View 4: Book Chapter Index */}
       {page === "book" && selectedBook && !showCover && !selectedChapter && (
         <section className="pt-24 sm:pt-36 pb-20 px-4 sm:px-6 max-w-2xl mx-auto fade-in">
-          <div className="mb-10 sm:mb-16 flex items-center gap-4">
+          <div className="mb-10 sm:mb-16 flex items-center justify-between gap-4">
             <button 
               onClick={() => setShowCover(true)}
               className="text-[9px] tracking-[0.3em] uppercase text-secondary hover:text-white transition-colors flex items-center gap-2"
             >
               <span>{"\u2190"}</span> Cover
+            </button>
+            <button
+              onClick={() => handleShare()}
+              className="text-[9px] tracking-[0.2em] uppercase text-secondary hover:text-white transition-colors flex items-center gap-1.5 font-mono"
+              title="Share Manuscript"
+            >
+              <svg className="w-2.5 h-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+              </svg>
+              <span>Share Manuscript</span>
             </button>
           </div>
 
@@ -1673,6 +1854,7 @@ export default function Home() {
             setBookmarkToast("Quote copied to clipboard")
             setTimeout(() => setBookmarkToast(""), 3000)
           }}
+          onShare={() => handleShare()}
         />
       )}
 
